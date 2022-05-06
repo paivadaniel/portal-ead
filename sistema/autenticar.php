@@ -15,9 +15,10 @@ $usuario = $_POST['usuario'];
 $senha = $_POST['senha'];
 $senha_crip = md5($senha);
 
-$query = $pdo->prepare("SELECT * FROM usuarios WHERE (usuario = :usuario OR cpf = :usuario) AND senha = :senha");
-$query->bindValue(":usuario", $usuario);
-$query->bindValue(":senha", $senha);
+$query = $pdo->prepare("SELECT * FROM usuarios WHERE (usuario = :usuario OR cpf = :usuario) AND senha_crip = :senha_crip"); //passa a senha criptografada
+//sem prepare(), se ele digitasse no campo senha 'or'='', seria o mesmo que incluise na instrução SQL acima o seguinte: OR senha_crip='', e ele entraria sem digitar senha agluma
+$query->bindValue(":usuario", $usuario); //bindParam só aceita variáveis, não valores diretos, como no caso do 'Sim' do ativo
+$query->bindValue(":senha_crip", $senha_crip);
 $query->execute();
 
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
