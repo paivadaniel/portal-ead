@@ -38,6 +38,8 @@ if($total_reg > 0) {
         echo "<script> window.location='painel-admin/index.php'</script>";
 
     } else if ($_SESSION['nivel'] == 'Aluno') {
+        echo "<script> window.location='painel-aluno/index.php'</script>";
+
 
     }
 } else {

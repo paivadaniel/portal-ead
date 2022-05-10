@@ -52,8 +52,9 @@ if ($total_reg == 0) {
 
     <link rel="stylesheet" type="text/css" href="css/login.css">
     <link rel="stylesheet" type="text/css" href="css/fonts.css">
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 
     <title><?php echo $nome_sistema ?></title>
 
@@ -76,7 +77,7 @@ if ($total_reg == 0) {
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-4 login-sec">
-                            <h5 class="text-center mb-4"><img class="mr-1" src="img/logo.png" width="38px">Faça seu Login</h5>
+                            <h5 class="text-center mb-4"><a href="../" title="Voltar para o Site"><img class="mr-1" src="img/logo.png" width="38px"></a>Faça seu Login</h5>
 
 
                             <form class="login100-form validate-form" action="autenticar.php" method="post">
@@ -129,7 +130,7 @@ if ($total_reg == 0) {
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
                                             <a href="#" target="_blank">
-                                                <img src="img/login/banner-login.jpg" height="" width="100%">
+                                                <img src="painel-admin/img/login/banner-login.jpg" height="" width="100%">
                                             </a>
 
                                         </div>
@@ -151,32 +152,6 @@ if ($total_reg == 0) {
 
     </form>
 
-
-
-
-
-
-
-    <?php
-    /*
-    if ($_GET['acao'] == 'recuperar') {
-        modalCadastrar();
-    }
-*/
-    ?>
-
-
-    <script>
-        function modalCadastrar() {
-            var myModal = new bootstrap.Modal(document.getElementById('modalCadastrar'), {
-                keyboard: false
-            })
-
-            myModal.show()
-        }
-    </script>
-
-
 </body>
 
 
@@ -193,7 +168,8 @@ if ($total_reg == 0) {
                 </button>
             </div>
 
-            <form id="form-cadastrar"> <!-- não precisa passar method="POST", pois  method="POST" é passado no script AJAX -->
+            <form id="form-cadastrar">
+                <!-- não precisa passar method="POST", pois  method="POST" é passado no script AJAX -->
 
                 <div class="modal-body">
 
@@ -207,7 +183,7 @@ if ($total_reg == 0) {
 
                     <div class="form-group">
                         <label for="email">Email: </label>
-                        <input type="email" id="email" name="email" class="form-control" placeholder="Digite seu email" required>
+                        <input type="email" id="email_cadastro" name="email_cadastro" class="form-control" placeholder="Digite seu email" required>
                     </div>
 
 
@@ -215,7 +191,7 @@ if ($total_reg == 0) {
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="senha">Senha: </label>
-                                <input type="password" id="senha" name="senha" class="form-control" required>
+                                <input type="password" id="senha_cadastro" name="senha_cadastro" class="form-control" required>
                             </div>
 
                         </div>
@@ -235,7 +211,9 @@ if ($total_reg == 0) {
                     </div>
 
                     <br>
-                    <small><div align="center" id="mensagem-cadastrar"></div></small>
+                    <small>
+                        <div align="center" id="mensagem-cadastrar"></div>
+                    </small>
 
                 </div>
                 <div class="modal-footer">
@@ -260,7 +238,8 @@ if ($total_reg == 0) {
                 </button>
             </div>
 
-            <form id="form-recuperar"><!-- não precisa passar method="POST", pois  method="POST" é passado no script AJAX -->
+            <form id="form-recuperar">
+                <!-- não precisa passar method="POST", pois  method="POST" é passado no script AJAX -->
                 <!--abertura do form é antes da modal-body-->
 
                 <div class="modal-body">
@@ -274,7 +253,9 @@ if ($total_reg == 0) {
                     </div>
 
                     <br>
-                    <small><div align="center" id="mensagem-recuperar"></div></small>
+                    <small>
+                        <div align="center" id="mensagem-recuperar"></div>
+                    </small>
 
                 </div>
                 <div class="modal-footer">
@@ -287,47 +268,99 @@ if ($total_reg == 0) {
     </div>
 </div>
 
-<!-- link para chamar o AJAX -->
+<!-- link para chamar o AJAX para o form-cadastrar -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
 <script type="text/javascript">
-	$("#form-cadastrar").submit(function () { //quando o item com o id #form-cadastrar for submetido, ou seja, o botão submit no footer dele for apertado com sucesso, executa essa função
-console.log('Chegou aqui');
-		event.preventDefault(); //previne o redirect da página
-		var formData = new FormData(this); //recebe os dados digitados nos inputs do formulário
+    $("#form-cadastrar").submit(function() { //quando o item com o id #form-cadastrar for submetido, ou seja, o botão submit no footer dele for apertado com sucesso, executa essa função
 
-		$.ajax({ //aqui começa o AJAX
-			url: "cadastro.php",
-			type: 'POST',
-			data: formData,
+        event.preventDefault(); //previne o redirect da página
+        var formData = new FormData(this); //recebe os dados digitados nos inputs do formulário
 
-			success: function (mensagem) {
-				$('#mensagem-cadastrar').text(''); //limpa o texto da div
-				$('#mensagem-cadastrar').removeClass() //remove a classe da div
-				if (mensagem.trim() == "Cadastrado com Sucesso!") { //trim() é para ignorar espaços, por exemplo "Salvo com Sucesso "
+        $.ajax({ //aqui começa o AJAX
+            url: "cadastro.php",
+            type: 'POST',
+            data: formData,
 
-					//$('#btn-fechar-usu').click(); //foi comentado pois a intenção é o usuário visualizar a mensagem, e não fechar a modal
-					//window.location="index.php"; //foi comentado pois a intenção não é atualizar a página 
+            success: function(mensagem) {
+                $('#mensagem-cadastrar').text(''); //limpa o texto da div
+                $('#mensagem-cadastrar').removeClass(); //remove a classe da div
+                if (mensagem.trim() == "Cadastrado com Sucesso!") { //trim() é para ignorar espaços, por exemplo "Salvo com Sucesso "
 
-					$('#mensagem-cadastrar').addClass('text-success')
-					$('#mensagem-cadastrar').text(mensagem)
+                    //$('#btn-fechar-usu').click(); //foi comentado pois a intenção é o usuário visualizar a mensagem, e não fechar a modal
+                    //window.location="index.php"; //foi comentado pois a intenção não é atualizar a página 
 
-				} else {
+                    $('#mensagem-cadastrar').addClass('text-success');
+                    $('#mensagem-cadastrar').text(mensagem);
+                    $('#usuario').val($('#email_cadastro').val()); //para campo input usa val() ao invés de text(), text() é só para spam e div
+                    $('#senha').val($('#senha_cadastro').val());
 
-					$('#mensagem-cadastrar').addClass('text-danger')
-					$('#mensagem-cadastrar').text(mensagem)
-				}
+                } else {
+
+                    $('#mensagem-cadastrar').addClass('text-danger');
+                    $('#mensagem-cadastrar').text(mensagem);
+                }
 
 
-			},
+            },
 
             //para limparo cache e processar os dados do formulário
-			cache: false,
-			contentType: false,
-			processData: false,
+            cache: false,
+            contentType: false,
+            processData: false,
 
-		});
+        });
 
-	});
+    });
+</script>
+
+
+<!-- link para chamar o AJAX para o form-recuperar -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<script type="text/javascript">
+    $("#form-recuperar").submit(function() { //quando o item com o id #form-cadastrar for submetido, ou seja, o botão submit no footer dele for apertado com sucesso, executa essa função
+
+        event.preventDefault(); //previne o redirect da página
+        var formData = new FormData(this); //recebe os dados digitados nos inputs do formulário
+
+        $.ajax({ //aqui começa o AJAX
+            url: "recuperar.php",
+            type: 'POST',
+            data: formData,
+
+            success: function(mensagem) {
+                $('#mensagem-recuperar').text('');
+                $('#mensagem-recuperar').removeClass();
+                if (mensagem.trim() == "") {
+
+                    $('#mensagem-recuperar').addClass('text-success');
+                    $('#mensagem-recuperar').text('Senha enviada para o email.');
+
+                } else {
+
+                    if (mensagem.trim() == 'Email ou cpf digitado não pertence à nossa base de dados.') {
+                        $('#mensagem-recuperar').addClass('text-danger');
+                        $('#mensagem-recuperar').text(mensagem);
+                    } else { //erro do SMTP
+                        $('#mensagem-recuperar').addClass('text-danger');
+                        $('#mensagem-recuperar').text('Seu servidor de hospedagem não está com o SMTP ativado ou não o disponibiliza, ou você está utilizando localhost.');
+
+
+                    }
+
+                }
+
+
+            },
+
+            cache: false,
+            contentType: false,
+            processData: false,
+
+        });
+
+    });
 </script>
