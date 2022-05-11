@@ -271,7 +271,7 @@ $nome_usuario = $res[0]['nome'];
                                 </div>
                             </a>
                             <ul class="dropdown-menu drp-mnu">
-                                <li> <a href="#"><i class="fa fa-user"></i> Editar Perfil</a> </li>
+                                <li> <a href="" data-toggle="modal" data-target="#modalPerfil"><i class="fa fa-user"></i> Editar Perfil</a> </li> <!-- no bootstrap 5, data-target vira data-bs-target e data-toggle vira data-bs-toggle -->
                                 <li> <a href="#"><i class="fa fa-cog"></i> Configurações</a> </li>
                                 <li> <a href="../logout.php"><i class="fa fa-sign-out"></i> Logout</a> </li>
                             </ul>
@@ -346,3 +346,105 @@ $nome_usuario = $res[0]['nome'];
 </body>
 
 </html>
+
+
+
+<!-- Modal para editar perfil -->
+<div class="modal fade" id="modalPerfil" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Editar Dados</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" id="form-usu">
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nome</label>
+                                <input type="text" class="form-control" name="nome_usu" value="<?php echo $nome_usuario ?>" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>CPF</label>
+                                <input type="text" class="form-control" id="cpf_usu" name="cpf_usu" value="<?php echo $cpf_usuario ?>" required>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" class="form-control" name="email_usu" value="<?php echo $email_usuario ?>" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Senha</label>
+                                <input type="password" class="form-control" name="senha_usu" value="<?php echo $senha_usuario ?>" required>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label>Foto</label>
+                                <input type="file" name="foto" onChange="carregarImgPerfil();" id="foto-usu">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div id="divImg">
+                                <img src="img/perfil/<?php echo $foto_usuario ?>" width="100px" id="target-usu">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <input type="hidden" name="id_usu" value="<?php echo $id_usuario ?>">
+                    <input type="hidden" name="foto_usu" value="<?php echo $foto_usuario ?>">
+
+                    <small>
+                        <div id="mensagem-usu" align="center" class="mt-3"></div>
+                    </small>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Editar Dados</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+	function carregarImgPerfil() {
+    var target = document.getElementById('target-usu'); //local em que irá colocar a imagem
+    var file = document.querySelector("#foto-usu").files[0]; //campo file em que selecionará e carregará a imagem
+    
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            target.src = reader.result;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+
+        } else {
+            target.src = "";
+        }
+    }
+</script>
