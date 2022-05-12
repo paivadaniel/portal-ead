@@ -6,11 +6,20 @@ require_once('../conexao.php');
 $id_usuario = $_SESSION['id']; //criada em autenticar.php, o id de um usuário nunca irá ser alterado
 
 //ao invés de crir as variáveis do menu administrativo, utilizou outra forma para chamar as opções do menu 
-if ($_GET['pagina'] != "") {
+if (@$_GET['pagina'] != "") { //coloca o arroba pois $_GET['pagina'] pode ser nula
     $menu = $_GET['pagina'];
 } else {
     $menu = 'home';
 }
+
+//para esconder o menu "Pessoas" dos professores, e mostrar apenas para administradores
+if(@$_SESSION['nivel'] == 'Professor') { //coloca @ para se caso não existir alguma das variáveis de sessão, não exibir o warning
+    $ocultar = 'ocultar';
+} else { //se for administrador
+    $ocultar = '';
+}
+
+
 
 $query = $pdo->query("SELECT * FROM usuarios WHERE id = '$id_usuario'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -163,11 +172,11 @@ $nome_usuario = $res[0]['nome'];
                         <ul class="sidebar-menu">
                             <!-- <li class="header"></li> -->
                             <li class="treeview">
-                                <a href="index.php?pagina=<?php echo $menu1 ?>">
+                                <a href="index.php?pagina=home">
                                     <i class="fa fa-home"></i> <span>Home</span>
                                 </a>
                             </li>
-                            <li class="treeview">
+                            <li class="treeview <?php echo $ocultar ?>">
                                 <a href="#">
                                     <i class="fa fa-users"></i>
                                     <span>Pessoas</span>
@@ -272,7 +281,7 @@ $nome_usuario = $res[0]['nome'];
                             </a>
                             <ul class="dropdown-menu drp-mnu">
                                 <li> <a href="" data-toggle="modal" data-target="#modalPerfil"><i class="fa fa-user"></i> Editar Perfil</a> </li> <!-- no bootstrap 5, data-target vira data-bs-target e data-toggle vira data-bs-toggle -->
-                                <li> <a href="#"><i class="fa fa-cog"></i> Configurações</a> </li>
+                                <li> <a href="" data-toggle="modal" data-target="#modalConfig"><i class="fa fa-cog"></i> Configurações</a> </li>
                                 <li> <a href="../logout.php"><i class="fa fa-sign-out"></i> Logout</a> </li>
                             </ul>
                         </li>
@@ -289,7 +298,7 @@ $nome_usuario = $res[0]['nome'];
 
                 <?php
 
-                require_once($menu . '.php');
+                require_once('paginas/' . $menu . '.php');
 
                 ?>
 
@@ -297,8 +306,6 @@ $nome_usuario = $res[0]['nome'];
         </div>
 
     </div>
-
-
 
     <!-- Classie -->
     <!-- for toggle left push menu script -->
@@ -346,8 +353,6 @@ $nome_usuario = $res[0]['nome'];
 </body>
 
 </html>
-
-
 
 <!-- Modal para editar perfil -->
 <div class="modal fade" id="modalPerfil" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -414,6 +419,10 @@ $nome_usuario = $res[0]['nome'];
                     <input type="hidden" name="id_usu" value="<?php echo $id_usuario ?>">
                     <input type="hidden" name="foto_usu" value="<?php echo $foto_usuario ?>">
 
+                    <input type="hidden" name="antigoEmail" value="<?php echo $email_usuario; ?>">
+                    <input type="hidden" name="antigoCpf" value="<?php echo $cpf_usuario; ?>">
+
+
                     <small>
                         <div id="mensagem-usu" align="center" class="mt-3"></div>
                     </small>
@@ -429,14 +438,252 @@ $nome_usuario = $res[0]['nome'];
     </div>
 </div>
 
+<!-- Modal para editar configurações -->
+<div class="modal fade" id="modalConfig" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Editar Configurações</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" id="form-config">
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Nome Sistema</label>
+                                <input type="text" class="form-control" name="nome_sistema" value="<?php echo $nome_sistema ?>" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Email Sistema</label>
+                                <input type="text" class="form-control" id="email_sistema" name="email_sistema" value="<?php echo $email_sistema ?>" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Tel Sistema</label>
+                                <input type="text" class="form-control" id="tel_sistema" name="tel_sistema" value="<?php echo $tel_sistema ?>" required>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>CNPJ Sistema</label>
+                                <input type="text" class="form-control" name="cnpj_sistema" id="cnpj_sistema" value="<?php echo $cnpj_sistema ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Tipo Chave Pix</label>
+                                <label>Tipo Chave Pix</label>
+                                <select class="form-control" name="tipo_chave_pix_sistema" id="tipo_chave_pix_sistema" value="<?php echo $tipo_chave_pix ?>">
+                                    <option value="CNPJ">CNPJ</option>
+                                    <option value="CPF">CPF</option>
+                                    <option value="E-mail">E-mail</option>
+                                    <option value="Telefone">Telefone</option>
+                                    <option value="Código">Código</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Chave Pix</label>
+                                <input type="text" class="form-control" id="chave_pix" name="chave_pix" value="<?php echo $chave_pix ?>">
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Logo <small>(.png)</small></label>
+                                <input type="file" name="logo" onChange="carregarImgLogo();" id="foto-logo">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div id="divImgLogo">
+                                <img src="../img/logo.png" width="100px" id="target-logo">
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Favicon <small>(.ico)</small></label>
+                                <input type="file" name="favicon" onChange="carregarImgFavicon();" id="foto-favicon">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div id="divImgFavicon">
+                                <img src="../img/favicon.ico" width="20px" id="target-favicon">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Img Relatório <small>(.jpg)</small></label>
+                                <input type="file" name="imgRel" onChange="carregarImgRel();" id="foto-rel">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div id="divImgRel">
+                                <img src="../img/logo_rel.jpg" width="100px" id="target-rel">
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>QRCode <small>(.jpg)</small></label>
+                                <input type="file" name="imgQRCode" onChange="carregarImgQRCode();" id="foto-QRCode">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div id="divImgQRCode">
+                                <img src="../img/qrcode.jpg" width="80px" id="target-QRCode">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <small>
+                        <div id="mensagem-config" align="center" class="mt-3"></div>
+                    </small>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Editar Configurações</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- link para chamar o AJAX para o form-usu -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- script para editar perfil -->
+
 <script type="text/javascript">
-	function carregarImgPerfil() {
-    var target = document.getElementById('target-usu'); //local em que irá colocar a imagem
-    var file = document.querySelector("#foto-usu").files[0]; //campo file em que selecionará e carregará a imagem
-    
+    $("#form-usu").submit(function() { //quando o item com o id #form-cadastrar for submetido, ou seja, o botão submit no footer dele for apertado com sucesso, executa essa função
+
+        event.preventDefault(); //previne o redirect da página
+        var formData = new FormData(this); //recebe os dados digitados nos inputs do formulário
+
+        $.ajax({ //aqui começa o AJAX
+            url: "editar-perfil.php",
+            type: 'POST',
+            data: formData,
+
+            success: function(mensagem) {
+                $('#mensagem-usu').text(''); //limpa o texto da div
+                $('#mensagem-usu').removeClass(); //remove a classe da div
+                if (mensagem.trim() == "Editado com Sucesso!") {
+
+                    //$('#mensagem-usu').addClass('text-success');
+                    //$('#mensagem-usu').text(mensagem);
+
+
+                    location.reload(); //funçõo javascript que atualiza a página
+                } else {
+
+                    $('#mensagem-usu').addClass('text-danger');
+                    $('#mensagem-usu').text(mensagem);
+                }
+
+
+            },
+
+            cache: false,
+            contentType: false,
+            processData: false,
+
+        });
+
+    });
+</script>
+
+<!-- script para editar configurações -->
+
+<script type="text/javascript">
+    $("#form-config").submit(function() { //quando o item com o id #form-cadastrar for submetido, ou seja, o botão submit no footer dele for apertado com sucesso, executa essa função
+
+        event.preventDefault(); //previne o redirect da página
+        var formData = new FormData(this); //recebe os dados digitados nos inputs do formulário
+
+        $.ajax({ //aqui começa o AJAX
+            url: "editar-config.php",
+            type: 'POST',
+            data: formData,
+
+            success: function(mensagem) {
+                $('#mensagem-config').text(''); //limpa o texto da div
+                $('#mensagem-config').removeClass(); //remove a classe da div
+                if (mensagem.trim() == "Editado com Sucesso!") {
+
+                    //$('#mensagem-usu').addClass('text-success');
+                    //$('#mensagem-usu').text(mensagem);
+
+
+                    location.reload(); //funçõo javascript que atualiza a página
+                } else {
+
+                    $('#mensagem-config').addClass('text-danger');
+                    $('#mensagem-config').text(mensagem);
+                }
+
+
+            },
+
+            cache: false,
+            contentType: false,
+            processData: false,
+
+        });
+
+    });
+</script>
+
+
+
+<!-- script para trocar imagem no editar perfil -->
+
+<script type="text/javascript">
+    function carregarImgPerfil() {
+        var target = document.getElementById('target-usu'); //local em que irá colocar a imagem
+        var file = document.querySelector("#foto-usu").files[0]; //campo file em que selecionará e carregará a imagem
+
         var reader = new FileReader();
 
-        reader.onloadend = function () {
+        reader.onloadend = function() {
             target.src = reader.result;
         };
 
@@ -448,3 +695,100 @@ $nome_usuario = $res[0]['nome'];
         }
     }
 </script>
+
+<!-- script para trocar logo no editar configurações -->
+
+<script type="text/javascript">
+    function carregarImgLogo() {
+        var target = document.getElementById('target-logo'); //local em que irá colocar a imagem
+        var file = document.querySelector("#foto-logo").files[0]; //campo file em que selecionará e carregará a imagem
+
+        var reader = new FileReader();
+
+        reader.onloadend = function() {
+            target.src = reader.result;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+
+        } else {
+            target.src = "";
+        }
+    }
+</script>
+
+<!-- script para trocar favicon no editar configurações -->
+
+<script type="text/javascript">
+    function carregarImgFavicon() {
+        var target = document.getElementById('target-favicon'); //local em que irá colocar a imagem
+        var file = document.querySelector("#foto-favicon").files[0]; //campo file em que selecionará e carregará a imagem
+
+        var reader = new FileReader();
+
+        reader.onloadend = function() {
+            target.src = reader.result;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+
+        } else {
+            target.src = "";
+        }
+    }
+</script>
+
+
+<!-- script para trocar logo do relatório no editar configurações -->
+
+<script type="text/javascript">
+    function carregarImgRel() {
+        var target = document.getElementById('target-rel'); //local em que irá colocar a imagem
+        var file = document.querySelector("#foto-rel").files[0]; //campo file em que selecionará e carregará a imagem
+
+        var reader = new FileReader();
+
+        reader.onloadend = function() {
+            target.src = reader.result;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+
+        } else {
+            target.src = "";
+        }
+    }
+</script>
+
+
+<!-- script para trocar imagem o qrcode no editar configurações -->
+
+<script type="text/javascript">
+    function carregarImgQRCode() {
+        var target = document.getElementById('target-QRCode'); //local em que irá colocar a imagem
+        var file = document.querySelector("#foto-QRCode").files[0]; //campo file em que selecionará e carregará a imagem
+
+        var reader = new FileReader();
+
+        reader.onloadend = function() {
+            target.src = reader.result;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+
+        } else {
+            target.src = "";
+        }
+    }
+</script>
+
+<!-- nõa entendi porque não funcionou a máscara se colocar ela no head -->
+<!-- Mascaras JS -->
+<script type="text/javascript" src="../js/mascaras.js"></script>
+
+<!-- Ajax para funcionar Mascaras JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
