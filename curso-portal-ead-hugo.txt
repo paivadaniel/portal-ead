@@ -1,1 +1,25 @@
-teste
+----- aula 29
+ajax.js, função inserir, modal de inserir aluno no painel-admin, em pessoas, alunos, não está abrindo
+
+----- aula 32
+não entendi porquê em painel-admin/paginas/alunos/inserir.php
+
+url: 'paginas/' + pag + "/inserir.php",
+
+se o form está na pasta ajax, deveria ter que ser '../paginas/' + pag + "/inserir.php",
+
+
+no inserir.php ele voltou certo:
+
+'../../img/perfil/' 
+
+----- aula 33
+
+outro problema com o caminho, em painel-admin/js/ajax.js:
+
+function listar(){
+    $.ajax({
+        url: 'paginas/' + pag + "/listar.php",
+
+
+para mim deveria ser '../paginas/' + pag + "/listar.php",

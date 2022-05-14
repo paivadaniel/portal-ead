@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 11-Maio-2022 às 22:15
--- Versão do servidor: 10.4.21-MariaDB
--- versão do PHP: 8.0.10
+-- Tempo de geração: 14-Maio-2022 às 16:01
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -63,16 +63,17 @@ CREATE TABLE `alunos` (
   `pais` int(40) DEFAULT NULL,
   `foto` varchar(100) NOT NULL,
   `data` date NOT NULL,
-  `cartao` int(11) NOT NULL
+  `cartao` int(11) NOT NULL,
+  `ativo` varchar(5) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `alunos`
 --
 
-INSERT INTO `alunos` (`id`, `nome`, `cpf`, `email`, `telefone`, `endereco`, `cidade`, `estado`, `pais`, `foto`, `data`, `cartao`) VALUES
-(1, 'Primeiro Aluno', NULL, 'primeiro_aluno@hotmail.com', NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-05-09', 0),
-(2, 'Jorge Aragão Aluno', NULL, 'jorgearagaoaluno@gmail.com', NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-05-09', 0);
+INSERT INTO `alunos` (`id`, `nome`, `cpf`, `email`, `telefone`, `endereco`, `cidade`, `estado`, `pais`, `foto`, `data`, `cartao`, `ativo`) VALUES
+(1, 'Primeiro Aluno', NULL, 'primeiro_aluno@hotmail.com', NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-05-09', 0, NULL),
+(2, 'Jorge Aragão Aluno', NULL, 'jorgearagaoaluno@gmail.com', NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-05-09', 0, NULL);
 
 -- --------------------------------------------------------
 
