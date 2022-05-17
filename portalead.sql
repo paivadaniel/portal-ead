@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 14-Maio-2022 às 16:01
--- Versão do servidor: 10.4.22-MariaDB
--- versão do PHP: 8.0.15
+-- Tempo de geração: 17-Maio-2022 às 19:08
+-- Versão do servidor: 10.4.21-MariaDB
+-- versão do PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -60,7 +60,7 @@ CREATE TABLE `alunos` (
   `endereco` varchar(150) DEFAULT NULL,
   `cidade` varchar(40) DEFAULT NULL,
   `estado` varchar(40) DEFAULT NULL,
-  `pais` int(40) DEFAULT NULL,
+  `pais` varchar(40) DEFAULT NULL,
   `foto` varchar(100) NOT NULL,
   `data` date NOT NULL,
   `cartao` int(11) NOT NULL,
@@ -72,8 +72,8 @@ CREATE TABLE `alunos` (
 --
 
 INSERT INTO `alunos` (`id`, `nome`, `cpf`, `email`, `telefone`, `endereco`, `cidade`, `estado`, `pais`, `foto`, `data`, `cartao`, `ativo`) VALUES
-(1, 'Primeiro Aluno', NULL, 'primeiro_aluno@hotmail.com', NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-05-09', 0, NULL),
-(2, 'Jorge Aragão Aluno', NULL, 'jorgearagaoaluno@gmail.com', NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-05-09', 0, NULL);
+(5, 'Sassa Mutema', '212.121.212-21', 'sassamutema@gmail.com', '(21) 2112-2121', 'Sampaio Correio', 'Recife', 'PE', 'Costa Rica', '16-05-2022-19-33-37-galinha-pintadinha-ouvindo-musica.jpg', '2022-05-16', 10, 'Sim'),
+(6, 'Pedrinho Matador', '666.666.666-66', 'pedrinhomatador@hotmail.com', '(66) 6666-6666', 'Portões do Inferno, 666', 'Diadema', 'SP', 'Brasil', '16-05-2022-23-41-52-pintinho-amarelinho.jpg', '2022-05-16', 3, 'Sim');
 
 -- --------------------------------------------------------
 
@@ -105,6 +105,30 @@ INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnp
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `professores`
+--
+
+CREATE TABLE `professores` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(60) NOT NULL,
+  `cpf` varchar(20) NOT NULL,
+  `telefone` varchar(20) NOT NULL,
+  `email` varchar(600) NOT NULL,
+  `foto` varchar(100) NOT NULL,
+  `ativo` varchar(5) NOT NULL,
+  `data` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `professores`
+--
+
+INSERT INTO `professores` (`id`, `nome`, `cpf`, `telefone`, `email`, `foto`, `ativo`, `data`) VALUES
+(1, 'Professor Girafalez Loucão', '394.224.884-29', '(01) 0101-0122', 'professorgirafalez2@hotmail.com', '17-05-2022-12-50-54-professor-girafalez.jpg', 'Sim', '2022-05-17');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `usuarios`
 --
 
@@ -128,8 +152,9 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `usuario`, `senha`, `senha_crip`, `nivel`, `foto`, `id_pessoa`, `ativo`, `data`) VALUES
 (1, 'Administrador', '000.000.000-00', 'danielantunespaiva@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Administrador', 'sem-perfil.jpg', 1, 'Sim', '2022-05-06'),
-(9, 'Primeiro Aluno', NULL, 'primeiro_aluno@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'img/sem-perfil.jpg', 1, 'Sim', '2022-05-09'),
-(10, 'Jorge Aragão Aluno', '111.111.111-11', 'jorgearagaoaluno@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'img/sem-perfil.jpg', 2, 'Sim', '2022-05-09');
+(13, 'Sassa Mutema', '212.121.212-21', 'sassamutema@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', '16-05-2022-19-33-37-galinha-pintadinha-ouvindo-musica.jpg', 5, 'Sim', '2022-05-16'),
+(14, 'Pedrinho Matador', '666.666.666-66', 'pedrinhomatador@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', '16-05-2022-23-41-52-pintinho-amarelinho.jpg', 6, 'Sim', '2022-05-16'),
+(16, 'Professor Girafalez Loucão', '394.224.884-29', 'professorgirafalez2@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Professor', '17-05-2022-12-50-54-professor-girafalez.jpg', 1, 'Não', '2022-05-17');
 
 --
 -- Índices para tabelas despejadas
@@ -154,6 +179,12 @@ ALTER TABLE `config`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `professores`
+--
+ALTER TABLE `professores`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -167,13 +198,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `administradores`
 --
 ALTER TABLE `administradores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `alunos`
 --
 ALTER TABLE `alunos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `config`
@@ -182,10 +213,16 @@ ALTER TABLE `config`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de tabela `professores`
+--
+ALTER TABLE `professores`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

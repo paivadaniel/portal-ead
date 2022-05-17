@@ -25,17 +25,18 @@ $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = count($res);
 
 if($total_reg > 0) {
-    //recuperar o nível do usuário
-    $_SESSION['nivel'] = $res[0]['nivel'];
-    $_SESSION['cpf'] = $res[0]['cpf'];
-    $_SESSION['nome'] = $res[0]['nome'];
-    $_SESSION['id'] = $res[0]['id'];
 
     if($res[0]['ativo'] != 'Sim') {
         echo "<script> window.alert('Usuário inativo!')</script>";
         echo "<script> window.location='index.php'</script>";
         exit();
     }
+
+    //recuperar o nível do usuário
+    $_SESSION['nivel'] = $res[0]['nivel'];
+    $_SESSION['cpf'] = $res[0]['cpf'];
+    $_SESSION['nome'] = $res[0]['nome'];
+    $_SESSION['id'] = $res[0]['id'];
 
     if($_SESSION['nivel'] == 'Administrador') {
         //é possível fazer o redirecionamento por php ou javascript, autor já teve problemas com erro no servidor com redirecionamento por php

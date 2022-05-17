@@ -2,7 +2,7 @@
 require_once("../../../conexao.php"); //tenha em mente que alunos.php está dentro de index.php, ou seja, conte a volta de inserir para alunos, não conte a de alunos para index.php, e conte a do painel-admin para sistema, ou seja, duas voltas
 //porém, aqui não vale o raciocício acima, pois inserir.php não é aberto dentro de alunos.php, então, conta 3 voltas, para sair da pasta alunos, para sair de páginas e sair do painel-admin
 
-$tabela = 'administradores';
+$tabela = 'professores';
 
 $nome = $_POST['nome'];
 $email = $_POST['email'];
@@ -67,7 +67,7 @@ if (@$_FILES['foto']['name'] != "") {
 }
 
 
-if ($id == "") { // se o aluno não existir, é inserção
+if ($id == "") { // se o professor não existir, é inserção
 
 	$query = $pdo->prepare("INSERT INTO $tabela SET nome = :nome, email = :email, cpf = :cpf, telefone = :telefone, foto = '$foto', ativo = 'Sim', data = curDate()");
 	$query->bindValue(":nome", "$nome");
@@ -77,14 +77,14 @@ if ($id == "") { // se o aluno não existir, é inserção
 	$query->execute();
 	$ult_id = $pdo->lastInsertId(); //recupera o último id para depois recuperá-lo e usá-lo como referência na tabela de usuários
 
-	$query = $pdo->prepare("INSERT INTO usuarios SET nome = :nome, usuario = :email, senha = '$senha', senha_crip = '$senha_crip', cpf = :cpf, nivel = 'Administrador', foto = '$foto', id_pessoa = '$ult_id', ativo = 'Sim', data = curDate()");
+	$query = $pdo->prepare("INSERT INTO usuarios SET nome = :nome, usuario = :email, senha = '$senha', senha_crip = '$senha_crip', cpf = :cpf, nivel = 'Professor', foto = '$foto', id_pessoa = '$ult_id', ativo = 'Sim', data = curDate()");
 
 	$query->bindValue(":nome", "$nome");
 	$query->bindValue(":email", "$email");
 	$query->bindValue(":cpf", "$cpf");
 	$query->execute();
 	
-} else { //se o aluno já existir, é edição
+} else { //se o professor já existir, é edição
 
 	$query = $pdo->prepare("UPDATE $tabela SET nome = :nome, email = :email, cpf = :cpf, telefone = :telefone, foto = '$foto' WHERE id = '$id'");
 	$query->bindValue(":nome", "$nome");
@@ -94,7 +94,7 @@ if ($id == "") { // se o aluno não existir, é inserção
 	$query->execute();
 	$ult_id = $pdo->lastInsertId();
 
-	$query = $pdo->prepare("UPDATE usuarios SET nome = :nome, usuario = :email, cpf = :cpf, foto = '$foto' WHERE id_pessoa = '$id' and nivel = 'Administrador'"); //WHERE id_pessoa = '$id' não basta, pois na tabela usuários, haverá o mesmo id_pessoa, por exemplo, 5, para administradores, professores e alunos, portanto, diferencia-se a partir do nível
+	$query = $pdo->prepare("UPDATE usuarios SET nome = :nome, usuario = :email, cpf = :cpf, foto = '$foto' WHERE id_pessoa = '$id' and nivel = 'Professor'"); //WHERE id_pessoa = '$id' não basta, pois na tabela usuários, haverá o mesmo id_pessoa, por exemplo, 5, para administradores, professores e alunos, portanto, diferencia-se a partir do nível
 	//a senha apenas o aluno pode alterar no próprio painel do aluno
 
 	$query->bindValue(":nome", "$nome");

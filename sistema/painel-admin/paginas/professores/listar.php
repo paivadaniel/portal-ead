@@ -2,7 +2,7 @@
 require_once("../../../conexao.php"); //tenha em mente que alunos.php está dentro de index.php, ou seja, conte a volta de inserir para alunos, não conte a de alunos para index.php, e conte a do painel-admin para sistema, ou seja, duas voltas
 //porém, aqui não vale o raciocício acima, pois inserir.php não é aberto dentro de alunos.php, então, conta 3 voltas, para sair da pasta alunos, para sair de páginas e sair do painel-admin
 
-$tabela = 'administradores';
+$tabela = 'professores';
 
 echo <<<HTML
 <small>
@@ -58,7 +58,7 @@ HTML;
         $dataF = implode('/', array_reverse(explode('-', $data)));
 
         //recuperar senha, está na tabela usuários
-        $query2 = $pdo->query("SELECT * FROM usuarios WHERE id_pessoa = '$id' AND nivel = 'Administrador'");
+        $query2 = $pdo->query("SELECT * FROM usuarios WHERE id_pessoa = '$id' AND nivel = 'Professor'");
         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
         $senha_usuario = $res2[0]['senha'];
 

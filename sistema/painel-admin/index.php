@@ -183,6 +183,7 @@ $senha_usuario = $res[0]['senha'];
                                     <li><a href="index.php?pagina=alunos"><i class="fa fa-angle-right"></i> Alunos</a></li>
                                     <li><a href="index.php?pagina=professores"><i class="fa fa-angle-right"></i> Professores</a></li>
                                     <li><a href="index.php?pagina=administradores"><i class="fa fa-angle-right"></i> Administradores</a></li>
+                                    <li><a href="index.php?pagina=usuarios"><i class="fa fa-angle-right"></i> Usuários</a></li>
 
                                 </ul>
                             </li>
@@ -278,7 +279,7 @@ $senha_usuario = $res[0]['senha'];
                             </a>
                             <ul class="dropdown-menu drp-mnu">
                                 <li> <a href="" data-toggle="modal" data-target="#modalPerfil"><i class="fa fa-user"></i> Editar Perfil</a> </li> <!-- no bootstrap 5, data-target vira data-bs-target e data-toggle vira data-bs-toggle -->
-                                <li> <a href="" data-toggle="modal" data-target="#modalConfig"><i class="fa fa-cog"></i> Configurações</a> </li>
+                                <li class="<?php echo $ocultar ?>"> <a href="" data-toggle="modal" data-target="#modalConfig"><i class="fa fa-cog"></i> Configurações</a> </li>
                                 <li> <a href="../logout.php"><i class="fa fa-sign-out"></i> Logout</a> </li>
                             </ul>
                         </li>

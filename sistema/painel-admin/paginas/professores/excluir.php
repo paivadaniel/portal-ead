@@ -1,7 +1,7 @@
 <?php
 require_once("../../../conexao.php"); //tenha em mente que alunos.php está dentro de index.php, ou seja, conte a volta de inserir para alunos, não conte a de alunos para index.php, e conte a do painel-admin para sistema, ou seja, duas voltas
 
-$tabela = 'administradores';
+$tabela = 'professores';
 
 $id = $_POST['id'];
 
@@ -16,7 +16,7 @@ if($foto != 'sem-perfil.jpg') {
 
 //deleção propriamente dita dos alunos das tabelas aluno e usuarios
 $pdo->query("DELETE FROM $tabela WHERE id='$id'");
-$pdo->query("DELETE FROM usuarios WHERE id_pessoa='$id' AND nivel='Administrador'");
+$pdo->query("DELETE FROM usuarios WHERE id_pessoa='$id' AND nivel='Professor'");
 
 echo 'Excluído com Sucesso';
 
