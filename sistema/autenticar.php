@@ -15,8 +15,7 @@ $usuario = $_POST['usuario'];
 $senha = $_POST['senha'];
 $senha_crip = md5($senha);
 
-$query = $pdo->prepare("SELECT * FROM usuarios WHERE (usuario = :usuario OR cpf = :usuario) AND senha_crip = :senha_crip AND ativo != 'Não'"); //passa a senha criptografada
-//se for ativo = 'Não', usuário não poderá acessar o sistema, por exemplo, estará inadimplente
+$query = $pdo->prepare("SELECT * FROM usuarios WHERE (usuario = :usuario OR cpf = :usuario) AND senha_crip = :senha_crip"); //passa a senha criptografada
 //sem prepare(), se ele digitasse no campo senha 'or'='', seria o mesmo que incluise na instrução SQL acima o seguinte: OR senha_crip='', e ele entraria sem digitar senha agluma
 $query->bindValue(":usuario", $usuario); //bindParam só aceita variáveis, não valores diretos, como no caso do 'Sim' do ativo
 $query->bindValue(":senha_crip", $senha_crip);
@@ -31,6 +30,12 @@ if($total_reg > 0) {
     $_SESSION['cpf'] = $res[0]['cpf'];
     $_SESSION['nome'] = $res[0]['nome'];
     $_SESSION['id'] = $res[0]['id'];
+
+    if($res[0]['ativo'] != 'Sim') {
+        echo "<script> window.alert('Usuário inativo!')</script>";
+        echo "<script> window.location='index.php'</script>";
+        exit();
+    }
 
     if($_SESSION['nivel'] == 'Administrador') {
         //é possível fazer o redirecionamento por php ou javascript, autor já teve problemas com erro no servidor com redirecionamento por php

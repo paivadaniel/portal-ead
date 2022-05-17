@@ -1,7 +1,7 @@
 <?php
 
-require_once('verificar.php'); //aqui é dado @session_start();
 require_once('../conexao.php');
+require_once('verificar.php'); //aqui é dado @session_start();
 
 $id_usuario = $_SESSION['id']; //criada em autenticar.php, o id de um usuário nunca irá ser alterado
 
@@ -19,19 +19,16 @@ if(@$_SESSION['nivel'] == 'Professor') { //coloca @ para se caso não existir al
     $ocultar = '';
 }
 
-
-
+//recuperar dados o usuário
 $query = $pdo->query("SELECT * FROM usuarios WHERE id = '$id_usuario'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 //if(@count($res)) { //desnecessário, pois se chegou até aqui, e passou por verificar.php, o usuário tem um id
 $nome_usuario = $res[0]['nome'];
-$cpf_usuario = $res[0]['cpf'];
 $email_usuario = $res[0]['usuario'];
-$senha_usuario = $res[0]['senha'];
 $nivel_usuario = $res[0]['nivel'];
 $foto_usuario = $res[0]['foto'];
-$nome_usuario = $res[0]['nome'];
-$nome_usuario = $res[0]['nome'];
+$cpf_usuario = $res[0]['cpf'];
+$senha_usuario = $res[0]['senha'];
 //}
 
 ?>
@@ -585,10 +582,22 @@ $nome_usuario = $res[0]['nome'];
     </div>
 </div>
 
+<!-- 
+    
+tem que ser chamado depois do jquery, senão dá erro
 
+-->
+<link rel="stylesheet" type="text/css" href="../DataTables/datatables.min.css"/>
+<script type="text/javascript" src="../DataTables/datatables.min.js"></script>
 
-<!-- link para chamar o AJAX para o form-usu -->
+<!--
+
+essa versão jquery estava sendo chamada para o form-usada, porém, já é chamado a versão 1.11.1.min.js no head (cujo arquivo está na pasta js, e estava considerado o jquery mais atual, abaixo, pois ele vem depois, e não estava reconhecendo a função modal('show') na function inserir(), dentro do js/ajax.js )
+demorei umas 2h para achar esse erro, e em vários dias procurando
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+-->
 
 <!-- script para editar perfil -->
 
@@ -671,8 +680,6 @@ $nome_usuario = $res[0]['nome'];
 
     });
 </script>
-
-
 
 <!-- script para trocar imagem no editar perfil -->
 
