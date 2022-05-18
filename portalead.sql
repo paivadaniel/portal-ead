@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 17-Maio-2022 às 19:08
--- Versão do servidor: 10.4.21-MariaDB
--- versão do PHP: 8.0.10
+-- Tempo de geração: 18-Maio-2022 às 02:13
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -105,6 +105,35 @@ INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnp
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `cursos`
+--
+
+CREATE TABLE `cursos` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(50) NOT NULL,
+  `desc_rapida` varchar(60) NOT NULL,
+  `desc_longa` text NOT NULL,
+  `valor` decimal(8,2) NOT NULL,
+  `professor` int(11) NOT NULL,
+  `categoria` int(11) NOT NULL,
+  `imagem` varchar(100) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `carga` int(11) NOT NULL,
+  `mensagem` varchar(255) NOT NULL,
+  `arquivo` varchar(150) NOT NULL,
+  `ano` int(11) NOT NULL,
+  `palavras` varchar(255) NOT NULL,
+  `grupo` int(11) NOT NULL,
+  `nome_url` varchar(150) NOT NULL,
+  `pacote` int(11) NOT NULL,
+  `sistema` varchar(5) NOT NULL,
+  `link` varchar(150) NOT NULL,
+  `tecnologias` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `professores`
 --
 
@@ -179,6 +208,12 @@ ALTER TABLE `config`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `cursos`
+--
+ALTER TABLE `cursos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `professores`
 --
 ALTER TABLE `professores`
@@ -211,6 +246,12 @@ ALTER TABLE `alunos`
 --
 ALTER TABLE `config`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `cursos`
+--
+ALTER TABLE `cursos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `professores`

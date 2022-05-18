@@ -188,6 +188,18 @@ $senha_usuario = $res[0]['senha'];
                                 </ul>
                             </li>
 
+                            <li class="treeview <?php echo $ocultar ?>">
+                                <a href="#">
+                                    <i class="fa fa-file-o"></i>
+                                    <span>Cursos/Pacotes</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="index.php?pagina=cursos"><i class="fa fa-angle-right"></i> Cursos</a></li>
+                                </ul>
+                            </li>
+
+
                         </ul>
                     </div>
                     <!-- /.navbar-collapse -->
