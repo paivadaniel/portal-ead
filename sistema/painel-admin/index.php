@@ -188,7 +188,7 @@ $senha_usuario = $res[0]['senha'];
                                 </ul>
                             </li>
 
-                            <li class="treeview <?php echo $ocultar ?>">
+                            <li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-file-o"></i>
                                     <span>Cursos/Pacotes</span>
@@ -196,6 +196,10 @@ $senha_usuario = $res[0]['senha'];
                                 </a>
                                 <ul class="treeview-menu">
                                     <li><a href="index.php?pagina=cursos"><i class="fa fa-angle-right"></i> Cursos</a></li>
+                                    <!-- novos grupos e categorias só podem ser criadas pelos administradores, não por professores -->
+                                    <li class="<?php echo $ocultar ?>"><a href="index.php?pagina=grupos"><i class="fa fa-angle-right"></i> Grupos</a></li>
+                                    <li class="<?php echo $ocultar ?>"><a href="index.php?pagina=categorias"><i class="fa fa-angle-right"></i> Categorias</a></li>
+
                                 </ul>
                             </li>
 
@@ -812,3 +816,24 @@ demorei umas 2h para achar esse erro, e em vários dias procurando
 
 <!-- Ajax para funcionar Mascaras JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+
+<!-- select2 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<!-- estilo select2 -->
+<style type="text/css">
+		.select2-selection__rendered {
+			line-height: 36px !important;
+			font-size:16px !important;
+			color:#666666 !important;
+
+		}
+
+		.select2-selection {
+			height: 36px !important;
+			font-size:16px !important;
+			color:#666666 !important;
+
+		}
+	</style>  

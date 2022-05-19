@@ -125,7 +125,7 @@ if (@$_SESSION['nivel'] != 'Administrador') { //coloca @ para se caso não exist
 						<div class="col-md-4">						
 							<div class="form-group"> 
 								<label>Foto</label> 
-								<input type="file" name="foto" onChange="carregarImg();" id="foto">
+								<input class="form-control" type="file" name="foto" onChange="carregarImg();" id="foto">
 							</div>						
 						</div>
 						<div class="col-md-2">
