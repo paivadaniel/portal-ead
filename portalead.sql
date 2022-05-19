@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 18-Maio-2022 às 02:13
--- Versão do servidor: 10.4.22-MariaDB
--- versão do PHP: 8.0.15
+-- Tempo de geração: 19-Maio-2022 às 22:27
+-- Versão do servidor: 10.4.21-MariaDB
+-- versão do PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -78,6 +78,27 @@ INSERT INTO `alunos` (`id`, `nome`, `cpf`, `email`, `telefone`, `endereco`, `cid
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `categorias`
+--
+
+CREATE TABLE `categorias` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(50) NOT NULL,
+  `descricao` varchar(50) NOT NULL,
+  `foto` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `categorias`
+--
+
+INSERT INTO `categorias` (`id`, `nome`, `descricao`, `foto`) VALUES
+(3, 'Doces gostosos', 'doces um pouco gostosos feito pela tia mafalda', '18-05-2022-14-07-09-doces-coloridos.jpg'),
+(4, 'Doces saborosos', 'Doces muito saborosos feito pelo tio joaquim', '18-05-2022-14-37-20-doces-gostosos.jpg');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `config`
 --
 
@@ -125,11 +146,40 @@ CREATE TABLE `cursos` (
   `palavras` varchar(255) NOT NULL,
   `grupo` int(11) NOT NULL,
   `nome_url` varchar(150) NOT NULL,
-  `pacote` int(11) NOT NULL,
+  `pacote` varchar(100) NOT NULL,
   `sistema` varchar(5) NOT NULL,
   `link` varchar(150) NOT NULL,
   `tecnologias` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `cursos`
+--
+
+INSERT INTO `cursos` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `categoria`, `imagem`, `status`, `carga`, `mensagem`, `arquivo`, `ano`, `palavras`, `grupo`, `nome_url`, `pacote`, `sistema`, `link`, `tecnologias`) VALUES
+(1, 'Curso de HTML', 'Aprendendo WEB', 'Aprenda a programar <span style=\"background-color: rgb(255, 51, 102);\">brincando</span> com <b>Danny de Vito</b>', '59.99', 1, 3, '18-05-2022-23-17-45-mendigo-comedor.png', 'Aguardando', 20, '', 'google.com', 2022, 'curso de programação, curso de html', 6, 'curso-de-html', 'teste.com', 'Sim', 'teste2.com', 'html, css, bootstrap');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `grupos`
+--
+
+CREATE TABLE `grupos` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `grupos`
+--
+
+INSERT INTO `grupos` (`id`, `nome`) VALUES
+(1, 'Grupo dos doces muito gostosos'),
+(3, 'Grupo dos doces gostosíssimos'),
+(4, 'Grupo dos doces coloridos'),
+(5, 'Grupo dos doces gosmentos'),
+(6, 'Grupo dos doces achoolatados');
 
 -- --------------------------------------------------------
 
@@ -153,7 +203,7 @@ CREATE TABLE `professores` (
 --
 
 INSERT INTO `professores` (`id`, `nome`, `cpf`, `telefone`, `email`, `foto`, `ativo`, `data`) VALUES
-(1, 'Professor Girafalez Loucão', '394.224.884-29', '(01) 0101-0122', 'professorgirafalez2@hotmail.com', '17-05-2022-12-50-54-professor-girafalez.jpg', 'Sim', '2022-05-17');
+(3, 'Professor Girafalez', '535.335.353-53', '(31) 3131-3131', 'professorgirafalez@hotmail.com', '18-05-2022-13-00-00-professor-girafalez.jpg', 'Sim', '2022-05-18');
 
 -- --------------------------------------------------------
 
@@ -183,7 +233,8 @@ INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `usuario`, `senha`, `senha_crip`, `
 (1, 'Administrador', '000.000.000-00', 'danielantunespaiva@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Administrador', 'sem-perfil.jpg', 1, 'Sim', '2022-05-06'),
 (13, 'Sassa Mutema', '212.121.212-21', 'sassamutema@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', '16-05-2022-19-33-37-galinha-pintadinha-ouvindo-musica.jpg', 5, 'Sim', '2022-05-16'),
 (14, 'Pedrinho Matador', '666.666.666-66', 'pedrinhomatador@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', '16-05-2022-23-41-52-pintinho-amarelinho.jpg', 6, 'Sim', '2022-05-16'),
-(16, 'Professor Girafalez Loucão', '394.224.884-29', 'professorgirafalez2@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Professor', '17-05-2022-12-50-54-professor-girafalez.jpg', 1, 'Não', '2022-05-17');
+(16, 'Professor Girafalez Loucão', '394.224.884-29', 'professorgirafalez2@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Professor', '17-05-2022-12-50-54-professor-girafalez.jpg', 1, 'Não', '2022-05-17'),
+(18, 'Professor Girafalez', '535.335.353-53', 'professorgirafalez@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Professor', '18-05-2022-13-00-00-professor-girafalez.jpg', 3, 'Sim', '2022-05-18');
 
 --
 -- Índices para tabelas despejadas
@@ -202,6 +253,12 @@ ALTER TABLE `alunos`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `categorias`
+--
+ALTER TABLE `categorias`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `config`
 --
 ALTER TABLE `config`
@@ -211,6 +268,12 @@ ALTER TABLE `config`
 -- Índices para tabela `cursos`
 --
 ALTER TABLE `cursos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `grupos`
+--
+ALTER TABLE `grupos`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -242,6 +305,12 @@ ALTER TABLE `alunos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT de tabela `categorias`
+--
+ALTER TABLE `categorias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT de tabela `config`
 --
 ALTER TABLE `config`
@@ -251,19 +320,25 @@ ALTER TABLE `config`
 -- AUTO_INCREMENT de tabela `cursos`
 --
 ALTER TABLE `cursos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `grupos`
+--
+ALTER TABLE `grupos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `professores`
 --
 ALTER TABLE `professores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
