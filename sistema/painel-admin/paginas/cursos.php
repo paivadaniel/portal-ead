@@ -233,6 +233,128 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 </div>
 
 
+
+<!-- ModalMostrar -->
+<div class="modal fade" id="modalMostrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="tituloModal"><span id="nome_mostrar"> </span> - Status: <span id="status_mostrar"> </span></h4>
+				<button id="btn-fechar-excluir" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<div class="modal-body">
+
+
+
+				<div class="row" style="border-bottom: 1px solid #cac7c7;">
+					<div class="col-md-5">
+						<span><b>Subtítulo: </b></span>
+						<span id="desc_rapida_mostrar"></span>
+					</div>
+					<div class="col-md-2">
+						<span><b>Valor: </b></span>
+						<span id="valor_mostrar"></span>
+					</div>
+					<div class="col-md-5">
+						<span><b>Professor: </b></span>
+						<span id="professor_mostrar"></span>
+					</div>
+
+				</div>
+
+
+				<div class="row" style="border-bottom: 1px solid #cac7c7;">
+					<div class="col-md-4">
+						<span><b>Categoria: </b></span>
+						<span id="categoria_mostrar"></span>
+					</div>
+					<div class="col-md-3">
+						<span><b>Grupo: </b></span>
+						<span id="grupo_mostrar"></span>
+					</div>
+					<div class="col-md-3">
+						<span><b>Carga: </b></span>
+						<span id="carga_mostrar"></span> horas
+					</div>
+					<div class="col-md-2">
+						<span><b>Ano: </b></span>
+						<span id="ano_mostrar"></span>
+					</div>
+				</div>
+
+
+				<div class="row" style="border-bottom: 1px solid #cac7c7;">
+					<div class="col-md-12">
+						<span><b>Palavras-chave: </b></span>
+						<span id="palavras_mostrar"></span>
+					</div>
+				</div>
+
+
+				<div class="row" style="border-bottom: 1px solid #cac7c7;">
+					<div class="col-md-4">
+						<span><b>Pacote: </b></span>
+						<a target="_blank" href="" id="link_pacote"> <span id="pacote_mostrar"></span> </a>
+					</div>
+					<div class="col-md-2">
+						<span><b>Sistema: </b></span>
+						<span id="sistema_mostrar"></span>
+					</div>
+					<div class="col-md-6">
+						<span><b>Tecnologias: </b></span>
+						<span id="tecnologias_mostrar"></span>
+					</div>
+
+				</div>
+
+
+				<div class="row" style="border-bottom: 1px solid #cac7c7;">
+					<div class="col-md-12">
+						<span><b>Link de Arquivos (Material de Apoio): </b></span>
+						<a target="_blank" href="" id="link_arquivo"><small> <span id="arquivo_mostrar"></span></small> </a>
+					</div>
+
+
+				</div>
+
+
+				<div class="row" style="border-bottom: 1px solid #cac7c7;">
+
+					<div class="col-md-12">
+						<span><b>Link do Curso: </b></span>
+						<a target="_blank" href="" id="link_curso"> <small><span id="link_mostrar"></span></small> </a>
+					</div>
+
+
+				</div>
+
+
+
+				<div class="row">
+					<div class="col-md-8">
+						<span><b>Descrição do Curso: </b></span>
+						<small><span id="desc_longa_mostrar"></span></small> </a>
+					</div>
+
+					<div class="col-md-4" align="center">
+						<img width="200px" id="target_mostrar">
+					</div>
+				</div>
+
+
+
+			</div>
+
+
+		</div>
+	</div>
+</div>
+
+
+
 <script type="text/javascript">
 	var pag = "<?= $pag ?>"
 </script>
@@ -306,33 +428,10 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 	});
 </script>
 
-<script src="//js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
-<script type="text/javascript">
-	bkLib.onDomLoaded(nicEditors.allTextAreas);
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script type="text/javascript">
 	var pag = "<?= $pag ?>"
 </script>
 <script src="js/ajax.js"></script>
-
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -343,7 +442,6 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 		});
 	});
 </script>
-
 
 <script type="text/javascript">
 	function carregarImg() {

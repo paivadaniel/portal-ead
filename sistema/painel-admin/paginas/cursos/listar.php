@@ -4,11 +4,22 @@ require_once("../../../conexao.php"); //tenha em mente que alunos.php está dent
 
 $tabela = 'cursos';
 
+@session_start();
+
+if ($_SESSION['nivel'] == 'Administrador') {
+    $acesso = '';
+    $id_usuario = '%' . '' . '%';
+} else { // se um professor estiver acessando a página
+    $acesso = 'ocultar';
+    $id_usuario = '%' . $_SESSION['id'] . '%'; //o porcento antes e depois é uma obrigatoriedade do LIKE, para que busque por aproximações no começo e no final do que se procura
+}
+
 echo <<<HTML
 <small>
 HTML;
 
-$query = $pdo->query("SELECT * FROM $tabela ORDER BY id desc");
+//se id_usuario = '', ou seja, for vazio, neste caso o acesso é de um administrador, e traz todos os cursos, assim o LIKE é ignorado, se id_usuario = $_SESSION['id'], por exemplo, 2, traz o id apenas daquele usuário 
+$query = $pdo->query("SELECT * FROM $tabela WHERE professor LIKE '$id_usuario' ORDER BY id desc");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 
@@ -67,27 +78,27 @@ HTML;
         $sistema = $res[$i]['sistema'];
         $link = $res[$i]['link'];
         $tecnologias = $res[$i]['tecnologias'];
-    
+
         $query2 = $pdo->query("SELECT * FROM usuarios WHERE id = '$professor'");
         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-        $nome_professor = $res2[$i]['nome'];
-        
+        $nome_professor = $res2[0]['nome'];
+
         $query2 = $pdo->query("SELECT * FROM categorias WHERE id = '$categoria'");
         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-        $nome_categoria = $res2[$i]['nome'];
+        $nome_categoria = $res2[0]['nome'];
 
         $query2 = $pdo->query("SELECT * FROM grupos WHERE id = '$grupo'");
         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-        $nome_grupo = $res2[$i]['nome'];
+        $nome_grupo = $res2[0]['nome'];
 
-        if($status == 'Aprovado'){
+        if ($status == 'Aprovado') {
             $excluir = 'ocultar'; //cursos aprovados não podem ser excluidos
             $icone = 'fa-check-square';
             $titulo_link = 'Desaprovar Curso';
             $acao = 'Aguardando'; //ação é o contrário, se está aprovado, e for clicado, a ação é mudar para 'Aguardando'
             $classe_linha = '';
             $classe_square = 'verde';
-        }else{
+        } else {
             $excluir = '';
             $icone = 'fa-square-o';
             $titulo_link = 'Aprovar Curso';
@@ -95,16 +106,19 @@ HTML;
             $classe_linha = 'text-muted';
             $classe_square = 'text-danger';
         }
-    
+
 
         //valor formatodo e descrição_longa formatada
-        $valorF = number_format($valor, 2, ',', '.', );
+        $valorF = number_format($valor, 2, ',', '.',);
         $desc_longa = str_replace('"', '**', $desc_longa); //quando joga em onclick="editar()", como o conteúdo de $desc_longa muita das vezes tem aspas, como align="center", então dá problema
 
         echo <<<HTML
-    <tr>
+
+<tr class="{$classe_linha}">
         <td>
         <img src="img/cursos/{$foto}" width="27px" class="me-2">
+
+
         </td>
         <td class="">{$nome}</td> <!-- repare que <?php echo $nome ?> é substituído aqui por {$nome}-->
         <td class="">R$ {$valorF}</td>
@@ -119,11 +133,11 @@ HTML;
 		<big><a href="#" onclick="editar('{$id}', '{$nome}', '{$desc_rapida}', '{$desc_longa}' , '{$valor}' , '{$categoria}' , '{$foto}' , '{$carga}' , '{$arquivo}' , '{$ano}' , '{$palavras}' , '{$grupo}' , '{$pacote}', '{$sistema}', '{$link}', '{$tecnologias}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
 
 
-		<big><a href="#" onclick="mostrar('{$nome}', '{$desc_rapida}','{$desc_longa}','{$valorF}','{$nome_professor}','{$nome_categoria}','{$foto}','{$status}', '{$carga}', '{$arquivo}', '{$ano}', '{$palavras}', '{$nome_grupo}', '{$pacote}', '{$sistema}', '{$link}', '{$tecnologias}')" title="Ver Dados"><i class="fa fa-info-circle text-secondary"></i></a></big>
+		<big><a href="#" onclick="mostrar('{$nome}', '{$desc_rapida}', '{$desc_longa}' , '{$valorF}' , '{$nome_professor}' ,'{$nome_categoria}' , '{$foto}' , '{$status}', '{$carga}' , '{$arquivo}' , '{$ano}' , '{$palavras}' , '{$nome_grupo}' , '{$pacote}', '{$sistema}', '{$link}', '{$tecnologias}')" title="Ver Dados"><i class="fa fa-info-circle text-secondary"></i></a></big>
 
 
         <!-- abertura excluir -->
-        <li class="dropdown head-dpdn2 {$ocultar}" style="display: inline-block;">
+        <li class="dropdown head-dpdn2 {$excluir}" style="display: inline-block;">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Excluir Dados"><big><i class="fa fa-trash-o text-danger"></i></big></a>
 
 		<ul class="dropdown-menu" style="margin-left:-230px;">
@@ -135,10 +149,9 @@ HTML;
 		</ul>
 		</li>
         <!-- fechamento excluir -->
-        
+   
         <!-- ativar/desativar curso -->
 		<big><a class="{$acesso}" href="#" onclick="ativar('{$id}', '{$acao}')" title="{$titulo_link}"><i class="fa {$icone} $classe_square"></i></a></big>
-
 
     </td>
 
@@ -146,7 +159,7 @@ HTML;
     </tr>
 
 HTML;
-    }
+    } //fechamento do for
 
     echo <<<HTML
     </tbody>
@@ -174,14 +187,34 @@ HTML;
     //não vai no js/ajax.js pois não é genérica, por exemplo, a função de editar cursos recebe outros parâmetros
     //função para abrir a modal de editar com os valores preenchidos carregados
     //ela poderia ir dentro de alunos.php, porém, tudo que está aqui dentro, está sendo carregado em alunos.php, no elemento com id="listar"
-    function editar(id, nome, descricao, foto) {
+    function editar(id, nome, desc_rapida, desc_longa, valor, categoria, foto, carga, arquivo, ano, palavras, grupo, pacote, sistema, link, tecnologias) {
+
+        //para cada caracter de descrição longa, se for um asterico, ele substituirá dois astericos por uma aspas
+        for (let letra of desc_longa){  				
+			if (letra === '*'){
+				desc_longa = desc_longa.replace('**', '"');
+			}			
+		}	
 
         $('#id').val(id); //val() é para exibir dado em input, e text() é para exibir dado em div ou span
         $('#nome').val(nome);
-        $('#descricao').val(descricao);
-        //$('#foto').val(foto); //só por ter uma linha a mais não estava abrindo a modal
+        $('#desc_rapida').val(desc_rapida);
+        nicEditors.findEditor("area").setContent(desc_longa); //aqui não é mais saveContent()
+        $('#valor').val(valor);
+        $('#categoria').val(categoria).change(); //esse change() é desnecessário para que ele salve a edição no select, funciona sem ele também
+        $('#carga').val(carga);
+        $('#arquivo').val(arquivo);
+        $('#ano').val(ano);
+        $('#palavras').val(palavras);
+        $('#grupo').val(grupo).change();//esse change() é desnecessário para que ele salve a edição no select, funciona sem ele também
+        $('#pacote').val(pacote);
+        $('#sistema').val(sistema).change();//esse change() é desnecessário para que ele salve a edição no select, funciona sem ele também
+        $('#link').val(link);
+        $('#tecnologias').val(tecnologias);
+
+        //$('#foto').val(foto); //só por ter uma linha repita com foto não estava abrindo a modal
         $('#foto').val(''); //caminho da foto
-        $('#target').attr('src', 'img/categorias/' + foto); //mostra imagem da foto
+        $('#target').attr('src', 'img/cursos/' + foto); //mostra imagem da foto
 
         $('#tituloModal').text('Editar Registro');
         $('#modalForm').modal('show');
@@ -189,14 +222,51 @@ HTML;
 
     }
 
+    function mostrar(nome, desc_rapida, desc_longa, valor, professor, categoria, foto, status, carga, arquivo, ano, palavras, grupo, pacote, sistema, link, tecnologias) {
+
+        $('#nome_mostrar').text(nome);
+        $('#desc_rapida_mostrar').text(desc_rapida);
+        $('#desc_longa_mostrar').html('desc_longa'); //se tiver negrito, aspas e outros caracteres HTML, exibe-os do jeito como foram inseridos
+        $('#valor_mostrar').text(valor);
+        $('#professor_mostrar').text(professor);
+        $('#categoria_mostrar').text(categoria);
+        $('#status_mostrar').text(status);
+        $('#carga_mostrar').text(carga);
+        $('#arquivo_mostrar').text(arquivo);
+        $('#ano_mostrar').text(ano);
+        $('#palavras_mostrar').text(palavras);
+        $('#pacote_mostrar').text(pacote);
+        $('#grupo_mostrar').text(grupo);
+        $('#link_mostrar').text(link);
+        $('#tecnologias_mostrar').text(tecnologias);
+
+        $('#target_mostrar').attr('src', 'img/cursos/' + foto);
+        $('#link_pacote').attr('href', '<?=$url_sistema?>' + pacote); //no javascript, para chamar php, troca 'php' por '='
+        $('#link_arquivo').attr('href', '<?=$url_sistema?>' + arquivo);
+        $('#link_curso').attr('href', '<?=$url_sistema?>' + link);
+
+        $('#modalMostrar').modal('show');
+
+    }
+
+
 
     //para depois que clicar em editar aluno, e depois em inserir aluno, não carregar os dados do último aluno clicado em editar
     function limparCampos() {
-        $('#id').val('');
-        $('#nome').val('');
-        $('#descricao').val('');
-        $('#foto').val('');
-        $('#target').attr('src', 'img/categorias/sem-foto.png');
-    }
 
+        $('#id').val(''); //val() é para exibir dado em input, e text() é para exibir dado em div ou span
+        $('#nome').val('');
+        $('#desc_rapida').val('');
+		nicEditors.findEditor('area').setContent('');				
+        $('#valor').val('');
+        $('#carga').val('');
+        $('#arquivo').val('');
+        $('#palavras').val('');
+        $('#pacote').val('');
+        $('#link').val('');
+        $('#tecnologias').val('');
+
+        $('#foto').val('');
+        $('#target').attr('src', 'img/cursos/sem-foto.png');
+    }
 </script>

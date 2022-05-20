@@ -47,7 +47,7 @@ $url = preg_replace('/[ -]+/', '-', $nome_novo);
 $query = $pdo->query("SELECT * FROM $tabela where nome = '$nome'"); //consulta com SELECT não precisa de prepare()
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
-if ($total_reg > 0 and $res[0]['id'] != $id) { //$res[0]['id'] é para descartar edições de um mesma categoriaa que não alterem o nome
+if ($total_reg > 0 and $res[0]['id'] != $id) { //$res[0]['id'] é para descartar edições de um mesmo curso que não alterem o nome
 	echo 'Curso já Cadastrado, escolha Outro!';
 	exit();
 }
@@ -56,13 +56,13 @@ $query = $pdo->query("SELECT * FROM $tabela where id = '$id'"); //se for ediçã
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 if ($total_reg > 0) {
-	$foto = $res[0]['foto']; //se for edição, atualiza o caminho da foto
+	$foto = $res[0]['imagem']; //se for edição, atualiza o caminho da foto
 } else {
 	$foto = 'sem-foto.png'; //se for inserção, adiciona a foto
 }
 
 //SCRIPT PARA SUBIR FOTO NO SERVIDOR
-$nome_img = date('d-m-Y H:i:s') . '-' . @$_FILES['foto']['name'];
+$nome_img = date('d-m-Y H:i:s') . '-' . @$_FILES['foto']['name']; //não entendi porque aqui usa 'foto', que é o nome da variável, ao invés de imagem, que na tabela de cursos, está imagem, assim como foi feito em $res[0]['imagem'] logo acima
 $nome_img = preg_replace('/[ :]+/', '-', $nome_img);
 
 $caminho = '../../img/cursos/' . $nome_img; //volta apenas um, o de paginas/alunos/inserir.php, para paginas/alunos.php, pois esse já está sendo chamado dentro de painel-admin/index.php, e não conta a volta para index

@@ -7,6 +7,14 @@ $banco = 'portalead';
 $usuario = 'root';
 $senha = '';
 
+//url sistema
+//ao invés de digitar $url_sistema = 'http://localhost/dashboard/www/portal-ead/';, automatiza da seguinte maneira:
+$url_sistema = "http://$_SERVER[HTTP_HOST]/"; //se for servidor local, armazena localhost, do contrário, armazena http://hugocursos.com.br, se este for o domínio em que está hospedado os arquivos
+$url = explode("//", $url_sistema);
+if($url[1] == 'localhost/'){
+	$url_sistema = "http://$_SERVER[HTTP_HOST]/portalead/";
+}
+
 //VARIÁVEIS DO SISTEMA
 $nome_sistema = 'Portal EAD';
 $email_sistema = 'danielantunespaiva@gmail.com';

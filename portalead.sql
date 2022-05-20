@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19-Maio-2022 às 22:27
+-- Tempo de geração: 20-Maio-2022 às 21:45
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -157,7 +157,9 @@ CREATE TABLE `cursos` (
 --
 
 INSERT INTO `cursos` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `categoria`, `imagem`, `status`, `carga`, `mensagem`, `arquivo`, `ano`, `palavras`, `grupo`, `nome_url`, `pacote`, `sistema`, `link`, `tecnologias`) VALUES
-(1, 'Curso de HTML', 'Aprendendo WEB', 'Aprenda a programar <span style=\"background-color: rgb(255, 51, 102);\">brincando</span> com <b>Danny de Vito</b>', '59.99', 1, 3, '18-05-2022-23-17-45-mendigo-comedor.png', 'Aguardando', 20, '', 'google.com', 2022, 'curso de programação, curso de html', 6, 'curso-de-html', 'teste.com', 'Sim', 'teste2.com', 'html, css, bootstrap');
+(1, 'Curso de HTML', 'Aprendendo WEB', 'Aprenda a programar <span style=\"background-color: rgb(255, 51, 102);\">brincando</span> com <b><font color=\"#ff0033\" style=\"background-color: rgb(204, 255, 51);\">Silvester Stallone</font></b>', '59.99', 1, 4, '20-05-2022-15-33-52-mendigo-fudido.jpg', 'Aguardando', 20, '', 'google.com', 2022, 'curso de programação, curso de html', 5, 'curso-de-html', 'pacote-curso-html', 'Não', 'teste2.com', 'html, css, bootstrap'),
+(2, 'Curso do Professor Girafalez', 'Aprenda Português com Girafalez', 'Cursinho de português', '129.90', 1, 4, '20-05-2022-15-32-27-curso-de-aplicativo-ecommerce-react-native.jpeg', 'Aguardando', 36, '', 'arquivolink.com', 2022, 'português, curso de português, gramática, sintaxe', 4, 'curso-do-professor-girafalez', 'portugues.com', 'Não', 'linkdocurso.com', 'língua portuguesa'),
+(3, 'Curso do Buzanga', 'Buzanguices', 'Buzanga, você é um <b>filho da puta</b>!', '999.99', 1, 3, '20-05-2022-15-32-21-curso-de-aplicativo-de-tarefas-com-react.jpeg', 'Aguardando', 2000, '', '', 2022, 'buzangolas', 6, 'curso-do-buzanga', '', 'Não', '', '');
 
 -- --------------------------------------------------------
 
@@ -203,7 +205,8 @@ CREATE TABLE `professores` (
 --
 
 INSERT INTO `professores` (`id`, `nome`, `cpf`, `telefone`, `email`, `foto`, `ativo`, `data`) VALUES
-(3, 'Professor Girafalez', '535.335.353-53', '(31) 3131-3131', 'professorgirafalez@hotmail.com', '18-05-2022-13-00-00-professor-girafalez.jpg', 'Sim', '2022-05-18');
+(3, 'Professor Girafalez', '535.335.353-53', '(31) 3131-3131', 'professorgirafalez@hotmail.com', '18-05-2022-13-00-00-professor-girafalez.jpg', 'Sim', '2022-05-18'),
+(4, 'Professor Buzanga', '942.920.313-04', '(42) 4242-9922', 'buzangateacher@hotmail.com', '20-05-2022-13-56-39-buzanga.jpg', 'Sim', '2022-05-20');
 
 -- --------------------------------------------------------
 
@@ -233,8 +236,8 @@ INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `usuario`, `senha`, `senha_crip`, `
 (1, 'Administrador', '000.000.000-00', 'danielantunespaiva@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Administrador', 'sem-perfil.jpg', 1, 'Sim', '2022-05-06'),
 (13, 'Sassa Mutema', '212.121.212-21', 'sassamutema@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', '16-05-2022-19-33-37-galinha-pintadinha-ouvindo-musica.jpg', 5, 'Sim', '2022-05-16'),
 (14, 'Pedrinho Matador', '666.666.666-66', 'pedrinhomatador@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', '16-05-2022-23-41-52-pintinho-amarelinho.jpg', 6, 'Sim', '2022-05-16'),
-(16, 'Professor Girafalez Loucão', '394.224.884-29', 'professorgirafalez2@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Professor', '17-05-2022-12-50-54-professor-girafalez.jpg', 1, 'Não', '2022-05-17'),
-(18, 'Professor Girafalez', '535.335.353-53', 'professorgirafalez@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Professor', '18-05-2022-13-00-00-professor-girafalez.jpg', 3, 'Sim', '2022-05-18');
+(18, 'Professor Girafalez', '535.335.353-53', 'professorgirafalez@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Professor', '18-05-2022-13-00-00-professor-girafalez.jpg', 3, 'Sim', '2022-05-18'),
+(19, 'Professor Buzanga', '942.920.313-04', 'buzangateacher@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Professor', '20-05-2022-13-56-39-buzanga.jpg', 4, 'Sim', '2022-05-20');
 
 --
 -- Índices para tabelas despejadas
@@ -320,7 +323,7 @@ ALTER TABLE `config`
 -- AUTO_INCREMENT de tabela `cursos`
 --
 ALTER TABLE `cursos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `grupos`
@@ -332,13 +335,13 @@ ALTER TABLE `grupos`
 -- AUTO_INCREMENT de tabela `professores`
 --
 ALTER TABLE `professores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
