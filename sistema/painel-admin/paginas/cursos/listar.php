@@ -153,6 +153,9 @@ HTML;
         <!-- ativar/desativar curso -->
 		<big><a class="{$acesso}" href="#" onclick="ativar('{$id}', '{$acao}')" title="{$titulo_link}"><i class="fa {$icone} $classe_square"></i></a></big>
 
+        <!-- mostrar observações -->
+        <big><a href="#" onclick="obs('{$id}','{$nome}', '{$mensagem}')" title="Ver Mensagens"><i class="fa fa-info-circle text-secondary"></i></a></big>
+
     </td>
 
 
@@ -226,7 +229,7 @@ HTML;
 
         $('#nome_mostrar').text(nome);
         $('#desc_rapida_mostrar').text(desc_rapida);
-        $('#desc_longa_mostrar').html('desc_longa'); //se tiver negrito, aspas e outros caracteres HTML, exibe-os do jeito como foram inseridos
+        $('#desc_longa_mostrar').html(desc_longa); //se tiver negrito, aspas e outros caracteres HTML, exibe-os do jeito como foram inseridos
         $('#valor_mostrar').text(valor);
         $('#professor_mostrar').text(professor);
         $('#categoria_mostrar').text(categoria);

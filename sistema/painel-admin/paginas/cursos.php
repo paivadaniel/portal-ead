@@ -336,7 +336,7 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 				<div class="row">
 					<div class="col-md-8">
 						<span><b>Descrição do Curso: </b></span>
-						<small><span id="desc_longa_mostrar"></span></small> </a>
+						<small><span id="desc_longa_mostrar"></span></small>
 					</div>
 
 					<div class="col-md-4" align="center">

@@ -26,10 +26,10 @@ $desc_longa = $_POST['desc_longa']; //POST usa o name, não o id
 
 $id = $_POST['id']; //recuperou o id para depois analisar se é inserção (id vazio) ou edição (id diferente de vazio)
 
-//pret_replace mantém tudo que está dentro dos colchetes, substitui tudo que vier após utf8_decode pelo que vier na frente
-//trim serve para remover espaçamentos
 //com o código abaixo, se digitar para url "Curso de Programação WEB", irá se tornar "curso-de-programacao-web"
 //nunca haverão 2 urls iguais, pois nunca haverá dois nomes de cursos ou produtos iguais, com o código que vem abaixo do comentáro "verificar curso duplicado"
+//preg_replace mantém tudo que está dentro dos colchetes, substitui tudo que vier após utf8_decode pelo que vier na frente
+//trim serve para remover espaçamentos
 $nome_novo = strtolower(preg_replace(
 	"[^a-zA-Z0-9-]",
 	"-",
@@ -42,6 +42,11 @@ $nome_novo = strtolower(preg_replace(
 
 //preg_replace substitui quaisquer caracteres especiais por "-"
 $url = preg_replace('/[ -]+/', '-', $nome_novo);
+
+//retirar espaços vazios e possíveis aspas simples do textarea
+//o tratamento abaixo permite que seja copiado texto da internet e colado no textarea, sem necessidade de primeiro ter que copiar o texto para o bloco de notas para remover a formatação
+//o barra n e o barra r equivalem à quebra de linha, e além disso, já a aspas simples, esses três devem ser substituídos por um espaço vazio para não dar problema na hora do onclick="mostrar()" que esta em paginas/cursos/listar.php
+$desc_longa = str_replace(array("\n", "\r", "'"), ' ', $desc_longa);
 
 //verificar curso duplicado
 $query = $pdo->query("SELECT * FROM $tabela where nome = '$nome'"); //consulta com SELECT não precisa de prepare()
