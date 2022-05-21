@@ -355,6 +355,46 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 
 
 
+
+
+
+
+
+
+<!-- ModalMensagem -->
+<div class="modal fade" id="modalMensagem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"><span id="nome_mensagem"> </span></h4>
+				<button id="btn-fechar-excluir" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<div class="modal-body">
+
+
+			<br>
+					<input type="hidden" name="id" id="id"> <!-- aqui não passa o id, mas recebe o id de listar.php -->
+					<small>
+						<div id="mensagem" align="center" class="mt-3"></div>
+					</small>
+
+
+			</div>
+
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
 <script type="text/javascript">
 	var pag = "<?= $pag ?>"
 </script>

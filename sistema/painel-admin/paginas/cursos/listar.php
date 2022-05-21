@@ -154,7 +154,7 @@ HTML;
 		<big><a class="{$acesso}" href="#" onclick="ativar('{$id}', '{$acao}')" title="{$titulo_link}"><i class="fa {$icone} $classe_square"></i></a></big>
 
         <!-- mostrar observações -->
-        <big><a href="#" onclick="obs('{$id}','{$nome}', '{$mensagem}')" title="Ver Mensagens"><i class="fa fa-info-circle text-secondary"></i></a></big>
+        <big><a href="#" onclick="obs('{$id}', '{$nome}', '{$mensagem}')" title="Ver Mensagens"><i class="fa fa-comment-o text-warning"></i></a></big>
 
     </td>
 
@@ -193,11 +193,11 @@ HTML;
     function editar(id, nome, desc_rapida, desc_longa, valor, categoria, foto, carga, arquivo, ano, palavras, grupo, pacote, sistema, link, tecnologias) {
 
         //para cada caracter de descrição longa, se for um asterico, ele substituirá dois astericos por uma aspas
-        for (let letra of desc_longa){  				
-			if (letra === '*'){
-				desc_longa = desc_longa.replace('**', '"');
-			}			
-		}	
+        for (let letra of desc_longa) {
+            if (letra === '*') {
+                desc_longa = desc_longa.replace('**', '"');
+            }
+        }
 
         $('#id').val(id); //val() é para exibir dado em input, e text() é para exibir dado em div ou span
         $('#nome').val(nome);
@@ -209,9 +209,9 @@ HTML;
         $('#arquivo').val(arquivo);
         $('#ano').val(ano);
         $('#palavras').val(palavras);
-        $('#grupo').val(grupo).change();//esse change() é desnecessário para que ele salve a edição no select, funciona sem ele também
+        $('#grupo').val(grupo).change(); //esse change() é desnecessário para que ele salve a edição no select, funciona sem ele também
         $('#pacote').val(pacote);
-        $('#sistema').val(sistema).change();//esse change() é desnecessário para que ele salve a edição no select, funciona sem ele também
+        $('#sistema').val(sistema).change(); //esse change() é desnecessário para que ele salve a edição no select, funciona sem ele também
         $('#link').val(link);
         $('#tecnologias').val(tecnologias);
 
@@ -244,11 +244,24 @@ HTML;
         $('#tecnologias_mostrar').text(tecnologias);
 
         $('#target_mostrar').attr('src', 'img/cursos/' + foto);
-        $('#link_pacote').attr('href', '<?=$url_sistema?>' + pacote); //no javascript, para chamar php, troca 'php' por '='
-        $('#link_arquivo').attr('href', '<?=$url_sistema?>' + arquivo);
-        $('#link_curso').attr('href', '<?=$url_sistema?>' + link);
+        $('#link_pacote').attr('href', '<?= $url_sistema ?>' + pacote); //no javascript, para chamar php, troca 'php' por '='
+        $('#link_arquivo').attr('href', '<?= $url_sistema ?>' + arquivo);
+        $('#link_curso').attr('href', '<?= $url_sistema ?>' + link);
 
         $('#modalMostrar').modal('show');
+
+    }
+
+
+
+
+    function obs(id, nome, mensagem) {
+
+        $('#id_mensagem').text(id);
+        $('#nome_mensagem').text(nome);
+        $('#mensagem_mensagem').text(mensagem);
+
+        $('#modalMensagem').modal('show');
 
     }
 
@@ -260,7 +273,7 @@ HTML;
         $('#id').val(''); //val() é para exibir dado em input, e text() é para exibir dado em div ou span
         $('#nome').val('');
         $('#desc_rapida').val('');
-		nicEditors.findEditor('area').setContent('');				
+        nicEditors.findEditor('area').setContent('');
         $('#valor').val('');
         $('#carga').val('');
         $('#arquivo').val('');
