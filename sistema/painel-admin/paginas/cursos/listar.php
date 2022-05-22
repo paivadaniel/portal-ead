@@ -107,6 +107,13 @@ HTML;
             $classe_square = 'text-danger';
         }
 
+        if($mensagem != '') {
+            $classe_mensagem = 'warning';
+            $icone2 = 'fa-comment';
+        } else {
+            $classe_mensagem = 'text-warning';
+            $icone2 = 'fa-comment-o';
+        }
 
         //valor formatodo e descrição_longa formatada
         $valorF = number_format($valor, 2, ',', '.',);
@@ -120,7 +127,11 @@ HTML;
 
 
         </td>
-        <td class="">{$nome}</td> <!-- repare que <?php echo $nome ?> é substituído aqui por {$nome}-->
+        <td class="">{$nome}
+
+        <i class="fa fa-video-camera text-info"></i>
+
+        </td> <!-- repare que <?php echo $nome ?> é substituído aqui por {$nome}-->
         <td class="">R$ {$valorF}</td>
         <td class="">{$nome_professor}</td>
         <td class="">{$nome_categoria}</td>
@@ -154,7 +165,7 @@ HTML;
 		<big><a class="{$acesso}" href="#" onclick="ativar('{$id}', '{$acao}')" title="{$titulo_link}"><i class="fa {$icone} $classe_square"></i></a></big>
 
         <!-- mostrar observações -->
-        <big><a href="#" onclick="obs('{$id}', '{$nome}', '{$mensagem}')" title="Ver Mensagens"><i class="fa fa-comment-o text-warning"></i></a></big>
+        <big><a href="#" onclick="obs('{$id}', '{$nome}', '{$mensagem}')" title="Ver Mensagens"><i class="fa {$icone2} {$classe_mensagem}"></i></a></big>
 
     </td>
 
@@ -252,14 +263,11 @@ HTML;
 
     }
 
-
-
-
     function obs(id, nome, mensagem) {
 
-        $('#id_mensagem').text(id);
+        $('#id_mensagem').val(id); //id_mensagem é um input, portanto usa val, de value, e não text
         $('#nome_mensagem').text(nome);
-        $('#mensagem_mensagem').text(mensagem);
+        nicEditors.findEditor('mensagem_mensagem').setContent(mensagem);
 
         $('#modalMensagem').modal('show');
 
@@ -282,7 +290,13 @@ HTML;
         $('#link').val('');
         $('#tecnologias').val('');
 
+
         $('#foto').val('');
         $('#target').attr('src', 'img/cursos/sem-foto.png');
+    }
+
+    function limparMensagem() {
+        nicEditors.findEditor('mensagem_mensagem').setContent('');
+
     }
 </script>

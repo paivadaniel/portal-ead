@@ -353,37 +353,42 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 	</div>
 </div>
 
-
-
-
-
-
-
-
-
 <!-- ModalMensagem -->
 <div class="modal fade" id="modalMensagem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title"><span id="nome_mensagem"> </span></h4>
-				<button id="btn-fechar-excluir" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px">
+				<button id="btn-fechar-mensagem" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 
-			<div class="modal-body">
+			<form id="form-mensagem">
+				<div class="modal-body">
+
+					<div class="form-group">
+						<label for="mensagem">Mensagem</label>
+						<textarea class="textarea" name="mensagem" id="mensagem_mensagem" style="height:50px;"></textarea> <!-- textarea precisa de fechamento se não dá problema -->
+					</div>
 
 
-			<br>
-					<input type="hidden" name="id" id="id"> <!-- aqui não passa o id, mas recebe o id de listar.php -->
+					<br>
+					<input type="hidden" name="id" id="id_mensagem"> <!-- name pode continuar id, já o id não, pois o id é referenciado em obs() que está dentro de listar.php, name é usado em POST, em id no javascript. id refere-se ao id do curso -->
 					<small>
-						<div id="mensagem" align="center" class="mt-3"></div>
+						<div id="mensagem_msg" align="center" class="mt-3"></div>
 					</small>
 
 
-			</div>
+				</div>
 
+
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Salvar</button>
+				</div>
+
+
+			</form>
 
 		</div>
 	</div>
@@ -467,6 +472,47 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 
 	});
 </script>
+
+
+
+<script type="text/javascript">
+	$("#form-mensagem").submit(function() {
+		event.preventDefault();
+		//limparMensagem(); //para limpar a mensagem depois de digitaada e aberto novamente o campo de mensagem
+		nicEditors.findEditor('mensagem_mensagem').saveContent();
+		//essa é a linha que os ajax que chamam os #form em js/ajax.js não tem, se não tiver ela, o usuário tem que clicar 2 vezes no botão de enviar os dados do formulário
+		//o argumento dentro de findEditor deve ser o id do textarea, demorei 40 minutos para descobrir esse erro
+		var formData = new FormData(this);
+
+		$.ajax({
+			url: 'paginas/' + pag + "/mensagem.php", //esqueci de colocar uma vírgula aqui, não vi que o erro foi mostrado para mim, demorei para achar
+
+			type: 'POST',
+			data: formData,
+
+			success: function(mensagem) {
+				$('#mensagem_msg').text('');
+				$('#mensagem_msg').removeClass()
+				if (mensagem.trim() == "Salvo com Sucesso") {
+					$('#btn-fechar-mensagem').click();
+					listar();
+				} else {
+					$('#mensagem_msg').addClass('text-danger')
+					$('#mensagem_msg').text(mensagem)
+				}
+
+			},
+
+			cache: false,
+			contentType: false,
+			processData: false,
+
+		});
+
+	});
+</script>
+
+
 
 <script type="text/javascript">
 	var pag = "<?= $pag ?>"
