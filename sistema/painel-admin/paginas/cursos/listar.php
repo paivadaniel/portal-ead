@@ -91,6 +91,10 @@ HTML;
         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
         $nome_grupo = $res2[0]['nome'];
 
+        $query2 = $pdo->query("SELECT * FROM aulas WHERE id = '$id'");
+        $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+        $aulas = @count($res2);
+
         if ($status == 'Aprovado') {
             $excluir = 'ocultar'; //cursos aprovados não podem ser excluidos
             $icone = 'fa-check-square';
@@ -107,7 +111,7 @@ HTML;
             $classe_square = 'text-danger';
         }
 
-        if($mensagem != '') {
+        if ($mensagem != '') {
             $classe_mensagem = 'warning';
             $icone2 = 'fa-comment';
         } else {
@@ -127,16 +131,20 @@ HTML;
 
 
         </td>
-        <td class="">{$nome}
+        <td class="">
+        <a href="#" onclick="aulas('{$id}', '{$nome}', '{$aulas}')" style="text-decoration:none; color:#4f4f4e"> <!-- nome é passado como parâmetro apenas para aparecer na modal -->    
+        <!-- se não colocar cerquilha no href, e deixá-lo vazio, não funciona o onclick e daí não chama a modalAulas -->
+        {$nome}
 
-        <i class="fa fa-video-camera text-info"></i>
+      <i class="fa fa-video-camera text-danger"></i>  <!-- classe text-primary dava quebra de linha, trocou para text-danger -->
 
+    </a>
         </td> <!-- repare que <?php echo $nome ?> é substituído aqui por {$nome}-->
         <td class="">R$ {$valorF}</td>
         <td class="">{$nome_professor}</td>
         <td class="">{$nome_categoria}</td>
         <td class="esc">0</td>
-        <td class="esc">0</td>
+        <td class="esc">{$aulas}</td>
 
         <td>
 
@@ -295,8 +303,15 @@ HTML;
         $('#target').attr('src', 'img/cursos/sem-foto.png');
     }
 
-    function limparMensagem() {
-        nicEditors.findEditor('mensagem_mensagem').setContent('');
+    function aulas(id, nome, aulas) {
+        $('#id_aula').val(id);
+        $('#nome_aula').text(nome);
+        $('#aulas_aula').text(aulas);
+
+        $('#modalAulas').modal('show');
+        listarAulas();
+
+
 
     }
 </script>

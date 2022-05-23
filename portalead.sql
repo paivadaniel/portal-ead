@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 21-Maio-2022 às 01:37
--- Versão do servidor: 10.4.22-MariaDB
--- versão do PHP: 8.0.15
+-- Tempo de geração: 23-Maio-2022 às 05:23
+-- Versão do servidor: 10.4.21-MariaDB
+-- versão do PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -74,6 +74,21 @@ CREATE TABLE `alunos` (
 INSERT INTO `alunos` (`id`, `nome`, `cpf`, `email`, `telefone`, `endereco`, `cidade`, `estado`, `pais`, `foto`, `data`, `cartao`, `ativo`) VALUES
 (5, 'Sassa Mutema', '212.121.212-21', 'sassamutema@gmail.com', '(21) 2112-2121', 'Sampaio Correio', 'Recife', 'PE', 'Costa Rica', '16-05-2022-19-33-37-galinha-pintadinha-ouvindo-musica.jpg', '2022-05-16', 10, 'Sim'),
 (6, 'Pedrinho Matador', '666.666.666-66', 'pedrinhomatador@hotmail.com', '(66) 6666-6666', 'Portões do Inferno, 666', 'Diadema', 'SP', 'Brasil', '16-05-2022-23-41-52-pintinho-amarelinho.jpg', '2022-05-16', 3, 'Sim');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `aulas`
+--
+
+CREATE TABLE `aulas` (
+  `id` int(11) NOT NULL,
+  `numero` int(11) NOT NULL,
+  `nome` varchar(80) NOT NULL,
+  `link` varchar(150) DEFAULT NULL,
+  `id_curso` int(11) NOT NULL,
+  `sessao` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -157,8 +172,8 @@ CREATE TABLE `cursos` (
 --
 
 INSERT INTO `cursos` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `categoria`, `imagem`, `status`, `carga`, `mensagem`, `arquivo`, `ano`, `palavras`, `grupo`, `nome_url`, `pacote`, `sistema`, `link`, `tecnologias`) VALUES
-(1, 'Curso de HTML', 'Aprendendo WEB', '<p style=\"font-family: \">O curso de Painel de Gestão para <b>portais de cursos EAD</b> possui 60 aulas, este é o segundo módulo do desenvolvimento do site / <b>sistema para gestão de cursos</b>, vamos aprender neste módulo como criar o crud para cadastros dos Professores, Alunos e Administradores do sistema, bem como toda gestão de exclusão de dados, listagem, buscas, inserção e edição, relacionamento entre tabelas e muito mais, tudo que você vai precisar para desenvolver todo e qualquer tipo de sistema, <font size=\"4\" color=\"#996633\">adquira já</font> nosso treinamento e comece a criar seus projetos de forma profissional.</p>', '59.99', 1, 4, '20-05-2022-15-33-52-mendigo-fudido.jpg', 'Aprovado', 20, '', 'google.com', 2022, 'curso de programação, curso de html', 5, 'curso-de-html', 'pacote-curso-html', 'Não', 'teste2.com', 'html, css, bootstrap'),
-(2, 'Curso do Professor Girafalez', 'Aprenda Português com Girafalez', 'Cursinho de português', '129.90', 1, 4, '20-05-2022-15-32-27-curso-de-aplicativo-ecommerce-react-native.jpeg', 'Aprovado', 36, '', 'arquivolink.com', 2022, 'português, curso de português, gramática, sintaxe', 4, 'curso-do-professor-girafalez', 'portugues.com', 'Não', 'linkdocurso.com', 'língua portuguesa');
+(1, 'Curso de HTML', 'Aprendendo WEB', '<p style=\"font-family: \">O curso de Painel de Gestão para <b>portais de cursos EAD</b> possui 60 aulas, este é o segundo módulo do desenvolvimento do site / <b>sistema para gestão de cursos</b>, vamos aprender neste módulo como criar o crud para cadastros dos Professores, Alunos e Administradores do sistema, bem como toda gestão de exclusão de dados, listagem, buscas, inserção e edição, relacionamento entre tabelas e muito mais, tudo que você vai precisar para desenvolver todo e qualquer tipo de sistema, <font size=\"4\" color=\"#996633\">adquira já</font> nosso treinamento e comece a criar seus projetos de forma profissional.</p>', '59.99', 1, 4, '20-05-2022-15-33-52-mendigo-fudido.jpg', 'Aprovado', 20, 'Ornitorrinco fuma', 'google.com', 2022, 'curso de programação, curso de html', 5, 'curso-de-html', 'pacote-curso-html', 'Não', 'teste2.com', 'html, css, bootstrap'),
+(2, 'Curso do Professor Girafalez', 'Aprenda Português com Girafalez', 'Cursinho de português', '129.90', 1, 4, '20-05-2022-15-32-27-curso-de-aplicativo-ecommerce-react-native.jpeg', 'Aguardando', 36, '', 'arquivolink.com', 2022, 'português, curso de português, gramática, sintaxe', 4, 'curso-do-professor-girafalez', 'portugues.com', 'Não', 'linkdocurso.com', 'língua portuguesa');
 
 -- --------------------------------------------------------
 
@@ -255,6 +270,12 @@ ALTER TABLE `alunos`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `aulas`
+--
+ALTER TABLE `aulas`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `categorias`
 --
 ALTER TABLE `categorias`
@@ -305,6 +326,12 @@ ALTER TABLE `administradores`
 --
 ALTER TABLE `alunos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de tabela `aulas`
+--
+ALTER TABLE `aulas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `categorias`

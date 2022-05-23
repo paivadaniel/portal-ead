@@ -397,6 +397,87 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 
 
 
+<!-- ModalAulas -->
+<div class="modal fade" id="modalAulas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"><span id="nome_aula"></span> - <span id="aulas_aula"></span> aulas</h4>
+				<button id="btn-fechar-aula" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<div class="modal-body">
+
+				<div class="row">
+					<div class="col-md-6">
+						<form id="form-aula">
+
+							<div class="row">
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="num_aula">Num aula: </label>
+										<input type="number" name="num_aula" id="num_aula" class="form-control" required>
+									</div>
+								</div>
+
+								<div class="col-md-9">
+									<div class="form-group">
+										<label for="nome_aula">Nome aula: </label>
+										<input type="text" name="nome_aula" id="nome_aula" class="form-control" required>
+									</div>
+								</div>
+
+
+
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="link_aula">Link da aula: </label>
+										<input type="text" name="link_aula" id="link_aula" class="form-control">
+									</div>
+								</div>
+								<div class="col-md-9">
+									<div class="form-group">
+										<label for="sessao_aula">Nome da sessão: </label>
+										<input type="text" name="sessao_aula" id="sessao_aula" class="form-control" placeholder="Básico, Módulo 01, etc.">
+									</div>
+								</div>
+
+								<input type="hidden" name="id_aula" id="id_aula">
+
+								<div class="col-md-3">
+									<button type="submit" class="btn btn-primary" style="margin-top:21px">Salvar</button>
+								</div>
+
+
+							</div>
+					</div>
+					<div class="col-md-6">
+						<div id="listar-aulas">
+
+						</div>
+					</div>
+
+					</form>
+
+				</div>
+
+
+
+			</div>
+
+
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
 
 
 
@@ -580,6 +661,42 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 		});
 
 	});
+</script>
+
+
+<script>
+	function listarAulas() {
+		/*em data, eu utilizei: data: $('#form-aula').serialize(),
+
+		já o autor, preferiu criar uma variável logo acima do AJAX: 
+		
+		var id_curso = $('#id_aula').val();
+		
+		e dentro dele utilizar:
+		
+		data: {id_curso},
+
+		daí em listar-aulas.php, ele fez:
+
+		$id_curso = $_POST['id_aula'];
+
+		ambas as maneiras dão certo, eu usei:
+		data: $('#form-aula').serialize(),
+
+		*/
+		
+		$.ajax({
+			url: 'paginas/' + pag + "/listar-aulas.php", //alunos.php aparece dentro do index.php, portanto, estamos em index.php, e consideramos a partir dele
+			method: 'POST',
+			data: $('#form-aula').serialize(),
+			dataType: "text", //aqui pode ser "html", "text"
+
+			success: function(result) {
+				$("#listar-aulas").html(result);
+				$('#mensagem-excluir-aulas').text('');
+			}
+		});
+	}
 </script>
 
 <script src="//js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
