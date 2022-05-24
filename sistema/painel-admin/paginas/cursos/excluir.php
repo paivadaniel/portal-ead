@@ -20,7 +20,7 @@ if($foto != 'sem-foto.png') {
     unlink('../../img/cursos/'.$foto);
 }
 
-//deleção propriamente das categorias
+//deleção propriamente do curso
 $pdo->query("DELETE FROM $tabela WHERE id='$id'");
 
 echo 'Excluído com Sucesso';

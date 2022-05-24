@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23-Maio-2022 às 05:23
+-- Tempo de geração: 24-Maio-2022 às 04:20
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -90,6 +90,29 @@ CREATE TABLE `aulas` (
   `sessao` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Extraindo dados da tabela `aulas`
+--
+
+INSERT INTO `aulas` (`id`, `numero`, `nome`, `link`, `id_curso`, `sessao`) VALUES
+(1, 1, 'Primeira aula desse curso', 'http://google.com', 1, 0),
+(2, 2, 'Aula dois editada', 'http://google25.com', 1, 0),
+(3, 3, 'Aula três', 'http://uol3.com.br', 1, 0),
+(5, 1, 'Aula primeira', 'http://teste.com', 2, 0),
+(18, 1, 'ddsds', 'dsdsds', 5, 0),
+(19, 2, 'aula 02', 'http://02.com', 5, 0),
+(20, 3, 'dsdsdsds', 'dsdsds', 5, 0),
+(24, 1, 'fsfsfs', 'fsfs', 6, 0),
+(25, 2, 'fsfsfs', 'sffsfs', 6, 0),
+(26, 3, 'fsfsfs', 'fsfsfs', 6, 0),
+(27, 4, 'fsfsfs', 'fsfsfs', 6, 0),
+(29, 5, 'gdgdgdggdgdgd', 'gdgdg', 6, 0),
+(30, 6, 'fsfsfs', 'fsfsfs', 6, 0),
+(31, 4, 'dada', 'dada', 1, 18),
+(32, 5, 'Aula teste sessão', 'qualquerum', 1, 19),
+(33, 6, 'gsfs', 'fsfs', 1, 17),
+(34, 7, 'fsfs', 'fsfsfsfs', 6, 14);
+
 -- --------------------------------------------------------
 
 --
@@ -173,7 +196,8 @@ CREATE TABLE `cursos` (
 
 INSERT INTO `cursos` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `categoria`, `imagem`, `status`, `carga`, `mensagem`, `arquivo`, `ano`, `palavras`, `grupo`, `nome_url`, `pacote`, `sistema`, `link`, `tecnologias`) VALUES
 (1, 'Curso de HTML', 'Aprendendo WEB', '<p style=\"font-family: \">O curso de Painel de Gestão para <b>portais de cursos EAD</b> possui 60 aulas, este é o segundo módulo do desenvolvimento do site / <b>sistema para gestão de cursos</b>, vamos aprender neste módulo como criar o crud para cadastros dos Professores, Alunos e Administradores do sistema, bem como toda gestão de exclusão de dados, listagem, buscas, inserção e edição, relacionamento entre tabelas e muito mais, tudo que você vai precisar para desenvolver todo e qualquer tipo de sistema, <font size=\"4\" color=\"#996633\">adquira já</font> nosso treinamento e comece a criar seus projetos de forma profissional.</p>', '59.99', 1, 4, '20-05-2022-15-33-52-mendigo-fudido.jpg', 'Aprovado', 20, 'Ornitorrinco fuma', 'google.com', 2022, 'curso de programação, curso de html', 5, 'curso-de-html', 'pacote-curso-html', 'Não', 'teste2.com', 'html, css, bootstrap'),
-(2, 'Curso do Professor Girafalez', 'Aprenda Português com Girafalez', 'Cursinho de português', '129.90', 1, 4, '20-05-2022-15-32-27-curso-de-aplicativo-ecommerce-react-native.jpeg', 'Aguardando', 36, '', 'arquivolink.com', 2022, 'português, curso de português, gramática, sintaxe', 4, 'curso-do-professor-girafalez', 'portugues.com', 'Não', 'linkdocurso.com', 'língua portuguesa');
+(5, 'tefsfs', 'tetete', '', '42.00', 1, 3, 'sem-foto.png', 'Aguardando', 23, '', '', 2022, 'dsssd', 6, 'tefsfs', '', 'Não', '', ''),
+(6, 'sasasa', 'sasasasa', 'dadada', '23.00', 1, 4, 'sem-foto.png', 'Aguardando', 32, '', '', 2022, 'dadada', 6, 'sasasa', '', 'Não', '', '');
 
 -- --------------------------------------------------------
 
@@ -221,6 +245,30 @@ CREATE TABLE `professores` (
 INSERT INTO `professores` (`id`, `nome`, `cpf`, `telefone`, `email`, `foto`, `ativo`, `data`) VALUES
 (3, 'Professor Girafalez', '535.335.353-53', '(31) 3131-3131', 'professorgirafalez@hotmail.com', '18-05-2022-13-00-00-professor-girafalez.jpg', 'Sim', '2022-05-18'),
 (4, 'Professor Buzanga', '942.920.313-04', '(42) 4242-9922', 'buzangateacher@hotmail.com', '20-05-2022-13-56-39-buzanga.jpg', 'Sim', '2022-05-20');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `sessao`
+--
+
+CREATE TABLE `sessao` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(50) NOT NULL,
+  `id_curso` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `sessao`
+--
+
+INSERT INTO `sessao` (`id`, `nome`, `id_curso`) VALUES
+(14, 'lklkllklklk', 6),
+(15, 'fsfsg3535', 5),
+(16, 'dada23', 5),
+(17, 'Básico', 1),
+(18, 'Intermediário', 1),
+(19, 'Avançado', 1);
 
 -- --------------------------------------------------------
 
@@ -306,6 +354,12 @@ ALTER TABLE `professores`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `sessao`
+--
+ALTER TABLE `sessao`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -331,7 +385,7 @@ ALTER TABLE `alunos`
 -- AUTO_INCREMENT de tabela `aulas`
 --
 ALTER TABLE `aulas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de tabela `categorias`
@@ -349,7 +403,7 @@ ALTER TABLE `config`
 -- AUTO_INCREMENT de tabela `cursos`
 --
 ALTER TABLE `cursos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `grupos`
@@ -362,6 +416,12 @@ ALTER TABLE `grupos`
 --
 ALTER TABLE `professores`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de tabela `sessao`
+--
+ALTER TABLE `sessao`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`

@@ -91,7 +91,7 @@ HTML;
         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
         $nome_grupo = $res2[0]['nome'];
 
-        $query2 = $pdo->query("SELECT * FROM aulas WHERE id = '$id'");
+        $query2 = $pdo->query("SELECT * FROM aulas WHERE id_curso = '$id'");
         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
         $aulas = @count($res2);
 
@@ -169,6 +169,9 @@ HTML;
 		</li>
         <!-- fechamento excluir -->
    
+        <!-- criar sessão -->
+        <big><a href="#" onclick="sessao('{$id}', '{$nome}')" title="Criar Sessão"><i class="fa fa-globe verde"></i></a></big>
+
         <!-- ativar/desativar curso -->
 		<big><a class="{$acesso}" href="#" onclick="ativar('{$id}', '{$acao}')" title="{$titulo_link}"><i class="fa {$icone} $classe_square"></i></a></big>
 
@@ -281,8 +284,6 @@ HTML;
 
     }
 
-
-
     //para depois que clicar em editar aluno, e depois em inserir aluno, não carregar os dados do último aluno clicado em editar
     function limparCampos() {
 
@@ -303,15 +304,36 @@ HTML;
         $('#target').attr('src', 'img/cursos/sem-foto.png');
     }
 
-    function aulas(id, nome, aulas) {
-        $('#id_aula').val(id);
-        $('#nome_aula').text(nome);
-        $('#aulas_aula').text(aulas);
+    function aulas(id_curso, nome, aulas) {
+        $('#id_curso').val(id_curso);
+        $('#nome_aula_titulo').text(nome);
 
         $('#modalAulas').modal('show');
         listarAulas();
+        listarSessaoAulas(id_curso); //chamei a função como ListarSessaoAulas, ou seja, com a primeira letra maiúscula, porém, é case sensitive, e deu erro
+    }
 
+    function sessao(id, nome) {
+        $('#id_curso_sessao').val(id);
+        $('#nome_curso_sessao').text(nome);
+        $('#nome_sessao').val('');
 
+        $('#modalSessao').modal('show');
+        listarSessao();
+
+    }
+
+    function listarSessaoAulas(curso) {
+        $.ajax({
+			url: 'paginas/' + pag + "/listar-sessao-aulas.php", //alunos.php aparece dentro do index.php, portanto, estamos em index.php, e consideramos a partir dele
+			method: 'POST',
+			data: {curso},
+			dataType: "text",
+
+			success: function(result) {
+				$("#listar-sessao-aulas").html(result);
+			}
+		});
 
     }
 </script>

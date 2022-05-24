@@ -394,15 +394,12 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 	</div>
 </div>
 
-
-
-
 <!-- ModalAulas -->
 <div class="modal fade" id="modalAulas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title"><span id="nome_aula"></span> - <span id="aulas_aula"></span> aulas</h4>
+				<h4 class="modal-title"><span id="nome_aula_titulo"></span> - <span id="aulas_aula"></span> <span id="aulas_singular_plural"> </span></h4>
 				<button id="btn-fechar-aula" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -417,8 +414,8 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 							<div class="row">
 								<div class="col-md-3">
 									<div class="form-group">
-										<label for="num_aula">Num aula: </label>
-										<input type="number" name="num_aula" id="num_aula" class="form-control" required>
+										<label for="numero_aula">Aula: </label>
+										<input type="number" name="numero_aula" id="numero_aula" class="form-control" required>
 									</div>
 								</div>
 
@@ -439,11 +436,15 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 								</div>
 								<div class="col-md-9">
 									<div class="form-group">
-										<label for="sessao_aula">Nome da sessão: </label>
-										<input type="text" name="sessao_aula" id="sessao_aula" class="form-control" placeholder="Básico, Módulo 01, etc.">
+										<label for="sessao_curso">Nome da sessão: </label>
+
+										<div id="listar-sessao-aulas"></div>
+
 									</div>
+
 								</div>
 
+								<input type="hidden" name="id_curso" id="id_curso">
 								<input type="hidden" name="id_aula" id="id_aula">
 
 								<div class="col-md-3">
@@ -452,15 +453,28 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 
 
 							</div>
+						</form>
+
 					</div>
+
+
 					<div class="col-md-6">
 						<div id="listar-aulas">
 
 						</div>
 					</div>
 
-					</form>
 
+				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<small>
+							<div id="mensagem_aula" align="center" class="mt-3"></div>
+						</small>
+
+
+					</div>
 				</div>
 
 
@@ -474,10 +488,69 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 </div>
 
 
+<!-- ModalSessao -->
+<div class="modal fade" id="modalSessao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"><span id="nome_curso_sessao"> </span></h4>
+				<button id="btn-fechar-sessao" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<div class="modal-body">
+
+				<div class="row">
+					<form id="form-sessao">
+
+						<div class="col-md-6">
+
+							<div class="form-group">
+								<label for="nome_sessao">Nome Sessão</label>
+								<input type="text" class="form-control" name="nome_sessao" id="nome_sessao" required>
+							</div>
 
 
 
+							<div>
+								<button type="submit" class="btn btn-primary">Salvar</button>
+							</div>
 
+							<input type="hidden" name="id_curso_sessao" id="id_curso_sessao">
+
+							<br>
+							<small>
+								<div id="mensagem_sessao" align="center" class="mt-3"></div>
+							</small>
+
+
+						</div>
+
+
+						<div class="col-md-6">
+							<div id="listar_sessao">
+
+							</div>
+						</div>
+
+					</form>
+
+				</div>
+
+
+				<div class="row">
+					<div class="col-md-12">
+
+					</div>
+				</div>
+
+
+			</div>
+
+		</div>
+	</div>
+</div>
 
 
 
@@ -485,7 +558,6 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 	var pag = "<?= $pag ?>"
 </script>
 <script src="js/ajax.js"></script>
-
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -555,7 +627,6 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 </script>
 
 
-
 <script type="text/javascript">
 	$("#form-mensagem").submit(function() {
 		event.preventDefault();
@@ -593,63 +664,64 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 	});
 </script>
 
+<script>
+	function listarAulas() {
+		/*
+		
+		outra forma de fazer o código abaixo é apagar:
+		var id_curso = $('#id_aula').val();
 
+		e em data utilizar:
+		data: $('#form-aula').serialize(),
 
-<script type="text/javascript">
-	var pag = "<?= $pag ?>"
-</script>
-<script src="js/ajax.js"></script>
+		daí em listar-aulas.php, utiliza:
+		$id_curso = $_POST['id_aula'];
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		//sel2 é um classe que eu dei o nome, cujo link está no index, e que tem uma classe chamada select2, não sei como onde sel2 se relaciona com select2, porém, não sei onde essa instânciação foi feita, se foi por exemplo no script do select2 no final da index
+		a maneira que o autor usou é mais econômica, passa apenas id_curso, sem ter que passar todos os dados preenchidos no #form-aula
 
-		$('.sel2').select2({
-			dropdownParent: $('#modalForm')
+		*/
+
+		var id_curso = $('#id_curso').val(); //input definido no final de listar.php, na function aulas()
+
+		$.ajax({
+			url: 'paginas/' + pag + "/listar-aulas.php", //alunos.php aparece dentro do index.php, portanto, estamos em index.php, e consideramos a partir dele
+			method: 'POST',
+			data: {
+				id_curso
+			},
+			//data: $('#form-aula').serialize(),
+			dataType: "text", //aqui pode ser "html", "text"
+
+			success: function(result) {
+				$("#listar-aulas").html(result);
+				$('#mensagem_aula').text('');
+				limparCamposAulas();
+
+			}
 		});
-	});
-</script>
-
-<script type="text/javascript">
-	function carregarImg() {
-		var target = document.getElementById('target');
-		var file = document.querySelector("#foto").files[0];
-
-		var reader = new FileReader();
-
-		reader.onloadend = function() {
-			target.src = reader.result;
-		};
-
-		if (file) {
-			reader.readAsDataURL(file);
-
-		} else {
-			target.src = "";
-		}
 	}
 </script>
 
 <script type="text/javascript">
-	$("#form-niceEdit").submit(function() {
+	$("#form-aula").submit(function() {
 		event.preventDefault();
 		nicEditors.findEditor('area').saveContent();
 		var formData = new FormData(this);
 
 		$.ajax({
-			url: 'paginas/' + pag + "/inserir.php",
+			url: 'paginas/' + pag + "/inserir-aulas.php",
 			type: 'POST',
 			data: formData,
 
 			success: function(mensagem) {
-				$('#mensagem').text('');
-				$('#mensagem').removeClass()
+				$('#mensagem_aula').text('');
+				$('#mensagem_aula').removeClass()
 				if (mensagem.trim() == "Salvo com Sucesso") {
-					$('#btn-fechar').click();
-					listar();
+					//$('#btn-fechar-aula').click();
+					listarAulas();
 				} else {
-					$('#mensagem').addClass('text-danger')
-					$('#mensagem').text(mensagem)
+					$('#mensagem_aula').addClass('text-danger')
+					$('#mensagem_aula').text(mensagem)
 				}
 
 			},
@@ -665,38 +737,60 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 
 
 <script>
-	function listarAulas() {
-		/*em data, eu utilizei: data: $('#form-aula').serialize(),
+	function listarSessao() {
 
-		já o autor, preferiu criar uma variável logo acima do AJAX: 
-		
-		var id_curso = $('#id_aula').val();
-		
-		e dentro dele utilizar:
-		
-		data: {id_curso},
+		var id_curso = $('#id_curso_sessao').val(); //input definido no final de listar.php, na function aulas()
 
-		daí em listar-aulas.php, ele fez:
-
-		$id_curso = $_POST['id_aula'];
-
-		ambas as maneiras dão certo, eu usei:
-		data: $('#form-aula').serialize(),
-
-		*/
-		
 		$.ajax({
-			url: 'paginas/' + pag + "/listar-aulas.php", //alunos.php aparece dentro do index.php, portanto, estamos em index.php, e consideramos a partir dele
+			url: 'paginas/' + pag + "/listar-sessao.php", //alunos.php aparece dentro do index.php, portanto, estamos em index.php, e consideramos a partir dele
 			method: 'POST',
-			data: $('#form-aula').serialize(),
+			data: {
+				id_curso
+			},
+			//data: $('#form-aula').serialize(),
 			dataType: "text", //aqui pode ser "html", "text"
 
 			success: function(result) {
-				$("#listar-aulas").html(result);
-				$('#mensagem-excluir-aulas').text('');
+				$("#listar_sessao").html(result);
+				$('#mensagem_sessao').text('');
+
 			}
 		});
 	}
+</script>
+
+<script type="text/javascript">
+	$("#form-sessao").submit(function() {
+		event.preventDefault();
+
+		var formData = new FormData(this);
+
+		$.ajax({
+			url: 'paginas/' + pag + "/inserir-sessao.php",
+			type: 'POST',
+			data: formData,
+
+			success: function(mensagem) {
+				$('#mensagem_sessao').text('');
+				$('#mensagem_sessao').removeClass()
+				if (mensagem.trim() == "Salvo com Sucesso") {
+					//$('#btn-fechar-aula').click();
+					$('#nome_sessao').val('');
+					listarSessao();
+				} else {
+					$('#mensagem_sessao').addClass('text-danger')
+					$('#mensagem_sessao').text(mensagem)
+				}
+
+			},
+
+			cache: false,
+			contentType: false,
+			processData: false,
+
+		});
+
+	});
 </script>
 
 <script src="//js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
