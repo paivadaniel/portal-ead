@@ -2,7 +2,7 @@
 require_once("../../../conexao.php"); //tenha em mente que alunos.php está dentro de index.php, ou seja, conte a volta de inserir para alunos, não conte a de alunos para index.php, e conte a do painel-admin para sistema, ou seja, duas voltas
 //porém, aqui não vale o raciocício acima, pois inserir.php não é aberto dentro de alunos.php, então, conta 3 voltas, para sair da pasta alunos, para sair de páginas e sair do painel-admin
 
-$tabela = 'cursos';
+$tabela = 'pacotes';
 
 $ano_atual = date('Y');
 
@@ -11,19 +11,13 @@ $id_usuario = $_SESSION['id']; //id do usuário que inseriu o curso, que pode se
 
 $nome = $_POST['nome'];
 $desc_rapida = $_POST['desc_rapida'];
-$categoria = $_POST['categoria'];
+$linguagem = $_POST['linguagem'];
 $grupo = $_POST['grupo'];
 $valor = $_POST['valor'];
 $valor = str_replace(',', '.', $valor); //substitui vírgula por ponto, se o usuário digitar 59,99, vai 59.99 no banco de dados, já que esse não aceita vírgula, do contrário ele armazenaria 59.00
 $promocao = $_POST['promocao'];
 $promocao = str_replace(',', '.', $promocao);
-$carga = $_POST['carga'];
 $palavras = $_POST['palavras'];
-$pacote = $_POST['pacote'];
-$tecnologias = $_POST['tecnologias'];
-$sistema = $_POST['sistema'];
-$arquivo = $_POST['arquivo'];
-$link = $_POST['link'];
 $desc_longa = $_POST['desc_longa']; //POST usa o name, não o id
 
 $id = $_POST['id']; //recuperou o id para depois analisar se é inserção (id vazio) ou edição (id diferente de vazio)
@@ -55,7 +49,7 @@ $query = $pdo->query("SELECT * FROM $tabela where nome = '$nome'"); //consulta c
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 if ($total_reg > 0 and $res[0]['id'] != $id) { //$res[0]['id'] é para descartar edições de um mesmo curso que não alterem o nome
-	echo 'Curso já Cadastrado, escolha Outro!';
+	echo 'Pacote já Cadastrado, escolha Outro!';
 	exit();
 }
 
@@ -72,7 +66,7 @@ if ($total_reg > 0) {
 $nome_img = date('d-m-Y H:i:s') . '-' . @$_FILES['foto']['name']; //não entendi porque aqui usa 'foto', que é o nome da variável, ao invés de imagem, que na tabela de cursos, está imagem, assim como foi feito em $res[0]['imagem'] logo acima
 $nome_img = preg_replace('/[ :]+/', '-', $nome_img);
 
-$caminho = '../../img/cursos/' . $nome_img; //volta apenas um, o de paginas/alunos/inserir.php, para paginas/alunos.php, pois esse já está sendo chamado dentro de painel-admin/index.php, e não conta a volta para index
+$caminho = '../../img/pacotes/' . $nome_img; //volta apenas um, o de paginas/alunos/inserir.php, para paginas/alunos.php, pois esse já está sendo chamado dentro de painel-admin/index.php, e não conta a volta para index
 
 $imagem_temp = @$_FILES['foto']['tmp_name'];
 
@@ -82,7 +76,7 @@ if (@$_FILES['foto']['name'] != "") {
 
 		//EXCLUO A FOTO ANTERIOR
 		if ($foto != "sem-foto.png") {
-			@unlink('../../img/cursos/' . $foto);
+			@unlink('../../img/pacotes/' . $foto);
 		}
 
 		$foto = $nome_img;
@@ -98,25 +92,19 @@ if ($id == "") { // se a categoria não existir, é inserção
 
 	//ele colocou direto categoria = $categoria, sem fazer bindValue, pois o usuário não digita a categoria, ou seja, não tem como ele fazer SQL injection nesse campo, o mesmo para grupo
 	//status somente o administrador vai poder alterar de "Aguardando" para "Aprovado"
-	$query = $pdo->prepare("INSERT INTO $tabela SET nome = :nome, desc_rapida = :desc_rapida,  desc_longa = :desc_longa, valor = :valor, professor = '$id_usuario', categoria = '$categoria', imagem = '$foto', status = 'Aguardando', carga = :carga, arquivo = :arquivo, ano = '$ano_atual', palavras = :palavras, grupo = '$grupo', nome_url = '$url', pacote = :pacote, sistema = '$sistema', link = :link, tecnologias = :tecnologias, promocao = :promocao");
+	$query = $pdo->prepare("INSERT INTO $tabela SET nome = :nome, desc_rapida = :desc_rapida,  desc_longa = :desc_longa, valor = :valor, professor = '$id_usuario', linguagem = '$linguagem', imagem = '$foto', ano = '$ano_atual', palavras = :palavras, grupo = '$grupo', nome_url = '$url', promocao = :promocao");
 } else { //se a categoria já existir, é edição
 
-	$query = $pdo->prepare("UPDATE $tabela SET nome = :nome, desc_rapida = :desc_rapida,  desc_longa = :desc_longa, valor = :valor, professor = '$id_usuario', categoria = '$categoria', imagem = '$foto', status = 'Aguardando', carga = :carga, arquivo = :arquivo, palavras = :palavras, grupo = '$grupo', nome_url = '$url', pacote = :pacote, sistema = '$sistema', link = :link, tecnologias = :tecnologias, promocao = :promocao WHERE id = '$id'");
-	//ano não passa no UPDATE, pois não altera, é o ano em que foi criado o curso, pego e salvo automaticamente no banco de dados
+	$query = $pdo->prepare("UPDATE $tabela SET nome = :nome, desc_rapida = :desc_rapida,  desc_longa = :desc_longa, valor = :valor, professor = '$id_usuario', linguagem = '$linguagem', imagem = '$foto', palavras = :palavras, grupo = '$grupo', nome_url = '$url', promocao = :promocao WHERE id = '$id'");
+	//ano não altera, como no inserir.php de cursos
 }
 
 $query->bindValue(":nome", "$nome");
 $query->bindValue(":desc_rapida", "$desc_rapida");
 $query->bindValue(":desc_longa", "$desc_longa");
 $query->bindValue(":valor", "$valor");
-$query->bindValue(":carga", "$carga");
-$query->bindValue(":arquivo", "$arquivo");
 $query->bindValue(":palavras", "$palavras");
-$query->bindValue(":pacote", "$pacote");
-$query->bindValue(":link", "$link");
-$query->bindValue(":tecnologias", "$tecnologias");
 $query->bindValue(":promocao", "$promocao");
-
 
 $query->execute();
 

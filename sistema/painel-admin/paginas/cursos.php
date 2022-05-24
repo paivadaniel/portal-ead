@@ -54,14 +54,15 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 							<div class="form-group">
 								<label for="categoria">Categoria</label>
 
-								<?php
-								$query = $pdo->query("SELECT * FROM categorias ORDER BY nome asc");
-								$res = $query->fetchAll(PDO::FETCH_ASSOC);
-								?>
 								<!-- classe sel2, que deixa o campo select menor do que o padrão, por isso o width="100%"-->
 								<select class="form-control sel2" name="categoria" id="categoria" required style="width:100%">
 
 									<?php
+
+									$query = $pdo->query("SELECT * FROM categorias ORDER BY nome asc");
+									$res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+
 									for ($i = 0; $i < @count($res); $i++) {
 										foreach ($res[$i] as $key => $value) {
 										}
@@ -122,12 +123,19 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 
 						<div class="col-md-2">
 							<div class="form-group">
+								<label for="promocao">Promoção</label>
+								<input type="text" class="form-control" name="promocao" id="promocao">
+							</div>
+						</div>
+
+						<div class="col-md-2">
+							<div class="form-group">
 								<label for="carga">Carga Horária</label>
 								<input type="text" class="form-control" name="carga" id="carga" placeholder="Em horas">
 							</div>
 						</div>
 
-						<div class="col-md-8">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label for="palavras">Palavras-chave</label>
 								<input type="text" class="form-control" name="palavras" id="palavras" placeholder="Exemplos: bola de futebol penalty, camisa de algodão, shorts de setim">
@@ -808,7 +816,7 @@ Em listar.php, na function aulas, que recebe id_curso, foi criada a chamada para
 </script>
 
 <script type="text/javascript">
-	function carregarVideo() {		
+	function carregarVideo() {
 		$('#target-video').attr('src', $('#link_aula').val());
 	}
 </script>

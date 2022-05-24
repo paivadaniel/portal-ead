@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 24-Maio-2022 às 22:07
--- Versão do servidor: 10.4.21-MariaDB
--- versão do PHP: 8.0.10
+-- Tempo de geração: 25-Maio-2022 às 01:07
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -164,17 +164,31 @@ CREATE TABLE `cursos` (
   `pacote` varchar(100) NOT NULL,
   `sistema` varchar(5) NOT NULL,
   `link` varchar(150) NOT NULL,
-  `tecnologias` varchar(150) NOT NULL
+  `tecnologias` varchar(150) NOT NULL,
+  `promocao` decimal(8,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `cursos`
 --
 
-INSERT INTO `cursos` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `categoria`, `imagem`, `status`, `carga`, `mensagem`, `arquivo`, `ano`, `palavras`, `grupo`, `nome_url`, `pacote`, `sistema`, `link`, `tecnologias`) VALUES
-(1, 'Curso de HTML', 'Aprendendo WEB', '<p style=\"font-family: \">O curso de Painel de Gestão para <b>portais de cursos EAD</b> possui 60 aulas, este é o segundo módulo do desenvolvimento do site / <b>sistema para gestão de cursos</b>, vamos aprender neste módulo como criar o crud para cadastros dos Professores, Alunos e Administradores do sistema, bem como toda gestão de exclusão de dados, listagem, buscas, inserção e edição, relacionamento entre tabelas e muito mais, tudo que você vai precisar para desenvolver todo e qualquer tipo de sistema, <font size=\"4\" color=\"#996633\">adquira já</font> nosso treinamento e comece a criar seus projetos de forma profissional.</p>', '59.99', 1, 4, '20-05-2022-15-33-52-mendigo-fudido.jpg', 'Aprovado', 20, 'Ornitorrinco fuma', 'google.com', 2022, 'curso de programação, curso de html', 5, 'curso-de-html', 'pacote-curso-html', 'Não', 'teste2.com', 'html, css, bootstrap'),
-(5, 'tefsfs', 'tetete', '', '42.00', 1, 3, 'sem-foto.png', 'Aguardando', 23, '', '', 2022, 'dsssd', 6, 'tefsfs', '', 'Não', '', ''),
-(6, 'sasasa', 'sasasasa', 'dadada', '23.00', 1, 4, 'sem-foto.png', 'Aguardando', 32, '', '', 2022, 'dadada', 6, 'sasasa', '', 'Não', '', '');
+INSERT INTO `cursos` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `categoria`, `imagem`, `status`, `carga`, `mensagem`, `arquivo`, `ano`, `palavras`, `grupo`, `nome_url`, `pacote`, `sistema`, `link`, `tecnologias`, `promocao`) VALUES
+(1, 'Curso de HTML', 'Aprendendo WEB', '<p style=\"font-family: \">O curso de Painel de Gestão para <b>portais de cursos EAD</b> possui 60 aulas, este é o segundo módulo do desenvolvimento do site / <b>sistema para gestão de cursos</b>, vamos aprender neste módulo como criar o crud para cadastros dos Professores, Alunos e Administradores do sistema, bem como toda gestão de exclusão de dados, listagem, buscas, inserção e edição, relacionamento entre tabelas e muito mais, tudo que você vai precisar para desenvolver todo e qualquer tipo de sistema, <font size=\"4\" color=\"#996633\">adquira já</font> nosso treinamento e comece a criar seus projetos de forma profissional.</p>', '59.99', 1, 4, '20-05-2022-15-33-52-mendigo-fudido.jpg', 'Aprovado', 20, 'Ornitorrinco fuma', 'google.com', 2022, 'curso de programação, curso de html', 5, 'curso-de-html', 'pacote-curso-html', 'Não', 'teste2.com', 'html, css, bootstrap', '0.00'),
+(5, 'tefsfs', 'tetete', '', '42.00', 1, 3, 'sem-foto.png', 'Aguardando', 23, '', '', 2022, 'dsssd', 6, 'tefsfs', '', 'Não', '', '', '0.00'),
+(6, 'sasasa', 'sasasasa', 'dadada', '23.00', 1, 4, 'sem-foto.png', 'Aguardando', 32, '', '', 2022, 'dadada', 6, 'sasasa', '', 'Não', '', '', '0.00'),
+(7, 'dsds', 'dsds', 'dadada', '80.00', 1, 3, 'sem-foto.png', 'Aguardando', 23, '', '', 2022, 'dsds', 4, 'dsds', '', 'Não', '', '', '60.00');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `cursos_pacotes`
+--
+
+CREATE TABLE `cursos_pacotes` (
+  `id` int(11) NOT NULL,
+  `id_curso` int(11) NOT NULL,
+  `id_pacote` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -232,13 +246,22 @@ CREATE TABLE `pacotes` (
   `valor` decimal(8,2) NOT NULL,
   `professor` int(11) NOT NULL,
   `imagem` varchar(100) NOT NULL,
-  `carga` int(11) NOT NULL,
+  `grupo` int(11) NOT NULL,
   `ano` int(11) NOT NULL,
   `palavras` varchar(255) NOT NULL,
   `nome_url` varchar(150) NOT NULL,
   `video` varchar(150) NOT NULL,
-  `linguagem` int(11) NOT NULL
+  `linguagem` int(11) NOT NULL,
+  `promocao` decimal(8,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `pacotes`
+--
+
+INSERT INTO `pacotes` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `imagem`, `grupo`, `ano`, `palavras`, `nome_url`, `video`, `linguagem`, `promocao`) VALUES
+(1, 'Sistema Imobiliário', 'PHP e MySql', 'dadadada', '280.00', 1, '24-05-2022-19-46-23-garrafa-de-cerveja-pequena-à-disposição-92840768.jpg', 4, 2022, 'portal imob', 'sistema-imobiliario', '', 1, '0.00'),
+(2, 'dsds', 'dsds', 'fsfsfs', '50.00', 1, 'sem-foto.png', 4, 2022, 'fsfsfs', 'dsds', '', 3, '25.00');
 
 -- --------------------------------------------------------
 
@@ -349,6 +372,12 @@ ALTER TABLE `cursos`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `cursos_pacotes`
+--
+ALTER TABLE `cursos_pacotes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `grupos`
 --
 ALTER TABLE `grupos`
@@ -422,7 +451,13 @@ ALTER TABLE `config`
 -- AUTO_INCREMENT de tabela `cursos`
 --
 ALTER TABLE `cursos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de tabela `cursos_pacotes`
+--
+ALTER TABLE `cursos_pacotes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `grupos`
@@ -440,7 +475,7 @@ ALTER TABLE `linguagens`
 -- AUTO_INCREMENT de tabela `pacotes`
 --
 ALTER TABLE `pacotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `professores`
