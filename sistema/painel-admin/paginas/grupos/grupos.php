@@ -39,7 +39,7 @@ if (@$_SESSION['nivel'] != 'Administrador') { //coloca @ para se caso não exist
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
-								<label for="nome">Nome</label>
+								<label>Nome</label>
 								<input type="text" class="form-control" name="nome" id="nome" required>
 							</div>
 						</div>

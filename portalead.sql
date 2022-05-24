@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 24-Maio-2022 às 04:20
+-- Tempo de geração: 24-Maio-2022 às 22:07
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -89,29 +89,6 @@ CREATE TABLE `aulas` (
   `id_curso` int(11) NOT NULL,
   `sessao` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `aulas`
---
-
-INSERT INTO `aulas` (`id`, `numero`, `nome`, `link`, `id_curso`, `sessao`) VALUES
-(1, 1, 'Primeira aula desse curso', 'http://google.com', 1, 0),
-(2, 2, 'Aula dois editada', 'http://google25.com', 1, 0),
-(3, 3, 'Aula três', 'http://uol3.com.br', 1, 0),
-(5, 1, 'Aula primeira', 'http://teste.com', 2, 0),
-(18, 1, 'ddsds', 'dsdsds', 5, 0),
-(19, 2, 'aula 02', 'http://02.com', 5, 0),
-(20, 3, 'dsdsdsds', 'dsdsds', 5, 0),
-(24, 1, 'fsfsfs', 'fsfs', 6, 0),
-(25, 2, 'fsfsfs', 'sffsfs', 6, 0),
-(26, 3, 'fsfsfs', 'fsfsfs', 6, 0),
-(27, 4, 'fsfsfs', 'fsfsfs', 6, 0),
-(29, 5, 'gdgdgdggdgdgd', 'gdgdg', 6, 0),
-(30, 6, 'fsfsfs', 'fsfsfs', 6, 0),
-(31, 4, 'dada', 'dada', 1, 18),
-(32, 5, 'Aula teste sessão', 'qualquerum', 1, 19),
-(33, 6, 'gsfs', 'fsfs', 1, 17),
-(34, 7, 'fsfs', 'fsfsfsfs', 6, 14);
 
 -- --------------------------------------------------------
 
@@ -224,6 +201,48 @@ INSERT INTO `grupos` (`id`, `nome`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `linguagens`
+--
+
+CREATE TABLE `linguagens` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `linguagens`
+--
+
+INSERT INTO `linguagens` (`id`, `nome`) VALUES
+(1, 'PHP8'),
+(2, 'Javascript 6'),
+(3, 'C ++');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `pacotes`
+--
+
+CREATE TABLE `pacotes` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(50) NOT NULL,
+  `desc_rapida` varchar(60) NOT NULL,
+  `desc_longa` text NOT NULL,
+  `valor` decimal(8,2) NOT NULL,
+  `professor` int(11) NOT NULL,
+  `imagem` varchar(100) NOT NULL,
+  `carga` int(11) NOT NULL,
+  `ano` int(11) NOT NULL,
+  `palavras` varchar(255) NOT NULL,
+  `nome_url` varchar(150) NOT NULL,
+  `video` varchar(150) NOT NULL,
+  `linguagem` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `professores`
 --
 
@@ -257,18 +276,6 @@ CREATE TABLE `sessao` (
   `nome` varchar(50) NOT NULL,
   `id_curso` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `sessao`
---
-
-INSERT INTO `sessao` (`id`, `nome`, `id_curso`) VALUES
-(14, 'lklkllklklk', 6),
-(15, 'fsfsg3535', 5),
-(16, 'dada23', 5),
-(17, 'Básico', 1),
-(18, 'Intermediário', 1),
-(19, 'Avançado', 1);
 
 -- --------------------------------------------------------
 
@@ -348,6 +355,18 @@ ALTER TABLE `grupos`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `linguagens`
+--
+ALTER TABLE `linguagens`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `pacotes`
+--
+ALTER TABLE `pacotes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `professores`
 --
 ALTER TABLE `professores`
@@ -385,7 +404,7 @@ ALTER TABLE `alunos`
 -- AUTO_INCREMENT de tabela `aulas`
 --
 ALTER TABLE `aulas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `categorias`
@@ -412,6 +431,18 @@ ALTER TABLE `grupos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT de tabela `linguagens`
+--
+ALTER TABLE `linguagens`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `pacotes`
+--
+ALTER TABLE `pacotes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `professores`
 --
 ALTER TABLE `professores`
@@ -421,7 +452,7 @@ ALTER TABLE `professores`
 -- AUTO_INCREMENT de tabela `sessao`
 --
 ALTER TABLE `sessao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`

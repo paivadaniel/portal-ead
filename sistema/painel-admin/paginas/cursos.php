@@ -431,7 +431,8 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 								<div class="col-md-12">
 									<div class="form-group">
 										<label for="link_aula">Link da aula: </label>
-										<input type="text" name="link_aula" id="link_aula" class="form-control">
+										<input onkeyup="carregarVideo();" type="text" name="link_aula" id="link_aula" class="form-control">
+										<!-- na onkeyup, quando eu apertar qualquer tecla, ele no input com id="link-aula", ele irá chamar a função carregarVideo()-->
 									</div>
 								</div>
 								<div class="col-md-9">
@@ -439,6 +440,14 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 										<label for="sessao_curso">Nome da sessão: </label>
 
 										<div id="listar-sessao-aulas"></div>
+
+										<!--
+
+Aqui era necessário um <select> </select> que filtrasse as sessões por curso, dessa forma não seria exibido no <select> sessões que não fossem do curso em questão, para isso deveria ser feito um SELECT * FROM sessao WHERE id_curso = '$id_curso', porém, quem referencia a variável $id_curso é id="id_curso", que vem logo abaixo, e para recuperá-la o autor criou uma div="listar-sessao-aulas" a qual receberia o resultado de uma outra função.
+
+Em listar.php, na function aulas, que recebe id_curso, foi criada a chamada para a função listarSessaoAulas(id_curso), também definida em listar.php, esta executa um Ajax, e passa id_curso por POST para listar-sessao-aulas.php, e o resultado disso é recebido no método success da listarSessaoAulas e o html enviado para #listar-sessao-aulas.
+
+								-->
 
 									</div>
 
@@ -449,6 +458,10 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 
 								<div class="col-md-3">
 									<button type="submit" class="btn btn-primary" style="margin-top:21px">Salvar</button>
+								</div>
+
+								<div class="col-md-12" style="margin-top:15px">
+									<iframe width="100%" height="200" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="target-video"></iframe>
 								</div>
 
 
@@ -682,12 +695,13 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 		*/
 
 		var id_curso = $('#id_curso').val(); //input definido no final de listar.php, na function aulas()
-
+		var sessao_sel = $('#sessao_curso').val(); //não consegue pegar o valor de sessao_curso ainda pois primeiro é executada listarAulas() e somente depois #sessao_curso é carregado em listar-sessao-aulas.php
 		$.ajax({
 			url: 'paginas/' + pag + "/listar-aulas.php", //alunos.php aparece dentro do index.php, portanto, estamos em index.php, e consideramos a partir dele
 			method: 'POST',
 			data: {
-				id_curso
+				id_curso,
+				sessao_sel
 			},
 			//data: $('#form-aula').serialize(),
 			dataType: "text", //aqui pode ser "html", "text"
@@ -791,6 +805,12 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 		});
 
 	});
+</script>
+
+<script type="text/javascript">
+	function carregarVideo() {		
+		$('#target-video').attr('src', $('#link_aula').val());
+	}
 </script>
 
 <script src="//js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>

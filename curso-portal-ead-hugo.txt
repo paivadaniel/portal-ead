@@ -1,0 +1,30 @@
+----- mod04 - aulas 14 à 21
+
+Estou com problemas em mostrar os módulos com as aulas na modalAulas. O autor mesmo demorou várias aulas para resolver o problema, 
+e se perdeu várias vezes, e eu estou perdido.
+
+principal: listar-aulas.php
+
+secundário: cursos.php
+
+terciário: listar-sessao-aulas.php
+
+foi adicionado nesse último:
+
+<script type="text/javascript">
+	$("#sessao_curso").change(function () {	//quando mudar o seletor de sessão na modalAulas, lista novamente as aulas e muda o número da próxima aula a ser inserida de acordo com a última aula inserida na sessão
+		listarAulas();
+	});
+
+</script>
+
+porém, se deixar isso ativo lista as aulas novamente a cada mudança de sessão na modalAulas.
+
+
+---- mod04 - aula 24
+
+não limpou o vídeo de maneira certa na modalAulas
+
+usei $('#target-video').attr('src', '');
+
+na function limparCamposAulas() em listar-aulas.php

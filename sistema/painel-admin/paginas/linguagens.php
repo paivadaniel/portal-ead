@@ -3,7 +3,7 @@
 require_once('../conexao.php'); //tem que dar apenas um "../", pois ele está considerando que está em index.php, pois é onde esse arquivo é aberto
 require_once('verificar.php'); //aqui é dado @session_start();
 
-$pag = 'grupos';
+$pag = 'linguagens';
 
 
 if (@$_SESSION['nivel'] != 'Administrador') { //coloca @ para se caso não existir alguma das variáveis de sessão, não exibir o warning
@@ -15,7 +15,7 @@ if (@$_SESSION['nivel'] != 'Administrador') { //coloca @ para se caso não exist
 ?>
 
 <!-- botão que quando clicado chama a função de inserir aluno -->
-<button onclick="inserir()" type="button" class="btn btn-primary btn-flat btn-pri"><i class="fa fa-plus" aria-hidden="true"></i> Novo Grupo</button>
+<button onclick="inserir()" type="button" class="btn btn-primary btn-flat btn-pri"><i class="fa fa-plus" aria-hidden="true"></i> Nova Linguagem</button>
 
 <!-- div id="listar", quando for chamo listar-aluno.php, o resultado dele ele passará para id="listar" -->
 <div class="bs-example widget-shadow" style="padding:15px" id="listar">

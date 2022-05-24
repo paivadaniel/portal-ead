@@ -28,3 +28,9 @@ echo '</select>';
 ?>
 
 
+<script type="text/javascript">
+/*	$("#sessao_curso").change(function () {	//quando mudar o seletor de sessão na modalAulas, lista novamente as aulas e muda o número da próxima aula a ser inserida de acordo com a última aula inserida na sessão
+		listarAulas();
+	});
+*/
+</script>
