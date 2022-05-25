@@ -243,7 +243,7 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 
 
 <!-- ModalMostrar -->
-<div class="modal fade" id="modalMostrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalMostrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -258,18 +258,20 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 
 
 				<div class="row" style="border-bottom: 1px solid #cac7c7;">
-					<div class="col-md-5">
+					<div class="col-md-6">
 						<span><b>Subtítulo: </b></span>
 						<span id="desc_rapida_mostrar"></span>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-3">
 						<span><b>Valor: </b></span>
 						<span id="valor_mostrar"></span>
 					</div>
-					<div class="col-md-5">
-						<span><b>Professor: </b></span>
-						<span id="professor_mostrar"></span>
+
+					<div class="col-md-3">
+						<span><b>Promoção: </b></span>
+						<span id="promocao_mostrar"></span>
 					</div>
+				
 
 				</div>
 
@@ -303,20 +305,33 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 
 
 				<div class="row" style="border-bottom: 1px solid #cac7c7;">
-					<div class="col-md-4">
+					<div class="col-md-8">
 						<span><b>Pacote: </b></span>
 						<a target="_blank" href="" id="link_pacote"> <span id="pacote_mostrar"></span> </a>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-4">
 						<span><b>Sistema: </b></span>
 						<span id="sistema_mostrar"></span>
 					</div>
-					<div class="col-md-6">
+
+				</div>
+
+
+				<div class="row" style="border-bottom: 1px solid #cac7c7;">
+					<div class="col-md-8">
 						<span><b>Tecnologias: </b></span>
 						<span id="tecnologias_mostrar"></span>
 					</div>
 
+
+					<div class="col-md-4">
+						<span><b>Professor: </b></span>
+						<span id="professor_mostrar"></span>
+					</div>
+
+
 				</div>
+
 
 
 				<div class="row" style="border-bottom: 1px solid #cac7c7;">
@@ -362,7 +377,7 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 </div>
 
 <!-- ModalMensagem -->
-<div class="modal fade" id="modalMensagem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalMensagem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -403,7 +418,7 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 </div>
 
 <!-- ModalAulas -->
-<div class="modal fade" id="modalAulas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+<div class="modal fade" id="modalAulas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-backdrop="static">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -510,7 +525,7 @@ Em listar.php, na function aulas, que recebe id_curso, foi criada a chamada para
 
 
 <!-- ModalSessao -->
-<div class="modal fade" id="modalSessao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalSessao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">

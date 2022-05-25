@@ -176,7 +176,7 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 							<iframe width="100%" height="150" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="target-video"></iframe>
 						</div>
 						<div class="col-md-2" style="margin-top:15px">
-						<button type="submit" class="btn btn-primary">Salvar</button>
+							<button type="submit" class="btn btn-primary">Salvar</button>
 						</div>
 
 
@@ -198,7 +198,7 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 
 
 <!-- ModalMostrar -->
-<div class="modal fade" id="modalMostrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalMostrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -213,44 +213,55 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 
 
 				<div class="row" style="border-bottom: 1px solid #cac7c7;">
-					<div class="col-md-5">
+					<div class="col-md-6">
 						<span><b>Subtítulo: </b></span>
 						<span id="desc_rapida_mostrar"></span>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-3">
 						<span><b>Valor: </b></span>
 						<span id="valor_mostrar"></span>
 					</div>
-					<div class="col-md-5">
-						<span><b>Professor: </b></span>
-						<span id="professor_mostrar"></span>
+					<div class="col-md-3">
+						<span><b>Promoção: </b></span>
+						<span id="promocao_mostrar"></span>
 					</div>
-
 				</div>
 
 
 				<div class="row" style="border-bottom: 1px solid #cac7c7;">
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<span><b>Linguagem: </b></span>
 						<span id="linguagem_mostrar"></span>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<span><b>Grupo: </b></span>
 						<span id="grupo_mostrar"></span>
 					</div>
 
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<span><b>Ano: </b></span>
 						<span id="ano_mostrar"></span>
+					</div>
+
+					<div class="col-md-3">
+						<span><b>Carga: </b></span>
+						<span id="carga_mostrar"></span>
 					</div>
 				</div>
 
 
 				<div class="row" style="border-bottom: 1px solid #cac7c7;">
-					<div class="col-md-12">
+					<div class="col-md-8">
 						<span><b>Palavras-chave: </b></span>
 						<span id="palavras_mostrar"></span>
 					</div>
+
+					<div class="col-md-4">
+						<span><b>Professor: </b></span>
+						<span id="professor_mostrar"></span>
+					</div>
+
+
 				</div>
 
 				<div class="row">
@@ -262,12 +273,12 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 				</div>
 
 				<div class="row">
-					<div class="col-md-4" align="center">
-						<img width="200px" id="target_mostrar">
+					<div class="col-md-6" align="center">
+						<img width="250px" id="target_mostrar">
 					</div>
 
-					<div class="col-md-8" align="center">
-						<iframe width="100%" height="200" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="target_video_mostrar"></iframe>
+					<div class="col-md-6" align="center">
+						<iframe width="100%" height="250" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="target_video_mostrar"></iframe>
 					</div>
 
 				</div>
@@ -280,6 +291,119 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 		</div>
 	</div>
 </div>
+
+
+<!-- ModalCursos -->
+<div class="modal fade" id="modalCursos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-backdrop="static">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"><span id="nome_pacote_titulo"></span> - <span id="total_cursos"></span> <span id="cursos_singular_plural"> </span></h4>
+				<button id="btn-fechar-aula" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<div class="modal-body">
+
+				<div class="row">
+					<div class="col-md-6">
+
+						<?php
+
+						$query = $pdo->query("SELECT * FROM cursos WHERE professor LIKE '$id_usuario' ORDER BY id asc");
+						$res = $query->fetchAll(PDO::FETCH_ASSOC);
+						$total_reg = @count($res);
+
+						if ($total_reg > 0) { //cria a tabela
+
+						?>
+							<small><small>
+									<table class="table table-hover" id="tabela2">
+										<thead>
+											<tr>
+												<th>Nome</th>
+												<th>Ações</th>
+											</tr>
+										</thead>
+										<tbody>
+
+											<?php
+
+											for ($i = 0; $i < $total_reg; $i++) {
+												foreach ($res[$i] as $key => $value) {
+												}
+
+												$id = $res[$i]['id']; //id do curso
+												$nome = $res[$i]['nome'];
+												$foto = $res[$i]['imagem'];
+
+											?>
+
+												<tr>
+													<td>
+													<img src="../img/cursos/{$foto}" width="27px" class="me-2">
+
+														<?php echo $nome; ?></td>
+													<td>
+
+														<!-- inserir curso no pacote -->
+														<big><a class="{$acesso}" href="#" onclick="add('{$id}')" title="Adicionar Curso"><i class="fa fa-check verde"></i></a></big> <!-- passa o id do curso -->
+
+
+													</td>
+												</tr>
+
+											<?php
+
+											} //fechamento do for
+
+											?>
+
+										</tbody>
+
+									</table>
+								</small></small>
+
+						<?php
+
+						} //fechamento do if
+
+						?>
+
+					</div>
+
+
+					<div class="col-md-6">
+						<div id="listar-cursos">
+
+						</div>
+					</div>
+
+
+				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<small>
+							<div id="mensagem_aula" align="center" class="mt-3"></div>
+						</small>
+
+
+					</div>
+				</div>
+
+
+
+			</div>
+
+
+
+		</div>
+	</div>
+</div>
+
+
 
 <script type="text/javascript">
 	var pag = "<?= $pag ?>"
@@ -295,6 +419,17 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 		});
 	});
 </script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+        $('#tabela2').DataTable({ //id="tabela" é o id da tabela dessa página
+            "ordering": false, //desconsidera a ordenação padrão, e considera a do mysql, ou seja, mostrando os últimos alunos inseridos
+            "stateSave": true, //se fizer alguma alteração no aluno, que tiver sido encontrado no campo busca, após salvar a alteração, volta para a página sem busca, e com stateSave true, faz a alteração e conserva a página com a busca digitada, isso foi explicado no final da mod02 aula 52
+        });
+        $('#tabela_filter label input').focus();
+    });
+</script>
+
 
 <script type="text/javascript">
 	function carregarImg() {

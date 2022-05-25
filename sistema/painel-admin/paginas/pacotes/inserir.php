@@ -19,6 +19,7 @@ $promocao = $_POST['promocao'];
 $promocao = str_replace(',', '.', $promocao);
 $palavras = $_POST['palavras'];
 $desc_longa = $_POST['desc_longa']; //POST usa o name, não o id
+$video = $_POST['video']; //POST usa o name, não o id
 
 $id = $_POST['id']; //recuperou o id para depois analisar se é inserção (id vazio) ou edição (id diferente de vazio)
 
@@ -92,10 +93,10 @@ if ($id == "") { // se a categoria não existir, é inserção
 
 	//ele colocou direto categoria = $categoria, sem fazer bindValue, pois o usuário não digita a categoria, ou seja, não tem como ele fazer SQL injection nesse campo, o mesmo para grupo
 	//status somente o administrador vai poder alterar de "Aguardando" para "Aprovado"
-	$query = $pdo->prepare("INSERT INTO $tabela SET nome = :nome, desc_rapida = :desc_rapida,  desc_longa = :desc_longa, valor = :valor, professor = '$id_usuario', linguagem = '$linguagem', imagem = '$foto', ano = '$ano_atual', palavras = :palavras, grupo = '$grupo', nome_url = '$url', promocao = :promocao");
+	$query = $pdo->prepare("INSERT INTO $tabela SET nome = :nome, desc_rapida = :desc_rapida,  desc_longa = :desc_longa, valor = :valor, professor = '$id_usuario', linguagem = '$linguagem', imagem = '$foto', ano = '$ano_atual', palavras = :palavras, grupo = '$grupo', nome_url = '$url', promocao = :promocao, video = :video");
 } else { //se a categoria já existir, é edição
 
-	$query = $pdo->prepare("UPDATE $tabela SET nome = :nome, desc_rapida = :desc_rapida,  desc_longa = :desc_longa, valor = :valor, professor = '$id_usuario', linguagem = '$linguagem', imagem = '$foto', palavras = :palavras, grupo = '$grupo', nome_url = '$url', promocao = :promocao WHERE id = '$id'");
+	$query = $pdo->prepare("UPDATE $tabela SET nome = :nome, desc_rapida = :desc_rapida,  desc_longa = :desc_longa, valor = :valor, professor = '$id_usuario', linguagem = '$linguagem', imagem = '$foto', palavras = :palavras, grupo = '$grupo', nome_url = '$url', promocao = :promocao, video = :video WHERE id = '$id'");
 	//ano não altera, como no inserir.php de cursos
 }
 
@@ -105,6 +106,7 @@ $query->bindValue(":desc_longa", "$desc_longa");
 $query->bindValue(":valor", "$valor");
 $query->bindValue(":palavras", "$palavras");
 $query->bindValue(":promocao", "$promocao");
+$query->bindValue(":video", "$video");
 
 $query->execute();
 

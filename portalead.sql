@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 25-Maio-2022 às 05:35
+-- Tempo de geração: 25-Maio-2022 às 22:04
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -176,7 +176,7 @@ INSERT INTO `cursos` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `profe
 (1, 'Curso de HTML', 'Aprendendo WEB', '<p style=\"font-family: \">O curso de Painel de Gestão para <b>portais de cursos EAD</b> possui 60 aulas, este é o segundo módulo do desenvolvimento do site / <b>sistema para gestão de cursos</b>, vamos aprender neste módulo como criar o crud para cadastros dos Professores, Alunos e Administradores do sistema, bem como toda gestão de exclusão de dados, listagem, buscas, inserção e edição, relacionamento entre tabelas e muito mais, tudo que você vai precisar para desenvolver todo e qualquer tipo de sistema, <font size=\"4\" color=\"#996633\">adquira já</font> nosso treinamento e comece a criar seus projetos de forma profissional.</p>', '59.99', 1, 4, '20-05-2022-15-33-52-mendigo-fudido.jpg', 'Aprovado', 20, 'Ornitorrinco fuma', 'google.com', 2022, 'curso de programação, curso de html', 5, 'curso-de-html', 'pacote-curso-html', 'Não', 'teste2.com', 'html, css, bootstrap', '0.00'),
 (5, 'tefsfs', 'tetete', '', '42.00', 1, 3, 'sem-foto.png', 'Aguardando', 23, '', '', 2022, 'dsssd', 6, 'tefsfs', '', 'Não', '', '', '0.00'),
 (6, 'sasasa', 'sasasasa', 'dadada', '23.00', 1, 4, 'sem-foto.png', 'Aguardando', 32, '', '', 2022, 'dadada', 6, 'sasasa', '', 'Não', '', '', '0.00'),
-(7, 'dsds', 'dsds', 'dadada', '80.00', 1, 3, 'sem-foto.png', 'Aguardando', 23, '', '', 2022, 'dsds', 4, 'dsds', '', 'Não', '', '', '60.00');
+(7, 'dsds', 'dsds', 'dadadaxxx', '80.00', 1, 3, 'sem-foto.png', 'Aguardando', 23, '', '', 2022, 'dsds', 4, 'dsds', '', 'Não', '', '', '60.00');
 
 -- --------------------------------------------------------
 
@@ -260,8 +260,8 @@ CREATE TABLE `pacotes` (
 --
 
 INSERT INTO `pacotes` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `imagem`, `grupo`, `ano`, `palavras`, `nome_url`, `video`, `linguagem`, `promocao`) VALUES
-(1, 'Sistema Imobiliário', 'PHP e MySql', 'dadadada', '280.00', 1, '24-05-2022-19-46-23-garrafa-de-cerveja-pequena-à-disposição-92840768.jpg', 4, 2022, 'portal imob', 'sistema-imobiliario', '', 1, '0.00'),
-(2, 'dsds', 'dsds', 'fsfsfs', '50.00', 1, 'sem-foto.png', 4, 2022, 'fsfsfs', 'dsds', '', 3, '25.00');
+(1, 'Sistema Imobiliário', 'PHP e MySql', 'dadadada', '280.00', 1, '24-05-2022-19-46-23-garrafa-de-cerveja-pequena-à-disposição-92840768.jpg', 4, 2022, 'portal imob', 'sistema-imobiliario', '', 1, '150.00'),
+(2, 'pacote 02', 'dsds', 'fsfsfs', '50.00', 1, 'sem-foto.png', 4, 2022, 'fsfsfs', 'pacote-02', 'https://www.youtube.com/embed/F6wJ8vYmeVE', 3, '25.00');
 
 -- --------------------------------------------------------
 

@@ -13,6 +13,12 @@ $query = $pdo->query("SELECT * FROM $tabela WHERE id_curso = '$id_curso' ORDER B
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 
+if ($total_reg == 1) {
+    $quantidade_cursos = 'cursos';
+} else {
+    $quantidade_cursos = 'cursos';
+}
+
 if ($total_reg > 0) { //cria a tabela
 
     echo <<<HTML

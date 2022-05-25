@@ -80,13 +80,11 @@ HTML;
 
         $query2 = $pdo->query("SELECT * FROM linguagens WHERE id = '$linguagem'");
         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-
         if (@count($res2) > 0) {
             $nome_linguagem = $res2[0]['nome'];
         } else {
             $nome_linguagem = 'Sem Registro';
         }
-
 
         $query2 = $pdo->query("SELECT * FROM grupos WHERE id = '$grupo'");
         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
@@ -219,6 +217,9 @@ HTML;
         $('#foto').val(''); //caminho da foto
         $('#target').attr('src', 'img/pacotes/' + foto); //mostra imagem da foto
 
+        $('#video').val('video'); //url do vídeo
+        $('#target-video').attr('src', video); //video propriamente dito
+
         $('#tituloModal').text('Editar Registro');
         $('#modalForm').modal('show');
         $('#mensagem').text('');
@@ -234,14 +235,12 @@ HTML;
         $('#promocao_mostrar').text(promocao);
         $('#professor_mostrar').text(professor);
         $('#linguagem_mostrar').text(linguagem);
+        $('#target_mostrar').attr('src', 'img/pacotes/' + foto);
         $('#ano_mostrar').text(ano);
         $('#palavras_mostrar').text(palavras);
         $('#grupo_mostrar').text(grupo);
-        $('#carga_mostrar').text(carga);
-
-
-        $('#target_mostrar').attr('src', 'img/pacotes/' + foto);
         $('#target_video_mostrar').attr('src', video);
+        $('#carga_mostrar').text(carga);
 
         $('#modalMostrar').modal('show');
 
@@ -270,6 +269,7 @@ HTML;
     function cursos(id, nome, cursos) {
         $('#id_pacote').val(id);
         $('#nome_pacote_titulo').text(nome);
+        $('#total_cursos').text(cursos);
 
         $('#modalCursos').modal('show');
         listarCursos();

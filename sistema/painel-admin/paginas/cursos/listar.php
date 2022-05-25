@@ -261,6 +261,7 @@ HTML;
         $('#desc_rapida_mostrar').text(desc_rapida);
         $('#desc_longa_mostrar').html(desc_longa); //se tiver negrito, aspas e outros caracteres HTML, exibe-os do jeito como foram inseridos
         $('#valor_mostrar').text(valor);
+        $('#promocao_mostrar').text(promocao);
         $('#professor_mostrar').text(professor);
         $('#categoria_mostrar').text(categoria);
         $('#status_mostrar').text(status);
@@ -300,6 +301,7 @@ HTML;
         $('#desc_rapida').val('');
         nicEditors.findEditor('area').setContent('');
         $('#valor').val('');
+        $('#promocao').val('');
         $('#carga').val('');
         $('#arquivo').val('');
         $('#palavras').val('');
