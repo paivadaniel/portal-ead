@@ -202,7 +202,7 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="tituloModal"><span id="nome_mostrar"> </span> - Status: <span id="status_mostrar"> </span></h4>
+				<h4 class="modal-title" id="tituloModal"><span id="nome_mostrar"> </span></h4>
 				<button id="btn-fechar-excluir" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px">
 					<span aria-hidden="true">&times;</span>
 				</button>

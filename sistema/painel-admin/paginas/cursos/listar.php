@@ -63,6 +63,7 @@ HTML;
         $desc_rapida = $res[$i]['desc_rapida'];
         $desc_longa = $res[$i]['desc_longa'];
         $valor = $res[$i]['valor'];
+        $promocao = $res[$i]['promocao'];
         $professor = $res[$i]['professor'];
         $categoria = $res[$i]['categoria'];
         $foto = $res[$i]['imagem'];
@@ -121,7 +122,14 @@ HTML;
 
         //valor formatodo e descrição_longa formatada
         $valorF = number_format($valor, 2, ',', '.',);
+        $promocaoF = number_format($promocao, 2, ',', '.',);
         $desc_longa = str_replace('"', '**', $desc_longa); //quando joga em onclick="editar()", como o conteúdo de $desc_longa muita das vezes tem aspas, como align="center", então dá problema
+
+        if($promocao > 0) {
+            $promo = ' / ' . $promocaoF;
+        } else {
+            $promo = '';
+        }
 
         echo <<<HTML
 
@@ -140,7 +148,7 @@ HTML;
 
     </a>
         </td> <!-- repare que <?php echo $nome ?> é substituído aqui por {$nome}-->
-        <td class="">R$ {$valorF}</td>
+        <td class="">R$ {$valorF} <small><span class="text-danger"><b> {$promo} </b></span></small></td>
         <td class="">{$nome_professor}</td>
         <td class="">{$nome_categoria}</td>
         <td class="esc">0</td>
@@ -149,10 +157,10 @@ HTML;
         <td>
 
         <!-- não tem como editar o professor que registrou o curso -->
-		<big><a href="#" onclick="editar('{$id}', '{$nome}', '{$desc_rapida}', '{$desc_longa}' , '{$valor}' , '{$categoria}' , '{$foto}' , '{$carga}' , '{$arquivo}' , '{$ano}' , '{$palavras}' , '{$grupo}' , '{$pacote}', '{$sistema}', '{$link}', '{$tecnologias}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
+		<big><a href="#" onclick="editar('{$id}', '{$nome}', '{$desc_rapida}', '{$desc_longa}', '{$valor}', '{$promocao}', '{$categoria}', '{$foto}', '{$carga}', '{$arquivo}', '{$palavras}', '{$grupo}', '{$pacote}', '{$sistema}', '{$link}', '{$tecnologias}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
 
 
-		<big><a href="#" onclick="mostrar('{$nome}', '{$desc_rapida}', '{$desc_longa}' , '{$valorF}' , '{$nome_professor}' ,'{$nome_categoria}' , '{$foto}' , '{$status}', '{$carga}' , '{$arquivo}' , '{$ano}' , '{$palavras}' , '{$nome_grupo}' , '{$pacote}', '{$sistema}', '{$link}', '{$tecnologias}')" title="Ver Dados"><i class="fa fa-info-circle text-secondary"></i></a></big>
+		<big><a href="#" onclick="mostrar('{$nome}', '{$desc_rapida}', '{$desc_longa}' , '{$valorF}' , '{$promocaoF}', '{$nome_professor}', '{$nome_categoria}', '{$foto}', '{$status}', '{$carga} ', '{$arquivo}', '{$ano}', '{$palavras}', '{$nome_grupo}', '{$pacote}', '{$sistema}', '{$link}', '{$tecnologias}')" title="Ver Dados"><i class="fa fa-info-circle text-secondary"></i></a></big>
 
 
         <!-- abertura excluir -->
@@ -212,7 +220,7 @@ HTML;
     //não vai no js/ajax.js pois não é genérica, por exemplo, a função de editar cursos recebe outros parâmetros
     //função para abrir a modal de editar com os valores preenchidos carregados
     //ela poderia ir dentro de alunos.php, porém, tudo que está aqui dentro, está sendo carregado em alunos.php, no elemento com id="listar"
-    function editar(id, nome, desc_rapida, desc_longa, valor, categoria, foto, carga, arquivo, ano, palavras, grupo, pacote, sistema, link, tecnologias) {
+    function editar(id, nome, desc_rapida, desc_longa, valor, promocao, categoria, foto, carga, arquivo, palavras, grupo, pacote, sistema, link, tecnologias) {
 
         //para cada caracter de descrição longa, se for um asterico, ele substituirá dois astericos por uma aspas
         for (let letra of desc_longa) {
@@ -226,10 +234,10 @@ HTML;
         $('#desc_rapida').val(desc_rapida);
         nicEditors.findEditor("area").setContent(desc_longa); //aqui não é mais saveContent()
         $('#valor').val(valor);
+        $('#promocao').val(promocao);
         $('#categoria').val(categoria).change(); //esse change() é desnecessário para que ele salve a edição no select, funciona sem ele também
         $('#carga').val(carga);
         $('#arquivo').val(arquivo);
-        $('#ano').val(ano);
         $('#palavras').val(palavras);
         $('#grupo').val(grupo).change(); //esse change() é desnecessário para que ele salve a edição no select, funciona sem ele também
         $('#pacote').val(pacote);
@@ -247,8 +255,8 @@ HTML;
 
     }
 
-    function mostrar(nome, desc_rapida, desc_longa, valor, professor, categoria, foto, status, carga, arquivo, ano, palavras, grupo, pacote, sistema, link, tecnologias) {
-
+    function mostrar(nome, desc_rapida, desc_longa, valor, promocao, professor, categoria, foto, status, carga, arquivo, ano, palavras, grupo, pacote, sistema, link, tecnologias) {
+ 
         $('#nome_mostrar').text(nome);
         $('#desc_rapida_mostrar').text(desc_rapida);
         $('#desc_longa_mostrar').html(desc_longa); //se tiver negrito, aspas e outros caracteres HTML, exibe-os do jeito como foram inseridos

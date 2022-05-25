@@ -72,6 +72,7 @@ HTML;
         $palavras = $res[$i]['palavras'];
         $grupo = $res[$i]['grupo'];
         $nome_url = $res[$i]['nome_url'];
+        $video = $res[$i]['video'];
 
         $query2 = $pdo->query("SELECT * FROM usuarios WHERE id = '$professor'");
         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
@@ -79,38 +80,31 @@ HTML;
 
         $query2 = $pdo->query("SELECT * FROM linguagens WHERE id = '$linguagem'");
         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-        $nome_linguagem = $res2[0]['nome'];
+
+        if (@count($res2) > 0) {
+            $nome_linguagem = $res2[0]['nome'];
+        } else {
+            $nome_linguagem = 'Sem Registro';
+        }
+
 
         $query2 = $pdo->query("SELECT * FROM grupos WHERE id = '$grupo'");
         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
         $nome_grupo = $res2[0]['nome'];
 
-        $query2 = $pdo->query("SELECT * FROM cursos_pacotes WHERE pacote = '$id'");
+        $query2 = $pdo->query("SELECT * FROM cursos_pacotes WHERE id_pacote = '$id'"); //autor criou uma tabela inútil aqui, a cursos_pacotes, não precisa, há um campo pacote na tabela cursos
         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-        $aulas = @count($res2);
+        $cursos = @count($res2);
 
-        if ($status == 'Aprovado') {
-            $excluir = 'ocultar'; //cursos aprovados não podem ser excluidos
-            $icone = 'fa-check-square';
-            $titulo_link = 'Desaprovar Curso';
-            $acao = 'Aguardando'; //ação é o contrário, se está aprovado, e for clicado, a ação é mudar para 'Aguardando'
-            $classe_linha = '';
-            $classe_square = 'verde';
+        if ($cursos > 0) {
+            for ($i2 = 0; $i2 < $cursos; $i2++) {
+                foreach ($res2[$i] as $key => $value) {
+                }
+                $carga = $res2[$i]['carga'];
+            }
         } else {
-            $excluir = '';
-            $icone = 'fa-square-o';
-            $titulo_link = 'Aprovar Curso';
-            $acao = 'Aprovado';
-            $classe_linha = 'text-muted';
-            $classe_square = 'text-danger';
-        }
+            $carga = 0;
 
-        if ($mensagem != '') {
-            $classe_mensagem = 'warning';
-            $icone2 = 'fa-comment';
-        } else {
-            $classe_mensagem = 'text-warning';
-            $icone2 = 'fa-comment-o';
         }
 
         //valor formatodo e descrição_longa formatada
@@ -118,40 +112,41 @@ HTML;
         $promocaoF = number_format($promocao, 2, ',', '.',);
         $desc_longa = str_replace('"', '**', $desc_longa); //quando joga em onclick="editar()", como o conteúdo de $desc_longa muita das vezes tem aspas, como align="center", então dá problema
 
+        if($promocao > 0) {
+            $promo = ' / ' . $promocaoF;
+        } else {
+            $promo = '';
+        }
+
         echo <<<HTML
 
-<tr class="{$classe_linha}">
+<tr class="">
         <td>
-        <img src="img/cursos/{$foto}" width="27px" class="me-2">
-
-
+        <img src="img/pacotes/{$foto}" width="27px" class="me-2">
         </td>
         <td class="">
-        <a href="#" onclick="aulas('{$id}', '{$nome}', '{$aulas}')" style="text-decoration:none; color:#4f4f4e"> <!-- nome é passado como parâmetro apenas para aparecer na modal -->    
+        <a href="#" onclick="cursos('{$id}', '{$nome}', '{$cursos}')" style="text-decoration:none; color:#4f4f4e"> <!-- nome é passado como parâmetro apenas para aparecer na modal -->    
         <!-- se não colocar cerquilha no href, e deixá-lo vazio, não funciona o onclick e daí não chama a modalAulas -->
         {$nome}
 
-      <i class="fa fa-video-camera text-danger"></i>  <!-- classe text-primary dava quebra de linha, trocou para text-danger -->
-
     </a>
         </td> <!-- repare que <?php echo $nome ?> é substituído aqui por {$nome}-->
-        <td class="">R$ {$valorF}</td>
+        <td class="">R$ {$valorF} <small><span class="text-danger"><b> {$promo} </b></span></small></td>
         <td class="">{$nome_professor}</td>
         <td class="">{$nome_linguagem}</td>
         <td class="esc">0</td>
-        <td class="esc">{$aulas}</td>
+        <td class="esc">{$cursos}</td>
 
         <td>
 
         <!-- não tem como editar o professor que registrou o curso -->
-		<big><a href="#" onclick="editar('{$id}', '{$nome}', '{$desc_rapida}', '{$desc_longa}' , '{$valor}' , '{$categoria}' , '{$foto}' , '{$carga}' , '{$arquivo}' , '{$ano}' , '{$palavras}' , '{$grupo}' , '{$pacote}', '{$sistema}', '{$link}', '{$tecnologias}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
+		<big><a href="#" onclick="editar('{$id}', '{$nome}', '{$desc_rapida}', '{$desc_longa}' , '{$valor}', '{$promocao}', '{$linguagem}' , '{$foto}' , '{$palavras}' , '{$grupo}', '{$video}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
 
 
-		<big><a href="#" onclick="mostrar('{$nome}', '{$desc_rapida}', '{$desc_longa}' , '{$valorF}' , '{$nome_professor}' ,'{$nome_categoria}' , '{$foto}' , '{$status}', '{$carga}' , '{$arquivo}' , '{$ano}' , '{$palavras}' , '{$nome_grupo}' , '{$pacote}', '{$sistema}', '{$link}', '{$tecnologias}')" title="Ver Dados"><i class="fa fa-info-circle text-secondary"></i></a></big>
-
+		<big><a href="#" onclick="mostrar('{$nome}', '{$desc_rapida}', '{$desc_longa}' , '{$valorF}' , '{$promocaoF}', '{$nome_professor}','{$nome_linguagem}', '{$foto}', '{$ano}', '{$palavras}', '{$nome_grupo}', '{$video}', '{$carga}')" title="Ver Dados"><i class="fa fa-info-circle text-secondary"></i></a></big>
 
         <!-- abertura excluir -->
-        <li class="dropdown head-dpdn2 {$excluir}" style="display: inline-block;">
+        <li class="dropdown head-dpdn2" style="display: inline-block;">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Excluir Dados"><big><i class="fa fa-trash-o text-danger"></i></big></a>
 
 		<ul class="dropdown-menu" style="margin-left:-230px;">
@@ -165,13 +160,7 @@ HTML;
         <!-- fechamento excluir -->
    
         <!-- criar sessão -->
-        <big><a href="#" onclick="sessao('{$id}', '{$nome}')" title="Criar Sessão"><i class="fa fa-globe verde"></i></a></big>
-
-        <!-- ativar/desativar curso -->
-		<big><a class="{$acesso}" href="#" onclick="ativar('{$id}', '{$acao}')" title="{$titulo_link}"><i class="fa {$icone} $classe_square"></i></a></big>
-
-        <!-- mostrar observações -->
-        <big><a href="#" onclick="obs('{$id}', '{$nome}', '{$mensagem}')" title="Ver Mensagens"><i class="fa {$icone2} {$classe_mensagem}"></i></a></big>
+        <big><a href="#" onclick="cursos('{$id}', '{$nome}', '{$cursos}')" title="Inserir Cursos"><i class="fa fa-book verde"></i></a></big>
 
     </td>
 
@@ -207,7 +196,7 @@ HTML;
     //não vai no js/ajax.js pois não é genérica, por exemplo, a função de editar cursos recebe outros parâmetros
     //função para abrir a modal de editar com os valores preenchidos carregados
     //ela poderia ir dentro de alunos.php, porém, tudo que está aqui dentro, está sendo carregado em alunos.php, no elemento com id="listar"
-    function editar(id, nome, desc_rapida, desc_longa, valor, categoria, foto, carga, arquivo, ano, palavras, grupo, pacote, sistema, link, tecnologias) {
+    function editar(id, nome, desc_rapida, desc_longa, valor, promocao, linguagem, foto, palavras, grupo, video) {
 
         //para cada caracter de descrição longa, se for um asterico, ele substituirá dois astericos por uma aspas
         for (let letra of desc_longa) {
@@ -221,20 +210,14 @@ HTML;
         $('#desc_rapida').val(desc_rapida);
         nicEditors.findEditor("area").setContent(desc_longa); //aqui não é mais saveContent()
         $('#valor').val(valor);
-        $('#categoria').val(categoria).change(); //esse change() é desnecessário para que ele salve a edição no select, funciona sem ele também
-        $('#carga').val(carga);
-        $('#arquivo').val(arquivo);
-        $('#ano').val(ano);
+        $('#promocao').val(promocao);
+        $('#linguagem').val(linguagem).change(); //esse change() é desnecessário para que ele salve a edição no select, funciona sem ele também
         $('#palavras').val(palavras);
         $('#grupo').val(grupo).change(); //esse change() é desnecessário para que ele salve a edição no select, funciona sem ele também
-        $('#pacote').val(pacote);
-        $('#sistema').val(sistema).change(); //esse change() é desnecessário para que ele salve a edição no select, funciona sem ele também
-        $('#link').val(link);
-        $('#tecnologias').val(tecnologias);
 
         //$('#foto').val(foto); //só por ter uma linha repita com foto não estava abrindo a modal
         $('#foto').val(''); //caminho da foto
-        $('#target').attr('src', 'img/cursos/' + foto); //mostra imagem da foto
+        $('#target').attr('src', 'img/pacotes/' + foto); //mostra imagem da foto
 
         $('#tituloModal').text('Editar Registro');
         $('#modalForm').modal('show');
@@ -242,40 +225,25 @@ HTML;
 
     }
 
-    function mostrar(nome, desc_rapida, desc_longa, valor, professor, categoria, foto, status, carga, arquivo, ano, palavras, grupo, pacote, sistema, link, tecnologias) {
+    function mostrar(nome, desc_rapida, desc_longa, valor, promocao, professor, linguagem, foto, ano, palavras, grupo, video, carga) {
 
         $('#nome_mostrar').text(nome);
         $('#desc_rapida_mostrar').text(desc_rapida);
         $('#desc_longa_mostrar').html(desc_longa); //se tiver negrito, aspas e outros caracteres HTML, exibe-os do jeito como foram inseridos
         $('#valor_mostrar').text(valor);
+        $('#promocao_mostrar').text(promocao);
         $('#professor_mostrar').text(professor);
-        $('#categoria_mostrar').text(categoria);
-        $('#status_mostrar').text(status);
-        $('#carga_mostrar').text(carga);
-        $('#arquivo_mostrar').text(arquivo);
+        $('#linguagem_mostrar').text(linguagem);
         $('#ano_mostrar').text(ano);
         $('#palavras_mostrar').text(palavras);
-        $('#pacote_mostrar').text(pacote);
         $('#grupo_mostrar').text(grupo);
-        $('#link_mostrar').text(link);
-        $('#tecnologias_mostrar').text(tecnologias);
+        $('#carga_mostrar').text(carga);
 
-        $('#target_mostrar').attr('src', 'img/cursos/' + foto);
-        $('#link_pacote').attr('href', '<?= $url_sistema ?>' + pacote); //no javascript, para chamar php, troca 'php' por '='
-        $('#link_arquivo').attr('href', '<?= $url_sistema ?>' + arquivo);
-        $('#link_curso').attr('href', '<?= $url_sistema ?>' + link);
+
+        $('#target_mostrar').attr('src', 'img/pacotes/' + foto);
+        $('#target_video_mostrar').attr('src', video);
 
         $('#modalMostrar').modal('show');
-
-    }
-
-    function obs(id, nome, mensagem) {
-
-        $('#id_mensagem').val(id); //id_mensagem é um input, portanto usa val, de value, e não text
-        $('#nome_mensagem').text(nome);
-        nicEditors.findEditor('mensagem_mensagem').setContent(mensagem);
-
-        $('#modalMensagem').modal('show');
 
     }
 
@@ -287,48 +255,23 @@ HTML;
         $('#desc_rapida').val('');
         nicEditors.findEditor('area').setContent('');
         $('#valor').val('');
-        $('#carga').val('');
-        $('#arquivo').val('');
+        $('#promocao').val('');
+        $('#linguagem').val('');
         $('#palavras').val('');
-        $('#pacote').val('');
-        $('#link').val('');
-        $('#tecnologias').val('');
-
 
         $('#foto').val('');
+        $('#video').val('');
+
         $('#target').attr('src', 'img/cursos/sem-foto.png');
-    }
-
-    function aulas(id_curso, nome, aulas) {
-        $('#id_curso').val(id_curso);
-        $('#nome_aula_titulo').text(nome);
-
-        $('#modalAulas').modal('show');
-        listarAulas();
-        listarSessaoAulas(id_curso); //chamei a função como ListarSessaoAulas, ou seja, com a primeira letra maiúscula, porém, é case sensitive, e deu erro
-    }
-
-    function sessao(id, nome) {
-        $('#id_curso_sessao').val(id);
-        $('#nome_curso_sessao').text(nome);
-        $('#nome_sessao').val('');
-
-        $('#modalSessao').modal('show');
-        listarSessao();
+        $('#target-video').attr('src', '');
 
     }
 
-    function listarSessaoAulas(curso) {
-        $.ajax({
-			url: 'paginas/' + pag + "/listar-sessao-aulas.php", //alunos.php aparece dentro do index.php, portanto, estamos em index.php, e consideramos a partir dele
-			method: 'POST',
-			data: {curso},
-			dataType: "text",
+    function cursos(id, nome, cursos) {
+        $('#id_pacote').val(id);
+        $('#nome_pacote_titulo').text(nome);
 
-			success: function(result) {
-				$("#listar-sessao-aulas").html(result);
-			}
-		});
-
-    }
+        $('#modalCursos').modal('show');
+        listarCursos();
+     }
 </script>
