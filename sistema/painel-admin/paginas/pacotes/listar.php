@@ -267,7 +267,7 @@ HTML;
     }
 
     function cursos(id, nome, cursos) {
-        $('#id_pacote').val(id);
+        $('#id-pacote').val(id);
         $('#nome_pacote_titulo').text(nome);
         $('#total_cursos').text(cursos);
 

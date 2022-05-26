@@ -342,13 +342,13 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 
 												<tr>
 													<td>
-													<img src="../img/cursos/{$foto}" width="27px" class="me-2">
+													<img src="img/cursos/<?php echo $foto ?>" width="27px" class="me-2"> <!-- pacotes é chamado dentro de painel-admin/index.php, por isso, a pasta img não precisa fazer "../img/cursos" para acessar -->
 
 														<?php echo $nome; ?></td>
 													<td>
 
 														<!-- inserir curso no pacote -->
-														<big><a class="{$acesso}" href="#" onclick="add('{$id}')" title="Adicionar Curso"><i class="fa fa-check verde"></i></a></big> <!-- passa o id do curso -->
+														<big><a class="{$acesso}" href="#" onclick="add('<?php echo $id?>')" title="Adicionar Curso"><i class="fa fa-check verde"></i></a></big> <!-- passa o id do curso -->
 
 
 													</td>
@@ -385,8 +385,11 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 
 				<div class="row">
 					<div class="col-md-12">
+
+					<input type="hidden" name="id-pacote" id="id-pacote">
+
 						<small>
-							<div id="mensagem_aula" align="center" class="mt-3"></div>
+							<div id="mensagem_cursos" align="center" class="mt-3"></div>
 						</small>
 
 
@@ -493,6 +496,71 @@ $(document).ready(function() {
 		$('#target-video').attr('src', $('#video').val());
 	}
 </script>
+
+
+
+
+
+<script>
+	function listarCursos() {
+
+		var id_pacote = $('#id-pacote').val();
+
+		$.ajax({
+			url: 'paginas/' + pag + "/listar-cursos.php", //alunos.php aparece dentro do index.php, portanto, estamos em index.php, e consideramos a partir dele
+			method: 'POST',
+			data: {id_pacote},
+			//data: $('#form-aula').serialize(),
+			dataType: "text", //aqui pode ser "html", "text"
+
+			success: function(result) {
+				$("#listar-cursos").html(result);
+				$('#mensagem_cursos').text('');
+				limparCamposAulas();
+
+			}
+		});
+	}
+</script>
+
+<script type="text/javascript">
+	$("#form-aula").submit(function() {
+		event.preventDefault();
+		nicEditors.findEditor('area').saveContent();
+		var formData = new FormData(this);
+
+		$.ajax({
+			url: 'paginas/' + pag + "/inserir-aulas.php",
+			type: 'POST',
+			data: formData,
+
+			success: function(mensagem) {
+				$('#mensagem_aula').text('');
+				$('#mensagem_aula').removeClass()
+				if (mensagem.trim() == "Salvo com Sucesso") {
+					//$('#btn-fechar-aula').click();
+					listarAulas();
+				} else {
+					$('#mensagem_aula').addClass('text-danger')
+					$('#mensagem_aula').text(mensagem)
+				}
+
+			},
+
+			cache: false,
+			contentType: false,
+			processData: false,
+
+		});
+
+	});
+</script>
+
+
+
+
+
+
 
 <script src="//js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
 <script type="text/javascript">
