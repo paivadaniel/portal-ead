@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27-Maio-2022 às 02:51
--- Versão do servidor: 10.4.22-MariaDB
--- versão do PHP: 8.0.15
+-- Tempo de geração: 27-Maio-2022 às 22:00
+-- Versão do servidor: 10.4.21-MariaDB
+-- versão do PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -89,6 +89,28 @@ CREATE TABLE `aulas` (
   `id_curso` int(11) NOT NULL,
   `sessao` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `banner_login`
+--
+
+CREATE TABLE `banner_login` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(50) NOT NULL,
+  `link` varchar(100) NOT NULL,
+  `foto` varchar(100) NOT NULL,
+  `ativo` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `banner_login`
+--
+
+INSERT INTO `banner_login` (`id`, `nome`, `link`, `foto`, `ativo`) VALUES
+(2, 'Sistema Imobiliário', 'http://hugocursos.com.br', '27-05-2022-16-39-20-banner-login.jpg', 'Não'),
+(3, 'Sistema Teste 23', 'http://google2.com', '27-05-2022-16-59-05-banner-teste.jpg', 'Não');
 
 -- --------------------------------------------------------
 
@@ -189,14 +211,6 @@ CREATE TABLE `cursos_pacotes` (
   `id_curso` int(11) NOT NULL,
   `id_pacote` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `cursos_pacotes`
---
-
-INSERT INTO `cursos_pacotes` (`id`, `id_curso`, `id_pacote`) VALUES
-(35, 1, 2),
-(36, 5, 2);
 
 -- --------------------------------------------------------
 
@@ -362,6 +376,12 @@ ALTER TABLE `aulas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `banner_login`
+--
+ALTER TABLE `banner_login`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `categorias`
 --
 ALTER TABLE `categorias`
@@ -444,6 +464,12 @@ ALTER TABLE `aulas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de tabela `banner_login`
+--
+ALTER TABLE `banner_login`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT de tabela `categorias`
 --
 ALTER TABLE `categorias`
@@ -465,7 +491,7 @@ ALTER TABLE `cursos`
 -- AUTO_INCREMENT de tabela `cursos_pacotes`
 --
 ALTER TABLE `cursos_pacotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `grupos`

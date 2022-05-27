@@ -210,6 +210,21 @@ $senha_usuario = $res[0]['senha'];
                             </li>
 
 
+
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-cog"></i>
+                                    <span>Recursos do Site</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <!-- cursos e pacotes podem ser acessados por administradores e também professores -->
+                                    <li><a href="index.php?pagina=banner_login"><i class="fa fa-angle-right"></i> Banner Login</a></li>
+
+                                </ul>
+                            </li>
+
+
                         </ul>
                     </div>
                     <!-- /.navbar-collapse -->
