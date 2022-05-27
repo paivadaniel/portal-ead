@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 26-Maio-2022 às 21:21
--- Versão do servidor: 10.4.21-MariaDB
--- versão do PHP: 8.0.10
+-- Tempo de geração: 27-Maio-2022 às 02:51
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -189,6 +189,14 @@ CREATE TABLE `cursos_pacotes` (
   `id_curso` int(11) NOT NULL,
   `id_pacote` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `cursos_pacotes`
+--
+
+INSERT INTO `cursos_pacotes` (`id`, `id_curso`, `id_pacote`) VALUES
+(35, 1, 2),
+(36, 5, 2);
 
 -- --------------------------------------------------------
 
@@ -457,7 +465,7 @@ ALTER TABLE `cursos`
 -- AUTO_INCREMENT de tabela `cursos_pacotes`
 --
 ALTER TABLE `cursos_pacotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de tabela `grupos`

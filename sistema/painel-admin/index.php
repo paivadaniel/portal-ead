@@ -3,6 +3,7 @@
 require_once('../conexao.php');
 require_once('verificar.php'); //aqui é dado @session_start();
 
+//@session_start() foi criado em verificar.php
 $id_usuario = $_SESSION['id']; //criada em autenticar.php, o id de um usuário nunca irá ser alterado
 
 //ao invés de crir as variáveis do menu administrativo, utilizou outra forma para chamar as opções do menu 

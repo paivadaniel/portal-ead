@@ -93,24 +93,27 @@ HTML;
         $query2 = $pdo->query("SELECT * FROM cursos_pacotes WHERE id_pacote = '$id'"); //autor criou uma tabela inútil aqui, a cursos_pacotes, não precisa, há um campo pacote na tabela cursos
         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
         $cursos = @count($res2);
+        $carga = 0; //se não iniciar carga com zero, ele provavelmente considera que carga começa com lixo na soma do if abaixo, e acusa Undefined variable $carga
 
         if ($cursos > 0) {
             for ($i2 = 0; $i2 < $cursos; $i2++) {
-                foreach ($res2[$i] as $key => $value) {
-                }
-                $carga = $res2[$i]['carga'];
-            }
-        } else {
-            $carga = 0;
+                foreach ($res2[$i2] as $key => $value) {
+                } //para cada curso do pacotet
+                $id_curso = $res2[$i2]['id_curso'];
 
-        }
+                $query3 = $pdo->query("SELECT * FROM cursos where id = '$id_curso'");
+                $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
+                $carga += $res3[0]['carga']; //soma as cargas de cada curso no pacote
+
+            }
+        } 
 
         //valor formatodo e descrição_longa formatada
         $valorF = number_format($valor, 2, ',', '.',);
         $promocaoF = number_format($promocao, 2, ',', '.',);
         $desc_longa = str_replace('"', '**', $desc_longa); //quando joga em onclick="editar()", como o conteúdo de $desc_longa muita das vezes tem aspas, como align="center", então dá problema
 
-        if($promocao > 0) {
+        if ($promocao > 0) {
             $promo = ' / ' . $promocaoF;
         } else {
             $promo = '';
@@ -139,7 +142,6 @@ HTML;
 
         <!-- não tem como editar o professor que registrou o curso -->
 		<big><a href="#" onclick="editar('{$id}', '{$nome}', '{$desc_rapida}', '{$desc_longa}' , '{$valor}', '{$promocao}', '{$linguagem}' , '{$foto}' , '{$palavras}' , '{$grupo}', '{$video}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
-
 
 		<big><a href="#" onclick="mostrar('{$nome}', '{$desc_rapida}', '{$desc_longa}' , '{$valorF}' , '{$promocaoF}', '{$nome_professor}','{$nome_linguagem}', '{$foto}', '{$ano}', '{$palavras}', '{$nome_grupo}', '{$video}', '{$carga}')" title="Ver Dados"><i class="fa fa-info-circle text-secondary"></i></a></big>
 
@@ -273,5 +275,5 @@ HTML;
 
         $('#modalCursos').modal('show');
         listarCursos();
-     }
+    }
 </script>

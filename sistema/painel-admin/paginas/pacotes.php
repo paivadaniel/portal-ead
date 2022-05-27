@@ -5,6 +5,15 @@ require_once('verificar.php'); //aqui é dado @session_start();
 
 $pag = 'pacotes';
 
+//@session_start() foi dado em verificar.php que abre dentro da painel-admin/index.php, que abre dentro de pacotes
+
+if ($_SESSION['nivel'] == 'Administrador') {
+	$id_usuario = '%' . '' . '%'; // se for administrador, id_usuario recebe vazio, já no "SELECT * FROM cursos WHERE professor LIKE '$id_usuario' ORDER BY id asc", como id_usuario é vazio, então mostra de todos os professores 
+} else { // se um professor estiver acessando a página
+	$id_usuario = '%' . $_SESSION['id'] . '%'; //o porcento antes e depois é uma obrigatoriedade do LIKE, para que busque por aproximações no começo e no final do que se procura
+	//se não for administrador, id_usuario recebe o id nele
+}
+
 if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor') { //coloca @ para se caso não existir alguma das variáveis de sessão, não exibir o warning
 	//professores e administradores podem ver cursos.php, alunos não
 	echo "<script> window.location='../index.php'</script>";
@@ -322,7 +331,7 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 									<table class="table table-hover" id="tabela2">
 										<thead>
 											<tr>
-												<th>Nome</th>
+						<th>Nome</th>
 												<th>Ações</th>
 											</tr>
 										</thead>
@@ -342,13 +351,14 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 
 												<tr>
 													<td>
-													<img src="img/cursos/<?php echo $foto ?>" width="27px" class="me-2"> <!-- pacotes é chamado dentro de painel-admin/index.php, por isso, a pasta img não precisa fazer "../img/cursos" para acessar -->
+														<img src="img/cursos/<?php echo $foto ?>" width="27px" class="me-2"> <!-- pacotes é chamado dentro de painel-admin/index.php, por isso, a pasta img não precisa fazer "../img/cursos" para acessar -->
 
-														<?php echo $nome; ?></td>
+														<?php echo $nome; ?>
+													</td>
 													<td>
 
 														<!-- inserir curso no pacote -->
-														<big><a class="{$acesso}" href="#" onclick="add('<?php echo $id?>')" title="Adicionar Curso"><i class="fa fa-check verde"></i></a></big> <!-- passa o id do curso -->
+														<big><a class="{$acesso}" href="#" onclick="add('<?php echo $id ?>')" title="Adicionar Curso"><i class="fa fa-check verde"></i></a></big> <!-- passa o id do curso -->
 
 
 													</td>
@@ -375,6 +385,9 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 
 
 					<div class="col-md-6">
+
+						<b>Cursos do Pacote</b>
+						<hr>
 						<div id="listar-cursos">
 
 						</div>
@@ -386,7 +399,7 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 				<div class="row">
 					<div class="col-md-12">
 
-					<input type="hidden" name="id-pacote" id="id-pacote">
+						<input type="hidden" name="id-pacote" id="id-pacote">
 
 						<small>
 							<div id="mensagem_cursos" align="center" class="mt-3"></div>
@@ -423,14 +436,13 @@ if (@$_SESSION['nivel'] != 'Administrador' and @$_SESSION['nivel'] != 'Professor
 	});
 </script>
 <script type="text/javascript">
-
-$(document).ready(function() {
-        $('#tabela2').DataTable({ //id="tabela" é o id da tabela dessa página
-            "ordering": false, //desconsidera a ordenação padrão, e considera a do mysql, ou seja, mostrando os últimos alunos inseridos
-            "stateSave": true, //se fizer alguma alteração no aluno, que tiver sido encontrado no campo busca, após salvar a alteração, volta para a página sem busca, e com stateSave true, faz a alteração e conserva a página com a busca digitada, isso foi explicado no final da mod02 aula 52
-        });
-        $('#tabela_filter label input').focus();
-    });
+	$(document).ready(function() {
+		$('#tabela2').DataTable({ //id="tabela" é o id da tabela dessa página
+			"ordering": false, //desconsidera a ordenação padrão, e considera a do mysql, ou seja, mostrando os últimos alunos inseridos
+			"stateSave": true, //se fizer alguma alteração no aluno, que tiver sido encontrado no campo busca, após salvar a alteração, volta para a página sem busca, e com stateSave true, faz a alteração e conserva a página com a busca digitada, isso foi explicado no final da mod02 aula 52
+		});
+		$('#tabela_filter label input').focus();
+	});
 </script>
 
 
@@ -509,19 +521,52 @@ $(document).ready(function() {
 		$.ajax({
 			url: 'paginas/' + pag + "/listar-cursos.php", //alunos.php aparece dentro do index.php, portanto, estamos em index.php, e consideramos a partir dele
 			method: 'POST',
-			data: {id_pacote},
+			data: {
+				id_pacote
+			},
 			//data: $('#form-aula').serialize(),
 			dataType: "text", //aqui pode ser "html", "text"
 
 			success: function(result) {
 				$("#listar-cursos").html(result);
 				$('#mensagem_cursos').text('');
-				limparCamposAulas();
-
 			}
 		});
 	}
 </script>
+
+
+<script>
+	function add(id_curso) {
+
+		var id_pacote = $('#id-pacote').val();
+
+		$.ajax({
+			url: 'paginas/' + pag + "/inserir-cursos.php", //alunos.php aparece dentro do index.php, portanto, estamos em index.php, e consideramos a partir dele
+			method: 'POST',
+			data: {
+				id_curso,
+				id_pacote
+			},
+			//data: $('#form-aula').serialize(),
+			dataType: "text", //aqui pode ser "html", "text"
+
+			success: function(mensagem) {
+				$('#mensagem_cursos').text('');
+				$('#mensagem_cursos').removeClass()
+				if (mensagem.trim() == "Salvo com Sucesso") {
+					//$('#btn-fechar-aula').click();
+					listarCursos();
+				} else {
+					$('#mensagem_cursos').addClass('text-danger')
+					$('#mensagem_cursos').text(mensagem)
+				}
+
+			},
+		});
+	}
+</script>
+
 
 <script type="text/javascript">
 	$("#form-aula").submit(function() {
