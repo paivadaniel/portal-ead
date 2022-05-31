@@ -16,7 +16,7 @@ if($url[1] == 'localhost/'){
 }
 
 //VARIÁVEIS DO SISTEMA
-$nome_sistema = 'Portal EAD';
+$nome_sistema = 'Portal EAD do Danielzinho'; //esse é o nome padrão, depois o usuário pode mudar o nome do sistema, que o resultado ficará armazenado na variável $nome_sistema na tabela config do banco de dados
 $email_sistema = 'danielantunespaiva@gmail.com';
 $tel_sistema = '(15) 99180-5895';
 
@@ -47,6 +47,9 @@ if ($total_reg == 0) { //se a tabela config não tiver nenhum registro
     $cnpj_sistema = $res[0]['cnpj_sistema']; 
     $tipo_chave_pix = $res[0]['tipo_chave_pix']; 
     $chave_pix = $res[0]['chave_pix']; 
+    $facebook_sistema = $res[0]['facebook']; 
+    $instagram_sistema = $res[0]['instagram']; 
+    $youtube_sistema = $res[0]['youtube']; 
     //$logo = $res[0]['logo']; //não precisa pois o nome nunca muda
     //$icone = $res[0]['icone']; 
     //$logo_rel = $res[0]['logo_rel']; 

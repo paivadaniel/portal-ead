@@ -12,7 +12,7 @@ $res_m = $query_m->fetchAll(PDO::FETCH_ASSOC);
 $total_reg_m = @count($res_m);
 $ultima_aula = 1;
 
-if ($total_reg_m > 0) {
+if ($total_reg_m > 0) { //listagem de aulas de curso dividido em módulos, no else, terá a listagem dos cursos não divididos em módulos
     for ($i_m = 0; $i_m < $total_reg_m; $i_m++) {
         foreach ($res_m[$i_m] as $key => $value) {
         }
@@ -53,7 +53,12 @@ if ($total_reg_m > 0) {
             $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
             $total_reg2 = @count($res2);
 
-            $ultima_aula = $res[0]['numero'] + 1;
+            if ($total_reg2 > 0) {
+                $ultima_aula = $res[0]['numero'] + 1;
+            } else { //se o módulo ainda não tiver nenhuma aula
+                $ultima_aula = 1;
+            }
+
 
             //pegar a última aula cadastrada e somar um para incrementar o número da próxima aula a inserir
 
@@ -136,6 +141,7 @@ if ($total_reg_m > 0) {
     $query = $pdo->query("SELECT * FROM $tabela WHERE id_curso = '$id_curso' ORDER BY numero desc");
     $res = $query->fetchAll(PDO::FETCH_ASSOC);
     $total_reg = @count($res);
+
     $ultima_aula = 1;
 
     //caso curso só tenha uma aula, será escrito "1 aula", ao invés de "1 aulas"
@@ -221,6 +227,10 @@ if ($total_reg_m > 0) {
     HTML;
 }
 
+//totaliza cursos, não foi feito no select acima pois ele é apenas para cursos não divididos em módulos, e o select abaixo serve para cursos DIVIDIDOS EM MÓDULOS e NÃO DIVIDIDOS EM MÓDULOS
+$query = $pdo->query("SELECT * FROM $tabela WHERE id_curso = '$id_curso' ORDER BY numero desc");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$total_aulas = @count($res);
 
 ?>
 
@@ -247,7 +257,7 @@ if ($total_reg_m > 0) {
 
 
         $('#numero_aula').val('<?= $ultima_aula ?>');
-        $('#aulas_aula').text('<?= $total_reg ?>');
+        $('#aulas_aula').text('<?= $total_aulas ?>');
         $('#aulas_singular_plural').text('<?= $quantidade_aulas ?>');
 
     }

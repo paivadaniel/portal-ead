@@ -28,3 +28,10 @@ não limpou o vídeo de maneira certa na modalAulas
 usei $('#target-video').attr('src', '');
 
 na function limparCamposAulas() em listar-aulas.php
+
+
+
+----- ERROS:
+
+nos cursos (http://localhost/dashboard/www/portal-ead/sistema/painel-admin/index.php?pagina=cursos#) não
+está incrementando a aula de um mesmo módulo ao trocar de módulo na modal.

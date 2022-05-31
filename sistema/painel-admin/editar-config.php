@@ -8,6 +8,10 @@ $tel_sistema = $_POST['tel_sistema'];
 $cnpj_sistema = $_POST['cnpj_sistema'];
 $tipo_chave_pix_sistema = $_POST['tipo_chave_pix_sistema'];
 $chave_pix = $_POST['chave_pix'];
+$facebook_sistema = $_POST['facebook_sistema'];
+$instagram_sistema = $_POST['instagram_sistema'];
+$youtube_sistema = $_POST['youtube_sistema'];
+
 
 //script para subir foto no servidor
 //logo
@@ -71,14 +75,18 @@ if (@$_FILES['imgQRCode']['name'] != "") {
 }
 
 //atualiza a tabela config
-$query = $pdo->prepare("UPDATE config SET nome_sistema = :nome_sistema, email_sistema = :email_sistema, tel_sistema = :tel_sistema, cnpj_sistema = :cnpj_sistema, tipo_chave_pix = '$tipo_chave_pix_sistema', chave_pix = :chave_pix, logo = 'logo.png', icone = 'favicon.ico', logo_rel = 'logo_rel.jpg', qrcode_pix = 'qrcode.jpg'");
+$query = $pdo->prepare("UPDATE config SET nome_sistema = :nome_sistema, email_sistema = :email_sistema, tel_sistema = :tel_sistema, cnpj_sistema = :cnpj_sistema, tipo_chave_pix = '$tipo_chave_pix_sistema', chave_pix = :chave_pix, logo = 'logo.png', icone = 'favicon.ico', logo_rel = 'logo_rel.jpg', qrcode_pix = 'qrcode.jpg', facebook = :facebook, instagram = :instagram, youtube = :youtube");
 
 //não fez bindValue para inputs de select (tipo_chave_pix) e img (logo, icone, logo_rel e qrcode_pix)
 $query->bindValue(':nome_sistema', $nome_sistema);
 $query->bindValue(':email_sistema', $email_sistema);
 $query->bindValue(':tel_sistema', $tel_sistema);
 $query->bindValue(':cnpj_sistema', $cnpj_sistema);
-$query->bindValue(':chave_pix', $chave_pix );
+$query->bindValue(':chave_pix', $chave_pix);
+$query->bindValue(':facebook', $facebook_sistema);
+$query->bindValue(':instagram', $instagram_sistema);
+$query->bindValue(':youtube', $youtube_sistema);
+
 
 $query->execute();
 

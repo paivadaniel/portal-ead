@@ -22,6 +22,22 @@ if ($total_reg == 0) {
     $pdo->query("INSERT into administradores SET nome = 'Administrador', cpf = '000.000.000-00', email = '$email_sistema', telefone = '$tel_sistema', foto = 'sem-perfil.jpg', ativo = 'Sim', data = curDate()");
 }
 
+$query = $pdo->query("SELECT * FROM banner_login WHERE ativo = 'Sim'");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$total_reg = @count($res);
+if($total_reg > 0) {
+    $foto_banner = $res[0]['foto'];
+    $link_banner = $res[0]['link'];
+    $nome_banner = $res[0]['nome'];
+
+} else {
+    $foto_banner = 'banner.jpg';
+    $link_banner = '';
+    $nome_banner = '';
+
+}
+
+
 
 ?>
 
@@ -129,8 +145,8 @@ if ($total_reg == 0) {
 
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
-                                            <a href="#" target="_blank">
-                                                <img src="painel-admin/img/login/banner-login.jpg" height="" width="100%">
+                                            <a href="<?php echo $link_banner ?>" target="_blank" title="<?php echo $nome_banner ?>">
+                                                <img src="painel-admin/img/login/<?php echo $foto_banner ?>" height="" width="100%">
                                             </a>
 
                                         </div>

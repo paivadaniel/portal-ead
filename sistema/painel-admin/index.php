@@ -14,7 +14,7 @@ if (@$_GET['pagina'] != "") { //coloca o arroba pois $_GET['pagina'] pode ser nu
 }
 
 //para esconder o menu "Pessoas" dos professores, e mostrar apenas para administradores
-if(@$_SESSION['nivel'] == 'Professor') { //coloca @ para se caso não existir alguma das variáveis de sessão, não exibir o warning
+if (@$_SESSION['nivel'] == 'Professor') { //coloca @ para se caso não existir alguma das variáveis de sessão, não exibir o warning
     $ocultar = 'ocultar';
 } else { //se for administrador
     $ocultar = '';
@@ -220,6 +220,9 @@ $senha_usuario = $res[0]['senha'];
                                 <ul class="treeview-menu">
                                     <!-- cursos e pacotes podem ser acessados por administradores e também professores -->
                                     <li><a href="index.php?pagina=banner_login"><i class="fa fa-angle-right"></i> Banner Login</a></li>
+
+                                    <li><a href="index.php?pagina=banner_index"><i class="fa fa-angle-right"></i> Banner Index</a></li>
+
 
                                 </ul>
                             </li>
@@ -511,8 +514,6 @@ $senha_usuario = $res[0]['senha'];
                     </div>
 
 
-
-
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -522,7 +523,6 @@ $senha_usuario = $res[0]['senha'];
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Tipo Chave Pix</label>
                                 <label>Tipo Chave Pix</label>
                                 <select class="form-control" name="tipo_chave_pix_sistema" id="tipo_chave_pix_sistema" value="<?php echo $tipo_chave_pix ?>">
                                     <option value="CNPJ">CNPJ</option>
@@ -539,6 +539,31 @@ $senha_usuario = $res[0]['senha'];
                             <div class="form-group">
                                 <label>Chave Pix</label>
                                 <input type="text" class="form-control" id="chave_pix" name="chave_pix" value="<?php echo $chave_pix ?>">
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Facebook</label>
+                                <input type="text" class="form-control" name="facebook_sistema" id="facebook_sistema" value="<?php echo $facebook_sistema ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Instagram</label>
+                                <input type="text" class="form-control" name="instagram_sistema" id="instagram_sistema" value="<?php echo $instagram_sistema ?>">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Youtube</label>
+                                <input type="text" class="form-control" id="youtube_sistema" name="youtube_sistema" value="<?php echo $youtube_sistema ?>">
                             </div>
                         </div>
 
@@ -625,7 +650,7 @@ $senha_usuario = $res[0]['senha'];
 tem que ser chamado depois do jquery, senão dá erro
 
 -->
-<link rel="stylesheet" type="text/css" href="../DataTables/datatables.min.css"/>
+<link rel="stylesheet" type="text/css" href="../DataTables/datatables.min.css" />
 <script type="text/javascript" src="../DataTables/datatables.min.js"></script>
 
 <!--
@@ -844,17 +869,17 @@ demorei umas 2h para achar esse erro, e em vários dias procurando
 
 <!-- estilo select2 -->
 <style type="text/css">
-		.select2-selection__rendered {
-			line-height: 36px !important;
-			font-size:16px !important;
-			color:#666666 !important;
+    .select2-selection__rendered {
+        line-height: 36px !important;
+        font-size: 16px !important;
+        color: #666666 !important;
 
-		}
+    }
 
-		.select2-selection {
-			height: 36px !important;
-			font-size:16px !important;
-			color:#666666 !important;
+    .select2-selection {
+        height: 36px !important;
+        font-size: 16px !important;
+        color: #666666 !important;
 
-		}
-	</style>  
+    }
+</style>
