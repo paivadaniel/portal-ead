@@ -9,7 +9,6 @@ $total_reg = @count($res);
 
 if ($total_reg > 0) {
 
-
 ?>
 
     <div id="myCarousel" class="carousel slide">
@@ -76,39 +75,6 @@ if ($total_reg > 0) {
 } //fechamento do if
 ?>
 
-
-<section id="features">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-xs-12 block">
-                <div class="col-md-2 col-xs-2"><i class="fa fa-laptop feature_icon"></i></div>
-                <div class="col-md-10 col-xs-10">
-                    <h4>100% Responsive</h4>
-                    <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum.</p>
-                    <a href="#" class="readmore">Read More <i class="fa fa-caret-right"></i></a>
-                </div>
-            </div>
-            <div class="col-md-4 col-xs-12 block">
-                <div class="col-md-2 col-xs-2"><i class="fa fa-bullhorn feature_icon"></i></div>
-                <div class="col-md-10 col-xs-10">
-                    <h4>Powerful Features</h4>
-                    <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum.</p>
-                    <a href="#" class="readmore">Read More <i class="fa fa-caret-right"></i></a>
-                </div>
-            </div>
-            <div class="col-md-4 col-xs-12 block">
-                <div class="col-md-2 col-xs-2"><i class="fa fa-support feature_icon"></i></div>
-                <div class="col-md-10 col-xs-10">
-                    <h4>Customer Support</h4>
-                    <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum.</p>
-                    <a href="#" class="readmore">Read More <i class="fa fa-caret-right"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
 <section id="about">
     <div class="image-holder col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-left">
         <div class="background-imgholder">
@@ -116,12 +82,14 @@ if ($total_reg > 0) {
         </div>
     </div>
 
+
+    <hr>
     <div class="container-fluid">
 
         <div class="col-md-7 col-md-offset-5 col-sm-8 col-sm-offset-2 col-xs-12 text-inner ">
             <div class="text-block">
                 <div class="section-heading">
-                    <h1>ABOUT <span>US</span></h1>
+                    <h1>SOBRE <span>NÓS</span></h1>
                     <p class="subheading">Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut.</p>
                 </div>
 
@@ -134,7 +102,7 @@ if ($total_reg > 0) {
                     <li> <i class="fa fa-check"></i>Tantas propriae mediocritatem id vix qui everti efficiantur an ocurreret consetetur.</li>
                 </ul>
 
-                <button type="button" class="btn btn-primary slide">Learn More <i class="fa fa-caret-right"></i> </button>
+                <a href="sobre.php" type="button" class="btn btn-primary slide">Veja Mais <i class="fa fa-caret-right"></i> </a>
 
 
             </div>
@@ -143,79 +111,94 @@ if ($total_reg > 0) {
 </section>
 
 
-<section id="process">
-    <div class="container">
-        <div class="section-heading text-center">
-            <div class="col-md-12 col-xs-12">
-                <h1>What <span>We Do</span></h1>
-                <p class="subheading">Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset nam nostrud euismod volumus ne mei.</p>
+<?php
+
+$query = $pdo->query("SELECT * FROM categorias ORDER BY id desc");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$total_reg = @count($res);
+
+if ($total_reg > 0) {
+
+?>
+
+    <section id="process">
+        <div class="container">
+            <div class="section-heading text-center">
+                <div class="col-md-12 col-xs-12">
+                    <h1>Principais <span>Formações</span></h1>
+                    <p class="subheading">Conheça nossos treinamentos, distribuídos em <?php echo $total_reg; ?> áreas de atuação. <a href="categorias.php"><span>Clique aqui</span> </a> para ver as demais categorias. </p>
+                </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-3 col-sm-6 block process-block">
+                    <div class="process-icon-holder">
+                        <div class="process-border">
+                            <span class="process-icon"><a href="#"><i class="fa fa-globe feature_icon"></i></a></span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="process-text-block">
+                        <h4><a href="#">Idea</a></h4>
+                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 block process-block">
+                    <div class="process-icon-holder">
+                        <div class="process-border">
+                            <span class="process-icon"><a href="#"><i class="fa fa-mobile feature_icon"></i></a></span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="process-text-block">
+                        <h4><a href="#">Concept</a></h4>
+                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 block process-block">
+                    <div class="process-icon-holder">
+                        <div class="process-border">
+                            <span class="process-icon"><a href="#"><i class="fa fa-magic feature_icon"></i></a></span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="process-text-block">
+                        <h4><a href="#">Design</a></h4>
+                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 block process-block lastchild">
+                    <div class="process-icon-holder">
+                        <div class="process-border">
+                            <span class="process-icon"><a href="#"><i class="fa fa-cog feature_icon"></i></a></span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="process-text-block">
+                        <h4><a href="#">Develop</a></h4>
+                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
+    </section>
 
-        <div class="row">
-            <div class="col-md-3 col-sm-6 block process-block">
-                <div class="process-icon-holder">
-                    <div class="process-border">
-                        <span class="process-icon"><a href="#"><i class="fa fa-lightbulb-o feature_icon"></i></a></span>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
 
-                <div class="process-text-block">
-                    <h4><a href="#">Idea</a></h4>
-                    <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 block process-block">
-                <div class="process-icon-holder">
-                    <div class="process-border">
-                        <span class="process-icon"><a href="#"><i class="fa fa-cloud-download feature_icon"></i></a></span>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
+<?php
 
-                <div class="process-text-block">
-                    <h4><a href="#">Concept</a></h4>
-                    <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 block process-block">
-                <div class="process-icon-holder">
-                    <div class="process-border">
-                        <span class="process-icon"><a href="#"><i class="fa fa-magic feature_icon"></i></a></span>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-
-                <div class="process-text-block">
-                    <h4><a href="#">Design</a></h4>
-                    <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 block process-block lastchild">
-                <div class="process-icon-holder">
-                    <div class="process-border">
-                        <span class="process-icon"><a href="#"><i class="fa fa-cog feature_icon"></i></a></span>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-
-                <div class="process-text-block">
-                    <h4><a href="#">Develop</a></h4>
-                    <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum</p>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</section>
-
+} //fechamento do if
+?>
 
 <section id="testimonial">
     <div class="container">
         <div class="section-heading text-center">
             <div class="col-md-12 col-xs-12">
-                <h1>What Our <span>Client Says</span></h1>
+                <h1>Depoimentos <span>Nossos Alunos</span></h1>
                 <p class="subheading">Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset nam nostrud euismod volumus ne mei.</p>
             </div>
         </div>

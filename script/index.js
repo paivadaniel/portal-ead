@@ -7,7 +7,7 @@ $(document).ready(function() {
 
     if (!document.getElementById('wrapper').className && !localStorage.getItem("selectedColor")) {
         console.log('in if');
-        document.getElementById('wrapper').classList.add('blue');
+        document.getElementById('wrapper').classList.add('orange');
     } else {
         console.log('else');
         var colorClass = localStorage.getItem("selectedColor");
@@ -59,7 +59,7 @@ function mytheme(index) {
             changeColor('blue');
             break;
         default:
-            changeColor('blue');
+            changeColor('orange');
     }
     var selectedClass = document.getElementById('wrapper').className;
     localStorage.setItem("selectedColor", selectedClass);

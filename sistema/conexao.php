@@ -16,7 +16,7 @@ if($url[1] == 'localhost/'){
 }
 
 //VARIÁVEIS DO SISTEMA
-$nome_sistema = 'Portal EAD do Danielzinho'; //esse é o nome padrão, depois o usuário pode mudar o nome do sistema, que o resultado ficará armazenado na variável $nome_sistema na tabela config do banco de dados
+$nome_sistema = 'Portal EAD do Danielzinho'; //esse é o nome padrão, depois o usuário pode mudar o nome do sistema, que o resultado ficará armazenado na variável nome_sistema na tabela config do banco de dados
 $email_sistema = 'danielantunespaiva@gmail.com';
 $tel_sistema = '(15) 99180-5895';
 

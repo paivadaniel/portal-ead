@@ -24,6 +24,7 @@ require_once('sistema/conexao.php'); //acho que não precisa, pois toda página 
         <div id="panel-admin">
             <div class="panel-admin-box">
                 <div id="tootlbar_colors">
+                    <!-- o código está em script/index.js, que tem function mytheme(index)-->
                     <button class="color" style="background-color:#1abac8;" onclick="mytheme(0)"></button>
                     <button class="color" style="background-color:#ff8a00;" onclick="mytheme(1)"> </button>
                     <button class="color" style="background-color:#b4de50;" onclick="mytheme(2)"> </button>
