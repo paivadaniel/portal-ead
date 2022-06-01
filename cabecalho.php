@@ -18,6 +18,8 @@ require_once('sistema/conexao.php');
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="scss/main.css">
     <link rel="stylesheet" href="scss/skin.css">
+    <link rel="stylesheet" href="scss/card.css">
+
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="sistema/img/favicon.ico" type="image/x-icon">

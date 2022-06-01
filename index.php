@@ -110,89 +110,154 @@ if ($total_reg > 0) {
     </div>
 </section>
 
+<section id="process">
+    <div class="container">
+        <div class="section-heading text-center">
+            <div class="col-md-12 col-xs-12">
+                <h1>Principais <span>Formações</span></h1>
+                <p class="subheading">Conheça nossos treinamentos, distribuídos em <?php echo $total_reg; ?> áreas de atuação. <a href="categorias.php"><span>Clique aqui</span> </a> para ver as demais categorias. </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 col-sm-6 block process-block">
+                <div class="process-icon-holder">
+                    <div class="process-border">
+                        <span class="process-icon"><a href="#"><i class="fa fa-globe feature_icon"></i></a></span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="process-text-block">
+                    <h4><a href="#">Idea</a></h4>
+                    <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 block process-block">
+                <div class="process-icon-holder">
+                    <div class="process-border">
+                        <span class="process-icon"><a href="#"><i class="fa fa-mobile feature_icon"></i></a></span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="process-text-block">
+                    <h4><a href="#">Concept</a></h4>
+                    <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 block process-block">
+                <div class="process-icon-holder">
+                    <div class="process-border">
+                        <span class="process-icon"><a href="#"><i class="fa fa-magic feature_icon"></i></a></span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="process-text-block">
+                    <h4><a href="#">Design</a></h4>
+                    <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 block process-block lastchild">
+                <div class="process-icon-holder">
+                    <div class="process-border">
+                        <span class="process-icon"><a href="#"><i class="fa fa-cog feature_icon"></i></a></span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="process-text-block">
+                    <h4><a href="#">Develop</a></h4>
+                    <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<hr>
 
 <?php
 
-$query = $pdo->query("SELECT * FROM categorias ORDER BY id desc");
+$query = $pdo->query("SELECT * FROM cursos WHERE status = 'Aprovado' AND sistema = 'Não' ORDER BY id desc limit 4");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 
 if ($total_reg > 0) {
-
 ?>
 
-    <section id="process">
-        <div class="container">
-            <div class="section-heading text-center">
-                <div class="col-md-12 col-xs-12">
-                    <h1>Principais <span>Formações</span></h1>
-                    <p class="subheading">Conheça nossos treinamentos, distribuídos em <?php echo $total_reg; ?> áreas de atuação. <a href="categorias.php"><span>Clique aqui</span> </a> para ver as demais categorias. </p>
-                </div>
+    <section>
+
+        <div class="section-heading text-center">
+            <div class="col-md-12 col-xs-12">
+                <h1>Últimos <span>Lançamentos</span></h1>
+                <p class="subheading"><a href="cursos.php"><span>Clique aqui</span> </a> para ver todos os cursos. </p>
             </div>
+        </div>
 
-            <div class="row">
-                <div class="col-md-3 col-sm-6 block process-block">
-                    <div class="process-icon-holder">
-                        <div class="process-border">
-                            <span class="process-icon"><a href="#"><i class="fa fa-globe feature_icon"></i></a></span>
+        <div class="row" style="margin-left:10px; margin-right:10px; margin-top:-50px;">
+
+            <?php
+
+            for ($i = 0; $i < $total_reg; $i++) {
+                foreach ($res[$i] as $key => $value) {
+                }
+
+                $id = $res[$i]['id'];
+                $nome = $res[$i]['nome'];
+                $desc_rapida = $res[$i]['desc_rapida'];
+                $valor = $res[$i]['valor'];
+                $promocao = $res[$i]['promocao'];
+                $foto = $res[$i]['imagem'];
+
+
+                //valor formatodo e descrição_longa formatada
+                $valorF = number_format($valor, 2, ',', '.',);
+                $promocaoF = number_format($promocao, 2, ',', '.',);
+
+            ?>
+
+                <div class="col-sm-3">
+                    <div class="product-card">
+                        <div class="product-tumb">
+                            <img src="sistema/painel-admin/img/cursos/<?php echo $foto ?>" alt="">
                         </div>
-                        <div class="clearfix"></div>
-                    </div>
-
-                    <div class="process-text-block">
-                        <h4><a href="#">Idea</a></h4>
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 block process-block">
-                    <div class="process-icon-holder">
-                        <div class="process-border">
-                            <span class="process-icon"><a href="#"><i class="fa fa-mobile feature_icon"></i></a></span>
+                        <div class="product-details">
+                            <span class="product-catagory">Women,bag</span>
+                            <h4><a href=""><?php echo $nome ?></a></h4>
+                            <p><?php echo $desc_rapida ?></p>
+                            <div class="product-bottom-details">
+                                <div class="product-price"><small>$96.00</small>$230.99</div>
+                                <div class="product-links">
+                                    <a href=""><i class="fa fa-heart"></i></a>
+                                    <a href=""><i class="fa fa-shopping-cart"></i></a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="clearfix"></div>
                     </div>
 
-                    <div class="process-text-block">
-                        <h4><a href="#">Concept</a></h4>
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum</p>
-                    </div>
                 </div>
-                <div class="col-md-3 col-sm-6 block process-block">
-                    <div class="process-icon-holder">
-                        <div class="process-border">
-                            <span class="process-icon"><a href="#"><i class="fa fa-magic feature_icon"></i></a></span>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
 
-                    <div class="process-text-block">
-                        <h4><a href="#">Design</a></h4>
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 block process-block lastchild">
-                    <div class="process-icon-holder">
-                        <div class="process-border">
-                            <span class="process-icon"><a href="#"><i class="fa fa-cog feature_icon"></i></a></span>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
+            <?php
 
-                    <div class="process-text-block">
-                        <h4><a href="#">Develop</a></h4>
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum</p>
-                    </div>
-                </div>
-            </div>
+            } //fechamento for
+
+            ?>
 
         </div>
+
+
+
     </section>
 
-
 <?php
+} //fechamento if
 
-} //fechamento do if
 ?>
+
 
 <section id="testimonial">
     <div class="container">

@@ -101,8 +101,9 @@ if ($id == "") { // se a categoria não existir, é inserção
 	$query = $pdo->prepare("INSERT INTO $tabela SET nome = :nome, desc_rapida = :desc_rapida,  desc_longa = :desc_longa, valor = :valor, professor = '$id_usuario', categoria = '$categoria', imagem = '$foto', status = 'Aguardando', carga = :carga, arquivo = :arquivo, ano = '$ano_atual', palavras = :palavras, grupo = '$grupo', nome_url = '$url', pacote = :pacote, sistema = '$sistema', link = :link, tecnologias = :tecnologias, promocao = :promocao");
 } else { //se a categoria já existir, é edição
 
-	$query = $pdo->prepare("UPDATE $tabela SET nome = :nome, desc_rapida = :desc_rapida,  desc_longa = :desc_longa, valor = :valor, professor = '$id_usuario', categoria = '$categoria', imagem = '$foto', status = 'Aguardando', carga = :carga, arquivo = :arquivo, palavras = :palavras, grupo = '$grupo', nome_url = '$url', pacote = :pacote, sistema = '$sistema', link = :link, tecnologias = :tecnologias, promocao = :promocao WHERE id = '$id'");
+	$query = $pdo->prepare("UPDATE $tabela SET nome = :nome, desc_rapida = :desc_rapida,  desc_longa = :desc_longa, valor = :valor, professor = '$id_usuario', categoria = '$categoria', imagem = '$foto', carga = :carga, arquivo = :arquivo, palavras = :palavras, grupo = '$grupo', nome_url = '$url', pacote = :pacote, sistema = '$sistema', link = :link, tecnologias = :tecnologias, promocao = :promocao WHERE id = '$id'");
 	//ano não passa no UPDATE, pois não altera, é o ano em que foi criado o curso, pego e salvo automaticamente no banco de dados
+	//status não altera
 }
 
 $query->bindValue(":nome", "$nome");

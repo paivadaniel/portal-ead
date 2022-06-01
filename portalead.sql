@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27-Maio-2022 às 22:00
+-- Tempo de geração: 01-Jun-2022 às 05:38
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -90,6 +90,41 @@ CREATE TABLE `aulas` (
   `sessao` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Extraindo dados da tabela `aulas`
+--
+
+INSERT INTO `aulas` (`id`, `numero`, `nome`, `link`, `id_curso`, `sessao`) VALUES
+(1, 1, 'Aula 01 Módulo 01', '', 1, 1),
+(2, 1, 'Aula 01 Módulo 02', '', 1, 2),
+(4, 2, 'Aula 02', '', 1, 3),
+(5, 3, 'txt', '', 1, 2),
+(7, 1, 'dadadadaa', '', 5, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `banner_index`
+--
+
+CREATE TABLE `banner_index` (
+  `id` int(11) NOT NULL,
+  `foto` varchar(100) NOT NULL,
+  `link` varchar(60) NOT NULL,
+  `titulo` varchar(50) NOT NULL,
+  `descricao` varchar(160) NOT NULL,
+  `ativo` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `banner_index`
+--
+
+INSERT INTO `banner_index` (`id`, `foto`, `link`, `titulo`, `descricao`, `ativo`) VALUES
+(1, '30-05-2022-22-53-49-IMG-20180713-WA0005.jpg', 'http://test32.com', 'Lorem ipsum dolor sit amet consectetur.', ' Quas saepe reiciendis temporibus voluptate inventore debitis placeat cumque esse ullam officiis deleniti culpa excepturi ratione distinctio, sed consectetur?', 'Sim'),
+(2, '30-05-2022-22-57-49-20180922_175305.jpg', 'http://cuzero.com', 'Pela Saco', 'João Gordo', 'Sim'),
+(4, '30-05-2022-23-25-23-20180922_175106.jpg', 'http://roma.com', 'Dê à César O que é de César', 'Roma Vive seu Lacraio!', 'Sim');
+
 -- --------------------------------------------------------
 
 --
@@ -109,8 +144,8 @@ CREATE TABLE `banner_login` (
 --
 
 INSERT INTO `banner_login` (`id`, `nome`, `link`, `foto`, `ativo`) VALUES
-(2, 'Sistema Imobiliário', 'http://hugocursos.com.br', '27-05-2022-16-39-20-banner-login.jpg', 'Não'),
-(3, 'Sistema Teste 23', 'http://google2.com', '27-05-2022-16-59-05-banner-teste.jpg', 'Não');
+(2, 'Sistema Imobiliário', 'http://hugocursos.com.br', '27-05-2022-16-39-20-banner-login.jpg', 'Sim'),
+(3, 'Sistema Teste 256', 'http://google256.com', '30-05-2022-15-01-54-20180922_101803.jpg', 'Não');
 
 -- --------------------------------------------------------
 
@@ -150,15 +185,18 @@ CREATE TABLE `config` (
   `logo` varchar(20) NOT NULL,
   `icone` varchar(20) NOT NULL,
   `logo_rel` varchar(20) NOT NULL,
-  `qrcode_pix` varchar(20) DEFAULT NULL
+  `qrcode_pix` varchar(20) DEFAULT NULL,
+  `facebook` varchar(120) DEFAULT NULL,
+  `instagram` varchar(120) DEFAULT NULL,
+  `youtube` varchar(120) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `config`
 --
 
-INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnpj_sistema`, `tipo_chave_pix`, `chave_pix`, `logo`, `icone`, `logo_rel`, `qrcode_pix`) VALUES
-(2, 'Portal EAD', 'danielantunespaiva@gmail.com', '(15) 99180-5895', NULL, NULL, NULL, 'logo.png', 'favicon.ico', 'logo.jpg', NULL);
+INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnpj_sistema`, `tipo_chave_pix`, `chave_pix`, `logo`, `icone`, `logo_rel`, `qrcode_pix`, `facebook`, `instagram`, `youtube`) VALUES
+(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', '', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead');
 
 -- --------------------------------------------------------
 
@@ -196,9 +234,9 @@ CREATE TABLE `cursos` (
 
 INSERT INTO `cursos` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `categoria`, `imagem`, `status`, `carga`, `mensagem`, `arquivo`, `ano`, `palavras`, `grupo`, `nome_url`, `pacote`, `sistema`, `link`, `tecnologias`, `promocao`) VALUES
 (1, 'Curso de HTML', 'Aprendendo WEB', '<p style=\"font-family: \">O curso de Painel de Gestão para <b>portais de cursos EAD</b> possui 60 aulas, este é o segundo módulo do desenvolvimento do site / <b>sistema para gestão de cursos</b>, vamos aprender neste módulo como criar o crud para cadastros dos Professores, Alunos e Administradores do sistema, bem como toda gestão de exclusão de dados, listagem, buscas, inserção e edição, relacionamento entre tabelas e muito mais, tudo que você vai precisar para desenvolver todo e qualquer tipo de sistema, <font size=\"4\" color=\"#996633\">adquira já</font> nosso treinamento e comece a criar seus projetos de forma profissional.</p>', '59.99', 1, 4, '20-05-2022-15-33-52-mendigo-fudido.jpg', 'Aprovado', 20, 'Ornitorrinco fuma', 'google.com', 2022, 'curso de programação, curso de html', 5, 'curso-de-html', 'pacote-curso-html', 'Não', 'teste2.com', 'html, css, bootstrap', '0.00'),
-(5, 'tefsfs', 'tetete', '', '42.00', 1, 3, 'sem-foto.png', 'Aguardando', 23, '', '', 2022, 'dsssd', 6, 'tefsfs', '', 'Não', '', '', '0.00'),
-(6, 'sasasa', 'sasasasa', 'dadada', '23.00', 1, 4, 'sem-foto.png', 'Aguardando', 32, '', '', 2022, 'dadada', 6, 'sasasa', '', 'Não', '', '', '0.00'),
-(7, 'dsds', 'dsds', 'dadadaxxx', '80.00', 1, 3, 'sem-foto.png', 'Aguardando', 23, '', '', 2022, 'dsds', 4, 'dsds', '', 'Não', '', '', '60.00');
+(5, 'tefsfs', 'tetete', '', '42.00', 1, 3, 'sem-foto.png', 'Aprovado', 23, '', '', 2022, 'dsssd', 6, 'tefsfs', '', 'Não', '', '', '0.00'),
+(6, 'sasasa', 'sasasasa', 'dadada', '23.00', 1, 4, 'sem-foto.png', 'Aprovado', 32, '', '', 2022, 'dadada', 6, 'sasasa', '', 'Não', '', '', '0.00'),
+(7, 'dsdsdadada4242', 'dsds', 'dadadaxxx', '80.00', 1, 3, 'sem-foto.png', 'Aprovado', 23, '', '', 2022, 'dsds', 4, 'dsdsdadada4242', '', 'Não', '', '', '60.00');
 
 -- --------------------------------------------------------
 
@@ -322,6 +360,15 @@ CREATE TABLE `sessao` (
   `id_curso` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Extraindo dados da tabela `sessao`
+--
+
+INSERT INTO `sessao` (`id`, `nome`, `id_curso`) VALUES
+(1, 'Módulo 01', 1),
+(2, 'Módulo 02', 1),
+(3, 'Módulo 03', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -373,6 +420,12 @@ ALTER TABLE `alunos`
 -- Índices para tabela `aulas`
 --
 ALTER TABLE `aulas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `banner_index`
+--
+ALTER TABLE `banner_index`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -461,7 +514,13 @@ ALTER TABLE `alunos`
 -- AUTO_INCREMENT de tabela `aulas`
 --
 ALTER TABLE `aulas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de tabela `banner_index`
+--
+ALTER TABLE `banner_index`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `banner_login`
@@ -521,7 +580,7 @@ ALTER TABLE `professores`
 -- AUTO_INCREMENT de tabela `sessao`
 --
 ALTER TABLE `sessao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
