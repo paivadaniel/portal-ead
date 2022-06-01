@@ -30,9 +30,10 @@ HTML; //aqui fecha o HTML dentro do PHP
 <table class="table table-hover" id="tabela">
 	<thead> 
 	<tr> 
+    <th></th>
 	<th>Nome</th>
-    <th class="esc">Pacotes</th>
-
+	<th class="esc">Descrição</th>
+    <th class="esc">Pacotes</th>	
 	<th>Ações</th>
 	</tr> 
 	</thead> 
@@ -45,8 +46,10 @@ HTML;
 
         $id = $res[$i]['id'];
         $nome = $res[$i]['nome'];
+        $descricao = $res[$i]['descricao'];
+        $foto = $res[$i]['foto'];
         
-        //conta quantos cursos estão cadastrados nesse grupo
+        //conta quantos pacotes estão cadastrados com essa linguagem
         $query2 = $pdo->query("SELECT * FROM pacotes WHERE linguagem = '$id'");
         $res2= $query2->fetchAll(PDO::FETCH_ASSOC);
         $pacotes = @count($res2);
@@ -54,11 +57,15 @@ HTML;
 
         echo <<<HTML
     <tr>
+        <td>
+        <img src="img/linguagens/{$foto}" width="27px" class="me-2">
+        </td>
         <td class="">{$nome}</td> <!-- repare que <?php echo $nome ?> é substituído aqui por {$nome}-->
+        <td class="esc">{$descricao}</td>
         <td class="esc">{$pacotes}</td>
         <td>
 
-        <big><a href="#" onclick="editar('{$id}', '{$nome}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
+        <big><a href="#" onclick="editar('{$id}', '{$nome}', '{$descricao}', '{$foto}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
 
         <!-- abertura excluir -->
         <li class="dropdown head-dpdn2" style="display: inline-block;">
@@ -108,10 +115,14 @@ HTML;
     //não vai no js/ajax.js pois não é genérica, por exemplo, a função de editar cursos recebe outros parâmetros
     //função para abrir a modal de editar com os valores preenchidos carregados
     //ela poderia ir dentro de alunos.php, porém, tudo que está aqui dentro, está sendo carregado em alunos.php, no elemento com id="listar"
-    function editar(id, nome) {
+    function editar(id, nome, descricao, foto) {
 
         $('#id').val(id); //val() é para exibir dado em input, e text() é para exibir dado em div ou span
         $('#nome').val(nome);
+        $('#descricao').val(descricao);
+        //$('#foto').val(foto); //só por ter uma linha a mais não estava abrindo a modal
+        $('#foto').val(''); //caminho da foto
+        $('#target').attr('src', 'img/linguagens/' + foto); //mostra imagem da foto
 
         $('#tituloModal').text('Editar Registro');
         $('#modalForm').modal('show');
@@ -124,6 +135,9 @@ HTML;
     function limparCampos() {
         $('#id').val('');
         $('#nome').val('');
+        $('#descricao').val('');
+        $('#foto').val('');
+        $('#target').attr('src', 'img/linguagens/sem-foto.png');
     }
 
 </script>

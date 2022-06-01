@@ -36,11 +36,33 @@ if (@$_SESSION['nivel'] != 'Administrador') { //coloca @ para se caso não exist
 			<form method="post" id="form">
 				<div class="modal-body">
 
-					<div class="row">
-						<div class="col-md-12">
+				<div class="row">
+						<div class="col-md-6">
 							<div class="form-group">
-								<label for="nome">Nome</label>
+								<label>Nome</label>
 								<input type="text" class="form-control" name="nome" id="nome" required>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Descrição</label>
+								<input type="text" class="form-control" name="descricao" id="descricao">
+							</div>
+						</div>
+
+					</div>
+
+					<div class="row">
+						<div class="col-md-8">
+							<div class="form-group">
+								<label>Foto</label>
+								<input class="form-control" type="file" name="foto" onChange="carregarImg();" id="foto">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div id="divImg">
+								<img src="img/linguagens/sem-foto.png" width="100px" id="target"><!-- não é src="../img/perfil/sem-perfil.jpg", pois alunos.php é chamado dentro de painel-admin/index.php  -->
 							</div>
 						</div>
 
@@ -73,3 +95,23 @@ if (@$_SESSION['nivel'] != 'Administrador') { //coloca @ para se caso não exist
 	var pag = "<?= $pag ?>"
 </script>
 <script src="js/ajax.js"></script>
+
+<script type="text/javascript">
+	function carregarImg() {
+		var target = document.getElementById('target');
+		var file = document.querySelector("#foto").files[0];
+
+		var reader = new FileReader();
+
+		reader.onloadend = function() {
+			target.src = reader.result;
+		};
+
+		if (file) {
+			reader.readAsDataURL(file);
+
+		} else {
+			target.src = "";
+		}
+	}
+</script>

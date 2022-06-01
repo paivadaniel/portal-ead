@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 01-Jun-2022 às 05:38
+-- Tempo de geração: 01-Jun-2022 às 22:10
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -166,7 +166,9 @@ CREATE TABLE `categorias` (
 
 INSERT INTO `categorias` (`id`, `nome`, `descricao`, `foto`) VALUES
 (3, 'Doces gostosos', 'doces um pouco gostosos feito pela tia mafalda', '18-05-2022-14-07-09-doces-coloridos.jpg'),
-(4, 'Doces saborosos', 'Doces muito saborosos feito pelo tio joaquim', '18-05-2022-14-37-20-doces-gostosos.jpg');
+(4, 'Doces saborosos', 'Doces muito saborosos feito pelo tio joaquim', '18-05-2022-14-37-20-doces-gostosos.jpg'),
+(5, 'dsds', 'dsdsds', 'sem-foto.png'),
+(6, 'dadadada', 'dadadada', 'sem-foto.png');
 
 -- --------------------------------------------------------
 
@@ -188,15 +190,16 @@ CREATE TABLE `config` (
   `qrcode_pix` varchar(20) DEFAULT NULL,
   `facebook` varchar(120) DEFAULT NULL,
   `instagram` varchar(120) DEFAULT NULL,
-  `youtube` varchar(120) DEFAULT NULL
+  `youtube` varchar(120) DEFAULT NULL,
+  `itens_pag` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `config`
 --
 
-INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnpj_sistema`, `tipo_chave_pix`, `chave_pix`, `logo`, `icone`, `logo_rel`, `qrcode_pix`, `facebook`, `instagram`, `youtube`) VALUES
-(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', '', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead');
+INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnpj_sistema`, `tipo_chave_pix`, `chave_pix`, `logo`, `icone`, `logo_rel`, `qrcode_pix`, `facebook`, `instagram`, `youtube`, `itens_pag`) VALUES
+(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', '', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead', 12);
 
 -- --------------------------------------------------------
 
@@ -235,8 +238,11 @@ CREATE TABLE `cursos` (
 INSERT INTO `cursos` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `categoria`, `imagem`, `status`, `carga`, `mensagem`, `arquivo`, `ano`, `palavras`, `grupo`, `nome_url`, `pacote`, `sistema`, `link`, `tecnologias`, `promocao`) VALUES
 (1, 'Curso de HTML', 'Aprendendo WEB', '<p style=\"font-family: \">O curso de Painel de Gestão para <b>portais de cursos EAD</b> possui 60 aulas, este é o segundo módulo do desenvolvimento do site / <b>sistema para gestão de cursos</b>, vamos aprender neste módulo como criar o crud para cadastros dos Professores, Alunos e Administradores do sistema, bem como toda gestão de exclusão de dados, listagem, buscas, inserção e edição, relacionamento entre tabelas e muito mais, tudo que você vai precisar para desenvolver todo e qualquer tipo de sistema, <font size=\"4\" color=\"#996633\">adquira já</font> nosso treinamento e comece a criar seus projetos de forma profissional.</p>', '59.99', 1, 4, '20-05-2022-15-33-52-mendigo-fudido.jpg', 'Aprovado', 20, 'Ornitorrinco fuma', 'google.com', 2022, 'curso de programação, curso de html', 5, 'curso-de-html', 'pacote-curso-html', 'Não', 'teste2.com', 'html, css, bootstrap', '0.00'),
 (5, 'tefsfs', 'tetete', '', '42.00', 1, 3, 'sem-foto.png', 'Aprovado', 23, '', '', 2022, 'dsssd', 6, 'tefsfs', '', 'Não', '', '', '0.00'),
-(6, 'sasasa', 'sasasasa', 'dadada', '23.00', 1, 4, 'sem-foto.png', 'Aprovado', 32, '', '', 2022, 'dadada', 6, 'sasasa', '', 'Não', '', '', '0.00'),
-(7, 'dsdsdadada4242', 'dsds', 'dadadaxxx', '80.00', 1, 3, 'sem-foto.png', 'Aprovado', 23, '', '', 2022, 'dsds', 4, 'dsdsdadada4242', '', 'Não', '', '', '60.00');
+(6, 'sasasa', 'sasasasa', 'dadada', '23.00', 1, 4, 'sem-foto.png', 'Aprovado', 32, '', '', 2022, 'dadada', 6, 'sasasa', '', 'Não', '', '', '12.00'),
+(7, 'dsdsdadada4242', 'dsds', 'dadadaxxx', '80.00', 1, 3, 'sem-foto.png', 'Aprovado', 23, '', '', 2022, 'dsds', 4, 'dsdsdadada4242', '', 'Não', '', '', '60.00'),
+(8, 'sfsfsfsgsgs', 'sfsfsfs', 'fsfsfsfs', '23.00', 1, 6, 'sem-foto.png', 'Aprovado', 23, '', '', 2022, 'sdsdss', 6, 'sfsfsfsgsgs', '', 'Não', '', '', '15.00'),
+(9, '13fsfsfr3fsfsf', 'dadaee2', 'wtw&nbsp; w rwrw wrw rwr wr wr wr wr wrwr w&nbsp;', '9000.00', 1, 6, 'sem-foto.png', 'Aprovado', 500, '', '', 2022, '53tgdgddgdttgehrutrjtr', 1, '13fsfsfr3fsfsf', '', 'Não', '', '', '800.00'),
+(10, 'Curso do Gilmar', 'Receba!', '', '90.00', 1, 3, 'sem-foto.png', 'Aprovado', 1000, '', '', 2022, 'teste', 5, 'curso-do-gilmar', '', 'Não', '', '', '75.00');
 
 -- --------------------------------------------------------
 
@@ -280,17 +286,19 @@ INSERT INTO `grupos` (`id`, `nome`) VALUES
 
 CREATE TABLE `linguagens` (
   `id` int(11) NOT NULL,
-  `nome` varchar(50) NOT NULL
+  `nome` varchar(50) NOT NULL,
+  `descricao` varchar(50) NOT NULL,
+  `foto` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `linguagens`
 --
 
-INSERT INTO `linguagens` (`id`, `nome`) VALUES
-(1, 'PHP8'),
-(2, 'Javascript 6'),
-(3, 'C ++');
+INSERT INTO `linguagens` (`id`, `nome`, `descricao`, `foto`) VALUES
+(1, 'PHP8.1', '', '01-06-2022-16-37-00-11.jpg'),
+(3, 'C ++', 'sfsfsfsfs', '01-06-2022-16-36-52-04.jpg'),
+(5, 'dadada', 'fafffs', '01-06-2022-16-34-04-01.jpeg');
 
 -- --------------------------------------------------------
 
@@ -532,7 +540,7 @@ ALTER TABLE `banner_login`
 -- AUTO_INCREMENT de tabela `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `config`
@@ -544,7 +552,7 @@ ALTER TABLE `config`
 -- AUTO_INCREMENT de tabela `cursos`
 --
 ALTER TABLE `cursos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `cursos_pacotes`
@@ -562,7 +570,7 @@ ALTER TABLE `grupos`
 -- AUTO_INCREMENT de tabela `linguagens`
 --
 ALTER TABLE `linguagens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `pacotes`

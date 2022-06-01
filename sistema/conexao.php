@@ -37,7 +37,8 @@ $total_reg = @count($res);
 
 if ($total_reg == 0) { //se a tabela config não tiver nenhum registro
 
-    $pdo->query("INSERT into config SET nome_sistema = '$nome_sistema', email_sistema = '$email_sistema', tel_sistema = '$tel_sistema', logo = 'logo.png', icone = 'favicon.ico', logo_rel = 'logo.jpg'"); //na biblioteca dompdf, relatório em pdf não faz leitura de png, somente jpg, por isso a logo do relatório tem que ser em .jpg
+    $pdo->query("INSERT into config SET nome_sistema = '$nome_sistema', email_sistema = '$email_sistema', tel_sistema = '$tel_sistema', logo = 'logo.png', icone = 'favicon.ico', logo_rel = 'logo.jpg', itens_pag = '12'"); //na biblioteca dompdf, relatório em pdf não faz leitura de png, somente jpg, por isso a logo do relatório tem que ser em .jpg
+    //por padrão mostra 12 itens por página
 } else { //se a tabela config já tiver dados
 
     //RECUPERA OS DADOS DA TABELA CONFIG
@@ -50,6 +51,8 @@ if ($total_reg == 0) { //se a tabela config não tiver nenhum registro
     $facebook_sistema = $res[0]['facebook']; 
     $instagram_sistema = $res[0]['instagram']; 
     $youtube_sistema = $res[0]['youtube']; 
+    $itens_pag = $res[0]['itens_pag']; 
+
     //$logo = $res[0]['logo']; //não precisa pois o nome nunca muda
     //$icone = $res[0]['icone']; 
     //$logo_rel = $res[0]['logo_rel']; 

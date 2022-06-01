@@ -570,7 +570,15 @@ $senha_usuario = $res[0]['senha'];
 
                     </div>
 
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Itens Paginação</label>
+                                <input type="number" class="form-control" id="itens_pag" name="itens_pag" value="<?php echo $itens_pag ?>">
+                            </div>
+                        </div>
 
+                    </div>
 
                     <div class="row">
                         <div class="col-md-2">

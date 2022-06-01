@@ -2,6 +2,20 @@
 
 require_once('sistema/conexao.php');
 
+$index = '';
+$categorias = '';
+$cursos = '';
+
+if(basename($_SERVER['PHP_SELF'], '.php') == 'index') { //basename e a variável de sessão PHP_SELF, com o segundo argumento .php, retornam o nome da página php
+    $index = 'active';
+} else if (basename($_SERVER['PHP_SELF'], '.php') == 'categorias') {
+    $categorias = 'active';
+} else if (basename($_SERVER['PHP_SELF'], '.php') == 'cursos') {
+    $cursos = 'active';
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -80,8 +94,8 @@ require_once('sistema/conexao.php');
                     </div>
                     <div id="navbar" class="collapse navbar-collapse navbar-right">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="index.php">Home</a></li>
-                            <li><a href="categorias.php">Categorias</a></li>
+                            <li class="<?php echo $index ?>"><a href="index.php">Home</a></li>
+                            <li class="<?php echo $categorias ?>"><a href="categorias.php">Categorias</a></li>
 
                             <li class="dropdown <?php echo $cursos ?>">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cursos e Pacotes <span class="caret"></span></a>

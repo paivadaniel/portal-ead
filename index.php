@@ -220,7 +220,7 @@ if ($total_reg > 0) {
 
             ?>
 
-                <div class="col-sm-3">
+                <div class="col-sm-3 col-xs-6">
                     <div class="product-card">
                         <div class="product-tumb">
                             <img src="sistema/painel-admin/img/cursos/<?php echo $foto ?>" alt="">
@@ -230,7 +230,19 @@ if ($total_reg > 0) {
                             <h4><a href=""><?php echo $nome ?></a></h4>
                             <p><?php echo $desc_rapida ?></p>
                             <div class="product-bottom-details">
-                                <div class="product-price"><small>$96.00</small>$230.99</div>
+
+                                <?php
+                                if ($promocao > 0) {
+
+                                ?>
+                                    <div class="product-price"><small><?php echo $valorF ?></small>R$ <?php echo $promocaoF ?></div>
+
+                                <?php } else { ?>
+
+                                    <div class="product-price">R$ <?php echo $valorF ?></div>
+
+                                <?php } ?>
+
                                 <div class="product-links">
                                     <a href=""><i class="fa fa-heart"></i></a>
                                     <a href=""><i class="fa fa-shopping-cart"></i></a>
@@ -257,6 +269,102 @@ if ($total_reg > 0) {
 } //fechamento if
 
 ?>
+
+
+
+
+<hr>
+
+<?php
+
+$query = $pdo->query("SELECT * FROM pacotes ORDER BY id desc limit 4");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$total_reg = @count($res);
+
+if ($total_reg > 0) {
+?>
+    <section>
+
+        <div class="section-heading text-center">
+            <div class="col-md-12 col-xs-12">
+                <h1>Últimos <span>Pacotess</span></h1>
+                <p class="subheading"><a href="pacotes.php"><span>Clique aqui</span> </a> para ver todos os pacotes. </p>
+            </div>
+        </div>
+
+        <div class="row" style="margin-left:10px; margin-right:10px; margin-top:-50px;">
+
+            <?php
+
+            for ($i = 0; $i < $total_reg; $i++) {
+                foreach ($res[$i] as $key => $value) {
+                }
+
+                $id = $res[$i]['id'];
+                $nome = $res[$i]['nome'];
+                $desc_rapida = $res[$i]['desc_rapida'];
+                $valor = $res[$i]['valor'];
+                $promocao = $res[$i]['promocao'];
+                $foto = $res[$i]['imagem'];
+
+
+                //valor formatodo e descrição_longa formatada
+                $valorF = number_format($valor, 2, ',', '.',);
+                $promocaoF = number_format($promocao, 2, ',', '.',);
+
+            ?>
+
+                <div class="col-sm-3 col-xs-6">
+                    <div class="product-card">
+                        <div class="product-tumb">
+                            <img src="sistema/painel-admin/img/pacotes/<?php echo $foto ?>" alt="">
+                        </div>
+                        <div class="product-details">
+                            <span class="product-catagory">Women,bag</span>
+                            <h4><a href=""><?php echo $nome ?></a></h4>
+                            <p><?php echo $desc_rapida ?></p>
+                            <div class="product-bottom-details">
+
+                                <?php
+                                if ($promocao > 0) {
+
+                                ?>
+                                    <div class="product-price"><small><?php echo $valorF ?></small>R$ <?php echo $promocaoF ?></div>
+
+                                <?php } else { ?>
+
+                                    <div class="product-price">R$ <?php echo $valorF ?></div>
+
+                                <?php } ?>
+
+                                <div class="product-links">
+                                    <a href=""><i class="fa fa-heart"></i></a>
+                                    <a href=""><i class="fa fa-shopping-cart"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            <?php
+
+            } //fechamento for
+
+            ?>
+
+        </div>
+
+
+
+    </section>
+
+<?php
+} //fechamento if
+
+?>
+
+
 
 
 <section id="testimonial">
