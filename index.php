@@ -190,15 +190,14 @@ $total_reg = @count($res);
 if ($total_reg > 0) {
 ?>
 
-
-    <section id="portfolio">
-
-        <div class="section-heading text-center">
+<div class="section-heading text-center">
             <div class="col-md-12 col-xs-12">
                 <h1>Últimos <span>Lançamentos</span></h1>
                 <p class="subheading"><a href="cursos.php"><span>Clique aqui</span> </a> para ver todos os cursos. </p>
             </div>
         </div>
+
+    <section id="portfolio">
 
         <div class="row" style="margin-left:10px; margin-right:10px; margin-top:-10px;">
 
@@ -306,14 +305,15 @@ $total_reg = @count($res);
 
 if ($total_reg > 0) {
 ?>
-    <section id="portfolio">
 
-        <div class="section-heading text-center">
+<div class="section-heading text-center">
             <div class="col-md-12 col-xs-12">
                 <h1>Últimos <span>Pacotes</span></h1>
                 <p class="subheading"><a href="pacotes.php"><span>Clique aqui</span> </a> para ver todos os pacotes. </p>
             </div>
         </div>
+
+    <section id="portfolio">
 
         <div class="row" style="margin-left:10px; margin-right:10px; margin-top:-10px;">
 

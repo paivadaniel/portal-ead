@@ -8,21 +8,22 @@ require_once('cabecalho.php');
 
 <?php
 
-$query = $pdo->query("SELECT * FROM cursos WHERE status = 'Aprovado' and sistema = 'Não' ORDER BY id asc limit 12");
+$query = $pdo->query("SELECT * FROM cursos WHERE status = 'Aprovado' and sistema = 'Não' ORDER BY id asc limit 8");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 
 if ($total_reg > 0) {
 ?>
-    <section style="margin-top:50px;">
 
-        <div class="section-heading">
-            <div class="col-md-12 col-xs-12">
-                <h2><small><small><span>Cursos Mais Vendidos</span> - <a href="lista-cursos.php">Ver todos os cursos</a></small></small></h2>
-            </div>
+    <div class="section-heading">
+        <div class="col-md-12 col-xs-12">
+            <h2><small><small><span>Cursos Mais Vendidos</span> - <a href="lista-cursos.php">Ver todos os cursos</a></small></small></h2>
         </div>
+    </div>
 
-        <div class="row" style="margin-left:10px; margin-right:10px;">
+    <section id="portfolio" style="margin-top:50px;">
+
+        <div class="row" style="margin-left:10px; margin-right:10px; margin-top:-10px;">
 
             <?php
 
@@ -37,28 +38,51 @@ if ($total_reg > 0) {
                 $promocao = $res[$i]['promocao'];
                 $foto = $res[$i]['imagem'];
 
-
                 //valor formatodo e descrição_longa formatada
                 $valorF = number_format($valor, 2, ',', '.',);
                 $promocaoF = number_format($promocao, 2, ',', '.',);
+
+                $query2 = $pdo->query("SELECT * FROM aulas WHERE id_curso = '$id' and numero = 1 and (sessao = 0 or sessao = 1)"); //outra forma de resolver aqui para pegar a aula com o id menor, e daí poderia tirar sessao = 0 or sessao = 1 e substituir por order by id asc, que pegamos apenas o primeiro resultado aqui res2[0]['link']
+                $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+                $total_reg2 = @count($res2);
+
+                if ($total_reg2 > 0) {
+                    $primeira_aula = $res2[0]['link'];
+                } else {
+                    $primeira_aula = '';
+                }
+
             ?>
 
-                <div class="col-sm-3 col-xs-6">
-                    <div class="product-card">
-                        <div class="product-tumb">
-                            <img src="sistema/painel-admin/img/cursos/<?php echo $foto ?>" alt="">
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 portfolio-item">
+                    <div class="portfolio-one">
+                        <div class="portfolio-head">
+                            <div class="portfolio-img"><img alt="" src="sistema/painel-admin/img/cursos/<?php echo $foto ?>"></div>
+                            <div class="portfolio-hover">
+                                <iframe class="video-card" src="<?php echo $primeira_aula ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                <div class="" align="center" style="margin-top:20px;">
+                                    <a href="#" type="button" class="btn btn-primary2">Veja Mais <i class="fa fa-caret-right"></i></a>
+                                </div>
+
+
+                            </div>
                         </div>
-                        <div class="product-details" style="text-align:center">
-                            <span class="product-catagory">Women,bag</span>
-                            <h4><a href=""><?php echo $nome ?></a></h4>
-                            <p><?php echo $desc_rapida ?></p>
+                        <!-- End portfolio-head -->
+                        <div class="portfolio-content" align="center">
+                            <!-- tentei com style="text-align:center", e deu o mesmo efeito de centralizar -->
+                            <a href="#" title="Detalhes do Curso">
+
+                                <h5 class="title"><?php echo $nome ?></h5>
+                                <p style="margin-top:0px;"><?php echo $desc_rapida ?></p>
+                            </a>
                             <div class="product-bottom-details">
 
                                 <?php
                                 if ($promocao > 0) {
 
                                 ?>
-                                    <div class="product-price"><small><?php echo $valorF ?></small>R$ <?php echo $promocaoF ?></div>
+                                    <div class="product-price"><small>R$ <?php echo $valorF ?></small>R$ <?php echo $promocaoF ?></div>
 
                                 <?php } else { ?>
 
@@ -71,23 +95,19 @@ if ($total_reg > 0) {
                                     <a href=""><i class="fa fa-shopping-cart"></i></a>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
+                        </div>
+                        <!-- End portfolio-content -->
+                    </div>
+                    <!-- End portfolio-item -->
                 </div>
 
             <?php
-
-            } //fechamento for
-
+            }
             ?>
 
         </div>
-
-
-
     </section>
-
 <?php
 } //fechamento if
 
@@ -112,89 +132,109 @@ if ($total_reg > 0) {
             </div>
         </div>
 
-        <div class="row" style="margin-left:10px; margin-right:10px;">
+        <section id="portfolio">
 
-            <?php
+            <div class="row" style="margin-left:10px; margin-right:10px; margin-top:-10px;">
 
-            for ($i = 0; $i < $total_reg; $i++) {
-                foreach ($res[$i] as $key => $value) {
-                }
+                <?php
 
-                $id = $res[$i]['id'];
-                $nome = $res[$i]['nome'];
-                $desc_rapida = $res[$i]['desc_rapida'];
-                $valor = $res[$i]['valor'];
-                $promocao = $res[$i]['promocao'];
-                $foto = $res[$i]['imagem'];
+                for ($i = 0; $i < $total_reg; $i++) {
+                    foreach ($res[$i] as $key => $value) {
+                    }
+
+                    $id = $res[$i]['id'];
+                    $nome = $res[$i]['nome'];
+                    $desc_rapida = $res[$i]['desc_rapida'];
+                    $valor = $res[$i]['valor'];
+                    $promocao = $res[$i]['promocao'];
+                    $foto = $res[$i]['imagem'];
+                    $primeira_aula = $res[$i]['video'];
 
 
-                //valor formatodo e descrição_longa formatada
-                $valorF = number_format($valor, 2, ',', '.',);
-                $promocaoF = number_format($promocao, 2, ',', '.',);
-            ?>
+                    //valor formatodo e descrição_longa formatada
+                    $valorF = number_format($valor, 2, ',', '.',);
+                    $promocaoF = number_format($promocao, 2, ',', '.',);
 
-                <div class="col-sm-3 col-xs-6">
-                    <div class="product-card">
-                        <div class="product-tumb">
-                            <img src="sistema/painel-admin/img/pacotes/<?php echo $foto ?>" alt="">
-                        </div>
-                        <div class="product-details" style="text-align:center">
-                            <span class="product-catagory">Women,bag</span>
-                            <h4><a href=""><?php echo $nome ?></a></h4>
-                            <p><?php echo $desc_rapida ?></p>
-                            <div class="product-bottom-details">
 
-                                <?php
-                                if ($promocao > 0) {
 
-                                ?>
-                                    <div class="product-price"><small><?php echo $valorF ?></small>R$ <?php echo $promocaoF ?></div>
+                ?>
 
-                                <?php } else { ?>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 portfolio-item">
+                        <div class="portfolio-one">
+                            <div class="portfolio-head">
+                                <div class="portfolio-img"><img alt="" src="sistema/painel-admin/img/pacotes/<?php echo $foto ?>"></div>
+                                <div class="portfolio-hover">
+                                    <iframe class="video-card" src="<?php echo $primeira_aula ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-                                    <div class="product-price">R$ <?php echo $valorF ?></div>
+                                    <div class="" align="center" style="margin-top:20px;">
+                                        <a href="#" type="button" class="btn btn-primary2">Veja Mais <i class="fa fa-caret-right"></i></a>
+                                    </div>
 
-                                <?php } ?>
 
-                                <div class="product-links">
-                                    <a href=""><i class="fa fa-heart"></i></a>
-                                    <a href=""><i class="fa fa-shopping-cart"></i></a>
                                 </div>
                             </div>
+                            <!-- End portfolio-head -->
+                            <div class="portfolio-content" align="center">
+                                <!-- tentei com style="text-align:center", e deu o mesmo efeito de centralizar -->
+                                <a href="#" title="Detalhes do Pacote">
+
+                                    <h5 class="title"><?php echo $nome ?></h5>
+                                    <p style="margin-top:0px;"><?php echo $desc_rapida ?></p>
+
+                                </a>
+
+
+                                <div class="product-bottom-details">
+
+                                    <?php
+                                    if ($promocao > 0) {
+
+                                    ?>
+                                        <div class="product-price"><small>R$ <?php echo $valorF ?></small>R$ <?php echo $promocaoF ?></div>
+
+                                    <?php } else { ?>
+
+                                        <div class="product-price">R$ <?php echo $valorF ?></div>
+
+                                    <?php } ?>
+
+                                    <div class="product-links">
+                                        <a href=""><i class="fa fa-heart"></i></a>
+                                        <a href=""><i class="fa fa-shopping-cart"></i></a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- End portfolio-content -->
                         </div>
+                        <!-- End portfolio-item -->
                     </div>
 
-                </div>
+                <?php
+                }
+                ?>
 
-            <?php
+            </div>
+        </section>
 
-            } //fechamento for
-
-            ?>
-
-        </div>
-
-
-
-    </section>
-
-<?php
+    <?php
 } //fechamento if
 
-?>
-<hr>
+    ?>
 
-<!-- últimos lançamentos -->
 
-<?php
+    <hr>
 
-$query = $pdo->query("SELECT * FROM cursos WHERE status = 'Aprovado' and sistema = 'Não' ORDER BY id desc limit 6");
-$res = $query->fetchAll(PDO::FETCH_ASSOC);
-$total_reg = @count($res);
+    <!-- últimos lançamentos -->
 
-if ($total_reg > 0) {
-?>
-    <section style="margin-top:50px;">
+    <?php
+
+    $query = $pdo->query("SELECT * FROM cursos WHERE status = 'Aprovado' and sistema = 'Não' ORDER BY id desc limit 6");
+    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+    $total_reg = @count($res);
+
+    if ($total_reg > 0) {
+    ?>
 
         <div class="section-heading">
             <div class="col-md-12 col-xs-12">
@@ -202,232 +242,101 @@ if ($total_reg > 0) {
             </div>
         </div>
 
-        <div class="row" style="margin-left:10px; margin-right:10px;">
+        <section id="portfolio" style="margin-top:50px;">
 
-            <?php
+            <div class="row" style="margin-left:10px; margin-right:10px; margin-top:-10px;">
 
-            for ($i = 0; $i < $total_reg; $i++) {
-                foreach ($res[$i] as $key => $value) {
-                }
+                <?php
 
-                $id = $res[$i]['id'];
-                $nome = $res[$i]['nome'];
-                $desc_rapida = $res[$i]['desc_rapida'];
-                $valor = $res[$i]['valor'];
-                $promocao = $res[$i]['promocao'];
-                $foto = $res[$i]['imagem'];
+                for ($i = 0; $i < $total_reg; $i++) {
+                    foreach ($res[$i] as $key => $value) {
+                    }
+
+                    $id = $res[$i]['id'];
+                    $nome = $res[$i]['nome'];
+                    $desc_rapida = $res[$i]['desc_rapida'];
+                    $valor = $res[$i]['valor'];
+                    $promocao = $res[$i]['promocao'];
+                    $foto = $res[$i]['imagem'];
+
+                    //valor formatodo e descrição_longa formatada
+                    $valorF = number_format($valor, 2, ',', '.',);
+                    $promocaoF = number_format($promocao, 2, ',', '.',);
+
+                    $query2 = $pdo->query("SELECT * FROM aulas WHERE id_curso = '$id' and numero = 1 and (sessao = 0 or sessao = 1)"); //outra forma de resolver aqui para pegar a aula com o id menor, e daí poderia tirar sessao = 0 or sessao = 1 e substituir por order by id asc, que pegamos apenas o primeiro resultado aqui res2[0]['link']
+                    $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+                    $total_reg2 = @count($res2);
+
+                    if ($total_reg2 > 0) {
+                        $primeira_aula = $res2[0]['link'];
+                    } else {
+                        $primeira_aula = '';
+                    }
+
+                ?>
+
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 portfolio-item">
+                        <div class="portfolio-one">
+                            <div class="portfolio-head">
+                                <div class="portfolio-img"><img alt="" src="sistema/painel-admin/img/cursos/<?php echo $foto ?>"></div>
+                                <div class="portfolio-hover">
+                                    <iframe class="video-card" src="<?php echo $primeira_aula ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                    <div class="" align="center" style="margin-top:20px;">
+                                        <a href="#" type="button" class="btn btn-primary2">Veja Mais <i class="fa fa-caret-right"></i></a>
+                                    </div>
 
 
-                //valor formatodo e descrição_longa formatada
-                $valorF = number_format($valor, 2, ',', '.',);
-                $promocaoF = number_format($promocao, 2, ',', '.',);
-            ?>
-
-                <div class="col-sm-3 col-xs-6">
-                    <div class="product-card">
-                        <div class="product-tumb">
-                            <img src="sistema/painel-admin/img/cursos/<?php echo $foto ?>" alt="">
-                        </div>
-                        <div class="product-details" style="text-align:center">
-                            <span class="product-catagory">Women,bag</span>
-                            <h4><a href=""><?php echo $nome ?></a></h4>
-                            <p><?php echo $desc_rapida ?></p>
-                            <div class="product-bottom-details">
-
-                                <?php
-                                if ($promocao > 0) {
-
-                                ?>
-                                    <div class="product-price"><small><?php echo $valorF ?></small>R$ <?php echo $promocaoF ?></div>
-
-                                <?php } else { ?>
-
-                                    <div class="product-price">R$ <?php echo $valorF ?></div>
-
-                                <?php } ?>
-
-                                <div class="product-links">
-                                    <a href=""><i class="fa fa-heart"></i></a>
-                                    <a href=""><i class="fa fa-shopping-cart"></i></a>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                            <!-- End portfolio-head -->
+                            <div class="portfolio-content" align="center">
+                                <!-- tentei com style="text-align:center", e deu o mesmo efeito de centralizar -->
+                                <a href="#" title="Detalhes do Curso">
 
-                </div>
+                                    <h5 class="title"><?php echo $nome ?></h5>
+                                    <p style="margin-top:0px;"><?php echo $desc_rapida ?></p>
+                                </a>
+                                <div class="product-bottom-details">
 
-            <?php
+                                    <?php
+                                    if ($promocao > 0) {
 
-            } //fechamento for
+                                    ?>
+                                        <div class="product-price"><small>R$ <?php echo $valorF ?></small>R$ <?php echo $promocaoF ?></div>
 
-            ?>
+                                    <?php } else { ?>
 
-        </div>
+                                        <div class="product-price">R$ <?php echo $valorF ?></div>
 
+                                    <?php } ?>
 
-
-    </section>
-
-<?php
-} //fechamento if
-
-?>
-<hr>
-
-<!-- principais categorias -->
-
-<?php
-
-$query = $pdo->query("SELECT * FROM categorias ORDER BY id desc limit 6");
-$res = $query->fetchAll(PDO::FETCH_ASSOC);
-$total_reg = @count($res);
-
-if ($total_reg > 0) {
-?>
-    <section style="margin-top:50px;">
-
-        <div class="section-heading">
-            <div class="col-md-12 col-xs-12">
-                <h2><small><small><span>Principais Categorias</span> - <a href="categorias.php">Ver todas as categorias</a></small></small></h2>
-            </div>
-        </div>
-
-        <div class="row" style="margin-left:10px; margin-right:10px;">
-
-            <?php
-
-            for ($i = 0; $i < $total_reg; $i++) {
-                foreach ($res[$i] as $key => $value) {
-                }
-
-                $id = $res[$i]['id'];
-                $nome = $res[$i]['nome'];
-                $descricao = $res[$i]['descricao'];
-                $foto = $res[$i]['foto'];
-
-                //conta quantos cursos estão cadastrados nessa categoria
-                $query2 = $pdo->query("SELECT * FROM cursos WHERE categoria = '$id'");
-                $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-                $cursos = @count($res2);
-            ?>
-
-                <div class="col-sm-3 col-xs-6">
-                    <div class="product-card">
-                        <div class="product-tumb">
-                            <img src="sistema/painel-admin/img/categorias/<?php echo $foto ?>" alt="">
-                        </div>
-                        <div class="product-details" style="text-align:center">
-                            <span class="product-catagory">Women,bag</span>
-                            <h4><a href=""><?php echo $nome ?></a></h4>
-                            <p><?php echo $descricao ?></p>
-                            <div class="product-bottom-details">
-
-                                <div class="product-price"><?php echo $cursos ?> cursos</div>
+                                    <div class="product-links">
+                                        <a href=""><i class="fa fa-heart"></i></a>
+                                        <a href=""><i class="fa fa-shopping-cart"></i></a>
+                                    </div>
+                                </div>
 
                             </div>
+                            <!-- End portfolio-content -->
                         </div>
+                        <!-- End portfolio-item -->
                     </div>
 
-                </div>
-
-            <?php
-
-            } //fechamento for
-
-            ?>
-
-        </div>
-
-
-
-    </section>
-
-<?php
-} //fechamento if
-
-?>
-<hr>
-
-<!-- principais linguagens -->
-
-<?php
-
-$query = $pdo->query("SELECT * FROM linguagens ORDER BY id desc limit 6");
-$res = $query->fetchAll(PDO::FETCH_ASSOC);
-$total_reg = @count($res);
-
-if ($total_reg > 0) {
-?>
-    <section style="margin-top:50px;">
-
-        <div class="section-heading">
-            <div class="col-md-12 col-xs-12">
-                <h2><small><small><span>Principais Linguagens</span> - <a href="linguagens.php">Ver todas as linguagens</a></small></small></h2>
-            </div>
-        </div>
-
-        <div class="row" style="margin-left:10px; margin-right:10px;">
-
-            <?php
-
-            for ($i = 0; $i < $total_reg; $i++) {
-                foreach ($res[$i] as $key => $value) {
+                <?php
                 }
+                ?>
 
+            </div>
+        </section>
 
-                $id = $res[$i]['id'];
-                $nome = $res[$i]['nome'];
-                $descricao = $res[$i]['descricao'];
-                $foto = $res[$i]['foto'];
+    <?php
+    } //fechamento if
 
-                //conta quantos pacotes tem essa linguagem
-                $query2 = $pdo->query("SELECT * FROM pacotes WHERE linguagem = '$id'");
-                $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-                $pacotes = @count($res2);
-            
-            ?>
+    ?>
 
-<div class="col-sm-3 col-xs-6">
-                    <div class="product-card">
-                        <div class="product-tumb">
-                            <img src="sistema/painel-admin/img/linguagens/<?php echo $foto ?>" alt="">
-                        </div>
-                        <div class="product-details" style="text-align:center">
-                            <span class="product-catagory">Women,bag</span>
-                            <h4><a href=""><?php echo $nome ?></a></h4>
-                            <p><?php echo $descricao ?></p>
-                            <div class="product-bottom-details">
+    <?php
 
-                                <div class="product-price"><?php echo $pacotes ?> pacotes</div>
+    require_once('rodape.php');
 
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            <?php
-
-            } //fechamento for
-
-            ?>
-
-        </div>
-
-
-
-    </section>
-
-<?php
-} //fechamento if
-
-?>
-<hr>
-
-
-
-<?php
-
-require_once('rodape.php');
-
-?>
+    ?>

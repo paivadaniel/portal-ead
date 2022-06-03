@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 03-Jun-2022 às 05:28
+-- Tempo de geração: 03-Jun-2022 às 22:03
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -201,7 +201,7 @@ CREATE TABLE `config` (
 --
 
 INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnpj_sistema`, `tipo_chave_pix`, `chave_pix`, `logo`, `icone`, `logo_rel`, `qrcode_pix`, `facebook`, `instagram`, `youtube`, `itens_pag`) VALUES
-(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', '', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead', 3);
+(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', '', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead', 6);
 
 -- --------------------------------------------------------
 

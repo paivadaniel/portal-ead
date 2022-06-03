@@ -97,8 +97,8 @@
 }
 
 .product-price small {
-    font-size: 80%;
-    font-weight: 400;
+    font-size: 100%;
+    font-weight: 200;
     text-decoration: line-through;
     display: inline-block;
     margin-right: 5px;
