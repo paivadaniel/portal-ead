@@ -39,3 +39,6 @@ require_once('sistema/conexao.php'); //acho que não precisa, pois toda página 
     </div>
 
 </html>
+
+<!-- link para chamar o AJAX para poder utilizar o ajax-listar-cursos.php -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 01-Jun-2022 às 22:10
+-- Tempo de geração: 03-Jun-2022 às 05:28
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -95,11 +95,13 @@ CREATE TABLE `aulas` (
 --
 
 INSERT INTO `aulas` (`id`, `numero`, `nome`, `link`, `id_curso`, `sessao`) VALUES
-(1, 1, 'Aula 01 Módulo 01', '', 1, 1),
+(1, 1, 'Aula 01 Módulo 01', 'https://www.youtube.com/embed/ZniEV82UP_I', 1, 1),
 (2, 1, 'Aula 01 Módulo 02', '', 1, 2),
 (4, 2, 'Aula 02', '', 1, 3),
 (5, 3, 'txt', '', 1, 2),
-(7, 1, 'dadadadaa', '', 5, 0);
+(7, 1, 'dadadadaa', '', 5, 0),
+(8, 1, 'dadafsfsfsfs', 'http://www.google.com', 10, 0),
+(9, 4, 'fsfs', 'rwrwrwrwrw', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -199,7 +201,7 @@ CREATE TABLE `config` (
 --
 
 INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnpj_sistema`, `tipo_chave_pix`, `chave_pix`, `logo`, `icone`, `logo_rel`, `qrcode_pix`, `facebook`, `instagram`, `youtube`, `itens_pag`) VALUES
-(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', '', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead', 12);
+(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', '', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead', 3);
 
 -- --------------------------------------------------------
 
@@ -522,7 +524,7 @@ ALTER TABLE `alunos`
 -- AUTO_INCREMENT de tabela `aulas`
 --
 ALTER TABLE `aulas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `banner_index`

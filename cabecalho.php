@@ -6,11 +6,13 @@ $index = '';
 $categorias = '';
 $cursos = '';
 
-if(basename($_SERVER['PHP_SELF'], '.php') == 'index') { //basename e a variável de sessão PHP_SELF, com o segundo argumento .php, retornam o nome da página php
+$url = basename($_SERVER['PHP_SELF'], '.php');//basename e a variável de sessão PHP_SELF, com o segundo argumento .php, retornam o nome da página php
+
+if($url == 'index') { 
     $index = 'active';
-} else if (basename($_SERVER['PHP_SELF'], '.php') == 'categorias') {
+} else if ($url == 'categorias') {
     $categorias = 'active';
-} else if (basename($_SERVER['PHP_SELF'], '.php') == 'cursos') {
+} else if ($url == 'cursos' || $url = 'lista-cursos') {
     $cursos = 'active';
 }
 

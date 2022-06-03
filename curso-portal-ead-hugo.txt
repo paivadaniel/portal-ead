@@ -30,6 +30,11 @@ usei $('#target-video').attr('src', '');
 na function limparCamposAulas() em listar-aulas.php
 
 
+----- mod05 - aula 58
+
+não entendi as aulas de paginação da página lista-cursos.php, principalmente a aula 58.
+da 54 à 61 tenho que rever. a 62 ele só remove o <span> de {$pag}.
+
 
 ----- ERROS:
 

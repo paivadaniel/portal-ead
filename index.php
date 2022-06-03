@@ -180,16 +180,18 @@ if ($total_reg > 0) {
 
 <hr>
 
+
 <?php
 
-$query = $pdo->query("SELECT * FROM cursos WHERE status = 'Aprovado' AND sistema = 'Não' ORDER BY id desc limit 4");
+$query = $pdo->query("SELECT * FROM cursos WHERE status = 'Aprovado' AND sistema = 'Não' ORDER BY id desc limit 7");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 
 if ($total_reg > 0) {
 ?>
 
-    <section>
+
+    <section id="portfolio">
 
         <div class="section-heading text-center">
             <div class="col-md-12 col-xs-12">
@@ -198,7 +200,7 @@ if ($total_reg > 0) {
             </div>
         </div>
 
-        <div class="row" style="margin-left:10px; margin-right:10px; margin-top:-50px;">
+        <div class="row" style="margin-left:10px; margin-right:10px; margin-top:-10px;">
 
             <?php
 
@@ -218,24 +220,48 @@ if ($total_reg > 0) {
                 $valorF = number_format($valor, 2, ',', '.',);
                 $promocaoF = number_format($promocao, 2, ',', '.',);
 
+
+                $query2 = $pdo->query("SELECT * FROM aulas WHERE id_curso = '$id' and numero = 1 and (sessao = 0 or sessao = 1)"); //outra forma de resolver aqui para pegar a aula com o id menor, e daí poderia tirar sessao = 0 or sessao = 1 e substituir por order by id asc, que pegamos apenas o primeiro resultado aqui res2[0]['link']
+                $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+                $total_reg2 = @count($res2);
+
+                if ($total_reg2 > 0) {
+                    $primeira_aula = $res2[0]['link'];
+                } else {
+                    $primeira_aula = '';
+                }
+
             ?>
 
-                <div class="col-sm-3 col-xs-6">
-                    <div class="product-card">
-                        <div class="product-tumb">
-                            <img src="sistema/painel-admin/img/cursos/<?php echo $foto ?>" alt="">
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 portfolio-item">
+                    <div class="portfolio-one">
+                        <div class="portfolio-head">
+                            <div class="portfolio-img"><img alt="" src="sistema/painel-admin/img/cursos/<?php echo $foto ?>"></div>
+                            <div class="portfolio-hover">
+                                <iframe class="video-card" src="<?php echo $primeira_aula ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                <div class="" align="center" style="margin-top:20px;">
+                                    <a href="#" type="button" class="btn btn-primary2">Veja Mais <i class="fa fa-caret-right"></i></a>
+                                </div>
+
+
+                            </div>
                         </div>
-                        <div class="product-details">
-                            <span class="product-catagory">Women,bag</span>
-                            <h4><a href=""><?php echo $nome ?></a></h4>
-                            <p><?php echo $desc_rapida ?></p>
+                        <!-- End portfolio-head -->
+                        <div class="portfolio-content" align="center">
+                            <!-- tentei com style="text-align:center", e deu o mesmo efeito de centralizar -->
+                            <a href="#" title="Detalhes do Curso">
+
+                                <h5 class="title"><?php echo $nome ?></h5>
+                                <p style="margin-top:0px;"><?php echo $desc_rapida ?></p>
+                            </a>
                             <div class="product-bottom-details">
 
                                 <?php
                                 if ($promocao > 0) {
 
                                 ?>
-                                    <div class="product-price"><small><?php echo $valorF ?></small>R$ <?php echo $promocaoF ?></div>
+                                    <div class="product-price"><small>R$ <?php echo $valorF ?></small>R$ <?php echo $promocaoF ?></div>
 
                                 <?php } else { ?>
 
@@ -248,21 +274,18 @@ if ($total_reg > 0) {
                                     <a href=""><i class="fa fa-shopping-cart"></i></a>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
+                        </div>
+                        <!-- End portfolio-content -->
+                    </div>
+                    <!-- End portfolio-item -->
                 </div>
 
             <?php
-
-            } //fechamento for
-
+            }
             ?>
 
         </div>
-
-
-
     </section>
 
 <?php
@@ -283,16 +306,16 @@ $total_reg = @count($res);
 
 if ($total_reg > 0) {
 ?>
-    <section>
+    <section id="portfolio">
 
         <div class="section-heading text-center">
             <div class="col-md-12 col-xs-12">
-                <h1>Últimos <span>Pacotess</span></h1>
+                <h1>Últimos <span>Pacotes</span></h1>
                 <p class="subheading"><a href="pacotes.php"><span>Clique aqui</span> </a> para ver todos os pacotes. </p>
             </div>
         </div>
 
-        <div class="row" style="margin-left:10px; margin-right:10px; margin-top:-50px;">
+        <div class="row" style="margin-left:10px; margin-right:10px; margin-top:-10px;">
 
             <?php
 
@@ -306,30 +329,49 @@ if ($total_reg > 0) {
                 $valor = $res[$i]['valor'];
                 $promocao = $res[$i]['promocao'];
                 $foto = $res[$i]['imagem'];
+                $primeira_aula = $res[$i]['video'];
 
 
                 //valor formatodo e descrição_longa formatada
                 $valorF = number_format($valor, 2, ',', '.',);
                 $promocaoF = number_format($promocao, 2, ',', '.',);
 
+
+
             ?>
 
-                <div class="col-sm-3 col-xs-6">
-                    <div class="product-card">
-                        <div class="product-tumb">
-                            <img src="sistema/painel-admin/img/pacotes/<?php echo $foto ?>" alt="">
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 portfolio-item">
+                    <div class="portfolio-one">
+                        <div class="portfolio-head">
+                            <div class="portfolio-img"><img alt="" src="sistema/painel-admin/img/pacotes/<?php echo $foto ?>"></div>
+                            <div class="portfolio-hover">
+                                <iframe class="video-card" src="<?php echo $primeira_aula ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                <div class="" align="center" style="margin-top:20px;">
+                                    <a href="#" type="button" class="btn btn-primary2">Veja Mais <i class="fa fa-caret-right"></i></a>
+                                </div>
+
+
+                            </div>
                         </div>
-                        <div class="product-details">
-                            <span class="product-catagory">Women,bag</span>
-                            <h4><a href=""><?php echo $nome ?></a></h4>
-                            <p><?php echo $desc_rapida ?></p>
+                        <!-- End portfolio-head -->
+                        <div class="portfolio-content" align="center">
+                            <!-- tentei com style="text-align:center", e deu o mesmo efeito de centralizar -->
+                            <a href="#" title="Detalhes do Pacote">
+
+                                <h5 class="title"><?php echo $nome ?></h5>
+                                <p style="margin-top:0px;"><?php echo $desc_rapida ?></p>
+
+                            </a>
+
+
                             <div class="product-bottom-details">
 
                                 <?php
                                 if ($promocao > 0) {
 
                                 ?>
-                                    <div class="product-price"><small><?php echo $valorF ?></small>R$ <?php echo $promocaoF ?></div>
+                                    <div class="product-price"><small>R$ <?php echo $valorF ?></small>R$ <?php echo $promocaoF ?></div>
 
                                 <?php } else { ?>
 
@@ -342,21 +384,18 @@ if ($total_reg > 0) {
                                     <a href=""><i class="fa fa-shopping-cart"></i></a>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
+                        </div>
+                        <!-- End portfolio-content -->
+                    </div>
+                    <!-- End portfolio-item -->
                 </div>
 
             <?php
-
-            } //fechamento for
-
+            }
             ?>
 
         </div>
-
-
-
     </section>
 
 <?php
