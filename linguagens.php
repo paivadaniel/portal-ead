@@ -6,7 +6,7 @@ require_once('cabecalho.php');
 
 <?php
 
-$query = $pdo->query("SELECT * FROM categorias ORDER BY id asc");
+$query = $pdo->query("SELECT * FROM linguagens ORDER BY id asc");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 
@@ -16,7 +16,7 @@ if ($total_reg > 0) {
 
         <div class="section-heading text-center">
             <div class="col-md-12 col-xs-12">
-                <h2><small><span>Categorias</span><small></h2>
+                <h1><span>Linguagens</span></h1>
             </div>
         </div>
 
@@ -33,16 +33,16 @@ if ($total_reg > 0) {
                 $descricao = $res[$i]['descricao'];
                 $foto = $res[$i]['foto'];
 
-                //conta quantos cursos estão cadastrados nessa categoria
-                $query2 = $pdo->query("SELECT * FROM cursos WHERE categoria = '$id'");
+                //conta quantos pacotes estão cadastrados com essa linguagem
+                $query2 = $pdo->query("SELECT * FROM pacotes WHERE linguagem = '$id'");
                 $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-                $cursos = @count($res2);
+                $pacotes = @count($res2);
             ?>
 
                 <div class="col-sm-3 col-xs-6">
                     <div class="product-card">
                         <div class="product-tumb">
-                            <img src="sistema/painel-admin/img/categorias/<?php echo $foto ?>" alt="">
+                            <img src="sistema/painel-admin/img/linguagens/<?php echo $foto ?>" alt="">
                         </div>
                         <div class="product-details" style="text-align:center">
                             <span class="product-catagory">Women,bag</span>
@@ -50,7 +50,7 @@ if ($total_reg > 0) {
                             <p><?php echo $descricao ?></p>
                             <div class="product-bottom-details">
 
-                            <div class="product-price" ><?php echo $cursos ?> cursos</div>
+                            <div class="product-price" ><?php echo $pacotes ?> pacotes</div>
 
                             </div>
                         </div>

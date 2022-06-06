@@ -108,8 +108,8 @@ if($url == 'index') {
                                     <li><a href="formacoes.php">Formações</a></li>
                                     <li><a href="categorias.php">Categorias</a></li>
                                     <li><a href="sistemas.php">Sistemas Prontos</a></li>
-                                    <li><a href="cursos-2021.php">Cursos 2021</a></li>
-                                    <li><a href="cursos-2022.php">Cursos 2022</a></li>
+                                    <li><a href="lista-cursos-2021.php">Cursos 2021</a></li>
+                                    <li><a href="lista-cursos-2022.php">Cursos 2022</a></li>
                                 </ul>
                             </li>
 

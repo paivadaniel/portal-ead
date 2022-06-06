@@ -12,7 +12,7 @@ if (@$_POST['pagina'] == "") {
 $pagina = intval(@$_POST['pagina']); //número da página que estou clicando
 $limite = $pagina * $itens_pag; //se for pagina = 0, vai de 0 à última página * itens_pag
 
-$query = $pdo->query("SELECT * FROM cursos where status = 'Aprovado' and sistema = 'Não' and (nome LIKE '$busca' or desc_rapida LIKE '$busca') ORDER BY id desc LIMIT $limite, $itens_pag"); //LIMIT vai de limit à itens_pag
+$query = $pdo->query("SELECT * FROM cursos where status = 'Aprovado' and sistema = 'Não' and ano = '2021' and (nome LIKE '$busca' or desc_rapida LIKE '$busca') ORDER BY id desc LIMIT $limite, $itens_pag"); //LIMIT vai de limit à itens_pag
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 if ($total_reg > 0) {
@@ -56,7 +56,7 @@ HTML;
     }
 
     //numero de páginas
-    $query2 = $pdo->query("SELECT * FROM cursos where status = 'Aprovado' and sistema = 'Não' and (nome LIKE '$busca' or desc_rapida LIKE '$busca') ORDER BY id desc ");
+    $query2 = $pdo->query("SELECT * FROM cursos where status = 'Aprovado' and sistema = 'Não' and ano = '2021' and (nome LIKE '$busca' or desc_rapida LIKE '$busca') ORDER BY id desc ");
     $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
     $total_reg2 = @count($res2);
 

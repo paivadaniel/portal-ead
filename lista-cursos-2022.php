@@ -10,7 +10,7 @@ require_once("cabecalho.php");
 
 
 <?php 
-$query = $pdo->query("SELECT * FROM cursos where status = 'Aprovado' and sistema = 'Não' ORDER BY id desc ");
+$query = $pdo->query("SELECT * FROM cursos where status = 'Aprovado' and sistema = 'Não' and ano = '2022' ORDER BY id desc ");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 if($total_reg > 0){
@@ -42,11 +42,19 @@ if($total_reg > 0){
 
       </div>
 
+
+
+   
+
+
+
+       
+
+          
+
         <?php } else {
             echo '<p align="center">Nenhum curso encontrado.</p>';
-          }?>
-
-
+          } ?>
 
 <br><br>
 
@@ -68,7 +76,7 @@ function listar(pagina){
 
   var busca = $("#buscar").val();
     $.ajax({
-        url: "ajax-listar-cursos.php",
+        url: "ajax-listar-cursos-2022.php",
         method: 'POST',
         data: {busca, pagina},
         dataType: "html",

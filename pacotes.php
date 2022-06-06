@@ -10,7 +10,7 @@ require_once("cabecalho.php");
 
 
 <?php 
-$query = $pdo->query("SELECT * FROM cursos where status = 'Aprovado' and sistema = 'Não' ORDER BY id desc ");
+$query = $pdo->query("SELECT * FROM pacotes ORDER BY id desc ");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 if($total_reg > 0){
@@ -19,14 +19,14 @@ if($total_reg > 0){
 
     <div class="row" style="margin-left: 10px;">
                 <div class="col-md-6 col-xs-6" >
-                <p><span>Total de Cursos</span> - <?php echo $total_reg ?> Cursos</p>
+                <p><span>Total de Pacotes</span> - <?php echo $total_reg ?> Cursos</p>
              
             </div>
 
              <div class="col-md-6 col-xs-6" align="right">
                   <div class="search-box-pag " style="margin-top: 10px;">
                         <button class="btn-search-pag"><i class="fa fa-search"></i></button> <!-- para pegar o ícone da lupa tive que alterar de 'fas fa-search' para 'fa fa-search' -->
-                        <input onkeyup="listar()" type="text" class="input-search-pag" placeholder="Busque um Curso..." id="buscar">
+                        <input onkeyup="listar()" type="text" class="input-search-pag" placeholder="Busque um Pacote..." id="buscar">
                     </div>
 
                   </div>
@@ -37,14 +37,22 @@ if($total_reg > 0){
 
     <br>
                 
-      <div id="listar-cursos">    
+      <div id="listar-pacotes">    
 
 
       </div>
 
-        <?php } else {
-            echo '<p align="center">Nenhum curso encontrado.</p>';
-          }?>
+
+
+   
+
+
+
+       
+
+          
+
+        <?php } ?>
 
 
 
@@ -68,13 +76,13 @@ function listar(pagina){
 
   var busca = $("#buscar").val();
     $.ajax({
-        url: "ajax-listar-cursos.php",
+        url: "ajax-listar-pacotes.php",
         method: 'POST',
         data: {busca, pagina},
         dataType: "html",
 
         success:function(result){
-            $("#listar-cursos").html(result);
+            $("#listar-pacotes").html(result);
            
         }
     });

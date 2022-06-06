@@ -103,7 +103,8 @@ HTML;
 
                 $query3 = $pdo->query("SELECT * FROM cursos where id = '$id_curso'");
                 $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
-                $carga += $res3[0]['carga']; //soma as cargas de cada curso no pacote
+                $carga += @$res3[0]['carga']; //soma as cargas de cada curso no pacote
+                //coloca @ pois carga pode não existir
                 
             }
         } 
