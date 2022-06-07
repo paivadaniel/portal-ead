@@ -42,21 +42,9 @@ if($total_reg > 0){
 
       </div>
 
-
-
-   
-
-
-
-       
-
-          
-
         <?php } else {
             echo '<p align="center">Nenhum curso encontrado.</p>';
           } ?>
-
-
 
 <br><br>
 
@@ -78,7 +66,7 @@ function listar(pagina){
 
   var busca = $("#buscar").val();
     $.ajax({
-        url: "ajax-listar-cursos-2021.php",
+        url: "script/ajax-listar-cursos-2021.php",
         method: 'POST',
         data: {busca, pagina},
         dataType: "html",

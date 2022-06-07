@@ -11,7 +11,8 @@ if ($total_reg > 0) {
 
 ?>
 
-    <div id="myCarousel" class="carousel slide">
+
+<div id="myCarousel" class="carousel slide">
         <!-- Indicators -->
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -102,7 +103,7 @@ if ($total_reg > 0) {
                     <li> <i class="fa fa-check"></i>Tantas propriae mediocritatem id vix qui everti efficiantur an ocurreret consetetur.</li>
                 </ul>
 
-                <a href="sobre.php" type="button" class="btn btn-primary slide">Veja Mais <i class="fa fa-caret-right"></i> </a>
+                <a href="sobre" type="button" class="btn btn-primary slide">Veja Mais <i class="fa fa-caret-right"></i> </a>
 
 
             </div>
@@ -115,7 +116,7 @@ if ($total_reg > 0) {
         <div class="section-heading text-center">
             <div class="col-md-12 col-xs-12">
                 <h1>Principais <span>Formações</span></h1>
-                <p class="subheading">Conheça nossos treinamentos, distribuídos em <?php echo $total_reg; ?> áreas de atuação. <a href="categorias.php"><span>Clique aqui</span> </a> para ver as demais categorias. </p>
+                <p class="subheading">Conheça nossos treinamentos, distribuídos em <?php echo $total_reg; ?> áreas de atuação. <a href="categorias"><span>Clique aqui</span> </a> para ver as demais categorias. </p>
             </div>
         </div>
 
@@ -193,7 +194,7 @@ if ($total_reg > 0) {
 <div class="section-heading text-center">
             <div class="col-md-12 col-xs-12">
                 <h1>Últimos <span>Lançamentos</span></h1>
-                <p class="subheading"><a href="cursos.php"><span>Clique aqui</span> </a> para ver todos os cursos. </p>
+                <p class="subheading"><a href="cursos"><span>Clique aqui</span> </a> para ver todos os cursos. </p>
             </div>
         </div>
 
@@ -213,6 +214,7 @@ if ($total_reg > 0) {
                 $valor = $res[$i]['valor'];
                 $promocao = $res[$i]['promocao'];
                 $foto = $res[$i]['imagem'];
+                $url = $res[$i]['nome_url'];
 
 
                 //valor formatodo e descrição_longa formatada
@@ -240,7 +242,7 @@ if ($total_reg > 0) {
                                 <iframe class="video-card" src="<?php echo $primeira_aula ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
                                 <div class="" align="center" style="margin-top:20px;">
-                                    <a href="#" type="button" class="btn btn-primary2">Veja Mais <i class="fa fa-caret-right"></i></a>
+                                    <a href="curso-de-<?php echo $url ?>" type="button" class="btn btn-primary2">Veja Mais <i class="fa fa-caret-right"></i></a>
                                 </div>
 
 
@@ -249,7 +251,7 @@ if ($total_reg > 0) {
                         <!-- End portfolio-head -->
                         <div class="portfolio-content" align="center">
                             <!-- tentei com style="text-align:center", e deu o mesmo efeito de centralizar -->
-                            <a href="#" title="Detalhes do Curso">
+                            <a href="curso-de-<?php echo $url ?>" title="Detalhes do Curso">
 
                                 <h5 class="title"><?php echo $nome ?></h5>
                                 <p style="margin-top:0px;"><?php echo $desc_rapida ?></p>
@@ -309,7 +311,7 @@ if ($total_reg > 0) {
 <div class="section-heading text-center">
             <div class="col-md-12 col-xs-12">
                 <h1>Últimos <span>Pacotes</span></h1>
-                <p class="subheading"><a href="pacotes.php"><span>Clique aqui</span> </a> para ver todos os pacotes. </p>
+                <p class="subheading"><a href="pacotes"><span>Clique aqui</span> </a> para ver todos os pacotes. </p>
             </div>
         </div>
 
@@ -330,6 +332,7 @@ if ($total_reg > 0) {
                 $promocao = $res[$i]['promocao'];
                 $foto = $res[$i]['imagem'];
                 $primeira_aula = $res[$i]['video'];
+                $url = $res[$i]['nome_url'];
 
 
                 //valor formatodo e descrição_longa formatada
@@ -348,7 +351,7 @@ if ($total_reg > 0) {
                                 <iframe class="video-card" src="<?php echo $primeira_aula ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
                                 <div class="" align="center" style="margin-top:20px;">
-                                    <a href="#" type="button" class="btn btn-primary2">Veja Mais <i class="fa fa-caret-right"></i></a>
+                                    <a href="cursos-do-<?php echo $url ?>" type="button" class="btn btn-primary2">Veja Mais <i class="fa fa-caret-right"></i></a>
                                 </div>
 
 
@@ -357,7 +360,7 @@ if ($total_reg > 0) {
                         <!-- End portfolio-head -->
                         <div class="portfolio-content" align="center">
                             <!-- tentei com style="text-align:center", e deu o mesmo efeito de centralizar -->
-                            <a href="#" title="Detalhes do Pacote">
+                            <a href="cursos-do-<?php echo $url ?>" title="Detalhes do Pacote">
 
                                 <h5 class="title"><?php echo $nome ?></h5>
                                 <p style="margin-top:0px;"><?php echo $desc_rapida ?></p>

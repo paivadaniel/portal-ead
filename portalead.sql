@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 03-Jun-2022 às 22:03
+-- Tempo de geração: 07-Jun-2022 às 06:20
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -159,18 +159,19 @@ CREATE TABLE `categorias` (
   `id` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `descricao` varchar(50) NOT NULL,
-  `foto` varchar(100) DEFAULT NULL
+  `foto` varchar(100) DEFAULT NULL,
+  `nome_url` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `categorias`
 --
 
-INSERT INTO `categorias` (`id`, `nome`, `descricao`, `foto`) VALUES
-(3, 'Doces gostosos', 'doces um pouco gostosos feito pela tia mafalda', '18-05-2022-14-07-09-doces-coloridos.jpg'),
-(4, 'Doces saborosos', 'Doces muito saborosos feito pelo tio joaquim', '18-05-2022-14-37-20-doces-gostosos.jpg'),
-(5, 'dsds', 'dsdsds', 'sem-foto.png'),
-(6, 'dadadada', 'dadadada', 'sem-foto.png');
+INSERT INTO `categorias` (`id`, `nome`, `descricao`, `foto`, `nome_url`) VALUES
+(3, 'Doces gostosos', 'doces um pouco gostosos feito pela tia mafalda', '18-05-2022-14-07-09-doces-coloridos.jpg', 'doces-gostosos'),
+(4, 'Doces saborosos', 'Doces muito saborosos feito pelo tio joaquim', '18-05-2022-14-37-20-doces-gostosos.jpg', 'doces-saborosos'),
+(5, 'dsds', 'dsdsds', 'sem-foto.png', 'dsds'),
+(6, 'dadadada', 'dadadada', 'sem-foto.png', 'dadadada');
 
 -- --------------------------------------------------------
 
@@ -242,9 +243,10 @@ INSERT INTO `cursos` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `profe
 (5, 'tefsfs', 'tetete', '', '42.00', 1, 3, 'sem-foto.png', 'Aprovado', 23, '', '', 2022, 'dsssd', 6, 'tefsfs', '', 'Não', '', '', '0.00'),
 (6, 'sasasa', 'sasasasa', 'dadada', '23.00', 1, 4, 'sem-foto.png', 'Aprovado', 32, '', '', 2022, 'dadada', 6, 'sasasa', '', 'Não', '', '', '12.00'),
 (7, 'dsdsdadada4242', 'dsds', 'dadadaxxx', '80.00', 1, 3, 'sem-foto.png', 'Aprovado', 23, '', '', 2022, 'dsds', 4, 'dsdsdadada4242', '', 'Não', '', '', '60.00'),
-(8, 'sfsfsfsgsgs', 'sfsfsfs', 'fsfsfsfs', '23.00', 1, 6, 'sem-foto.png', 'Aprovado', 23, '', '', 2022, 'sdsdss', 6, 'sfsfsfsgsgs', '', 'Não', '', '', '15.00'),
-(9, '13fsfsfr3fsfsf', 'dadaee2', 'wtw&nbsp; w rwrw wrw rwr wr wr wr wr wrwr w&nbsp;', '9000.00', 1, 6, 'sem-foto.png', 'Aprovado', 500, '', '', 2022, '53tgdgddgdttgehrutrjtr', 1, '13fsfsfr3fsfsf', '', 'Não', '', '', '800.00'),
-(10, 'Curso do Gilmar', 'Receba!', '', '90.00', 1, 3, 'sem-foto.png', 'Aprovado', 1000, '', '', 2022, 'teste', 5, 'curso-do-gilmar', '', 'Não', '', '', '75.00');
+(8, 'sfsfsfsgsgs', 'sfsfsfs', 'fsfsfsfs', '23.00', 1, 6, 'sem-foto.png', 'Aprovado', 23, '', '', 2023, 'sdsdss', 6, 'sfsfsfsgsgs', '', 'Não', '', '', '15.00'),
+(9, '13fsfsfr3fsfsf', 'dadaee2', 'wtw&nbsp; w rwrw wrw rwr wr wr wr wr wrwr w&nbsp;', '9000.00', 1, 6, 'sem-foto.png', 'Aprovado', 500, '', '', 2023, '53tgdgddgdttgehrutrjtr', 1, '13fsfsfr3fsfsf', '', 'Não', '', '', '800.00'),
+(10, 'Curso do Gilmar', 'Receba!', '', '90.00', 1, 3, 'sem-foto.png', 'Aprovado', 1000, '', '', 2021, 'teste', 5, 'curso-do-gilmar', '', 'Não', '', '', '75.00'),
+(11, 'Sistema Advocacia', 'Somente Fontes', '', '250.00', 1, 6, 'sem-foto.png', 'Aprovado', 0, '', '', 2022, '', 6, 'sistema-advocacia', '', 'Sim', '', '', '0.00');
 
 -- --------------------------------------------------------
 
@@ -290,17 +292,18 @@ CREATE TABLE `linguagens` (
   `id` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `descricao` varchar(50) NOT NULL,
-  `foto` varchar(100) NOT NULL
+  `foto` varchar(100) DEFAULT NULL,
+  `nome_url` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `linguagens`
 --
 
-INSERT INTO `linguagens` (`id`, `nome`, `descricao`, `foto`) VALUES
-(1, 'PHP8.1', '', '01-06-2022-16-37-00-11.jpg'),
-(3, 'C ++', 'sfsfsfsfs', '01-06-2022-16-36-52-04.jpg'),
-(5, 'dadada', 'fafffs', '01-06-2022-16-34-04-01.jpeg');
+INSERT INTO `linguagens` (`id`, `nome`, `descricao`, `foto`, `nome_url`) VALUES
+(1, 'PHP8.1', '', '01-06-2022-16-37-00-11.jpg', 'php8.1'),
+(3, 'C ++', 'sfsfsfsfs', '01-06-2022-16-36-52-04.jpg', 'c-++'),
+(5, 'dadada', 'fafffs', '01-06-2022-16-34-04-01.jpeg', 'dadada');
 
 -- --------------------------------------------------------
 
@@ -331,7 +334,10 @@ CREATE TABLE `pacotes` (
 
 INSERT INTO `pacotes` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `imagem`, `grupo`, `ano`, `palavras`, `nome_url`, `video`, `linguagem`, `promocao`) VALUES
 (1, 'Sistema Imobiliário', 'PHP e MySql', 'dadadada', '280.00', 1, '24-05-2022-19-46-23-garrafa-de-cerveja-pequena-à-disposição-92840768.jpg', 4, 2022, 'portal imob', 'sistema-imobiliario', '', 1, '150.00'),
-(2, 'pacote 02', 'dsds', 'fsfsfs', '50.00', 1, 'sem-foto.png', 4, 2022, 'fsfsfs', 'pacote-02', 'https://www.youtube.com/embed/F6wJ8vYmeVE', 3, '25.00');
+(2, 'pacote 02', 'dsds', 'fsfsfs', '50.00', 1, 'sem-foto.png', 4, 2022, 'fsfsfs', 'pacote-02', 'https://www.youtube.com/embed/F6wJ8vYmeVE', 3, '25.00'),
+(3, 'Formação Delphi', 'Tudo em Delphi', '', '499.00', 1, 'sem-foto.png', 3, 2022, '', 'formacao-delphi', '', 5, '0.00'),
+(4, 'Formação Xupin', 'Xupinça', '', '900.00', 1, 'sem-foto.png', 3, 2022, '', 'formacao-xupin', '', 3, '450.00'),
+(5, 'Formação Web', 'Aprenda de maneira divertida!', '', '900.00', 1, 'sem-foto.png', 6, 2022, '', 'formacao-web', '', 5, '800.00');
 
 -- --------------------------------------------------------
 
@@ -554,7 +560,7 @@ ALTER TABLE `config`
 -- AUTO_INCREMENT de tabela `cursos`
 --
 ALTER TABLE `cursos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `cursos_pacotes`
@@ -578,7 +584,7 @@ ALTER TABLE `linguagens`
 -- AUTO_INCREMENT de tabela `pacotes`
 --
 ALTER TABLE `pacotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `professores`

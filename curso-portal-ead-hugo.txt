@@ -35,8 +35,26 @@ na function limparCamposAulas() em listar-aulas.php
 não entendi as aulas de paginação da página lista-cursos.php, principalmente a aula 58.
 da 54 à 61 tenho que rever. a 62 ele só remove o <span> de {$pag}.
 
+----- mod06 aula 39
+
+não entendi isso no index da raíz:
+
+                $url = $res[$i]['nome_url'];
+<a href="curso-de-<?php echo $url ?>" 
+
+e em curso.php:
+
+echo $_GET['url'];
+
+para mim, chamaria por get['url'] se fosse curso-de-url=, igual ele fez com pagina=, e o que viesse na frente do igual seria
+a palavra que colocaria no GET, e nesse caso ele colocou o nome de uma variável. Pode isso?
+
 
 ----- ERROS:
 
-nos cursos (http://localhost/dashboard/www/portal-ead/sistema/painel-admin/index.php?pagina=cursos#) não
+- o lista-cursos-2021 e o lista-cursos-2022 estão listando todos os cursos, já substitui pelos arquivos do autor
+o ajax-listar-cursos-2021 e o listar-cursos-2021 e o problema persiste, tanto para 2021 quanto para 2022, 
+foi colocado o ano na query.
+
+- nos cursos (http://localhost/dashboard/www/portal-ead/sistema/painel-admin/index.php?pagina=cursos#) não
 está incrementando a aula de um mesmo módulo ao trocar de módulo na modal.

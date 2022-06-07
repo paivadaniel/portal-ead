@@ -1,5 +1,5 @@
 <?php
-require_once("sistema/conexao.php");
+require_once("../sistema/conexao.php");
 
 $busca = '%' . $_POST['busca'] . '%';
 

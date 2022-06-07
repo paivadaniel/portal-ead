@@ -32,6 +32,7 @@ if ($total_reg > 0) {
                 $nome = $res[$i]['nome'];
                 $descricao = $res[$i]['descricao'];
                 $foto = $res[$i]['foto'];
+                $url = $res[$i]['nome_url'];
 
                 //conta quantos cursos estão cadastrados nessa categoria
                 $query2 = $pdo->query("SELECT * FROM cursos WHERE categoria = '$id'");
@@ -42,15 +43,17 @@ if ($total_reg > 0) {
                 <div class="col-sm-3 col-xs-6">
                     <div class="product-card">
                         <div class="product-tumb">
-                            <img src="sistema/painel-admin/img/categorias/<?php echo $foto ?>" alt="">
+                            <a href="categoria-<?php echo $url ?>">
+                                <img src="sistema/painel-admin/img/categorias/<?php echo $foto ?>" alt="">
+                            </a>
                         </div>
                         <div class="product-details" style="text-align:center">
                             <span class="product-catagory">Women,bag</span>
-                            <h4><a href=""><?php echo $nome ?></a></h4>
+                            <h4><a href="categoria-<?php echo $url ?>"><?php echo $nome ?></a></h4>
                             <p><?php echo $descricao ?></p>
                             <div class="product-bottom-details">
 
-                            <div class="product-price" ><?php echo $cursos ?> cursos</div>
+                                <div class="product-price"><?php echo $cursos ?> cursos</div>
 
                             </div>
                         </div>

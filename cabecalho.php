@@ -5,6 +5,9 @@ require_once('sistema/conexao.php');
 $index = '';
 $categorias = '';
 $cursos = '';
+$sobre = '';
+$linguagens = '';
+$contatos = '';
 
 $url = basename($_SERVER['PHP_SELF'], '.php');//basename e a variável de sessão PHP_SELF, com o segundo argumento .php, retornam o nome da página php
 
@@ -12,11 +15,15 @@ if($url == 'index') {
     $index = 'active';
 } else if ($url == 'categorias') {
     $categorias = 'active';
-} else if ($url == 'cursos' || $url = 'lista-cursos') {
+} else if ($url == 'linguagens') {
+    $linguagens = 'active';
+} else if ($url == 'cursos' || $url == 'lista-cursos' || $url == 'pacotes' || $url == 'formacoes' || $url == 'sistemas' || $url == 'lista-cursos-2021' || $url == 'lista-cursos-2022') {
     $cursos = 'active';
+} else if ($url == 'sobre' || $url == 'planos' || $url == 'parcerias' || $url == 'perguntas' || $url == 'politica' || $url == 'termos') {
+    $sobre = 'active';
+} else if ($url == 'contatos') {
+    $contatos = 'active';
 }
-
-
 
 ?>
 
@@ -67,7 +74,7 @@ if($url == 'index') {
 
                     <div class="search-box social_links">
                         <button class="btn-search"><i class="fa fa-search"></i></button> <!-- para pegar o ícone da lupa tive que alterar de 'fas fa-search' para 'fa fa-search' -->
-                        <input type="text" class="input-search" placeholder="Busque aqui...">
+                        <input  onkeyup="listar()" type="text" name="buscar_cab" id="buscar_cab" class="input-search" placeholder="Busque aqui...">
                     </div>
 
 
@@ -89,35 +96,46 @@ if($url == 'index') {
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="index.php">
+                        <a class="navbar-brand" href="./">
                             <h1> <img src="sistema/img/logo.png" alt="" width="60px">
                             </h1><span><?php echo $nome_sistema ?></span>
                         </a>
                     </div>
                     <div id="navbar" class="collapse navbar-collapse navbar-right">
                         <ul class="nav navbar-nav">
-                            <li class="<?php echo $index ?>"><a href="index.php">Home</a></li>
-                            <li class="<?php echo $categorias ?>"><a href="categorias.php">Categorias</a></li>
+                            <li class="<?php echo $index ?>"><a href="./">Home</a></li>
+                            <li class="<?php echo $categorias ?>"><a href="categorias">Categorias</a></li>
 
                             <li class="dropdown <?php echo $cursos ?>">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cursos e Pacotes <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="cursos.php">Cursos</a></li>
-                                    <li><a href="lista-cursos.php">Todos os Cursos</a></li>
-                                    <li><a href="pacotes.php">Pacotes Promocionais</a></li>
-                                    <li><a href="formacoes.php">Formações</a></li>
-                                    <li><a href="categorias.php">Categorias</a></li>
-                                    <li><a href="sistemas.php">Sistemas Prontos</a></li>
-                                    <li><a href="lista-cursos-2021.php">Cursos 2021</a></li>
-                                    <li><a href="lista-cursos-2022.php">Cursos 2022</a></li>
+                                    <li><a href="cursos">Cursos</a></li>
+                                    <li><a href="lista-cursos">Todos os Cursos</a></li>
+                                    <li><a href="pacotes">Pacotes Promocionais</a></li>
+                                    <li><a href="formacoes">Formações</a></li>
+                                    <li><a href="sistemas">Sistemas Prontos</a></li>
+                                    <li><a href="lista-cursos-2021">Cursos 2021</a></li>
+                                    <li><a href="lista-cursos-2022">Cursos 2022</a></li>
                                 </ul>
                             </li>
 
-                            <li><a href="sobre.php">Sobre</a></li>
-                            <li><a href="linguagens.php">Linguagens</a></li>
-                            <li><a href="contatos.php">Contato</a></li>
+                            <li class="dropdown <?php echo $sobre ?>">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sobre<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="sobre">Nossa Escola</a></li>
+                                    <li><a href="planos">Planos de Assinatura</a></li>
+                                    <li><a href="parcerias">Parcerias</a></li>
+                                    <li><a href="perguntas">Perguntas Frequentes</a></li>
+                                    <li><a href="politica">Política de Privacidade</a></li>
+                                    <li><a href="termos">Termos de Uso</a></li>
+
+                                </ul>
+                            </li>
+
+
+                            <li class="<?php echo $linguagens ?>"><a href="linguagens">Linguagens</a></li>
+                            <li class="<?php echo $contatos ?>"><a href="contatos">Contato</a></li>
                             <li><a href="sistema">Login</a></li>
-                            <li><a href="registration.html">Sign Up</a></li>
                         </ul>
                     </div>
                     <!--/.nav-collapse -->
@@ -126,3 +144,33 @@ if($url == 'index') {
         </nav>
     </header>
     <!--/.nav-ends -->
+
+    <div id="listar-cab"></div>
+
+    <div id="area-conteudo"><!-- fecha no rodape.php -->
+
+
+    <script type="text/javascript">
+
+function listar(){
+
+  var busca = $("#buscar_cab").val();
+    $.ajax({
+        url: "script/ajax-listar-cursos-cab.php",
+        method: 'POST',
+        data: {busca},
+        dataType: "html",
+
+        success:function(result){
+            $("#listar-cab").html(result);
+
+            if(result.trim() != '') { //se for digitado algo em buscar
+            document.getElementById('area-conteudo').style.display = 'none'; //não mostra o conteúdo da página
+            } else { //se não for digitado algo em buscar, ou se for apagado o que for digitado
+            document.getElementById('area-conteudo').style.display = 'block'; //mostra o conteúdo da página
+
+            }
+        }
+    });
+}
+    </script>

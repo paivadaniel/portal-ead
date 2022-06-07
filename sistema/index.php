@@ -223,7 +223,7 @@ if($total_reg > 0) {
 
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="termos" id="termos" value="Sim" required>
-                        <label class="form-check-label" for="exampleCheck1"><small>Aceito os <a href="termos.php" target="_blank">Termos e Condições</a></small></label>
+                        <label class="form-check-label" for="exampleCheck1"><small>Aceito os <a href="../termos" target="_blank">Termos e Condições</a></small></label>
                     </div>
 
                     <br>

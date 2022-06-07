@@ -76,7 +76,7 @@ function listar(pagina){
 
   var busca = $("#buscar").val();
     $.ajax({
-        url: "ajax-listar-sistemas.php",
+        url: "script/ajax-listar-sistemas.php",
         method: 'POST',
         data: {busca, pagina},
         dataType: "html",

@@ -76,7 +76,7 @@ function listar(pagina){
 
   var busca = $("#buscar").val();
     $.ajax({
-        url: "ajax-listar-pacotes.php",
+        url: "script/ajax-listar-pacotes.php",
         method: 'POST',
         data: {busca, pagina},
         dataType: "html",

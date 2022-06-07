@@ -8,6 +8,19 @@ $nome = $_POST['nome'];
 $descricao = $_POST['descricao'];
 $id = $_POST['id']; //recuperou o id para depois analisar se é inserção (id vazio) ou edição (id diferente de vazio)
 
+$nome_novo = strtolower(preg_replace(
+	"[^a-zA-Z0-9-]",
+	"-",
+	strtr(
+		utf8_decode(trim($nome)),
+		utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"),
+		"aaaaeeiooouuncAAAAEEIOOOUUNC-"
+	)
+));
+
+//preg_replace substitui quaisquer caracteres especiais por "-"
+$url = preg_replace('/[ -]+/', '-', $nome_novo);
+
 //validar linguagem duplicada
 $query = $pdo->query("SELECT * FROM $tabela where nome = '$nome'"); //consulta com SELECT não precisa de prepare()
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -54,11 +67,11 @@ if (@$_FILES['foto']['name'] != "") {
 
 if ($id == "") { // se a linguagem não existir, é inserção
 
-	$query = $pdo->prepare("INSERT INTO $tabela SET nome = :nome, descricao = :descricao, foto = '$foto'");
+	$query = $pdo->prepare("INSERT INTO $tabela SET nome = :nome, descricao = :descricao, foto = '$foto', nome_url = '$url'");
 
 } else { //se a linguagem já existir, é edição
 
-	$query = $pdo->prepare("UPDATE $tabela SET nome = :nome, descricao = :descricao, foto = '$foto' WHERE id = '$id'");
+	$query = $pdo->prepare("UPDATE $tabela SET nome = :nome, descricao = :descricao, foto = '$foto', nome_url = '$url' WHERE id = '$id'");
 }
 
 $query->bindValue(":nome", "$nome");
