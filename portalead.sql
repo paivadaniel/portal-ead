@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 07-Jun-2022 às 06:20
+-- Tempo de geração: 07-Jun-2022 às 21:27
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -302,8 +302,9 @@ CREATE TABLE `linguagens` (
 
 INSERT INTO `linguagens` (`id`, `nome`, `descricao`, `foto`, `nome_url`) VALUES
 (1, 'PHP8.1', '', '01-06-2022-16-37-00-11.jpg', 'php8.1'),
-(3, 'C ++', 'sfsfsfsfs', '01-06-2022-16-36-52-04.jpg', 'c-++'),
-(5, 'dadada', 'fafffs', '01-06-2022-16-34-04-01.jpeg', 'dadada');
+(5, 'dadada', 'fafffs', '01-06-2022-16-34-04-01.jpeg', 'dadada'),
+(6, '23', 'asfsfs', 'sem-foto.png', '23'),
+(7, '12', '552', 'sem-foto.png', '12');
 
 -- --------------------------------------------------------
 
@@ -333,11 +334,9 @@ CREATE TABLE `pacotes` (
 --
 
 INSERT INTO `pacotes` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `imagem`, `grupo`, `ano`, `palavras`, `nome_url`, `video`, `linguagem`, `promocao`) VALUES
-(1, 'Sistema Imobiliário', 'PHP e MySql', 'dadadada', '280.00', 1, '24-05-2022-19-46-23-garrafa-de-cerveja-pequena-à-disposição-92840768.jpg', 4, 2022, 'portal imob', 'sistema-imobiliario', '', 1, '150.00'),
-(2, 'pacote 02', 'dsds', 'fsfsfs', '50.00', 1, 'sem-foto.png', 4, 2022, 'fsfsfs', 'pacote-02', 'https://www.youtube.com/embed/F6wJ8vYmeVE', 3, '25.00'),
 (3, 'Formação Delphi', 'Tudo em Delphi', '', '499.00', 1, 'sem-foto.png', 3, 2022, '', 'formacao-delphi', '', 5, '0.00'),
-(4, 'Formação Xupin', 'Xupinça', '', '900.00', 1, 'sem-foto.png', 3, 2022, '', 'formacao-xupin', '', 3, '450.00'),
-(5, 'Formação Web', 'Aprenda de maneira divertida!', '', '900.00', 1, 'sem-foto.png', 6, 2022, '', 'formacao-web', '', 5, '800.00');
+(6, 'Teste', 'Teste', '', '600.00', 1, 'sem-foto.png', 6, 2022, '', 'teste', 'video', 7, '300.00'),
+(7, 'Teste 02', 'Teste 02', '', '900.00', 1, 'sem-foto.png', 6, 2022, '', 'teste-02', '', 6, '699.00');
 
 -- --------------------------------------------------------
 
@@ -578,13 +577,13 @@ ALTER TABLE `grupos`
 -- AUTO_INCREMENT de tabela `linguagens`
 --
 ALTER TABLE `linguagens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `pacotes`
 --
 ALTER TABLE `pacotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `professores`

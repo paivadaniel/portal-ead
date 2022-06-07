@@ -30,32 +30,32 @@ if ($total_reg > 0) {
 
                 $id = $res[$i]['id'];
                 $nome = $res[$i]['nome'];
-                $descricao = $res[$i]['descricao'];
+                $desc_rapida = $res[$i]['descricao'];
                 $foto = $res[$i]['foto'];
+                $url = $res[$i]['nome_url'];
 
                 //conta quantos pacotes estão cadastrados com essa linguagem
                 $query2 = $pdo->query("SELECT * FROM pacotes WHERE linguagem = '$id'");
                 $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
                 $pacotes = @count($res2);
+
             ?>
 
-                <div class="col-sm-3 col-xs-6">
+                <div class="col-md-3 col-sm-6 col-xs-6">
                     <div class="product-card">
                         <div class="product-tumb">
-                            <img src="sistema/painel-admin/img/linguagens/<?php echo $foto ?>" alt="">
+                            <a href="linguagem-<?php echo $url ?>"><img src="sistema/painel-admin/img/linguagens/<?php echo $foto ?>" alt="" width="100%"></a>
                         </div>
-                        <div class="product-details" style="text-align:center">
-                            <span class="product-catagory">Women,bag</span>
-                            <h4><a href=""><?php echo $nome ?></a></h4>
-                            <p><?php echo $descricao ?></p>
+                        <div class="product-details">
+                            <h4><a href="linguagem-<?php echo $url ?>"><?php echo $nome ?></a></h4>
+                            <p><?php echo $desc_rapida ?></p>
+
                             <div class="product-bottom-details">
-
-                            <div class="product-price" ><?php echo $pacotes ?> pacotes</div>
-
+                                <div class="product-price"><?php echo $pacotes ?> Pacotes</div>
                             </div>
+
                         </div>
                     </div>
-
                 </div>
 
             <?php
