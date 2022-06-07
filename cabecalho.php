@@ -33,9 +33,23 @@ if($url == 'index') {
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title><?php echo $nome_sistema; ?>
-    </title>
-            <!-- recupera nome_sistema da tabela config do banco de dados -->
+
+    <!-- se a variável palavras_chaves não existir -->
+    <?php if(@$palavras_chaves == ""){ ?>
+      <meta name="keywords" content="cursos, portal de cursos, curso de tecnologia, cursos de programação, cursos online, cursos a distância, ensino a distancia, ensino EAD">
+      <?php }else{ ?> <!-- se a variável palavras_chaves existir, se trata de um curso ou pacote, e recupera-se o conteúdo dela do banco de dados,  -->
+      <meta name="keywords" content="<?php echo $palavras_chaves; ?>">
+      <?php } ?>
+
+      <!-- se a variável nome_curso_titulo não existir, significa que se está na homepage, na página de contato, etc -->
+      <?php if(@$nome_curso_titulo == ""){ ?>
+      <title><?php echo $nome_sistema ?></title>
+      <?php }else{ ?> <!-- se ela existir, está-se numa página de curso, recupera-se o nome do curso do banco de dados -->
+      <title><?php echo $nome_curso_titulo; ?></title>
+      <?php } ?>
+
+
+    <!-- recupera nome_sistema da tabela config do banco de dados -->
                                                                                                                             
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">

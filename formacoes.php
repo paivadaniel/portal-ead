@@ -37,6 +37,7 @@ if ($total_reg > 0) {
                 $promocao = $res[$i]['promocao'];
                 $foto = $res[$i]['imagem'];
                 $primeira_aula = $res[$i]['video'];
+                $url = $res[$i]['nome_url'];
 
 
                 //valor formatodo e descrição_longa formatada
@@ -55,7 +56,7 @@ if ($total_reg > 0) {
                                 <iframe class="video-card" src="<?php echo $primeira_aula ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
                                 <div class="" align="center" style="margin-top:20px;">
-                                    <a href="#" type="button" class="btn btn-primary2">Veja Mais <i class="fa fa-caret-right"></i></a>
+                                    <a href="cursos-do-<?php echo $url ?>" type="button" class="btn btn-primary2">Veja Mais <i class="fa fa-caret-right"></i></a>
                                 </div>
 
 
@@ -64,7 +65,7 @@ if ($total_reg > 0) {
                         <!-- End portfolio-head -->
                         <div class="portfolio-content" align="center">
                             <!-- tentei com style="text-align:center", e deu o mesmo efeito de centralizar -->
-                            <a href="#" title="Detalhes do Pacote">
+                            <a href="cursos-do-<?php echo $url ?>" title="Detalhes do Pacote">
 
                                 <h5 class="title"><?php echo $nome ?></h5>
                                 <p style="margin-top:0px;"><?php echo $desc_rapida ?></p>

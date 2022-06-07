@@ -53,7 +53,7 @@ if ($total_reg > 0) {
                             <div class="portfolio-img">
                                 <a href="cursos-do-<?php echo $url ?>"><img alt="" src="sistema/painel-admin/img/pacotes/<?php echo $foto ?>">
                                 </a>
-                        </div>
+                            </div>
                             <div class="portfolio-hover">
 
                                 <div class="" align="center" style="margin-top:20px;">
@@ -69,8 +69,9 @@ if ($total_reg > 0) {
                             <a href="cursos-do-<?php echo $url ?>" title="Detalhes do Pacote">
 
                                 <h5 class="title"><?php echo $nome ?></h5>
-                                <p style="margin-top:0px;"><?php echo $desc_rapida ?></p>
                             </a>
+                            <p style="margin-top:0px;"><?php echo $desc_rapida ?></p>
+
                             <div class="product-bottom-details">
 
                                 <?php

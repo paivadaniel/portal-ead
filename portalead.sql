@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 07-Jun-2022 às 21:27
--- Versão do servidor: 10.4.21-MariaDB
--- versão do PHP: 8.0.10
+-- Tempo de geração: 08-Jun-2022 às 01:11
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -334,9 +334,10 @@ CREATE TABLE `pacotes` (
 --
 
 INSERT INTO `pacotes` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `imagem`, `grupo`, `ano`, `palavras`, `nome_url`, `video`, `linguagem`, `promocao`) VALUES
-(3, 'Formação Delphi', 'Tudo em Delphi', '', '499.00', 1, 'sem-foto.png', 3, 2022, '', 'formacao-delphi', '', 5, '0.00'),
+(3, 'Formação Delphi', 'Tudo em Delphi', '', '499.00', 1, 'sem-foto.png', 3, 2022, '', 'formacao-delphi', 'video', 5, '250.00'),
 (6, 'Teste', 'Teste', '', '600.00', 1, 'sem-foto.png', 6, 2022, '', 'teste', 'video', 7, '300.00'),
-(7, 'Teste 02', 'Teste 02', '', '900.00', 1, 'sem-foto.png', 6, 2022, '', 'teste-02', '', 6, '699.00');
+(7, 'Teste 02', 'Teste 02', '', '900.00', 1, 'sem-foto.png', 6, 2022, '', 'teste-02', '', 6, '699.00'),
+(8, 'dsdsdsds', 'sfsfsfsfsfsfs', '', '500.00', 1, 'sem-foto.png', 6, 2022, '', 'dsdsdsds', 'http://google.com', 5, '600.00');
 
 -- --------------------------------------------------------
 
@@ -583,7 +584,7 @@ ALTER TABLE `linguagens`
 -- AUTO_INCREMENT de tabela `pacotes`
 --
 ALTER TABLE `pacotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `professores`

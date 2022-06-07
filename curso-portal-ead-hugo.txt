@@ -56,5 +56,8 @@ a palavra que colocaria no GET, e nesse caso ele colocou o nome de uma variável
 o ajax-listar-cursos-2021 e o listar-cursos-2021 e o problema persiste, tanto para 2021 quanto para 2022, 
 foi colocado o ano na query.
 
+- o ajax-listar-cursos-cab está exibindo cursos de maneira errada, está quebrando cursos e pacotes com o rodapé
+ao digitar buscar na barra superior.
+
 - nos cursos (http://localhost/dashboard/www/portal-ead/sistema/painel-admin/index.php?pagina=cursos#) não
 está incrementando a aula de um mesmo módulo ao trocar de módulo na modal.
