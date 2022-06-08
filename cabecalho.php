@@ -56,6 +56,7 @@ if($url == 'index') {
     <link rel="stylesheet" href="scss/main.css">
     <link rel="stylesheet" href="scss/skin.css">
     <link rel="stylesheet" href="scss/card.css">
+    <link rel="stylesheet" href="scss/curso.css">
 
 
     <!-- Favicon -->
@@ -100,7 +101,8 @@ if($url == 'index') {
     </section>
 
     <header>
-        <nav class="navbar navbar-inverse">
+        <nav class="navbar navbar-inverse" style="z-index: 1000"> 
+        <!-- z-index: 1000 é para o menu responsivo não abrir atrás do banner -->
             <div class="container">
                 <div class="row">
                     <div class="navbar-header">
@@ -122,7 +124,7 @@ if($url == 'index') {
 
                             <li class="dropdown <?php echo $cursos ?>">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cursos e Pacotes <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu navbar-nav-sub">
                                     <li><a href="cursos">Cursos</a></li>
                                     <li><a href="lista-cursos">Todos os Cursos</a></li>
                                     <li><a href="pacotes">Pacotes Promocionais</a></li>
@@ -135,7 +137,7 @@ if($url == 'index') {
 
                             <li class="dropdown <?php echo $sobre ?>">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sobre<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu navbar-nav-sub">
                                     <li><a href="sobre">Nossa Escola</a></li>
                                     <li><a href="planos">Planos de Assinatura</a></li>
                                     <li><a href="parcerias">Parcerias</a></li>

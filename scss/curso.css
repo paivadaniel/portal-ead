@@ -1,0 +1,128 @@
+.titulo-curso{
+	font-size: 20px;
+  line-height: 1.4em;
+  margin-bottom: 15px;
+  font-weight: 500;
+  color:#212121;
+}
+
+
+
+.valor{
+	color:#743a00 !important;
+	font-size:16px !important;
+}
+
+.inicie{
+	color:#4f4f4f !important;
+	font-size:11px !important;
+}
+
+
+.relacionados{
+  margin-top:-70px !important;
+}
+
+
+.nome_relacionados{
+  font-size:16px;
+}
+
+.desc_relacionados{
+  font-size:14px !important;
+}
+
+.nome-aluno{
+	color:#4d4d4d !important;
+	font-weight: 500 !important;
+	font-size: 15px !important;
+}
+
+
+.estrelas{
+ color:#f5ad1d !important;
+ margin-right: 10px;
+ margin-left: 10px;
+ font-size:17px !important;;
+}
+
+.estrela{
+ color:#f5ad1d !important;
+ 
+}
+
+.comentario{
+  margin-top: 10px;
+  font-size:14px;
+  font-weight: 400 !important;
+  color:#707070 !important;
+}
+
+
+.faq{
+  font-size:50px;
+}
+
+
+.neutra{
+	color:#4d4d4d !important;
+}
+
+.topicos{
+	color:#5c5c5c !important;
+	font-size:14px;
+	margin-bottom:10px;
+}
+
+
+.itens{
+	color:#6e6e6e !important;
+	font-weight: 500;
+}
+
+.texto-15{
+	color:#878686 !important;
+	font-size:15px;
+}
+
+
+@media only screen and (max-width: 700px) {
+  .ocultar-mobile{
+    display:none !important; 
+  }
+
+  .imagem-cartao{
+    text-align:center;
+    margin-top: 25px;
+  }
+
+  .texto-menor-mobile{
+  	font-size:13px !important;
+  }
+
+  .esquerda-mobile{
+  	float:left;
+  	width:55%;
+  }
+
+  .direita-mobile{
+  	float:right;
+  	width:45%;
+  }
+
+  .topicos{
+		color:#5c5c5c !important;
+		font-size:12px;
+		margin-bottom:0px;
+	}
+
+
+}
+
+
+
+@media only screen and (min-width: 700px) {
+    .margem-sup{    
+    margin-top: -15px;
+  }
+}

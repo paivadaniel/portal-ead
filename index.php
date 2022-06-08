@@ -80,6 +80,7 @@ if ($total_reg > 0) {
     <div class="image-holder col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-left">
         <div class="background-imgholder">
             <img src="img/1.jpg" alt="about" class="img-responsive" style="display:none;" />
+            <!-- não adianta alterar o src acima, tem que mudar em main.css, na classe background-imgholder, aqui background: url(../img/1.jpg); -->
         </div>
     </div>
 
