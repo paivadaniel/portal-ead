@@ -4,8 +4,8 @@ require_once("../sistema/conexao.php");
 $busca = '%' . $_POST['busca'] . '%';
 
 //isso foi feito pois depois de feita uma busca, quando apagamos tudo que estiver no buscar_cab, ele traz todos os cursos, quando queremos que não traga nenhum
-if($busca == '%%') { //se a busca for vazia
-exit();
+if ($busca == '%%') { //se a busca for vazia
+  exit();
 }
 
 //procura por pacotes no campo buscar e exibe em id=buscar_cab, que está definido e também o AJAX em cabecalho.php
@@ -42,12 +42,14 @@ HTML;
       $ativo = 'ocultar';
       $ativo2 = '';
     }
-    
+
     echo <<<HTML
    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 portfolio-item">
                     <div class="portfolio-one">
                         <div class="portfolio-head">
-                            <div class="portfolio-img"><img alt="" src="sistema/painel-admin/img/pacotes/{$foto}"></div>
+                            <div class="portfolio-img">
+                              <img alt="" src="sistema/painel-admin/img/pacotes/{$foto}">
+                            </div>
                             <div class="portfolio-hover">
                                 <iframe class="video-card" src="{$primeira_aula}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -72,12 +74,15 @@ HTML;
     if ($promocao > 0) {
 
       echo <<<HTML
-                                    <div class="product-price"><small>R$ {$valorF}</small>R$ {$promocaoF}</div>
+                                    <div class="product-price"><small>R$ {$valorF}</small>R$ {$promocaoF}
+                                    </div>
 HTML;
     } else {
       echo <<<HTML
 
-                                    <div class="product-price">R$ {$valorF}</div>
+                                    <div class="product-price">R$ {$valorF}
+                                      
+                                    </div>
 HTML;
     }
     echo <<<HTML
@@ -95,9 +100,17 @@ HTML;
                 </div>
 HTML;
   }
+} //fechamento do if
+echo <<<HTML
+
+</div>
+</section>
+<section id="portfolio" style="margin-top:100px;">
+
+<div class="row" style="margin-left:10px; margin-right:10px; margin-top:-100px;">
 
 
-}//fechamento do if
+HTML;
 
 
 

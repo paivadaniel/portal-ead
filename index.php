@@ -178,10 +178,7 @@ if ($total_reg > 0) {
     </div>
 </section>
 
-
 <hr>
-
-
 <?php
 
 $query = $pdo->query("SELECT * FROM cursos WHERE status = 'Aprovado' AND sistema = 'Não' ORDER BY id desc limit 7");

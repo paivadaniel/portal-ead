@@ -1,11 +1,18 @@
 <?php
 
 //VARIÁVEIS DO SERVIDOR LOCAL
-
 $servidor = 'localhost';
 $banco = 'portalead';
 $usuario = 'root';
 $senha = '';
+
+/*
+//VARIÁVEIS DO SERVIDOR HOSPEDADO
+$servidor = 'xxx';
+$banco = 'xxx';
+$usuario = 'xxx';
+$senha = 'localhost';
+*/
 
 //url sistema
 //ao invés de digitar $url_sistema = 'http://localhost/dashboard/www/portal-ead/';, automatiza da seguinte maneira:
