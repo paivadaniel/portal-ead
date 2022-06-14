@@ -67,3 +67,10 @@ if ($url == 'index') {
 <!-- js do bootstrap3, estava sendo chamado no cabecalho.php, porém, a modalContato no curso.php não estava abrindo, abriu quando colocou no rodapé, autor não sabe explicar o porquê desse erro
 de posicionamento -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- Mascaras JS -->
+<script type="text/javascript" src="sistema/js/mascaras.js"></script>
+<!-- para a máscara funcionar, o input do telefone tem que ser do tipo text -->
+
+<!-- Ajax para funcionar Mascaras JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
