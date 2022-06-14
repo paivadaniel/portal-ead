@@ -571,6 +571,14 @@ $senha_usuario = $res[0]['senha'];
                     </div>
 
                     <div class="row">
+
+                    <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Url Vídeo Página Sobre</label>
+                                <input type="text" class="form-control" id="video_sobre" name="video_sobre" value="<?php echo $video_sobre ?>">
+                            </div>
+                        </div>
+
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Itens Paginação</label>

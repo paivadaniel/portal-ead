@@ -17,13 +17,13 @@ if($total_reg > 0){
    ?>
 
 
-    <div class="row" style="margin-left: 10px;">
-                <div class="col-md-6 col-xs-6" >
-                <p><span>Total de Sistemas</span> - <?php echo $total_reg ?> Sistemas</p>
+    <div class="row" style="margin-left: 10px; margin-right: 10px;">
+                <div class="col-md-8 col-xs-6" >
+                <p><span class="ocultar-mobile">Total - </span><?php echo $total_reg ?> Sistemas</p>
              
             </div>
 
-             <div class="col-md-6 col-xs-6" align="right">
+             <div class="col-md-4 col-xs-6">
                   <div class="search-box-pag " style="margin-top: 10px;">
                         <button class="btn-search-pag"><i class="fa fa-search"></i></button> <!-- para pegar o ícone da lupa tive que alterar de 'fas fa-search' para 'fa fa-search' -->
                         <input onkeyup="listar()" type="text" class="input-search-pag" placeholder="Busque um Sistema..." id="buscar">

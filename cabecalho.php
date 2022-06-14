@@ -63,7 +63,7 @@ if($url == 'index') {
     <link rel="shortcut icon" href="sistema/img/favicon.ico" type="image/x-icon">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
     <script src="./script/index.js"></script>
 </head>
 
@@ -89,7 +89,11 @@ if($url == 'index') {
 
                     <div class="search-box social_links">
                         <button class="btn-search"><i class="fa fa-search"></i></button> <!-- para pegar o ícone da lupa tive que alterar de 'fas fa-search' para 'fa fa-search' -->
-                        <input  onkeyup="listar()" type="text" name="buscar_cab" id="buscar_cab" class="input-search" placeholder="Busque aqui...">
+                        <input  onkeyup="listarCab()" type="text" name="buscar_cab" id="buscar_cab" class="input-search" placeholder="Busque aqui...">
+                    <!-- o buscardor daqui estava dando problema com os das páginas que já tem um buscador,
+                pois a função listar() era chamada duas vezes, a primeira em cabecalho.php e 
+                a segunda em lista-cursos.php, pacotes.php etc, por isso mudamos o nome dele aqui de listar
+            para listarCab -->
                     </div>
 
 
@@ -168,7 +172,7 @@ if($url == 'index') {
 
     <script type="text/javascript">
 
-function listar(){
+function listarCab(){
 
   var busca = $("#buscar_cab").val();
     $.ajax({

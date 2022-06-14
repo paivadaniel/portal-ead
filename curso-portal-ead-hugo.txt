@@ -61,3 +61,10 @@ ao digitar buscar na barra superior.
 
 - nos cursos (http://localhost/dashboard/www/portal-ead/sistema/painel-admin/index.php?pagina=cursos#) não
 está incrementando a aula de um mesmo módulo ao trocar de módulo na modal.
+
+
+---- fiz diferente
+
+mod07 Aula 06 e 07
+ele deixou 6 cards por linha (col-md-2), removeu hover e vídeo do card, e deixou link envolvendo o card inteiro
+fiz isso em formacoes.php, para ver como estava antes vá em sistemas.php

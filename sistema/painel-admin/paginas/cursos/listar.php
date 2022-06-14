@@ -120,7 +120,7 @@ HTML;
             $icone2 = 'fa-comment-o';
         }
 
-        //valor formatodo e descrição_longa formatada
+        //valor formatado e descrição_longa formatada
         $valorF = number_format($valor, 2, ',', '.',);
         $promocaoF = number_format($promocao, 2, ',', '.',);
         $desc_longa = str_replace('"', '**', $desc_longa); //quando joga em onclick="editar()", como o conteúdo de $desc_longa muita das vezes tem aspas, como align="center", então dá problema

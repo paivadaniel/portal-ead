@@ -22,8 +22,23 @@ require_once('cabecalho.php');
                     </p>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-5">
-                    <img height="" width="auto" src="img/iphone62.png" class="attachment-full img-responsive" alt="">
+                    <!-- <img height="" width="auto" src="img/iphone62.png" class="attachment-full img-responsive" alt="">
+                    -->
+
+                    <?php if($video_sobre != '') {
+
+                     ?>
+                    <iframe width="100%" height="280" src="<?php echo $video_sobre ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                    <!-- video_sobre é uma variável global, definida em conexao.php, que está dentro de cabecalho.php, cujo require é feito no início dessa página -->
+
+                    <?php }
+                    ?>
+
                 </div>
+
+
+
             </div>
         </div>
     </section>

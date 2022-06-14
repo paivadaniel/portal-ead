@@ -2,7 +2,14 @@
 require_once("sistema/conexao.php");
 
 $destinatario = $email_sistema;
-$assunto = 'Contato - ' .$nome_sistema;
+
+if(@$_POST['nome_curso'] != ""){ //formulário vindo da modalContato, em curso.php
+	$assunto = 'Pergunta do Curso - ' .@$_POST['nome_curso'];
+
+} else {
+	$assunto = 'Contato - ' .$nome_sistema; //formulário vindo de contatos.php
+}
+
 
 if($_POST['nome'] == ""){
 	echo 'Preencha o Campo Nome!';
@@ -31,5 +38,3 @@ $cabecalhos = "From: " .$dest;
 mail($destinatario, $assunto, $mensagem, $cabecalhos);
 
 echo 'Enviado com Sucesso!';
-
- ?>

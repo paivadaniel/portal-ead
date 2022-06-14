@@ -59,7 +59,7 @@ if ($total_reg == 0) { //se a tabela config não tiver nenhum registro
     $instagram_sistema = $res[0]['instagram']; 
     $youtube_sistema = $res[0]['youtube']; 
     $itens_pag = $res[0]['itens_pag']; 
-
+    $video_sobre = $res[0]['video_sobre']; 
     //$logo = $res[0]['logo']; //não precisa pois o nome nunca muda
     //$icone = $res[0]['icone']; 
     //$logo_rel = $res[0]['logo_rel']; 

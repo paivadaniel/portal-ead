@@ -9,7 +9,7 @@ if ($busca == '%%') { //se a busca for vazia
 }
 
 //procura por pacotes no campo buscar e exibe em id=buscar_cab, que está definido e também o AJAX em cabecalho.php
-$query = $pdo->query("SELECT * FROM pacotes WHERE nome LIKE '$busca' or desc_rapida LIKE '$busca' ORDER BY id desc"); //LIMIT vai de limit à itens_pag
+$query = $pdo->query("SELECT * FROM pacotes WHERE nome LIKE '$busca' or desc_rapida LIKE '$busca' ORDER BY nome asc"); //LIMIT vai de limit à itens_pag
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 if ($total_reg > 0) {
@@ -101,21 +101,16 @@ HTML;
 HTML;
   }
 } //fechamento do if
-echo <<<HTML
 
-</div>
-</section>
-<section id="portfolio" style="margin-top:100px;">
-
-<div class="row" style="margin-left:10px; margin-right:10px; margin-top:-100px;">
-
-
-HTML;
-
-
+//echo <<<HTML
+//</div>
+//</section>
+//<section id="portfolio" style="margin-top:100px;">
+//<div class="row" style="margin-left:10px; margin-right:10px; margin-top:-100px;">
+//HTML;
 
 //procura por campos no campo buscar e exibe em id=buscar_cab, que está definido e também o AJAX em cabecalho.php
-$query = $pdo->query("SELECT * FROM cursos where status = 'Aprovado' and sistema = 'Não' and (nome LIKE '$busca' or desc_rapida LIKE '$busca') ORDER BY id desc"); //LIMIT vai de limit à itens_pag
+$query = $pdo->query("SELECT * FROM cursos where status = 'Aprovado' and sistema = 'Não' and (nome LIKE '$busca' or desc_rapida LIKE '$busca') ORDER BY nome asc"); //LIMIT vai de limit à itens_pag
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 if ($total_reg > 0) {

@@ -47,11 +47,13 @@ if ($total_reg > 0) {
 
 
             ?>
-
-                <div class="col-xs-12 col-sm-4 col-md-3 portfolio-item">
-                    <div class="portfolio-one">
-                        <div class="portfolio-head">
-                            <div class="portfolio-img"><img alt="" src="sistema/painel-admin/img/pacotes/<?php echo $foto ?>"></div>
+                <a href="cursos-do-<?php echo $url ?>" title="Detalhes do Pacote">
+                    <!--<div class="col-xs-12 col-sm-4 col-md-3 portfolio-item"> -->
+                    <div class="col-xs-12 col-sm-4 col-md-2 portfolio-item">
+                        <div class="portfolio-one">
+                            <div class="portfolio-head">
+                                <div class="portfolio-img"><img alt="" src="sistema/painel-admin/img/pacotes/<?php echo $foto ?>"></div>
+                                <!--
                             <div class="portfolio-hover">
                                 <iframe class="video-card" src="<?php echo $primeira_aula ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -61,44 +63,45 @@ if ($total_reg > 0) {
 
 
                             </div>
-                        </div>
-                        <!-- End portfolio-head -->
-                        <div class="portfolio-content" align="center">
-                            <!-- tentei com style="text-align:center", e deu o mesmo efeito de centralizar -->
-                            <a href="cursos-do-<?php echo $url ?>" title="Detalhes do Pacote">
-
+                            -->
+                            </div>
+                            <!-- End portfolio-head -->
+                            <div class="portfolio-content" align="center">
+                                <!-- tentei com style="text-align:center", e deu o mesmo efeito de centralizar -->
+                                <!--<a href="cursos-do-<?php echo $url ?>" title="Detalhes do Pacote">
+            -                   -->
                                 <h5 class="title"><?php echo $nome ?></h5>
                                 <p style="margin-top:0px;"><?php echo $desc_rapida ?></p>
 
-                            </a>
+                                <!--</a>
+                                -->
 
+                                <div class="product-bottom-details">
 
-                            <div class="product-bottom-details">
+                                    <?php
+                                    if ($promocao > 0) {
 
-                                <?php
-                                if ($promocao > 0) {
+                                    ?>
+                                        <div class="product-price"><small>R$ <?php echo $valorF ?></small>R$ <?php echo $promocaoF ?></div>
 
-                                ?>
-                                    <div class="product-price"><small>R$ <?php echo $valorF ?></small>R$ <?php echo $promocaoF ?></div>
+                                    <?php } else { ?>
 
-                                <?php } else { ?>
+                                        <div class="product-price">R$ <?php echo $valorF ?></div>
 
-                                    <div class="product-price">R$ <?php echo $valorF ?></div>
+                                    <?php } ?>
 
-                                <?php } ?>
-
-                                <div class="product-links">
-                                    <a href=""><i class="fa fa-heart"></i></a>
-                                    <a href=""><i class="fa fa-shopping-cart"></i></a>
+                                    <div class="product-links">
+                                        <a href=""><i class="fa fa-heart"></i></a>
+                                        <a href=""><i class="fa fa-shopping-cart"></i></a>
+                                    </div>
                                 </div>
+
                             </div>
-
+                            <!-- End portfolio-content -->
                         </div>
-                        <!-- End portfolio-content -->
+                        <!-- End portfolio-item -->
                     </div>
-                    <!-- End portfolio-item -->
-                </div>
-
+                </a>
             <?php
             }
             ?>

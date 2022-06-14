@@ -62,3 +62,8 @@ if ($url == 'index') {
 
 <!-- link para chamar o AJAX para poder utilizar o ajax-listar-cursos.php -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<!-- js do bootstrap3, estava sendo chamado no cabecalho.php, porém, a modalContato no curso.php não estava abrindo, abriu quando colocou no rodapé, autor não sabe explicar o porquê desse erro
+de posicionamento -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
