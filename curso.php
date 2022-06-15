@@ -8,12 +8,12 @@ $url = $_GET['url'];
 
 $nivel = @$_SESSION['nivel']; //@ pois se o usuário não estiver logado, não aparece warning
 
-if($nivel == '') {
-    $modal = 'Login'; //modalLogin
-} else if ($nivel == 'Administrador') {
-    $modal = 'Matricular'; //o administrador pode matricular um aluno, modalMatricular
-} else { //para $nivel == 'Profesor' e $nivel == 'Aluno', modalPagamento
-    $modal = 'Pagamento';
+if ($nivel == 'Aluno') {
+    $modal = 'Pagamento'; //modalLogin
+} else if ($nivel == 'Administrador' || $nivel == 'Professor') {
+    $modal = 'Matricular'; //o administrador e o professor pode matricular um aluno, modalMatricular
+} else {
+    $modal = 'Login';
 }
 
 $query = $pdo->query("SELECT * FROM cursos WHERE nome_url = '$url'");
@@ -44,7 +44,7 @@ if ($total_reg > 0) {
     $link = $res[0]['link'];
     $tecnologias = $res[0]['tecnologias'];
 
-    if($promocao > 0) {
+    if ($promocao > 0) {
         $valor_curso = $promocao;
     } else {
         $valor_curso = $valor;
@@ -71,8 +71,6 @@ if ($total_reg > 0) {
     $promocaoF = number_format($promocao, 2, ',', '.',);
     $desc_longa = str_replace('"', '**', $desc_longa); //quando joga em onclick="editar()", como o conteúdo de $desc_longa muita das vezes tem aspas, como align="center", então dá problema
     $valor_cursoF = number_format($valor_curso, 2, ',', '.',);
-
-
 }
 
 //para não ter que usar palavras_chave e nome_curso_titulo como variáveis globais, o segredo está nelas serem definidas antes de serem chamadas, e como estão em cabecalho.php,
@@ -381,7 +379,7 @@ require_once('cabecalho.php');
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel">Faça seu Login - <span class="neutra" id="nome_curso_pagamento"></span> <span class="neutra">- R$</span><span class="neutra" id="valor_curso_pagamento"></span></h4>
+                <h4 class="modal-title" id="exampleModalLabel"><span class="neutra" id="nome_curso_Login"></span> <span class="neutra">- R$</span><span class="neutra" id="valor_curso_Login"></span></h4>
                 <button style="margin-top: -25px" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span class="neutra" aria-hidden="true">&times;</span>
                 </button>
@@ -390,39 +388,90 @@ require_once('cabecalho.php');
             <div class="modal-body">
 
 
-                <form id="form" class="contact-form" name="contact-form" method="post">
-                    <div class="row">
-                        <div class="col-sm-5 col-sm-offset-1">
-                            <div class="form-group">
-                                <label>Nome *</label>
-                                <input type="text" name="nome" id="nome" class="form-control" required="required">
-                            </div>
+                <div class="row">
+
+                    <div class="col-sm-5">
+                        <form id="form" class="contact-form" name="contact-form" method="post">
+
+                            <h5 style="font-weight: 500" align="center"><span>FAÇA SEU LOGIN!</span></h5>
+
+                            <hr>
                             <div class="form-group">
                                 <label>Email *</label>
-                                <input type="email" name="email" id="email" class="form-control" required="required">
+                                <input type="email" name="email" id="email_login" class="form-control" required="required" placeholder="Digite seu Email">
                             </div>
                             <div class="form-group">
-                                <label>WhatssApp</label>
-                                <input type="text" name="telefone" id="telefone" class="form-control">
+                                <label>Senha</label>
+                                <input type="password" name="senha" id="senha_login" class="form-control" required="required" placeholder="Digite sua Senha">
                             </div>
 
-                        </div>
-                        <div class="col-sm-5">
                             <div class="form-group">
-                                <label>Mensagem *</label>
-                                <textarea name="mensagem" id="mensagem" required="required" class="form-control" rows="8"></textarea>
+                                <button id="btn-enviar" type="submit" name="submit" class="btn btn-default submit-button">Login <i class="fa fa-caret-right"></i></button>
                             </div>
-                            <div class="form-group">
-                                <button id="btn-enviar" type="submit" name="submit" class="btn btn-default submit-button">Enviar <i class="fa fa-caret-right"></i></button>
-                            </div>
-                        </div>
+                        </form>
+
                     </div>
 
-                    <input type="hidden" name="nome_curso" id="nome_curso">
+                    <div class="col-sm-1">
+                        <h5 style="font-weight: 500" align="center"><span class="ocultar-mobile">OU</span></h5>
+                        <hr>
+                    </div>
+
+                    <div class="col-sm-6">
+
+                        <form id="form-cadastrar" class="contact-form" name="contact-form" method="post">
+
+                            <h5 style="font-weight: 500" align="center"><span>CADASTRE-SE!</span></h5>
+
+                            <div class="form-group">
+                                <label>Nome *</label>
+                                <input type="nome" name="nome" id="nome_cadastro" class="form-control" required="required" placeholder="Digite seu Nome">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email *</label>
+                                <input type="email" name="email" id="email_cadastro" class="form-control" required="required" placeholder="Digite seu Email">
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Senha</label>
+                                        <input type="password" name="senha" id="senha_cadastro" class="form-control" required="required" placeholder="Digite sua Senha">
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Confirmar Senha</label>
+                                        <input type="password" name="conf_senha" id="conf_senha_cadastro" class="form-control" required="required" placeholder="Confirme sua Senha">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="termos" name="termos" value="Sim" required>
+                                <label class="form-check-label" for="exampleCheck1"><small>Aceitar <a href="termos" target="_blank">Termos e Condições</a> e <a href="politica" target="_blank">Politíca de Privacidade</a></small></label>
+                            </div>
+
+
+                            <div class="form-group">
+                                <button id="btn-enviar" type="submit" name="submit" class="btn btn-default submit-button">Cadastre-se <i class="fa fa-caret-right"></i></button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+                <input type="hidden" name="id_curso" id="id_curso_Login">
 
 
 
-                </form>
 
 
 
@@ -450,7 +499,7 @@ require_once('cabecalho.php');
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel">Liberação Automática - <span class="neutra" id="nome_curso_pagamento"></span> <span class="neutra">- R$</span><span class="neutra" id="valor_curso_pagamento"></span></h4>
+                <h4 class="modal-title" id="exampleModalLabel">Liberação Automática - <span class="neutra" id="nome_curso_Pagamento"></span> <span class="neutra">- R$</span><span class="neutra" id="valor_curso_Pagamento"></span></h4>
                 <button style="margin-top: -25px" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span class="neutra" aria-hidden="true">&times;</span>
                 </button>
@@ -487,7 +536,7 @@ require_once('cabecalho.php');
                         </div>
                     </div>
 
-                    <input type="hidden" name="nome_curso" id="nome_curso">
+                    <input type="text" name="id_curso" id="id_curso_Pagamento">
 
 
 
@@ -521,7 +570,7 @@ require_once('cabecalho.php');
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel">Matricular Aluno - <span class="neutra" id="nome_curso_pagamento"></span> <span class="neutra">- R$</span><span class="neutra" id="valor_curso_pagamento"></span></h4>
+                <h4 class="modal-title" id="exampleModalLabel">Matricular Aluno - <span class="neutra" id="nome_curso_Matricular"></span> <span class="neutra">- R$</span><span class="neutra" id="valor_curso_Matricular"></span></h4>
                 <button style="margin-top: -25px" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span class="neutra" aria-hidden="true">&times;</span>
                 </button>
@@ -558,7 +607,7 @@ require_once('cabecalho.php');
                         </div>
                     </div>
 
-                    <input type="hidden" name="nome_curso" id="nome_curso">
+                    <input type="hidden" name="id_curso" id="id_curso_Matricular">
 
 
 
@@ -595,14 +644,14 @@ require_once('cabecalho.php');
 
 <script type="text/javascript">
     function pagamento(id, nome, valor, modal) {
-        $('#mensagem-pagamento').text('');
-        $('#nome_curso_pagamento').text(nome); //nome_curso_pagamento é um id com um spans, não é um input, por isso text()
-        $('#valor_curso_pagamento').text(valor);
-        $('#id_curso_pagamento').val(id); //id_curso_pagamento é passado pelo formulário com hidden, daí precisa ser val()
-    
+
+        $('#nome_curso_' + modal).text(nome); //nome_curso_pagamento é um id com um spans, não é um input, por isso text()
+        $('#valor_curso_' + modal).text(valor);
+        $('#id_curso_' + modal).val(id); //id_curso_pagamento é passado pelo formulário com hidden, daí precisa ser val()
+
         $('#' + modal).modal('show'); //abrir a modal por script, a outra forma é abrir a modal via data-target
 
-    
+
     }
 </script>
 
