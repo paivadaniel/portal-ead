@@ -27,7 +27,7 @@ if($total_reg > 0) {
     exit();
 }
 
-$query = $pdo->prepare("INSERT INTO alunos SET nome = :nome, email = :email, foto = 'img/sem-perfil.jpg', data = curDate()");
+$query = $pdo->prepare("INSERT INTO alunos SET nome = :nome, email = :email, foto = 'img/sem-perfil.jpg', data = curDate(), ativo = 'Sim'");
 $query->bindValue(":nome", "$nome");
 $query->bindValue(":email", "$email");
 $query->execute();

@@ -70,7 +70,7 @@ if ($total_reg > 0) {
     $valorF = number_format($valor, 2, ',', '.',);
     $promocaoF = number_format($promocao, 2, ',', '.',);
     $desc_longa = str_replace('"', '**', $desc_longa); //quando joga em onclick="editar()", como o conteúdo de $desc_longa muita das vezes tem aspas, como align="center", então dá problema
-    $valor_cursoF = number_format($valor_curso, 2, ',', '.',);
+    $valor_cursoF = number_format($valor_curso, 2, ',', '.',); //valorF é o do curso, promocaoF é o valor promocional do curso, foi criado um if e uma nova variável valor_cursoF para armazenar o valor do curos, promocional ou não 
 }
 
 //para não ter que usar palavras_chave e nome_curso_titulo como variáveis globais, o segredo está nelas serem definidas antes de serem chamadas, e como estão em cabecalho.php,
@@ -371,34 +371,30 @@ require_once('cabecalho.php');
     </div>
 </div>
 
-
-
-
 <!-- Modal Login -->
 <div class="modal fade" id="Login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="exampleModalLabel"><span class="neutra" id="nome_curso_Login"></span> <span class="neutra">- R$</span><span class="neutra" id="valor_curso_Login"></span></h4>
-                <button style="margin-top: -25px" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button id="btn-fechar-login" style="margin-top: -25px" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span class="neutra" aria-hidden="true">&times;</span>
                 </button>
             </div>
 
             <div class="modal-body">
 
-
                 <div class="row">
 
                     <div class="col-sm-5">
-                        <form id="form" class="contact-form" name="contact-form" method="post">
+                        <form id="form-login" class="contact-form" name="contact-form" method="post">
 
                             <h5 style="font-weight: 500" align="center"><span>FAÇA SEU LOGIN!</span></h5>
 
                             <hr>
                             <div class="form-group">
-                                <label>Email *</label>
-                                <input type="email" name="email" id="email_login" class="form-control" required="required" placeholder="Digite seu Email">
+                                <label>Email*</label>
+                                <input type="email" name="usuario" id="email_login" class="form-control" required="required" placeholder="Digite seu Email">
                             </div>
                             <div class="form-group">
                                 <label>Senha</label>
@@ -406,9 +402,13 @@ require_once('cabecalho.php');
                             </div>
 
                             <div class="form-group">
-                                <button id="btn-enviar" type="submit" name="submit" class="btn btn-default submit-button">Login <i class="fa fa-caret-right"></i></button>
+                                <button type="submit" class="btn btn-default submit-button">Login <i class="fa fa-caret-right"></i></button>
                             </div>
                         </form>
+
+                        <small>
+                            <div align="center" id="msg-login2"></div>
+                        </small>
 
                     </div>
 
@@ -430,7 +430,7 @@ require_once('cabecalho.php');
 
                             <div class="form-group">
                                 <label>Email *</label>
-                                <input type="email" name="email" id="email_cadastro" class="form-control" required="required" placeholder="Digite seu Email">
+                                <input type="email" name="email_cadastro" id="email_cadastro" class="form-control" required="required" placeholder="Digite seu Email">
                             </div>
 
                             <div class="row">
@@ -438,14 +438,14 @@ require_once('cabecalho.php');
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Senha</label>
-                                        <input type="password" name="senha" id="senha_cadastro" class="form-control" required="required" placeholder="Digite sua Senha">
+                                        <input type="password" name="senha_cadastro" id="senha_cadastro" class="form-control" required="required" placeholder="Digite sua Senha">
                                     </div>
 
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Confirmar Senha</label>
-                                        <input type="password" name="conf_senha" id="conf_senha_cadastro" class="form-control" required="required" placeholder="Confirme sua Senha">
+                                        <input type="password" name="conf_senha" id="conf_senha" class="form-control" required="required" placeholder="Confirme sua Senha">
                                     </div>
 
                                 </div>
@@ -460,7 +460,7 @@ require_once('cabecalho.php');
 
 
                             <div class="form-group">
-                                <button id="btn-enviar" type="submit" name="submit" class="btn btn-default submit-button">Cadastre-se <i class="fa fa-caret-right"></i></button>
+                                <button type="submit" class="btn btn-default submit-button">Cadastre-se <i class="fa fa-caret-right"></i></button>
                             </div>
 
                         </form>
@@ -468,31 +468,18 @@ require_once('cabecalho.php');
                     </div>
                 </div>
 
-                <input type="hidden" name="id_curso" id="id_curso_Login">
-
-
-
-
-
-
-
-
             </div>
 
             <!-- se remover o rodapé, quebra a modal -->
             <div class="modal-footer">
                 <small>
-                    <div align="center" id="msg"></div>
+                    <div align="center" id="msg-login"></div>
                 </small>
             </div>
 
         </div>
     </div>
 </div>
-
-
-
-
 
 <!-- Modal Pagamento -->
 <div class="modal fade" id="Pagamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -506,6 +493,11 @@ require_once('cabecalho.php');
             </div>
 
             <div class="modal-body">
+
+                <?php
+                //para confirmar se está recebendo id do usuário
+                //echo $_SESSION['id']; //definida em autenticar.curso.php
+                ?>
 
 
                 <form id="form" class="contact-form" name="contact-form" method="post">
@@ -536,7 +528,7 @@ require_once('cabecalho.php');
                         </div>
                     </div>
 
-                    <input type="text" name="id_curso" id="id_curso_Pagamento">
+                    <input type="hidden" name="id_curso" id="id_curso_Pagamento">
 
 
 
@@ -558,12 +550,6 @@ require_once('cabecalho.php');
         </div>
     </div>
 </div>
-
-
-
-
-
-
 
 <!-- Modal Matricular -->
 <div class="modal fade" id="Matricular" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -630,8 +616,102 @@ require_once('cabecalho.php');
     </div>
 </div>
 
+<!-- link para chamar o AJAX para o form-cadastrar e o form-login -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $("#form-cadastrar").submit(function() {
+
+        event.preventDefault(); //previne o redirect da página
+        var formData = new FormData(this); //recebe os dados digitados nos inputs do formulário
+
+        $.ajax({ //aqui começa o AJAX
+            url: "sistema/cadastro.php",
+            type: 'POST',
+            data: formData,
+
+            success: function(mensagem) {
+                $('#msg-login').text(''); //limpa o texto da div
+                $('#msg-login').removeClass(); //remove a classe da div
+                if (mensagem.trim() == "Cadastrado com Sucesso!") { //trim() é para ignorar espaços, por exemplo "Salvo com Sucesso "
+
+                    //$('#btn-fechar-usu').click(); //foi comentado pois a intenção é o usuário visualizar a mensagem, e não fechar a modal
+                    //window.location="index.php"; //foi comentado pois a intenção não é atualizar a página 
+
+                    $('#msg-login').addClass('text-success');
+                    $('#msg-login').text(mensagem + " Faça o login para prosseguir com o pagamento.");
+                    $('#email_login').val($('#email_cadastro').val()); //para campo input usa val() ao invés de text(), text() é só para spam e div
+                    $('#senha_login').val($('#senha_cadastro').val()); //automaticamente já puxa o email e senha cadastrados para os campos de login, para diminuir a chance do usuário cadastrar um email errado e não ver o email que cadastrou preenchido automaticamente no campo login
+
+                    //limpa os inputs do form-cadastrar
+                    $('#nome_cadastro').val('');
+                    $('#email_cadastro').val('');
+                    $('#senha_cadastro').val('');
+                    $('#conf_senha').val('');
+
+                } else {
+
+                    $('#msg-login').addClass('text-danger');
+                    $('#msg-login').text(mensagem);
+                }
 
 
+            },
+
+            //para limparo cache e processar os dados do formulário
+            cache: false,
+            contentType: false,
+            processData: false,
+
+        });
+
+    });
+</script>
+
+
+
+<script type="text/javascript">
+    var id = '<?= $id ?>';
+    var nome = '<?= $nome_curso_titulo ?>';
+    var valor = '<?= $valor_cursoF ?>';
+    var modal = 'Pagamento';
+
+    $("#form-login").submit(function() {
+
+        event.preventDefault(); //previne o redirect da página
+        var formData = new FormData(this); //recebe os dados digitados nos inputs do formulário
+
+        $.ajax({ //aqui começa o AJAX
+            url: "autenticar-curso.php", //não pode ser sistema/autenticar.php, pois esse tem redirecionamento para index.php, por isso foi criado um autenticar-curso.php específico para esse formulário de login
+            type: 'POST',
+            data: formData,
+
+            success: function(mensagem) {
+                $('#msg-login2').text(''); //limpa o texto da div
+                $('#msg-login2').removeClass(); //remove a classe da div
+                if (mensagem.trim() == "Logado com Sucesso!") {
+                    $('#btn-fechar-login').click();
+
+                    pagamento(id, nome, valor, modal);
+
+                } else {
+
+                    $('#msg-login2').addClass('text-danger');
+                    $('#msg-login2').text(mensagem);
+                }
+
+
+            },
+
+            //para limparo cache e processar os dados do formulário
+            cache: false,
+            contentType: false,
+            processData: false,
+
+        });
+
+    });
+</script>
 
 
 <script type="text/javascript">
@@ -651,6 +731,10 @@ require_once('cabecalho.php');
 
         $('#' + modal).modal('show'); //abrir a modal por script, a outra forma é abrir a modal via data-target
 
+
+        $('#msg-login').text('');
+        $('#msg-pagamento').text('');
+        $('#msg-matricula').text('');
 
     }
 </script>
@@ -700,10 +784,6 @@ require_once('cabecalho.php');
         })
     })
 </script>
-
-
-
-
 
 <?php
 

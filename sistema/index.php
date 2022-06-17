@@ -287,7 +287,6 @@ if($total_reg > 0) {
 <!-- link para chamar o AJAX para o form-cadastrar -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-
 <script type="text/javascript">
     $("#form-cadastrar").submit(function() { //quando o item com o id #form-cadastrar for submetido, ou seja, o botão submit no footer dele for apertado com sucesso, executa essa função
 
@@ -333,6 +332,8 @@ if($total_reg > 0) {
 
 
 <!-- link para chamar o AJAX para o form-recuperar -->
+<!-- será que é necessário? já está sendo chamado para o form-cadastrar -->
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
