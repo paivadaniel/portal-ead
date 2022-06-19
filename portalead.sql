@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 14-Jun-2022 às 21:26
+-- Tempo de geração: 19-Jun-2022 às 07:14
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -73,7 +73,12 @@ CREATE TABLE `alunos` (
 
 INSERT INTO `alunos` (`id`, `nome`, `cpf`, `email`, `telefone`, `endereco`, `cidade`, `estado`, `pais`, `foto`, `data`, `cartao`, `ativo`) VALUES
 (5, 'Sassa Mutema', '212.121.212-21', 'sassamutema@gmail.com', '(21) 2112-2121', 'Sampaio Correio', 'Recife', 'PE', 'Costa Rica', '16-05-2022-19-33-37-galinha-pintadinha-ouvindo-musica.jpg', '2022-05-16', 10, 'Sim'),
-(6, 'Pedrinho Matador', '666.666.666-66', 'pedrinhomatador@hotmail.com', '(66) 6666-6666', 'Portões do Inferno, 666', 'Diadema', 'SP', 'Brasil', '16-05-2022-23-41-52-pintinho-amarelinho.jpg', '2022-05-16', 3, 'Sim');
+(6, 'Pedrinho Matador', '666.666.666-66', 'pedrinhomatador@hotmail.com', '(66) 6666-6666', 'Portões do Inferno, 666', 'Diadema', 'SP', 'Brasil', '16-05-2022-23-41-52-pintinho-amarelinho.jpg', '2022-05-16', 3, 'Sim'),
+(7, 'Juca Tobias', NULL, 'Jocelyn@hotmail.com', NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
+(8, 'Roberto Lucas', NULL, 'robertinho.com@hotmail.com', NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
+(9, 'Juca Tobias Novo', NULL, 'Jocelyn2@hotmail.com', NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
+(10, 'Juca Tobias Armanda Nero', NULL, 'Jocelyn23@hotmail.com', NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
+(11, 'Rubinho', NULL, 'barrichello@hotmail.com', NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, 'Sim');
 
 -- --------------------------------------------------------
 
@@ -310,6 +315,37 @@ INSERT INTO `linguagens` (`id`, `nome`, `descricao`, `foto`, `nome_url`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `matriculas`
+--
+
+CREATE TABLE `matriculas` (
+  `id` int(11) NOT NULL,
+  `id_curso` int(11) NOT NULL,
+  `id_aluno` int(11) NOT NULL,
+  `id_professor` int(11) NOT NULL,
+  `aulas_concluidas` int(11) NOT NULL,
+  `valor` decimal(8,2) NOT NULL,
+  `data` date NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `pacote` varchar(5) DEFAULT NULL,
+  `alertado` varchar(5) DEFAULT NULL,
+  `valor_cupom` decimal(8,2) NOT NULL,
+  `subtotal` decimal(8,2) NOT NULL,
+  `forma_pgto` varchar(25) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `matriculas`
+--
+
+INSERT INTO `matriculas` (`id`, `id_curso`, `id_aluno`, `id_professor`, `aulas_concluidas`, `valor`, `data`, `status`, `pacote`, `alertado`, `valor_cupom`, `subtotal`, `forma_pgto`) VALUES
+(3, 1, 5, 1, 0, '59.99', '2022-06-19', 'Aguardando', 'Não', NULL, '0.00', '0.00', NULL),
+(4, 10, 5, 1, 0, '75.00', '2022-06-19', 'Aguardando', 'Não', NULL, '0.00', '0.00', NULL),
+(5, 10, 6, 1, 0, '75.00', '2022-06-19', 'Aguardando', 'Não', NULL, '0.00', '0.00', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `pacotes`
 --
 
@@ -416,7 +452,12 @@ INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `usuario`, `senha`, `senha_crip`, `
 (13, 'Sassa Mutema', '212.121.212-21', 'sassamutema@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', '16-05-2022-19-33-37-galinha-pintadinha-ouvindo-musica.jpg', 5, 'Sim', '2022-05-16'),
 (14, 'Pedrinho Matador', '666.666.666-66', 'pedrinhomatador@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', '16-05-2022-23-41-52-pintinho-amarelinho.jpg', 6, 'Sim', '2022-05-16'),
 (18, 'Professor Girafalez', '535.335.353-53', 'professorgirafalez@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Professor', '18-05-2022-13-00-00-professor-girafalez.jpg', 3, 'Sim', '2022-05-18'),
-(19, 'Professor Buzanga', '942.920.313-04', 'buzangateacher@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Professor', '20-05-2022-13-56-39-buzanga.jpg', 4, 'Sim', '2022-05-20');
+(19, 'Professor Buzanga', '942.920.313-04', 'buzangateacher@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Professor', '20-05-2022-13-56-39-buzanga.jpg', 4, 'Sim', '2022-05-20'),
+(20, 'Juca Tobias', NULL, 'Jocelyn@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'img/sem-perfil.jpg', 7, 'Sim', '2022-06-17'),
+(21, 'Roberto Lucas', NULL, 'robertinho.com@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'img/sem-perfil.jpg', 8, 'Sim', '2022-06-17'),
+(22, 'Juca Tobias Novo', NULL, 'Jocelyn2@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'img/sem-perfil.jpg', 9, 'Sim', '2022-06-17'),
+(23, 'Juca Tobias Armanda Nero', NULL, 'Jocelyn23@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'img/sem-perfil.jpg', 10, 'Sim', '2022-06-17'),
+(24, 'Rubinho', NULL, 'barrichello@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'img/sem-perfil.jpg', 11, 'Sim', '2022-06-17');
 
 --
 -- Índices para tabelas despejadas
@@ -489,6 +530,12 @@ ALTER TABLE `linguagens`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `matriculas`
+--
+ALTER TABLE `matriculas`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `pacotes`
 --
 ALTER TABLE `pacotes`
@@ -526,7 +573,7 @@ ALTER TABLE `administradores`
 -- AUTO_INCREMENT de tabela `alunos`
 --
 ALTER TABLE `alunos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `aulas`
@@ -583,6 +630,12 @@ ALTER TABLE `linguagens`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT de tabela `matriculas`
+--
+ALTER TABLE `matriculas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de tabela `pacotes`
 --
 ALTER TABLE `pacotes`
@@ -604,7 +657,7 @@ ALTER TABLE `sessao`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

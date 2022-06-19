@@ -384,88 +384,91 @@ require_once('cabecalho.php');
 
             <div class="modal-body">
 
-                <div class="row">
+                <div class="container-fluid">
+                    <div class="row">
 
-                    <div class="col-sm-5">
-                        <form id="form-login" class="contact-form" name="contact-form" method="post">
+                        <div class="col-sm-5">
+                            <form id="form-login" class="contact-form" name="contact-form" method="post">
 
-                            <h5 style="font-weight: 500" align="center"><span>FAÇA SEU LOGIN!</span></h5>
+                                <h5 style="font-weight: 500" align="center"><span>FAÇA SEU LOGIN!</span></h5>
 
+                                <hr>
+                                <div class="form-group">
+                                    <label>Email*</label>
+                                    <input type="email" name="usuario" id="email_login" class="form-control" required="required" placeholder="Digite seu Email">
+                                </div>
+                                <div class="form-group">
+                                    <label>Senha</label>
+                                    <input type="password" name="senha" id="senha_login" class="form-control" required="required" placeholder="Digite sua Senha">
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-default submit-button">Login <i class="fa fa-caret-right"></i></button>
+                                </div>
+                            </form>
+
+                            <small>
+                                <div align="center" id="msg-login2"></div>
+                            </small>
+
+                        </div>
+
+                        <div class="col-sm-1">
+                            <h5 style="font-weight: 500" align="center"><span class="ocultar-mobile">OU</span></h5>
                             <hr>
-                            <div class="form-group">
-                                <label>Email*</label>
-                                <input type="email" name="usuario" id="email_login" class="form-control" required="required" placeholder="Digite seu Email">
-                            </div>
-                            <div class="form-group">
-                                <label>Senha</label>
-                                <input type="password" name="senha" id="senha_login" class="form-control" required="required" placeholder="Digite sua Senha">
-                            </div>
+                        </div>
 
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-default submit-button">Login <i class="fa fa-caret-right"></i></button>
-                            </div>
-                        </form>
+                        <div class="col-sm-6">
 
-                        <small>
-                            <div align="center" id="msg-login2"></div>
-                        </small>
+                            <form id="form-cadastrar" class="contact-form" name="contact-form" method="post">
 
-                    </div>
+                                <h5 style="font-weight: 500" align="center"><span>CADASTRE-SE!</span></h5>
 
-                    <div class="col-sm-1">
-                        <h5 style="font-weight: 500" align="center"><span class="ocultar-mobile">OU</span></h5>
-                        <hr>
-                    </div>
-
-                    <div class="col-sm-6">
-
-                        <form id="form-cadastrar" class="contact-form" name="contact-form" method="post">
-
-                            <h5 style="font-weight: 500" align="center"><span>CADASTRE-SE!</span></h5>
-
-                            <div class="form-group">
-                                <label>Nome *</label>
-                                <input type="nome" name="nome" id="nome_cadastro" class="form-control" required="required" placeholder="Digite seu Nome">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Email *</label>
-                                <input type="email" name="email_cadastro" id="email_cadastro" class="form-control" required="required" placeholder="Digite seu Email">
-                            </div>
-
-                            <div class="row">
-
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Senha</label>
-                                        <input type="password" name="senha_cadastro" id="senha_cadastro" class="form-control" required="required" placeholder="Digite sua Senha">
-                                    </div>
-
+                                <div class="form-group">
+                                    <label>Nome *</label>
+                                    <input type="nome" name="nome" id="nome_cadastro" class="form-control" required="required" placeholder="Digite seu Nome">
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Confirmar Senha</label>
-                                        <input type="password" name="conf_senha" id="conf_senha" class="form-control" required="required" placeholder="Confirme sua Senha">
+
+                                <div class="form-group">
+                                    <label>Email *</label>
+                                    <input type="email" name="email_cadastro" id="email_cadastro" class="form-control" required="required" placeholder="Digite seu Email">
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Senha</label>
+                                            <input type="password" name="senha_cadastro" id="senha_cadastro" class="form-control" required="required" placeholder="Digite sua Senha">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Confirmar Senha</label>
+                                            <input type="password" name="conf_senha" id="conf_senha" class="form-control" required="required" placeholder="Confirme sua Senha">
+                                        </div>
+
                                     </div>
 
                                 </div>
 
-                            </div>
+
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="termos" name="termos" value="Sim" required>
+                                    <label class="form-check-label" for="exampleCheck1"><small>Aceitar <a href="termos" target="_blank">Termos e Condições</a> e <a href="politica" target="_blank">Politíca de Privacidade</a></small></label>
+                                </div>
 
 
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="termos" name="termos" value="Sim" required>
-                                <label class="form-check-label" for="exampleCheck1"><small>Aceitar <a href="termos" target="_blank">Termos e Condições</a> e <a href="politica" target="_blank">Politíca de Privacidade</a></small></label>
-                            </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-default submit-button">Cadastre-se <i class="fa fa-caret-right"></i></button>
+                                </div>
 
+                            </form>
 
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-default submit-button">Cadastre-se <i class="fa fa-caret-right"></i></button>
-                            </div>
-
-                        </form>
-
+                        </div>
                     </div>
+
                 </div>
 
             </div>
@@ -486,7 +489,7 @@ require_once('cabecalho.php');
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel">Liberação Automática - <span class="neutra" id="nome_curso_Pagamento"></span> <span class="neutra">- R$</span><span class="neutra" id="valor_curso_Pagamento"></span></h4>
+                <h4 class="modal-title" id="exampleModalLabel"> <span class="neutra ocultar-mobile">Liberação Automática - </span><span class="neutra" id="nome_curso_Pagamento"></span> <span class="neutra">- R$</span><span class="neutra" id="valor_curso_Pagamento"></span></h4>
                 <button style="margin-top: -25px" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span class="neutra" aria-hidden="true">&times;</span>
                 </button>
@@ -498,43 +501,6 @@ require_once('cabecalho.php');
                 //para confirmar se está recebendo id do usuário
                 //echo $_SESSION['id']; //definida em autenticar.curso.php
                 ?>
-
-
-                <form id="form" class="contact-form" name="contact-form" method="post">
-                    <div class="row">
-                        <div class="col-sm-5 col-sm-offset-1">
-                            <div class="form-group">
-                                <label>Nome *</label>
-                                <input type="text" name="nome" id="nome" class="form-control" required="required">
-                            </div>
-                            <div class="form-group">
-                                <label>Email *</label>
-                                <input type="email" name="email" id="email" class="form-control" required="required">
-                            </div>
-                            <div class="form-group">
-                                <label>WhatssApp</label>
-                                <input type="text" name="telefone" id="telefone" class="form-control">
-                            </div>
-
-                        </div>
-                        <div class="col-sm-5">
-                            <div class="form-group">
-                                <label>Mensagem *</label>
-                                <textarea name="mensagem" id="mensagem" required="required" class="form-control" rows="8"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <button id="btn-enviar" type="submit" name="submit" class="btn btn-default submit-button">Enviar <i class="fa fa-caret-right"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <input type="hidden" name="id_curso" id="id_curso_Pagamento">
-
-
-
-                </form>
-
-
 
 
 
@@ -553,10 +519,10 @@ require_once('cabecalho.php');
 
 <!-- Modal Matricular -->
 <div class="modal fade" id="Matricular" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel">Matricular Aluno - <span class="neutra" id="nome_curso_Matricular"></span> <span class="neutra">- R$</span><span class="neutra" id="valor_curso_Matricular"></span></h4>
+                <h4 class="modal-title" id="exampleModalLabel"><span class="neutra ocultar-mobile">Matricular Aluno - </span><span class="neutra" id="nome_curso_Matricular"></span> <span class="neutra">- R$</span><span class="neutra" id="valor_curso_Matricular"></span></h4>
                 <button style="margin-top: -25px" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span class="neutra" aria-hidden="true">&times;</span>
                 </button>
@@ -564,51 +530,33 @@ require_once('cabecalho.php');
 
             <div class="modal-body">
 
-
-                <form id="form" class="contact-form" name="contact-form" method="post">
+                <form id="form-matricula" class="contact-form" name="contact-form" method="post">
                     <div class="row">
-                        <div class="col-sm-5 col-sm-offset-1">
-                            <div class="form-group">
-                                <label>Nome *</label>
-                                <input type="text" name="nome" id="nome" class="form-control" required="required">
-                            </div>
+                        <div class="col-sm-12">
                             <div class="form-group">
                                 <label>Email *</label>
                                 <input type="email" name="email" id="email" class="form-control" required="required">
                             </div>
-                            <div class="form-group">
-                                <label>WhatssApp</label>
-                                <input type="text" name="telefone" id="telefone" class="form-control">
-                            </div>
 
-                        </div>
-                        <div class="col-sm-5">
-                            <div class="form-group">
-                                <label>Mensagem *</label>
-                                <textarea name="mensagem" id="mensagem" required="required" class="form-control" rows="8"></textarea>
-                            </div>
                             <div class="form-group">
                                 <button id="btn-enviar" type="submit" name="submit" class="btn btn-default submit-button">Enviar <i class="fa fa-caret-right"></i></button>
                             </div>
+
                         </div>
                     </div>
 
                     <input type="hidden" name="id_curso" id="id_curso_Matricular">
-
+                    <input type="hidden" name="pacote" value="Não"> <!-- se o curso não for um pacote, recebe Não no input com name id="pacote" -->
 
 
                 </form>
-
-
-
-
 
             </div>
 
             <!-- se remover o rodapé, quebra a modal -->
             <div class="modal-footer">
                 <small>
-                    <div align="center" id="msg"></div>
+                    <div align="center" id="msg-matricula"></div>
                 </small>
             </div>
 
@@ -682,7 +630,7 @@ require_once('cabecalho.php');
         var formData = new FormData(this); //recebe os dados digitados nos inputs do formulário
 
         $.ajax({ //aqui começa o AJAX
-            url: "autenticar-curso.php", //não pode ser sistema/autenticar.php, pois esse tem redirecionamento para index.php, por isso foi criado um autenticar-curso.php específico para esse formulário de login
+            url: "ajax/cursos/autenticar-curso.php", //não pode ser sistema/autenticar.php, pois esse tem redirecionamento para index.php, por isso foi criado um autenticar-curso.php específico para esse formulário de login
             type: 'POST',
             data: formData,
 
@@ -712,6 +660,47 @@ require_once('cabecalho.php');
 
     });
 </script>
+
+<script type="text/javascript">
+
+$("#form-matricula").submit(function() {
+
+    var id = '<?= $id ?>';
+
+event.preventDefault(); //previne o redirect da página
+var formData = new FormData(this); //recebe os dados digitados nos inputs do formulário
+
+$.ajax({ //aqui começa o AJAX
+    url: "ajax/cursos/matricula.php", //não pode ser sistema/autenticar.php, pois esse tem redirecionamento para index.php, por isso foi criado um autenticar-curso.php específico para esse formulário de login
+    type: 'POST',
+    data: formData,
+
+    success: function(mensagem) {
+        $('#msg-matricula').text(''); //limpa o texto da div
+        $('#msg-matricula').removeClass(); //remove a classe da div
+        if (mensagem.trim() == "Matriculado com Sucesso!") {
+
+            $('#msg-matricula').text(mensagem);
+
+        } else {
+
+            $('#msg-matricula').addClass('text-danger');
+            $('#msg-matricula').text(mensagem);
+        }
+
+
+    },
+
+    //para limparo cache e processar os dados do formulário
+    cache: false,
+    contentType: false,
+    processData: false,
+
+});
+
+});
+</script>
+
 
 
 <script type="text/javascript">

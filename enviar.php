@@ -10,7 +10,6 @@ if(@$_POST['nome_curso'] != ""){ //formulário vindo da modalContato, em curso.p
 	$assunto = 'Contato - ' .$nome_sistema; //formulário vindo de contatos.php
 }
 
-
 if($_POST['nome'] == ""){
 	echo 'Preencha o Campo Nome!';
 	exit();
