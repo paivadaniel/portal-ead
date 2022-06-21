@@ -25,6 +25,8 @@ if ($total_reg > 0) {
     $nome_curso_titulo = $res[0]['nome'];
 
     $id = $res[0]['id'];
+    $id_do_curso_pag = $res[0]['id']; //mesma variável id declarada acima, porém, para não ser perdida durante a execução do código, já que uma variável chamada id pode assumir outros valores por seu nome ser comum
+
     $desc_rapida = $res[0]['desc_rapida'];
     $desc_longa = $res[0]['desc_longa'];
     $valor = $res[0]['valor'];
@@ -43,6 +45,8 @@ if ($total_reg > 0) {
     $sistema = $res[0]['sistema'];
     $link = $res[0]['link'];
     $tecnologias = $res[0]['tecnologias'];
+
+
 
     if ($promocao > 0) {
         $valor = $promocao;
@@ -388,7 +392,79 @@ require_once('cabecalho.php');
 
 
         <div class="col-md-3 col-sm-12">
-            <span class="neutra">Aula 1 - Introdução ao Curso </span>
+            <?php
+            $query_m = $pdo->query("SELECT * FROM sessao where id_curso = '$id_do_curso_pag' ORDER BY id asc");
+            $res_m = $query_m->fetchAll(PDO::FETCH_ASSOC);
+            $total_reg_m = @count($res_m);
+
+            if ($total_reg_m > 0) { //para curso que tem sessão
+
+                for ($i_m = 0; $i_m < $total_reg_m; $i_m++) {
+                    foreach ($res_m[$i_m] as $key => $value) {
+                    }
+                    $sessao = $res_m[$i_m]['id'];
+                    $nome_sessao = $res_m[$i_m]['nome'];
+                ?>
+
+                    <p class="titulo-curso"><small><?php echo $nome_sessao ?></small></p>
+
+                <?php
+
+                    $query = $pdo->query("SELECT * FROM aulas where id_curso = '$id_do_curso_pag' and sessao = '$sessao' ORDER BY numero asc");
+                    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+                    $total_reg = @count($res);
+
+                    if ($total_reg > 0) {
+
+                        for ($i = 0; $i < $total_reg; $i++) {
+                            foreach ($res[$i] as $key => $value) {
+                            }
+                            $id_aula = $res[$i]['id'];
+                            $nome_aula = $res[$i]['nome'];
+                            $num_aula = $res[$i]['numero'];
+                            if ($num_aula < 3) {
+                                $link = $res[$i]['link'];
+                            } else {
+                                $link = '';
+                            }
+
+                            echo '<span class="neutra">Aula ' . $num_aula . ' - ' . $nome_aula . '</span><br>';
+                        }
+                    } else {
+                        echo '<span class="neutra">Nenhuma aula Cadastrada</span>';
+                    }
+
+                    echo '<hr>';
+                }
+            } else { //para curso que não tem sessão
+
+                $query = $pdo->query("SELECT * FROM aulas where id_curso = '$id_do_curso_pag' ORDER BY numero asc");
+                $res = $query->fetchAll(PDO::FETCH_ASSOC);
+                $total_reg = @count($res);
+
+                if ($total_reg > 0) {
+
+                    for ($i = 0; $i < $total_reg; $i++) {
+                        foreach ($res[$i] as $key => $value) {
+                        }
+                        $id_aula = $res[$i]['id'];
+                        $nome_aula = $res[$i]['nome'];
+                        $num_aula = $res[$i]['numero'];
+                        if ($num_aula < 3) {
+                            $link = $res[$i]['link'];
+                        } else {
+                            $link = '';
+                        }
+
+                        echo '<span class="neutra">Aula ' . $num_aula . ' - ' . $nome_aula . '</span><br>';
+                    }
+                } else {
+                    echo '<span class="neutra">Nenhuma aula Cadastrada</span>';
+                }
+            }
+
+            ?>
+
 
         </div>
     </div>

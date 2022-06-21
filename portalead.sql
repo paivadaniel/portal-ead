@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 21-Jun-2022 às 21:08
--- Versão do servidor: 10.4.21-MariaDB
--- versão do PHP: 8.0.10
+-- Tempo de geração: 22-Jun-2022 às 01:28
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -107,7 +107,20 @@ INSERT INTO `aulas` (`id`, `numero`, `nome`, `link`, `id_curso`, `sessao`) VALUE
 (5, 3, 'txt', '', 1, 2),
 (7, 1, 'dadadadaa', '', 5, 0),
 (8, 1, 'dadafsfsfsfs', 'http://www.google.com', 10, 0),
-(9, 4, 'fsfs', 'rwrwrwrwrw', 1, 2);
+(9, 4, 'fsfs', 'rwrwrwrwrw', 1, 2),
+(10, 1, 'Introdução ao Curso', '', 12, 4),
+(11, 2, 'Estrutura do Curso', '', 12, 4),
+(12, 1, 'Introdução ao Curso Avançado', '', 12, 5),
+(13, 2, 'Estrutura do Curso Avançado', '', 12, 5),
+(14, 3, 'Cronograma do Curso', '', 12, 4),
+(15, 2, 'fdafafafafa', '', 10, 0),
+(16, 3, 'rfwfssfsffsfs', '', 10, 0),
+(17, 4, 'dadadadda', '', 10, 0),
+(18, 5, '52rwrfwfafaaf', '', 10, 0),
+(19, 6, 'fdadafafafafafafa', '', 10, 0),
+(20, 7, 'rqwr24242fadfafa', '', 10, 0),
+(21, 8, 'dada25wfafafafa', '', 10, 0),
+(22, 2, 'dadadadada', '', 5, 0);
 
 -- --------------------------------------------------------
 
@@ -253,7 +266,8 @@ INSERT INTO `cursos` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `profe
 (8, 'sfsfsfsgsgs', 'sfsfsfs', 'fsfsfsfs', '23.00', 1, 6, 'sem-foto.png', 'Aprovado', 23, '', '', 2023, 'sdsdss', 6, 'sfsfsfsgsgs', '', 'Não', '', '', '15.00'),
 (9, '13fsfsfr3fsfsf', 'dadaee2', 'wtw&nbsp; w rwrw wrw rwr wr wr wr wr wrwr w&nbsp;', '9000.00', 1, 6, 'sem-foto.png', 'Aprovado', 500, '', '', 2023, '53tgdgddgdttgehrutrjtr', 1, '13fsfsfr3fsfsf', '', 'Não', '', '', '800.00'),
 (10, 'Curso do Gilmar', 'Receba!', '', '90.00', 1, 3, 'sem-foto.png', 'Aprovado', 1000, '', '', 2021, 'teste', 5, 'curso-do-gilmar', '', 'Não', '', '', '75.00'),
-(11, 'Sistema Advocacia', 'Somente Fontes', '', '250.00', 1, 6, 'sem-foto.png', 'Aprovado', 0, '', '', 2022, '', 6, 'sistema-advocacia', '', 'Sim', '', '', '0.00');
+(11, 'Sistema Advocacia', 'Somente Fontes', '', '250.00', 1, 6, 'sem-foto.png', 'Aprovado', 0, '', '', 2022, '', 6, 'sistema-advocacia', '', 'Sim', '', '', '0.00'),
+(12, 'Xing', 'Ling', 'Aprenda a fazer site chinês.', '100.00', 1, 3, 'sem-foto.png', 'Aprovado', 50, '', '', 2022, 'como fazer sites  na china, como fazer loja virtual na china', 5, 'xing', '', 'Não', '', 'html, css, php', '75.00');
 
 -- --------------------------------------------------------
 
@@ -423,7 +437,9 @@ CREATE TABLE `sessao` (
 INSERT INTO `sessao` (`id`, `nome`, `id_curso`) VALUES
 (1, 'Módulo 01', 1),
 (2, 'Módulo 02', 1),
-(3, 'Módulo 03', 1);
+(3, 'Módulo 03', 1),
+(4, 'Básico', 12),
+(5, 'Avançado', 12);
 
 -- --------------------------------------------------------
 
@@ -582,7 +598,7 @@ ALTER TABLE `alunos`
 -- AUTO_INCREMENT de tabela `aulas`
 --
 ALTER TABLE `aulas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de tabela `banner_index`
@@ -612,7 +628,7 @@ ALTER TABLE `config`
 -- AUTO_INCREMENT de tabela `cursos`
 --
 ALTER TABLE `cursos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `cursos_pacotes`
@@ -654,7 +670,7 @@ ALTER TABLE `professores`
 -- AUTO_INCREMENT de tabela `sessao`
 --
 ALTER TABLE `sessao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`

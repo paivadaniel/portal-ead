@@ -49,6 +49,18 @@ echo $_GET['url'];
 para mim, chamaria por get['url'] se fosse curso-de-url=, igual ele fez com pagina=, e o que viesse na frente do igual seria
 a palavra que colocaria no GET, e nesse caso ele colocou o nome de uma variável. Pode isso?
 
+----- mod07 aula 51
+ao acessar uma página de um curso, se eu logo com um aluno, ele redirecionada para o pagamento, porém,
+na tabela matriculas, está marcando id_aluno = 0
+
+e se eu for tentar cadastrar um novo aluno e já logar para comprar, não está indo os dados na tabela matriculas
+
+----- mod05 aula 57
+
+em curso.php, por exemplo, se acessar o curso Xing, não está mostrando as aulas e sessões
+do curso no lado direito, está mostrando do curso com id=01, que é o de html,
+muito provavelmente porque foi implementado errado as aulas e sessões no mod04 aulas 14 à 21.
+
 
 ----- ERROS:
 
@@ -63,10 +75,6 @@ ao digitar buscar na barra superior.
 está incrementando a aula de um mesmo módulo ao trocar de módulo na modal.
 
 - mod07 aula51
-ao acessar uma página de um curso, se eu logo com um aluno, ele redirecionada para o pagamento, porém,
-na tabela matriculas, está marcando id_aluno = 0
-
-e se eu for tentar cadastrar um novo aluno e já logar para comprar, não está indo os dados na tabela matriculas
 
 ---- fiz diferente
 
