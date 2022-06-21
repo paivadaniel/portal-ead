@@ -45,9 +45,7 @@ if ($total_reg > 0) {
     $tecnologias = $res[0]['tecnologias'];
 
     if ($promocao > 0) {
-        $valor_curso = $promocao;
-    } else {
-        $valor_curso = $valor;
+        $valor = $promocao;
     }
 
     $query2 = $pdo->query("SELECT * FROM usuarios WHERE id = '$professor'");
@@ -66,11 +64,15 @@ if ($total_reg > 0) {
     $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
     $aulas = @count($res2);
 
+    $query2 = $pdo->query("SELECT * FROM matriculas WHERE id_curso = '$id' and status = 'Matriculado'");
+    $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+    $total_alunos = @count($res2);
+
+
     //valor formatado e descrição_longa formatada
     $valorF = number_format($valor, 2, ',', '.',);
     $promocaoF = number_format($promocao, 2, ',', '.',);
     $desc_longa = str_replace('"', '**', $desc_longa); //quando joga em onclick="editar()", como o conteúdo de $desc_longa muita das vezes tem aspas, como align="center", então dá problema
-    $valor_cursoF = number_format($valor_curso, 2, ',', '.',); //valorF é o do curso, promocaoF é o valor promocional do curso, foi criado um if e uma nova variável valor_cursoF para armazenar o valor do curos, promocional ou não 
 }
 
 //para não ter que usar palavras_chave e nome_curso_titulo como variáveis globais, o segredo está nelas serem definidas antes de serem chamadas, e como estão em cabecalho.php,
@@ -86,7 +88,10 @@ require_once('cabecalho.php');
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-sm-12">
-            <h4><?php echo $nome_curso_titulo ?> - <small><?php echo $desc_rapida ?></small></h4>
+            <a class="valor" title="Comprar o Curso - Liberação Imediata" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valorF ?>', '<?php echo $modal ?>')">
+                <p class="titulo-curso"><?php echo $nome_curso_titulo ?> - <small><?php echo $desc_rapida ?></small>
+                </p>
+            </a>
         </div>
         <div class="col-md-4 col-sm-12 ocultar-mobile">
             <a href="#" onclick="enviarEmail('<?php echo $nome_curso_titulo ?>')">
@@ -101,7 +106,7 @@ require_once('cabecalho.php');
 
     <div class="row">
         <div class="col-md-9 col-sm-12">
-            <a class="valor" title="Comprar o Curso - Liberação Imediata" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valor_cursoF ?>', '<?php echo $modal ?>')">
+            <a class="valor" title="Comprar o Curso - Liberação Imediata" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valorF ?>', '<?php echo $modal ?>')">
                 <span class="valor">
                     <i class="fa fa-shopping-cart mr-1 valor" title="Comprar o Curso - Pagamento Único" style="margin-right:3px">
                     </i>Comprar R$ <?php echo $valorF; ?>
@@ -120,7 +125,7 @@ require_once('cabecalho.php');
         </div>
 
         <div class="col-md-3 col-sm-12 imagem-cartao margem-sup">
-            <a title="Comprar o Curso - Liberação Imediata" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valor_cursoF ?>', '<?php echo $modal ?>')">
+            <a title="Comprar o Curso - Liberação Imediata" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valorF ?>', '<?php echo $modal ?>')">
                 <small><span class="neutra">DÍVIDA EM ATÉ 12 VEZES</span></small><br>
                 <img src="img/01mercado.png" width="100%">
             </a>
@@ -132,8 +137,8 @@ require_once('cabecalho.php');
         <div class="col-md-9 col-sm-12" style="margin-bottom:10px">
             <div class="row">
 
-                <div class="col-md-4 col-sm-12" style="margin-bottom:10px">
-                    <a href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valor_cursoF ?>', '<?php echo $modal ?>')" title="Comprar o Curso">
+                <div class="col-xs-3 col-md-4" style="margin-bottom:10px">
+                    <a href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valorF ?>', '<?php echo $modal ?>')" title="Comprar o Curso">
                         <img src="sistema/painel-admin/img/cursos/<?php echo $foto ?>" width="100%">
                     </a>
                 </div>
@@ -200,11 +205,6 @@ require_once('cabecalho.php');
                         <?php } ?>
                         <br>
 
-                        <?php if ($nome_categoria == 'Programação APPS' || $nome_categoria == 'Programação Desktop' || $nome_categoria == 'Programação WEB' || $nome_categoria == 'Banco de Dados' || $nome_categoria == 'Programação de Jogos') {
-
-                            echo '<span class="text-muted topicos mr-3"><i class="fa fa-check-square mr-1 topicos"></i>Disponibilização dos fontes</span>';
-                        } ?>
-
                         <span class="text-muted topicos mr-3"><i class="fa fa-check-square mr-1 topicos" style="margin-right: 2px"></i>Acesso Vitalício</span>
 
                     </div>
@@ -240,16 +240,111 @@ require_once('cabecalho.php');
             </div>
 
             <div class="row">
-                <div class="col-md-12" style="margin-bottom: 20px">
-                    <span class="neutra"><b>Técnologias Utilizadas no Curso</b> (<i class="neutra"><?php echo $tecnologias ?></i>)</span>
-                </div>
 
+                <?php if ($tecnologias != '') { ?>
+
+                    <div class="col-md-12" style="margin-bottom: 20px">
+                        <span class="neutra"><b>Tecnologias Utilizadas no Curso</b> (<i class="neutra"><?php echo $tecnologias ?></i>)</span>
+                    </div>
+                <?php } ?>
 
 
 
                 <div class="col-md-12" style="margin-bottom: 20px">
 
                     <p class="titulo-curso"><small>Cursos Relacionados</small></p>
+
+
+
+                    <?php
+
+                    $query = $pdo->query("SELECT * FROM cursos WHERE status = 'Aprovado' AND sistema = 'Não' and grupo = '$grupo' and id != '$id' ORDER BY id desc limit 8"); //grupo é essencial para os cursos relacionados
+                    //para não mostrar o curso em que se está na página, adicionou id != id
+                    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+                    $total_reg = @count($res);
+
+                    if ($total_reg > 0) {
+                    ?>
+
+
+
+                        <section id="portfolio">
+
+                            <div class="row" style="margin-left:10px; margin-right:10px; margin-top:-40px;">
+
+                                <?php
+
+                                for ($i = 0; $i < $total_reg; $i++) {
+                                    foreach ($res[$i] as $key => $value) {
+                                    }
+
+                                    $id = $res[$i]['id'];
+                                    $nome = $res[$i]['nome'];
+                                    $desc_rapida = $res[$i]['desc_rapida'];
+                                    $valor = $res[$i]['valor'];
+                                    $promocao = $res[$i]['promocao'];
+                                    $foto = $res[$i]['imagem'];
+                                    $url = $res[$i]['nome_url'];
+
+
+                                    //valor formatodo e descrição_longa formatada
+                                    $valorF = number_format($valor, 2, ',', '.',);
+                                    $promocaoF = number_format($promocao, 2, ',', '.',);
+
+
+                                    $query2 = $pdo->query("SELECT * FROM aulas WHERE id_curso = '$id' and numero = 1 and (sessao = 0 or sessao = 1)"); //outra forma de resolver aqui para pegar a aula com o id menor, e daí poderia tirar sessao = 0 or sessao = 1 e substituir por order by id asc, que pegamos apenas o primeiro resultado aqui res2[0]['link']
+                                    $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+                                    $total_reg2 = @count($res2);
+
+                                    if ($total_reg2 > 0) {
+                                        $primeira_aula = $res2[0]['link'];
+                                    } else {
+                                        $primeira_aula = '';
+                                    }
+
+                                ?>
+
+                                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 portfolio-item">
+                                        <a href="curso-de-<?php echo $url ?>" title="Detalhes do Curso">
+
+                                            <div class="portfolio-one">
+                                                <div class="portfolio-head">
+                                                    <div class="portfolio-img"><img alt="" src="sistema/painel-admin/img/cursos/<?php echo $foto ?>"></div>
+                                                </div>
+                                                <!-- End portfolio-head -->
+                                                <div class="portfolio-content" style="text-align: center">
+                                                    <h6 class="title"><?php echo $nome ?></h6></small>
+                                                    <p style="margin-top:-10px;"><small><?php echo $desc_rapida ?></small></p>
+
+                                                    <?php if ($promocao > 0) { ?>
+                                                        <div class="product-bottom-details">
+                                                            <div class="product-price-menor2"><small><small><?php echo $valorF ?></small></small> R$ <?php echo $promocaoF ?></div>
+                                                        </div>
+                                                    <?php } else { ?>
+                                                        <div class="product-bottom-details">
+                                                            <div class="product-price-menor">R$ <?php echo $valorF ?></div>
+                                                        </div>
+                                                    <?php } ?>
+                                                </div>
+
+                                            </div>
+                                            <!-- End portfolio-content -->
+                                    </div>
+                                    <!-- End portfolio-item -->
+
+                                <?php
+                                }
+                                ?>
+
+                            </div>
+                        </section>
+
+                    <?php
+                    } //fechamento if
+
+                    ?>
+
+
 
                 </div>
 
@@ -535,11 +630,11 @@ require_once('cabecalho.php');
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label>Email *</label>
-                                <input type="email" name="email" id="email" class="form-control" required="required">
+                                <input type="email" name="email_matricula" id="email_matricula" class="form-control" required="required">
                             </div>
 
                             <div class="form-group">
-                                <button id="btn-enviar" type="submit" name="submit" class="btn btn-default submit-button">Enviar <i class="fa fa-caret-right"></i></button>
+                                <button id="btn-enviar-matricula" type="submit" name="submit" class="btn btn-default submit-button">Enviar <i class="fa fa-caret-right"></i></button>
                             </div>
 
                         </div>
@@ -619,12 +714,12 @@ require_once('cabecalho.php');
 
 
 <script type="text/javascript">
-    var id = '<?= $id ?>';
-    var nome = '<?= $nome_curso_titulo ?>';
-    var valor = '<?= $valor_cursoF ?>';
-    var modal = 'Pagamento';
-
     $("#form-login").submit(function() {
+
+        var id = '<?= $id ?>';
+        var nome = '<?= $nome_curso_titulo ?>';
+        var valor = '<?= $valorF ?>';
+        var modal = 'Pagamento';
 
         event.preventDefault(); //previne o redirect da página
         var formData = new FormData(this); //recebe os dados digitados nos inputs do formulário
@@ -662,43 +757,42 @@ require_once('cabecalho.php');
 </script>
 
 <script type="text/javascript">
+    $("#form-matricula").submit(function() {
 
-$("#form-matricula").submit(function() {
+        var id = '<?= $id ?>';
 
-    var id = '<?= $id ?>';
+        event.preventDefault(); //previne o redirect da página
+        var formData = new FormData(this); //recebe os dados digitados nos inputs do formulário
 
-event.preventDefault(); //previne o redirect da página
-var formData = new FormData(this); //recebe os dados digitados nos inputs do formulário
+        $.ajax({ //aqui começa o AJAX
+            url: "ajax/cursos/matricula.php", //não pode ser sistema/autenticar.php, pois esse tem redirecionamento para index.php, por isso foi criado um autenticar-curso.php específico para esse formulário de login
+            type: 'POST',
+            data: formData,
 
-$.ajax({ //aqui começa o AJAX
-    url: "ajax/cursos/matricula.php", //não pode ser sistema/autenticar.php, pois esse tem redirecionamento para index.php, por isso foi criado um autenticar-curso.php específico para esse formulário de login
-    type: 'POST',
-    data: formData,
+            success: function(mensagem) {
+                $('#msg-matricula').text(''); //limpa o texto da div
+                $('#msg-matricula').removeClass(); //remove a classe da div
+                if (mensagem.trim() == "Matriculado com Sucesso!") {
 
-    success: function(mensagem) {
-        $('#msg-matricula').text(''); //limpa o texto da div
-        $('#msg-matricula').removeClass(); //remove a classe da div
-        if (mensagem.trim() == "Matriculado com Sucesso!") {
+                    $('#msg-matricula').text(mensagem);
 
-            $('#msg-matricula').text(mensagem);
+                } else {
 
-        } else {
-
-            $('#msg-matricula').addClass('text-danger');
-            $('#msg-matricula').text(mensagem);
-        }
+                    $('#msg-matricula').addClass('text-danger');
+                    $('#msg-matricula').text(mensagem);
+                }
 
 
-    },
+            },
 
-    //para limparo cache e processar os dados do formulário
-    cache: false,
-    contentType: false,
-    processData: false,
+            //para limparo cache e processar os dados do formulário
+            cache: false,
+            contentType: false,
+            processData: false,
 
-});
+        });
 
-});
+    });
 </script>
 
 
@@ -719,6 +813,10 @@ $.ajax({ //aqui começa o AJAX
         $('#id_curso_' + modal).val(id); //id_curso_pagamento é passado pelo formulário com hidden, daí precisa ser val()
 
         $('#' + modal).modal('show'); //abrir a modal por script, a outra forma é abrir a modal via data-target
+
+        if (modal == 'Pagamento') {
+            matriculaAluno();
+        }
 
 
         $('#msg-login').text('');
@@ -772,6 +870,46 @@ $.ajax({ //aqui começa o AJAX
             })
         })
     })
+</script>
+
+<script type="text/javascript">
+    function matriculaAluno() {
+
+        var id_curso = '<?= $id ?>';
+        var pacote = 'Não'; //está matriculando aluno por curso, portanto, pacote = 'Não'
+        /*
+        explicação da matrículo do aluno ser em curso, não em pacote, em matricula.php temos:
+
+        if($pacote == 'Sim') {
+            $tabela = 'pacotes';
+        } else {
+            $tabela = 'cursos';
+        }
+
+        portanto, o insert é na tabela cursos
+
+        */
+
+        $.ajax({
+            url: 'ajax/cursos/matricula.php',
+            method: 'POST',
+            data: {
+                id_curso,
+                pacote
+            },
+            dataType: "text",
+
+            success: function(mensagem) {
+
+                if (mensagem.trim() == "Matriculado com Sucesso!") {} else {
+
+                }
+
+            },
+
+
+        });
+    }
 </script>
 
 <?php

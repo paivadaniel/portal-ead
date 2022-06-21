@@ -2,6 +2,25 @@
 
 require_once('sistema/conexao.php');
 
+@session_start();
+
+$pag = 'cursos';
+
+$login = 'Login';
+$painel = 'sistema/';
+
+$logado = @$_SESSION['nivel'];
+
+if($logado == 'Administrador' || $logado == 'Professor') {
+    $painel .= 'painel-admin';
+    $login = 'Painel';
+}
+
+if($logado == 'Aluno') {
+    $painel .= 'painel-aluno';
+    $login = 'Painel';
+}
+
 $index = '';
 $categorias = '';
 $cursos = '';
@@ -155,7 +174,7 @@ if($url == 'index') {
 
                             <li class="<?php echo $linguagens ?>"><a href="linguagens">Linguagens</a></li>
                             <li class="<?php echo $contatos ?>"><a href="contatos">Contato</a></li>
-                            <li><a href="sistema">Login</a></li>
+                            <li><a href="<?php echo $painel ?>"><?php echo $login ?></a></li>
                         </ul>
                     </div>
                     <!--/.nav-collapse -->

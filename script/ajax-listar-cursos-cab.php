@@ -8,17 +8,17 @@ if ($busca == '%%') { //se a busca for vazia
   exit();
 }
 
+echo <<<HTML
+<section id="portfolio" style="margin-top:100px;">
+
+<div class="row" style="margin-left:10px; margin-right:10px; margin-top:-100px;">
+HTML;
+
 //procura por pacotes no campo buscar e exibe em id=buscar_cab, que está definido e também o AJAX em cabecalho.php
 $query = $pdo->query("SELECT * FROM pacotes WHERE nome LIKE '$busca' or desc_rapida LIKE '$busca' ORDER BY nome asc"); //LIMIT vai de limit à itens_pag
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 if ($total_reg > 0) {
-
-  echo <<<HTML
-    <section id="portfolio" style="margin-top:100px;">
-
-<div class="row" style="margin-left:10px; margin-right:10px; margin-top:-100px;">
-HTML;
 
   for ($i = 0; $i < $total_reg; $i++) {
     foreach ($res[$i] as $key => $value) {
@@ -202,13 +202,15 @@ HTML;
   }
 
 
-  echo <<<HTML
+
+} 
+
+echo <<<HTML
 </div>
 </section>
 
 
 HTML;
-} 
 /*
 //não pode ter esse else, pois se não tiver o curso, pode ter o pacote (que está sendo procurado lá em cima), no pior dos casos não terá os dois, e as duas mensagens de não tem (pacote e curso) não poderão ser mostradas juntas, a não ser que fosse feito um if grande para tratar tudo isso
 else {

@@ -3,15 +3,15 @@
 {
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+    
 }
+
 
 .product-card {
     width: 100%;
     position: relative;
     box-shadow: 0 2px 7px #dfdfdf;
-    margin: 50px auto;
+    margin: 15px auto;
     background: #fafafa;
 }
 
@@ -31,9 +31,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 200px; /* de 200px para auto a altura dos cards dependerá do tamanho da imagem */
+    height: 200px;
     padding: 0px;
     background: #f0f0f0;
+    
 }
 
 .product-tumb img {
@@ -42,8 +43,7 @@
 }
 
 .product-details {
-    padding: 15px;
-    
+    padding: 10px;
 }
 
 .product-catagory {
@@ -58,13 +58,13 @@
 .product-details h4 a {
     font-weight: 500;
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     text-transform: uppercase;
     color: #363636;
     text-decoration: none;
     transition: 0.3s;
-    text-align: center;
-    font-size:16px;
+    text-align:center;
+    font-size:13px;
 }
 
 .product-details h4 a:hover {
@@ -72,27 +72,28 @@
 }
 
 .product-details p {
-    font-size: 15px;
-    line-height: 22px;
-    margin-bottom: 15px;
+    font-size: 12px;
+    line-height: 12px;
+    margin-bottom: 3px;
     color: #999;
-    text-align: center;
+    text-align:center;
 }
 
 .product-bottom-details {
     overflow: hidden;
     border-top: 1px solid #eee;
-    padding-top: 20px;
+    padding-top: 10px;
 }
 
 .product-bottom-details div {
-    float: left;
-    width: 50%;
+    text-align:center;
+    width: 100%;
+
 }
 
 .product-price {
-    font-size: 18px;
-    color: #fbb72c;
+    font-size: 17px;
+    color: #e0a01d;
     font-weight: 600;
 }
 
@@ -119,3 +120,53 @@
 .product-links a:hover {
     color: #fbb72c;
 }
+
+
+
+
+.product-price-menor {
+    font-size: 15px;
+    color: #e0a01d;
+    font-weight: 600;
+}
+
+.product-price-menor small {
+    font-size: 100%;
+    font-weight: 200;
+    text-decoration: line-through;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+
+
+.product-price-menor2 {
+    font-size: 13px;
+    color: #e0a01d;
+    font-weight: 600;
+}
+
+.product-price-menor2 small {
+    font-size: 100%;
+    font-weight: 200;
+    text-decoration: line-through;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+
+@media only screen and (max-width: 700px) {
+
+    .product-price-menor {
+    font-size: 13px;
+    color: #e0a01d;
+    font-weight: 600;
+}
+
+   .product-price-menor2 {
+    font-size: 12px;
+    color: #e0a01d;
+    font-weight: 600;
+}
+
+    }

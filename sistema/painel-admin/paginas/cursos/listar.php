@@ -82,7 +82,12 @@ HTML;
 
         $query2 = $pdo->query("SELECT * FROM usuarios WHERE id = '$professor'");
         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-        $nome_professor = $res2[0]['nome'];
+
+        if (@count($res2) > 0) {
+            $nome_professor = $res2[0]['nome'];
+        } else {
+            $nome_professor = '';
+        }
 
         $query2 = $pdo->query("SELECT * FROM categorias WHERE id = '$categoria'");
         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
@@ -125,7 +130,7 @@ HTML;
         $promocaoF = number_format($promocao, 2, ',', '.',);
         $desc_longa = str_replace('"', '**', $desc_longa); //quando joga em onclick="editar()", como o conteúdo de $desc_longa muita das vezes tem aspas, como align="center", então dá problema
 
-        if($promocao > 0) {
+        if ($promocao > 0) {
             $promo = ' / ' . $promocaoF;
         } else {
             $promo = '';
@@ -256,7 +261,7 @@ HTML;
     }
 
     function mostrar(nome, desc_rapida, desc_longa, valor, promocao, professor, categoria, foto, status, carga, arquivo, ano, palavras, grupo, pacote, sistema, link, tecnologias) {
- 
+
         $('#nome_mostrar').text(nome);
         $('#desc_rapida_mostrar').text(desc_rapida);
         $('#desc_longa_mostrar').html(desc_longa); //se tiver negrito, aspas e outros caracteres HTML, exibe-os do jeito como foram inseridos
@@ -335,15 +340,17 @@ HTML;
 
     function listarSessaoAulas(curso) {
         $.ajax({
-			url: 'paginas/' + pag + "/listar-sessao-aulas.php", //alunos.php aparece dentro do index.php, portanto, estamos em index.php, e consideramos a partir dele
-			method: 'POST',
-			data: {curso},
-			dataType: "text",
+            url: 'paginas/' + pag + "/listar-sessao-aulas.php", //alunos.php aparece dentro do index.php, portanto, estamos em index.php, e consideramos a partir dele
+            method: 'POST',
+            data: {
+                curso
+            },
+            dataType: "text",
 
-			success: function(result) {
-				$("#listar-sessao-aulas").html(result);
-			}
-		});
+            success: function(result) {
+                $("#listar-sessao-aulas").html(result);
+            }
+        });
 
     }
 </script>

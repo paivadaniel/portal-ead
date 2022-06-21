@@ -62,6 +62,11 @@ ao digitar buscar na barra superior.
 - nos cursos (http://localhost/dashboard/www/portal-ead/sistema/painel-admin/index.php?pagina=cursos#) não
 está incrementando a aula de um mesmo módulo ao trocar de módulo na modal.
 
+- mod07 aula51
+ao acessar uma página de um curso, se eu logo com um aluno, ele redirecionada para o pagamento, porém,
+na tabela matriculas, está marcando id_aluno = 0
+
+e se eu for tentar cadastrar um novo aluno e já logar para comprar, não está indo os dados na tabela matriculas
 
 ---- fiz diferente
 
