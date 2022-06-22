@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 22-Jun-2022 às 01:28
--- Versão do servidor: 10.4.22-MariaDB
--- versão do PHP: 8.0.15
+-- Tempo de geração: 22-Jun-2022 às 22:11
+-- Versão do servidor: 10.4.21-MariaDB
+-- versão do PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -101,26 +101,29 @@ CREATE TABLE `aulas` (
 --
 
 INSERT INTO `aulas` (`id`, `numero`, `nome`, `link`, `id_curso`, `sessao`) VALUES
-(1, 1, 'Aula 01 Módulo 01', 'https://www.youtube.com/embed/ZniEV82UP_I', 1, 1),
+(1, 2, 'Aula 02 Módulo 02', 'https://www.youtube.com/embed/ZniEV82UP_I', 1, 2),
 (2, 1, 'Aula 01 Módulo 02', '', 1, 2),
 (4, 2, 'Aula 02', '', 1, 3),
 (5, 3, 'txt', '', 1, 2),
 (7, 1, 'dadadadaa', '', 5, 0),
-(8, 1, 'dadafsfsfsfs', 'http://www.google.com', 10, 0),
+(8, 1, 'dadafsfsfsfs', 'https://www.youtube.com/embed/SyqvezIagFY', 10, 0),
 (9, 4, 'fsfs', 'rwrwrwrwrw', 1, 2),
 (10, 1, 'Introdução ao Curso', '', 12, 4),
 (11, 2, 'Estrutura do Curso', '', 12, 4),
 (12, 1, 'Introdução ao Curso Avançado', '', 12, 5),
 (13, 2, 'Estrutura do Curso Avançado', '', 12, 5),
 (14, 3, 'Cronograma do Curso', '', 12, 4),
-(15, 2, 'fdafafafafa', '', 10, 0),
+(15, 2, 'fdafafafafa', 'https://www.youtube.com/embed/nNQFXd-R4ZY', 10, 0),
 (16, 3, 'rfwfssfsffsfs', '', 10, 0),
 (17, 4, 'dadadadda', '', 10, 0),
 (18, 5, '52rwrfwfafaaf', '', 10, 0),
 (19, 6, 'fdadafafafafafafa', '', 10, 0),
 (20, 7, 'rqwr24242fadfafa', '', 10, 0),
 (21, 8, 'dada25wfafafafa', '', 10, 0),
-(22, 2, 'dadadadada', '', 5, 0);
+(22, 2, 'dadadadada', '', 5, 0),
+(23, 2, 'Aula 02 Módulo 01', 'https://www.youtube.com/embed/SyqvezIagFY', 1, 1),
+(24, 3, 'Aula 03 Módulo 01', 'https://www.youtube.com/embed/SyqvezIagFY', 1, 1),
+(25, 3, 'dadada', 'https://www.youtube.com/embed/ZniEV82UP_I', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -214,15 +217,17 @@ CREATE TABLE `config` (
   `instagram` varchar(120) DEFAULT NULL,
   `youtube` varchar(120) DEFAULT NULL,
   `itens_pag` int(11) NOT NULL,
-  `video_sobre` varchar(100) NOT NULL
+  `video_sobre` varchar(100) NOT NULL,
+  `itens_relacionados` int(11) NOT NULL,
+  `aulas_liberadas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `config`
 --
 
-INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnpj_sistema`, `tipo_chave_pix`, `chave_pix`, `logo`, `icone`, `logo_rel`, `qrcode_pix`, `facebook`, `instagram`, `youtube`, `itens_pag`, `video_sobre`) VALUES
-(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', '', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead', 6, 'https://www.youtube.com/embed/GeH5_-4xkfE');
+INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnpj_sistema`, `tipo_chave_pix`, `chave_pix`, `logo`, `icone`, `logo_rel`, `qrcode_pix`, `facebook`, `instagram`, `youtube`, `itens_pag`, `video_sobre`, `itens_relacionados`, `aulas_liberadas`) VALUES
+(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', '', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead', 6, 'https://www.youtube.com/embed/GeH5_-4xkfE', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -598,7 +603,7 @@ ALTER TABLE `alunos`
 -- AUTO_INCREMENT de tabela `aulas`
 --
 ALTER TABLE `aulas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de tabela `banner_index`

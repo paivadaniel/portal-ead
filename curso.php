@@ -67,6 +67,7 @@ if ($total_reg > 0) {
     $query2 = $pdo->query("SELECT * FROM aulas WHERE id_curso = '$id'");
     $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
     $aulas = @count($res2);
+    $aula1 = $res2[0]['link'];
 
     $query2 = $pdo->query("SELECT * FROM matriculas WHERE id_curso = '$id' and status = 'Matriculado'");
     $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
@@ -239,7 +240,7 @@ require_once('cabecalho.php');
                 </div>
 
                 <div class="col-md-8 col-sm-12">
-                    <iframe width="100%" height="300" src="https://www.youtube.com/embed/M0eajziTYHE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="target-video"></iframe>
+                    <iframe width="100%" height="300" src="<?php echo $aula1 ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="target-video"></iframe>
                 </div>
             </div>
 
@@ -262,7 +263,7 @@ require_once('cabecalho.php');
 
                     <?php
 
-                    $query = $pdo->query("SELECT * FROM cursos WHERE status = 'Aprovado' AND sistema = 'Não' and grupo = '$grupo' and id != '$id' ORDER BY id desc limit 8"); //grupo é essencial para os cursos relacionados
+                    $query = $pdo->query("SELECT * FROM cursos WHERE status = 'Aprovado' AND sistema = 'Não' and grupo = '$grupo' and id != '$id' ORDER BY id desc limit $itens_rel"); //grupo é essencial para os cursos relacionados
                     //para não mostrar o curso em que se está na página, adicionou id != id
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
                     $total_reg = @count($res);
@@ -399,16 +400,19 @@ require_once('cabecalho.php');
 
             if ($total_reg_m > 0) { //para curso que tem sessão
 
+                $primeira_sessao = $res_m[0]['id']; //se tiver sessão
+
                 for ($i_m = 0; $i_m < $total_reg_m; $i_m++) {
                     foreach ($res_m[$i_m] as $key => $value) {
                     }
                     $sessao = $res_m[$i_m]['id'];
                     $nome_sessao = $res_m[$i_m]['nome'];
-                ?>
+
+            ?>
 
                     <p class="titulo-curso"><small><?php echo $nome_sessao ?></small></p>
 
-                <?php
+                    <?php
 
                     $query = $pdo->query("SELECT * FROM aulas where id_curso = '$id_do_curso_pag' and sessao = '$sessao' ORDER BY numero asc");
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -422,13 +426,28 @@ require_once('cabecalho.php');
                             $id_aula = $res[$i]['id'];
                             $nome_aula = $res[$i]['nome'];
                             $num_aula = $res[$i]['numero'];
-                            if ($num_aula < 3) {
-                                $link = $res[$i]['link'];
-                            } else {
-                                $link = '';
-                            }
+                            $sessao_aula = $res[$i]['sessao'];
 
-                            echo '<span class="neutra">Aula ' . $num_aula . ' - ' . $nome_aula . '</span><br>';
+                            //aulas liberadas para quando tem sessão
+                            if ($num_aula <= $aulas_lib /*&& $sessao_aula == $primeira_sessao*/) { //2 primeiras aulas da primeira sessão estão liberadas gratuitamente para o usuário, já que aulas_lib = 2, que por padrão é definida nas configurações e recuperada do banco de dados em conexao.php
+                            //para mostrar as primeiras duas aulas de cada sessão, comente && $sessao_aula == $primeira_sessao
+                                $link = $res[$i]['link'];
+
+                    ?>
+                                <a href="#" onclick="abrirAula('<?php echo $link ?>', '<?php echo $num_aula ?>', '<?php echo $nome_aula ?>')" title="Ver Aula"><span class="neutra-forte">Aula <?php echo $num_aula ?> - <?php echo $nome_aula ?></span><br></a>
+
+                            <?php
+                            } else {
+                            ?>
+                                <a title="Comprar Curso" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valorF ?>', '<?php echo $modal ?>')">
+                                    <span class="neutra-muted">
+                                        Aula <?php echo $num_aula ?> - <?php echo $nome_aula ?>
+                                    </span>
+                                </a>
+                                <br>
+
+                            <?php
+                            }
                         }
                     } else {
                         echo '<span class="neutra">Nenhuma aula Cadastrada</span>';
@@ -450,13 +469,27 @@ require_once('cabecalho.php');
                         $id_aula = $res[$i]['id'];
                         $nome_aula = $res[$i]['nome'];
                         $num_aula = $res[$i]['numero'];
-                        if ($num_aula < 3) {
+
+                        //aulas liberadas para quando não tem sessão
+                        if ($num_aula <= $aulas_lib) { //2 primeiras aulas estão liberadas gratuitamente para o usuário, já que aulas_lib = 2, que por padrão é definida nas configurações e recuperada do banco de dados em conexao.php
                             $link = $res[$i]['link'];
+                            ?>
+                            <a href="#" onclick="abrirAula('<?php echo $link ?>', '<?php echo $num_aula ?>', '<?php echo $nome_aula ?>')" title="Ver Aula"><span class="neutra-forte">Aula <?php echo $num_aula ?> - <?php echo $nome_aula ?></span><br></a>
+
+                        <?php
                         } else {
                             $link = '';
-                        }
 
-                        echo '<span class="neutra">Aula ' . $num_aula . ' - ' . $nome_aula . '</span><br>';
+                        ?>
+                            <a title="Comprar Curso" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valorF ?>', '<?php echo $modal ?>')">
+                                <span class="neutra-muted">
+                                    Aula <?php echo $num_aula ?> - <?php echo $nome_aula ?>
+                                </span>
+                            </a>
+                            <br>
+
+            <?php
+                        }
                     }
                 } else {
                     echo '<span class="neutra">Nenhuma aula Cadastrada</span>';
@@ -735,6 +768,36 @@ require_once('cabecalho.php');
     </div>
 </div>
 
+<!-- Modal modalAbrirAula -->
+<div class="modal fade" id="modalAbrirAula" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel"> Aula <span class="neutra ocultar-mobile" id="numero_aula"> </span> - <span class="neutra" id="nome_aula"></span> </h4>
+                <button style="margin-top: -25px" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="neutra" aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <iframe width="100%" height="400" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="videoModal"></iframe>
+
+
+
+
+            </div>
+
+            <!-- se remover o rodapé, quebra a modal -->
+            <div class="modal-footer">
+                <small>
+
+                </small>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <!-- link para chamar o AJAX para o form-cadastrar e o form-login -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -985,6 +1048,18 @@ require_once('cabecalho.php');
 
 
         });
+    }
+</script>
+
+<script type="text/javascript">
+    function abrirAula(link, num_aula, nome_aula) {
+
+        $('#numero_aula').text(num_aula);
+        $('#nome_aula').text(nome_aula);
+        $('#videoModal').attr('src', link);
+        $('#modalAbrirAula').modal('show'); //abrir a modal por script, a outra forma é abrir a modal 
+
+
     }
 </script>
 

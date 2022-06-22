@@ -63,9 +63,16 @@
   font-size:50px;
 }
 
-
 .neutra{
 	color:#4d4d4d !important;
+}
+
+.neutra-forte {
+	color:#303030 !important;
+}
+
+.neutra-muted {
+	color:#878787 !important;
 }
 
 .topicos{
