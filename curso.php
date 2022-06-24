@@ -33,7 +33,7 @@ if ($total_reg > 0) {
     $promocao = $res[0]['promocao'];
     $professor = $res[0]['professor'];
     $categoria = $res[0]['categoria'];
-    $foto = $res[0]['imagem'];
+    $foto_do_curso_pag = $res[0]['imagem'];
     $status = $res[0]['status'];
     $carga = $res[0]['carga'];
     $mensagem = $res[0]['mensagem'];
@@ -46,10 +46,12 @@ if ($total_reg > 0) {
     $link = $res[0]['link'];
     $tecnologias = $res[0]['tecnologias'];
 
+    $valor_curso = $res[0]['valor']; //para não perder a referência
 
 
     if ($promocao > 0) {
         $valor = $promocao;
+        $valor_curso = $promocao;
     }
 
     $query2 = $pdo->query("SELECT * FROM usuarios WHERE id = '$professor'");
@@ -67,7 +69,7 @@ if ($total_reg > 0) {
     $query2 = $pdo->query("SELECT * FROM aulas WHERE id_curso = '$id'");
     $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
     $aulas = @count($res2);
-    $aula1 = $res2[0]['link'];
+    @$aula1 = $res2[0]['link']; //para caso o curso não ter aulas foi colocado @ para não mostrar warning
 
     $query2 = $pdo->query("SELECT * FROM matriculas WHERE id_curso = '$id' and status = 'Matriculado'");
     $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
@@ -75,7 +77,7 @@ if ($total_reg > 0) {
 
 
     //valor formatado e descrição_longa formatada
-    $valorF = number_format($valor, 2, ',', '.',);
+    $valor_cursoF = number_format($valor, 2, ',', '.',);
     $promocaoF = number_format($promocao, 2, ',', '.',);
     $desc_longa = str_replace('"', '**', $desc_longa); //quando joga em onclick="editar()", como o conteúdo de $desc_longa muita das vezes tem aspas, como align="center", então dá problema
 }
@@ -93,7 +95,7 @@ require_once('cabecalho.php');
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-sm-12">
-            <a class="valor" title="Comprar o Curso - Liberação Imediata" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valorF ?>', '<?php echo $modal ?>')">
+            <a class="valor" title="Comprar o Curso - Liberação Imediata" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valor_cursoF ?>', '<?php echo $modal ?>')">
                 <p class="titulo-curso"><?php echo $nome_curso_titulo ?> - <small><?php echo $desc_rapida ?></small>
                 </p>
             </a>
@@ -111,10 +113,10 @@ require_once('cabecalho.php');
 
     <div class="row">
         <div class="col-md-9 col-sm-12">
-            <a class="valor" title="Comprar o Curso - Liberação Imediata" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valorF ?>', '<?php echo $modal ?>')">
+            <a class="valor" title="Comprar o Curso - Liberação Imediata" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valor_cursoF ?>', '<?php echo $modal ?>')">
                 <span class="valor">
                     <i class="fa fa-shopping-cart mr-1 valor" title="Comprar o Curso - Pagamento Único" style="margin-right:3px">
-                    </i>Comprar R$ <?php echo $valorF; ?>
+                    </i>Comprar R$ <?php echo $valor_cursoF; ?>
                     <small><small>
                             <span class="inicie">
                                 <i class="fa fa-arrow-left mr-1 inicie" style="margin-right:3px">
@@ -130,7 +132,7 @@ require_once('cabecalho.php');
         </div>
 
         <div class="col-md-3 col-sm-12 imagem-cartao margem-sup">
-            <a title="Comprar o Curso - Liberação Imediata" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valorF ?>', '<?php echo $modal ?>')">
+            <a title="Comprar o Curso - Liberação Imediata" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valor_cursoF ?>', '<?php echo $modal ?>')">
                 <small><span class="neutra">DÍVIDA EM ATÉ 12 VEZES</span></small><br>
                 <img src="img/01mercado.png" width="100%">
             </a>
@@ -143,8 +145,8 @@ require_once('cabecalho.php');
             <div class="row">
 
                 <div class="col-xs-3 col-md-4" style="margin-bottom:10px">
-                    <a href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valorF ?>', '<?php echo $modal ?>')" title="Comprar o Curso">
-                        <img src="sistema/painel-admin/img/cursos/<?php echo $foto ?>" width="100%">
+                    <a href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valor_cursoF ?>', '<?php echo $modal ?>')" title="Comprar o Curso">
+                        <img src="sistema/painel-admin/img/cursos/<?php echo $foto_do_curso_pag ?>" width="100%">
                     </a>
                 </div>
 
@@ -240,7 +242,7 @@ require_once('cabecalho.php');
                 </div>
 
                 <div class="col-md-8 col-sm-12">
-                    <iframe width="100%" height="300" src="<?php echo $aula1 ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="target-video"></iframe>
+                    <iframe width="100%" height="300" src="<?php echo @$aula1 ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="target-video"></iframe>
                 </div>
             </div>
 
@@ -430,7 +432,7 @@ require_once('cabecalho.php');
 
                             //aulas liberadas para quando tem sessão
                             if ($num_aula <= $aulas_lib /*&& $sessao_aula == $primeira_sessao*/) { //2 primeiras aulas da primeira sessão estão liberadas gratuitamente para o usuário, já que aulas_lib = 2, que por padrão é definida nas configurações e recuperada do banco de dados em conexao.php
-                            //para mostrar as primeiras duas aulas de cada sessão, comente && $sessao_aula == $primeira_sessao
+                                //para mostrar as primeiras duas aulas de cada sessão, comente && $sessao_aula == $primeira_sessao
                                 $link = $res[$i]['link'];
 
                     ?>
@@ -439,7 +441,7 @@ require_once('cabecalho.php');
                             <?php
                             } else {
                             ?>
-                                <a title="Comprar Curso" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valorF ?>', '<?php echo $modal ?>')">
+                                <a title="Comprar Curso" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valor_cursoF ?>', '<?php echo $modal ?>')">
                                     <span class="neutra-muted">
                                         Aula <?php echo $num_aula ?> - <?php echo $nome_aula ?>
                                     </span>
@@ -481,7 +483,7 @@ require_once('cabecalho.php');
                             $link = '';
 
                         ?>
-                            <a title="Comprar Curso" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valorF ?>', '<?php echo $modal ?>')">
+                            <a title="Comprar Curso" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valor_cursoF ?>', '<?php echo $modal ?>')">
                                 <span class="neutra-muted">
                                     Aula <?php echo $num_aula ?> - <?php echo $nome_aula ?>
                                 </span>
@@ -701,22 +703,136 @@ require_once('cabecalho.php');
 
             <div class="modal-body">
 
-                <?php
-                //para confirmar se está recebendo id do usuário
-                //echo $_SESSION['id']; //definida em autenticar.curso.php
-                ?>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12" style="margin-bottom: 10px">
+                        <div class="row">
+                            <div class="col-sm-4 esquerda-mobile-checkout">
+                                <img src="sistema/painel-admin/img/cursos/<?php echo $foto_do_curso_pag ?>" width="100%">
+                            </div>
+                            <div class="col-sm-8 direita-mobile-checkout">
+                                <span class="neutra-escura">VALOR ----------------- R$<?php echo $valor_cursoF ?></span>
+                                <hr style="margin:5px">
+                                <span class="neutra-escura">DESCONTO ------------- R$ 0,00</span>
+                                <hr style="margin:5px">
+                                <span class="neutra-escura">TOTAL ------------------ R$<?php echo $valor_cursoF ?></span>
+
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top: 25px">
+                            <form id="cupom-desconto">
+
+                                <div class="col-sm-7 esquerda-mobile-input">
+                                    <div class="form-group">
+                                        <input type="text" name="cupom" id="cupom" class="form-control" required placeholder="Código do Cupom" style="height:50px">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-5 direita-mobile-input">
+                                    <button id="btn-cupom" type="submit" name="submit" class="btn btn-primary submit-button">Aplicar <i class="fa fa-caret-right"></i></button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6 col-sm-12" style="margin-bottom: 10px">
+                        <div class="row" style="margin-bottom: 20px">
+                            <div class="col-md-6 esquerda-mobile-input" id="listar-btn-mp">
+                                <img src="img/pagamentos/mercadopago.jpg" width="100%"> <!-- imagem do mercado pago aparece na classe é impressa em listar-btn-mp.php, nessa linha $btn = $pagar->PagarMP, porém, ela é colocada aqui para não haver demora de carregamento, depois ela é substituída pela outra, que é a mesma, para notar a diferença e o carregamento altere o width dessa imagem para 200% e clique em comprar e verá a substituição -->
+                                <div align="center"><i class="neutra"><small>(Divida em até 12 Vezes) <br> <span class="neutra ocultar-mobile">Pagamento no Cartão ou Saldo</span></small></i></div>
+
+                            </div>
+
+                            <div class="col-md-6 direita-mobile-input">
+                                <a title="Paypal - Acesso Imediato ao Curso" href="pagamentos/paypal/checkout.php?id=<?php echo $id_do_curso_pag; ?>" target="_blank"><img src="img/pagamentos/paypal.png" width="100%"></a>
+                                <div align="center"><i class="neutra"><small>(Pagamento Cartão Visa) <br><span class="neutra ocultar-mobile"> Melhor opção para estrangeiros</span></small></i></div>
+
+                            </div>
+
+                        </div>
 
 
+
+                        <div class="row">
+                            <div class="col-md-6 esquerda-mobile-input" align="right">
+                                <!-- right para não ficar colado no botão APLICAR !-->
+
+                                <!-- para utilizar boleto será necessário fazer um cadastro no gerencia net (gerencianet.com.br),
+que é a API de boleto que o autor utiliza
+
+porém, o próprio Mercado Pago já fornece a opção com boleto
+mas esse é um boleto mais direto, sem passar pelo Mercado Pago
+
+o Gerencia NET obriga quem vai utilizar a API dele a baixar o aplicativo de celular
+deles e fazer um cadastro
+
+Após criar a conta, acesse-a e clique em API
+Clique em Minhas Aplicações, e em Nova Aplicação,
+nomeie-a como Boletos
+
+Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
+
+        -->
+
+                                <a href="" data-toggle="modal" data-target="#modalCPF"><img src="img/pagamentos/boleto.jpg" width="90%" align="center"> </a>
+                            </div>
+
+                            <div class="col-md-6 direita-mobile-input">
+                                <img src="img/pagamentos/bradesco.png" width="20px" align="center"><span class="neutra-escura">Chave Pix: <?php echo $tipo_chave_pix ?></span><br>
+                                <span class="neutra"><?php echo $chave_pix ?></span><br>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <hr style="margin:10px">
+
+                <div class="row">
+                    <div class="col-md-2 ocultar-mobile">
+                        <!-- ocultou para celulares de tela menor, porque não faz sentido mostrar o QRCODE na tela do celular, pois creio que ainda não há tecnologia para scannear o QRCODE da tela do celular com o próprio celular -->
+                        <a href="sistema/img/qrcode.jpg" target="_blank" title="Abrir imagem QR-Code"><img src="sistema/img/qrcode.jpg" width="100%" align="center"></a>
+                    </div>
+
+                    <div class="col-md-10">
+
+                        <?php if ($desconto_pix > 0) { //caso o admin tiver setado nas configurações uma porcentagem de desconto para pagamentos em pix, aparece essa mensagem 
+
+                            $valor_pix = (1 - ($desconto_pix / 100)) * $valor_curso;
+                            $valor_pixF = number_format($valor_pix, 2, ',', '.',);
+                        ?>
+                            <div>
+
+                                Estamos dando um <b>desconto de <?php echo $desconto_pix ?>% </b>no pagamento via PIX, este curso sai à <b>R$ <?php echo @$valor_pixF ?></b> pagando via Pix.
+                            </div>
+                        <?php } ?>
+                        <hr style="margin:8px">
+                        <div>Caso efetue o pagamento via pix favor enviar o comprovante no email ou whatsapp para agilizarmos a liberação. <br>
+
+                            <i class="fa fa-envelope neutra-escura" style="color:#FFF; margin-right:5px"> </i><a href=""><?php echo $email_sistema ?></a> /
+
+                            <i class="fa fa-whatsapp neutra-escura" style="color:#FFF; margin-right:5px"></i><a href="http://api.whatsapp.com/send?1=pt_BR&phone=55<?php echo $tel_sistema ?>" target="_blank"><?php echo $tel_sistema ?></a>
+
+
+                        </div>
+                    </div>
+
+                </div>
 
             </div>
-
             <!-- se remover o rodapé, quebra a modal -->
             <div class="modal-footer">
-                <small>
-                    <div align="center" id="msg"></div>
-                </small>
-            </div>
+                <div align="center">
+                    Se já efetuou o pagamento, <a href="sistema/painel-aluno" target="_blank"><i>clique aqui</i></a> para ir para o painel do aluno!
 
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -852,12 +968,13 @@ require_once('cabecalho.php');
 
 
 
+
 <script type="text/javascript">
     $("#form-login").submit(function() {
 
         var id = '<?= $id ?>';
         var nome = '<?= $nome_curso_titulo ?>';
-        var valor = '<?= $valorF ?>';
+        var valor = '<?= $valor_cursoF ?>';
         var modal = 'Pagamento';
 
         event.preventDefault(); //previne o redirect da página
@@ -955,6 +1072,7 @@ require_once('cabecalho.php');
 
         if (modal == 'Pagamento') {
             matriculaAluno();
+            listarBotaoMP();
         }
 
 
@@ -1014,7 +1132,7 @@ require_once('cabecalho.php');
 <script type="text/javascript">
     function matriculaAluno() {
 
-        var id_curso = '<?= $id ?>';
+        var id_curso = '<?= $id_do_curso_pag ?>';
         var pacote = 'Não'; //está matriculando aluno por curso, portanto, pacote = 'Não'
         /*
         explicação da matrículo do aluno ser em curso, não em pacote, em matricula.php temos:
@@ -1039,7 +1157,6 @@ require_once('cabecalho.php');
             dataType: "text",
 
             success: function(mensagem) {
-
                 if (mensagem.trim() == "Matriculado com Sucesso!") {} else {
 
                 }
@@ -1060,6 +1177,27 @@ require_once('cabecalho.php');
         $('#modalAbrirAula').modal('show'); //abrir a modal por script, a outra forma é abrir a modal 
 
 
+    }
+</script>
+
+<script type="text/javascript">
+    function listarBotaoMP() {
+        var id_curso = '<?= $id_do_curso_pag ?>';
+        var nome_curso = '<?= $nome_curso_titulo ?>';
+
+        $.ajax({
+            url: 'ajax/cursos/listar-btn-mp.php', //alunos.php aparece dentro do index.php, portanto, estamos em index.php, e consideramos a partir dele
+            method: 'POST',
+            data: {
+                id_curso,
+                nome_curso
+            },
+            dataType: "html",
+
+            success: function(result) {
+                $("#listar-btn-mp").html(result);
+            }
+        });
     }
 </script>
 

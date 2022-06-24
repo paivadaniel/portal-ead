@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 22-Jun-2022 às 22:11
+-- Tempo de geração: 24-Jun-2022 às 22:05
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -219,15 +219,16 @@ CREATE TABLE `config` (
   `itens_pag` int(11) NOT NULL,
   `video_sobre` varchar(100) NOT NULL,
   `itens_relacionados` int(11) NOT NULL,
-  `aulas_liberadas` int(11) NOT NULL
+  `aulas_liberadas` int(11) NOT NULL,
+  `desconto_pix` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `config`
 --
 
-INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnpj_sistema`, `tipo_chave_pix`, `chave_pix`, `logo`, `icone`, `logo_rel`, `qrcode_pix`, `facebook`, `instagram`, `youtube`, `itens_pag`, `video_sobre`, `itens_relacionados`, `aulas_liberadas`) VALUES
-(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', '', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead', 6, 'https://www.youtube.com/embed/GeH5_-4xkfE', 1, 2);
+INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnpj_sistema`, `tipo_chave_pix`, `chave_pix`, `logo`, `icone`, `logo_rel`, `qrcode_pix`, `facebook`, `instagram`, `youtube`, `itens_pag`, `video_sobre`, `itens_relacionados`, `aulas_liberadas`, `desconto_pix`) VALUES
+(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', 'danielantunespaiva@gmail.com', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead', 6, 'https://www.youtube.com/embed/GeH5_-4xkfE', 1, 2, 5);
 
 -- --------------------------------------------------------
 
@@ -285,6 +286,15 @@ CREATE TABLE `cursos_pacotes` (
   `id_curso` int(11) NOT NULL,
   `id_pacote` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `cursos_pacotes`
+--
+
+INSERT INTO `cursos_pacotes` (`id`, `id_curso`, `id_pacote`) VALUES
+(1, 1, 9),
+(2, 5, 9),
+(3, 6, 9);
 
 -- --------------------------------------------------------
 
@@ -359,10 +369,8 @@ CREATE TABLE `matriculas` (
 --
 
 INSERT INTO `matriculas` (`id`, `id_curso`, `id_aluno`, `id_professor`, `aulas_concluidas`, `valor`, `data`, `status`, `pacote`, `alertado`, `valor_cupom`, `subtotal`, `forma_pgto`) VALUES
-(13, 1, 11, 1, 0, '59.99', '2022-06-20', 'Aguardando', 'Não', NULL, '0.00', '0.00', NULL),
-(16, 10, 8, 1, 0, '75.00', '2022-06-20', 'Aguardando', 'Não', NULL, '0.00', '0.00', NULL),
-(17, 1, 8, 1, 0, '59.99', '2022-06-20', 'Matriculado', 'Não', NULL, '0.00', '0.00', NULL),
-(20, 1, 0, 1, 0, '59.99', '2022-06-21', 'Matriculado', 'Não', NULL, '0.00', '0.00', NULL);
+(32, 6, 5, 1, 0, '12.00', '2022-06-24', 'Aguardando', 'Não', NULL, '0.00', '12.00', NULL),
+(33, 1, 5, 1, 0, '59.99', '2022-06-24', 'Aguardando', 'Não', NULL, '0.00', '59.99', NULL);
 
 -- --------------------------------------------------------
 
@@ -639,7 +647,7 @@ ALTER TABLE `cursos`
 -- AUTO_INCREMENT de tabela `cursos_pacotes`
 --
 ALTER TABLE `cursos_pacotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `grupos`
@@ -657,7 +665,7 @@ ALTER TABLE `linguagens`
 -- AUTO_INCREMENT de tabela `matriculas`
 --
 ALTER TABLE `matriculas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de tabela `pacotes`

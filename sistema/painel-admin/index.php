@@ -572,7 +572,7 @@ $senha_usuario = $res[0]['senha'];
 
                     <div class="row">
 
-                    <div class="col-md-4">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Url Vídeo Página Sobre</label>
                                 <input type="text" class="form-control" id="video_sobre" name="video_sobre" value="<?php echo $video_sobre ?>">
@@ -597,6 +597,18 @@ $senha_usuario = $res[0]['senha'];
                             <div class="form-group">
                                 <label>Aulas Disponíveis</label>
                                 <input type="number" class="form-control" id="aulas_lib" name="aulas_lib" value="<?php echo $aulas_lib ?>">
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="row">
+
+                    <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Desconto Pix (%)</label>
+                                <input type="number" class="form-control" id="desconto_pix" name="desconto_pix" value="<?php echo $desconto_pix ?>">
                             </div>
                         </div>
 

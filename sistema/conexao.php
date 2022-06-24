@@ -19,7 +19,14 @@ $senha = 'localhost';
 $url_sistema = "http://$_SERVER[HTTP_HOST]/"; //se for servidor local, armazena localhost, do contrário, armazena http://hugocursos.com.br, se este for o domínio em que estão hospedados os arquivos
 $url = explode("//", $url_sistema);
 if($url[1] == 'localhost/'){
-	$url_sistema = "http://$_SERVER[HTTP_HOST]/portalead/";
+	$url_sistema = "http://$_SERVER[HTTP_HOST]/dashboard/www/portalead/";
+    /*antes estava apenas = "http://$_SERVER[HTTP_HOST]/portalead/";
+    daí, por exemplo, aqui: http://localhost/dashboard/www/portal-ead/pagamentos/paypal/payment-status.php
+
+    estava redirecionando para: http://localhost/portalead/sistema/painel-aluno/
+    ao invés de: http://localhost/dashboard/www/portal-ead/sistema/painel-aluno/
+
+    */
 }
 
 //VARIÁVEIS DO SISTEMA
@@ -62,6 +69,8 @@ if ($total_reg == 0) { //se a tabela config não tiver nenhum registro
     $video_sobre = $res[0]['video_sobre'];
     $itens_rel = $res[0]['itens_relacionados'];
     $aulas_lib = $res[0]['aulas_liberadas'];
+    $desconto_pix = $res[0]['desconto_pix'];
+
     //$logo = $res[0]['logo']; //não precisa pois o nome nunca muda
     //$icone = $res[0]['icone']; 
     //$logo_rel = $res[0]['logo_rel']; 

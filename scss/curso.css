@@ -117,6 +117,26 @@
   	width:45%;
   }
 
+  .esquerda-mobile-checkout{
+    float:left;
+    width:30%;
+  }
+
+  .direita-mobile-checkout{
+    float:right;
+    width:70%;
+  }
+
+  .esquerda-mobile-input{
+    float:left;
+    width:50%;
+  }
+
+  .direita-mobile-input{
+    float:right;
+    width:50%;
+  }
+
   .topicos{
 		color:#5c5c5c !important;
 		font-size:12px;

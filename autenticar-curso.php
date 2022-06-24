@@ -56,6 +56,7 @@ if ($total_reg > 0) {
     $_SESSION['cpf'] = $res[0]['cpf'];
     $_SESSION['nome'] = $res[0]['nome'];
     $_SESSION['id'] = $res[0]['id'];
+    @$_SESSION['id_pessoa'] = $res[0]['id_pessoa'];
 
     if ($_SESSION['nivel'] == 'Aluno') {
         //echo "<script> window.location='painel-aluno/index.php'</script>";

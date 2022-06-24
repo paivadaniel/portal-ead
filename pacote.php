@@ -68,11 +68,12 @@ if ($total_reg > 0) {
 
     $query2 = $pdo->query("SELECT * FROM cursos_pacotes WHERE id_pacote = '$id'"); //autor criou uma tabela inútil aqui, a cursos_pacotes, não precisa, há um campo pacote na tabela cursos
     $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-    $cursos = @count($res2);
+    $total_cursos = @count($res2);
+
     $carga = 0; //se não iniciar carga com zero, ele provavelmente considera que carga começa com lixo na soma do if abaixo, e acusa Undefined variable $carga
 
-    if ($cursos > 0) {
-        for ($i2 = 0; $i2 < $cursos; $i2++) {
+    if ($total_cursos > 0) {
+        for ($i2 = 0; $i2 < $total_cursos; $i2++) {
             foreach ($res2[$i2] as $key => $value) {
             } //para cada curso do pacotet
             $id_curso = $res2[$i2]['id_curso'];
@@ -81,9 +82,9 @@ if ($total_reg > 0) {
             $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
             $carga += @$res3[0]['carga']; //soma as cargas de cada curso no pacote
             //coloca @ pois carga pode não existir
-            
+
         }
-    } 
+    }
 
     //valor formatodo e descrição_longa formatada
     $valorF = number_format($valor, 2, ',', '.',);
@@ -155,7 +156,7 @@ require_once('cabecalho.php');
 
                 <div class="col-xs-3 col-md-4" style="margin-bottom:10px">
                     <a href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valorF ?>', '<?php echo $modal ?>')" title="Comprar o Pacote">
-                        <img src="sistema/painel-admin/img/cursos/<?php echo $foto ?>" width="100%">
+                        <img src="sistema/painel-admin/img/pacotes/<?php echo $foto ?>" width="100%">
                     </a>
                 </div>
 
@@ -165,11 +166,11 @@ require_once('cabecalho.php');
                     <div class="row">
 
                         <div class="col-md-7 esquerda-mobile">
-                            <span class="text-muted itens texto-menor-mobile"><i class="fa fa-user mr-1 itens" style="margin-right: 2px"></i>Professor : <?php echo $nome_professor; ?></span>
+                            <span class="text-muted itens texto-menor-mobile"><i class="fa fa-user mr-1 itens" style="margin-right: 2px"></i>Professor: <?php echo $nome_professor; ?></span>
                         </div>
 
                         <div class="col-md-5 direita-mobile">
-                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-video-camera mr-1 itens"></i>Aulas : <?php echo $aulas; ?> Aulas</span>
+                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-video-camera mr-1 itens"></i>Cursos: <?php echo $total_cursos; ?> Cursos</span>
                         </div>
 
                     </div>
@@ -178,11 +179,12 @@ require_once('cabecalho.php');
                     <div class="row mt-1">
 
                         <div class="col-md-7 esquerda-mobile">
-                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-list-alt mr-1 itens"></i>Categoria : <?php echo $nome_categoria; ?></span>
+                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-list-alt mr-1 itens"></i>Linguagem: <?php echo $nome_linguagem; ?></span>
                         </div>
 
+
                         <div class="col-md-5 direita-mobile">
-                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-certificate mr-1 itens"></i>Certificado : <?php echo $carga; ?> Horas</span>
+                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-certificate mr-1 itens"></i>Certificado: <?php echo $carga; ?> Horas</span>
                         </div>
 
                     </div>
@@ -192,11 +194,11 @@ require_once('cabecalho.php');
                     <div class="row mt-1 mb-3">
 
                         <div class="col-md-7 esquerda-mobile">
-                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-calendar mr-1 itens"></i>Ano : <?php echo $ano; ?></span>
+                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-calendar mr-1 itens"></i>Ano: <?php echo $ano; ?></span>
                         </div>
 
                         <div class="col-md-5 direita-mobile">
-                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-calculator mr-1 itens"></i>Alunos : <?php echo @$total_alunos; ?></span>
+                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-calculator mr-1 itens"></i>Alunos: <?php echo @$total_alunos; ?></span>
                         </div>
 
                     </div>
@@ -215,10 +217,10 @@ require_once('cabecalho.php');
                         <span class="text-muted topicos mr-3"><i class="fa fa-check-square mr-1 topicos" style="margin-right: 2px"></i>Sem custo de mensalidade</span>
 
                         <br>
-                        <?php if ($sistema != 'sim') { ?>
-                            <span class="text-muted topicos mr-3"><i class="fa fa-check-square mr-1 topicos" style="margin-right: 2px"></i>Certificado Profissionalizante</span> <br>
-                            <span class="text-muted topicos mr-3"><i class="fa fa-check-square mr-1 topicos" style="margin-right: 2px"></i>Suporte com Professor</span>
-                        <?php } ?>
+
+                        <span class="text-muted topicos mr-3"><i class="fa fa-check-square mr-1 topicos" style="margin-right: 2px"></i>Certificado Profissionalizante</span> <br>
+                        <span class="text-muted topicos mr-3"><i class="fa fa-check-square mr-1 topicos" style="margin-right: 2px"></i>Suporte com Professor</span>
+
                         <br>
 
                         <span class="text-muted topicos mr-3"><i class="fa fa-check-square mr-1 topicos" style="margin-right: 2px"></i>Acesso Vitalício</span>
@@ -230,12 +232,7 @@ require_once('cabecalho.php');
                         <span class="text-muted topicos mr-3"><i class="fa fa-check-square mr-1 topicos" style="margin-right: 2px"></i>Conteúdo Atualizado</span>
 
                         <br>
-                        <?php if ($sistema != 'sim') { ?>
-                            <span class="text-muted topicos mr-3"><i class="fa fa-check-square mr-1 topicos" style="margin-right: 2px"></i>Download Vídeos e Arquivos</span>
-                        <?php } else { ?>
-                            <span class="text-muted topicos mr-3"><i class="fa fa-check-square mr-1 topicos" style="margin-right: 2px"></i>Download dos Fontes</span>
-                        <?php } ?>
-
+                        <span class="text-muted topicos mr-3"><i class="fa fa-check-square mr-1 topicos" style="margin-right: 2px"></i>Download Vídeos e Arquivos</span>
 
                         <br>
                         <span class="text-muted topicos mr-3"><i class="fa fa-check-square mr-1 topicos" style="margin-right: 2px"></i>Estude a Hora que quiser</span>
@@ -251,30 +248,20 @@ require_once('cabecalho.php');
                 </div>
 
                 <div class="col-md-8 col-sm-12">
-                    <iframe width="100%" height="300" src="<?php echo $aula1 ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="target-video"></iframe>
+                    <iframe width="100%" height="300" src="<?php echo $video ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="target-video"></iframe>
                 </div>
             </div>
 
             <div class="row">
 
-                <?php if ($tecnologias != '') { ?>
-
-                    <div class="col-md-12" style="margin-bottom: 20px">
-                        <span class="neutra"><b>Tecnologias Utilizadas no Curso</b> (<i class="neutra"><?php echo $tecnologias ?></i>)</span>
-                    </div>
-                <?php } ?>
-
-
 
                 <div class="col-md-12" style="margin-bottom: 20px">
 
-                    <p class="titulo-curso"><small>Cursos Relacionados</small></p>
-
-
+                    <p class="titulo-curso"><small>Pacotes Relacionados</small></p>
 
                     <?php
 
-                    $query = $pdo->query("SELECT * FROM cursos WHERE status = 'Aprovado' AND sistema = 'Não' and grupo = '$grupo' and id != '$id' ORDER BY id desc limit $itens_rel"); //grupo é essencial para os cursos relacionados
+                    $query = $pdo->query("SELECT * FROM cursos WHERE grupo = '$grupo' and id != '$id' ORDER BY id desc limit $itens_rel"); //grupo é essencial para os cursos relacionados
                     //para não mostrar o curso em que se está na página, adicionou id != id
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
                     $total_reg = @count($res);
@@ -294,7 +281,7 @@ require_once('cabecalho.php');
                                     foreach ($res[$i] as $key => $value) {
                                     }
 
-                                    $id = $res[$i]['id'];
+                                    $id_pacote = $res[$i]['id'];
                                     $nome = $res[$i]['nome'];
                                     $desc_rapida = $res[$i]['desc_rapida'];
                                     $valor = $res[$i]['valor'];
@@ -308,24 +295,14 @@ require_once('cabecalho.php');
                                     $promocaoF = number_format($promocao, 2, ',', '.',);
 
 
-                                    $query2 = $pdo->query("SELECT * FROM aulas WHERE id_curso = '$id' and numero = 1 and (sessao = 0 or sessao = 1)"); //outra forma de resolver aqui para pegar a aula com o id menor, e daí poderia tirar sessao = 0 or sessao = 1 e substituir por order by id asc, que pegamos apenas o primeiro resultado aqui res2[0]['link']
-                                    $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-                                    $total_reg2 = @count($res2);
-
-                                    if ($total_reg2 > 0) {
-                                        $primeira_aula = $res2[0]['link'];
-                                    } else {
-                                        $primeira_aula = '';
-                                    }
-
                                 ?>
 
                                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 portfolio-item">
-                                        <a href="curso-de-<?php echo $url ?>" title="Detalhes do Curso">
+                                        <a href="cursos-do-<?php echo $url ?>" title="Detalhes do Pacote">
 
                                             <div class="portfolio-one">
                                                 <div class="portfolio-head">
-                                                    <div class="portfolio-img"><img alt="" src="sistema/painel-admin/img/cursos/<?php echo $foto ?>"></div>
+                                                    <div class="portfolio-img"><img alt="" src="sistema/painel-admin/img/pacotes/<?php echo $foto ?>"></div>
                                                 </div>
                                                 <!-- End portfolio-head -->
                                                 <div class="portfolio-content" style="text-align: center">
@@ -400,111 +377,35 @@ require_once('cabecalho.php');
 
         </div>
 
-
-
-
         <div class="col-md-3 col-sm-12">
             <?php
-            $query_m = $pdo->query("SELECT * FROM sessao where id_curso = '$id_do_curso_pag' ORDER BY id asc");
-            $res_m = $query_m->fetchAll(PDO::FETCH_ASSOC);
-            $total_reg_m = @count($res_m);
+            //pacote não tem sessão
 
-            if ($total_reg_m > 0) { //para curso que tem sessão
+            $query = $pdo->query("SELECT * FROM cursos_pacotes WHERE id_pacote = '$id_do_curso_pag' ORDER BY id asc");
+            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+            $total_reg = @count($res); //todos os cursos que tem aquele pacote
 
-                $primeira_sessao = $res_m[0]['id']; //se tiver sessão
+            if ($total_reg > 0) { //cria a tabela
 
-                for ($i_m = 0; $i_m < $total_reg_m; $i_m++) {
-                    foreach ($res_m[$i_m] as $key => $value) {
-                    }
-                    $sessao = $res_m[$i_m]['id'];
-                    $nome_sessao = $res_m[$i_m]['nome'];
-
-            ?>
-
-                    <p class="titulo-curso"><small><?php echo $nome_sessao ?></small></p>
-
-                    <?php
-
-                    $query = $pdo->query("SELECT * FROM aulas where id_curso = '$id_do_curso_pag' and sessao = '$sessao' ORDER BY numero asc");
-                    $res = $query->fetchAll(PDO::FETCH_ASSOC);
-                    $total_reg = @count($res);
-
-                    if ($total_reg > 0) {
-
-                        for ($i = 0; $i < $total_reg; $i++) {
-                            foreach ($res[$i] as $key => $value) {
-                            }
-                            $id_aula = $res[$i]['id'];
-                            $nome_aula = $res[$i]['nome'];
-                            $num_aula = $res[$i]['numero'];
-                            $sessao_aula = $res[$i]['sessao'];
-
-                            //aulas liberadas para quando tem sessão
-                            if ($num_aula <= $aulas_lib /*&& $sessao_aula == $primeira_sessao*/) { //2 primeiras aulas da primeira sessão estão liberadas gratuitamente para o usuário, já que aulas_lib = 2, que por padrão é definida nas configurações e recuperada do banco de dados em conexao.php
-                            //para mostrar as primeiras duas aulas de cada sessão, comente && $sessao_aula == $primeira_sessao
-                                $link = $res[$i]['link'];
-
-                    ?>
-                                <a href="#" onclick="abrirAula('<?php echo $link ?>', '<?php echo $num_aula ?>', '<?php echo $nome_aula ?>')" title="Ver Aula"><span class="neutra-forte">Aula <?php echo $num_aula ?> - <?php echo $nome_aula ?></span><br></a>
-
-                            <?php
-                            } else {
-                            ?>
-                                <a title="Comprar Curso" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valorF ?>', '<?php echo $modal ?>')">
-                                    <span class="neutra-muted">
-                                        Aula <?php echo $num_aula ?> - <?php echo $nome_aula ?>
-                                    </span>
-                                </a>
-                                <br>
-
-                            <?php
-                            }
-                        }
-                    } else {
-                        echo '<span class="neutra">Nenhuma aula Cadastrada</span>';
+                for ($i = 0; $i < $total_reg; $i++) {
+                    foreach ($res[$i] as $key => $value) {
                     }
 
-                    echo '<hr>';
+                    $id = $res[$i]['id'];
+                    $id_curso = $res[$i]['id_curso'];
+
+                    $query2 = $pdo->query("SELECT * FROM cursos WHERE id = '$id_curso' ORDER BY id asc");
+                    $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+
+                    $nome_curso = $res2[0]['nome'];
+                    $nome_url_curso = $res2[0]['nome_url'];
+                    $numero_curso = $i + 1;
+
+                    echo '<a title="Ver detalhes do curso" href="curso-de-'.$nome_url_curso.'" target="_blank"><span class="neutra-forte">'.$numero_curso.' - '.$nome_curso.'</span><br></a>';
+
                 }
-            } else { //para curso que não tem sessão
-
-                $query = $pdo->query("SELECT * FROM aulas where id_curso = '$id_do_curso_pag' ORDER BY numero asc");
-                $res = $query->fetchAll(PDO::FETCH_ASSOC);
-                $total_reg = @count($res);
-
-                if ($total_reg > 0) {
-
-                    for ($i = 0; $i < $total_reg; $i++) {
-                        foreach ($res[$i] as $key => $value) {
-                        }
-                        $id_aula = $res[$i]['id'];
-                        $nome_aula = $res[$i]['nome'];
-                        $num_aula = $res[$i]['numero'];
-
-                        //aulas liberadas para quando não tem sessão
-                        if ($num_aula <= $aulas_lib) { //2 primeiras aulas estão liberadas gratuitamente para o usuário, já que aulas_lib = 2, que por padrão é definida nas configurações e recuperada do banco de dados em conexao.php
-                            $link = $res[$i]['link'];
-                            ?>
-                            <a href="#" onclick="abrirAula('<?php echo $link ?>', '<?php echo $num_aula ?>', '<?php echo $nome_aula ?>')" title="Ver Aula"><span class="neutra-forte">Aula <?php echo $num_aula ?> - <?php echo $nome_aula ?></span><br></a>
-
-                        <?php
-                        } else {
-                            $link = '';
-
-                        ?>
-                            <a title="Comprar Curso" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valorF ?>', '<?php echo $modal ?>')">
-                                <span class="neutra-muted">
-                                    Aula <?php echo $num_aula ?> - <?php echo $nome_aula ?>
-                                </span>
-                            </a>
-                            <br>
-
-            <?php
-                        }
-                    }
-                } else {
-                    echo '<span class="neutra">Nenhuma aula Cadastrada</span>';
-                }
+            } else {
+                echo '<span class="neutra">Nenhum Curso Cadastrado</span>';
             }
 
             ?>
@@ -559,6 +460,7 @@ require_once('cabecalho.php');
                             </div>
                             <div class="form-group">
                                 <button id="btn-enviar" type="submit" name="submit" class="btn btn-default submit-button">Enviar <i class="fa fa-caret-right"></i></button>
+                                <!-- ele relacionou o form com o enviar.php por meio do clique no btn-enviar, e não pelo submit do form -->
                             </div>
                         </div>
                     </div>
@@ -761,7 +663,7 @@ require_once('cabecalho.php');
                     </div>
 
                     <input type="hidden" name="id_curso" id="id_curso_Matricular">
-                    <input type="hidden" name="pacote" value="Não"> <!-- se o curso não for um pacote, recebe Não no input com name id="pacote" -->
+                    <input type="hidden" name="pacote" value="Sim"> <!-- se o curso for um pacote, recebe Sim no input com name id="pacote" -->
 
 
                 </form>
@@ -1025,10 +927,10 @@ require_once('cabecalho.php');
 <script type="text/javascript">
     function matriculaAluno() {
 
-        var id_curso = '<?= $id ?>';
-        var pacote = 'Não'; //está matriculando aluno por curso, portanto, pacote = 'Não'
+        var id_curso = '<?= $id_do_curso_pag ?>';
+        var pacote = 'Sim'; //está matriculando aluno por pacote, portanto, pacote = 'Sim'
         /*
-        explicação da matrículo do aluno ser em curso, não em pacote, em matricula.php temos:
+        explicação da matrículo do aluno ser em pacote, não em curso, em matricula.php temos:
 
         if($pacote == 'Sim') {
             $tabela = 'pacotes';
@@ -1036,7 +938,7 @@ require_once('cabecalho.php');
             $tabela = 'cursos';
         }
 
-        portanto, o insert é na tabela cursos
+        portanto, o insert é na tabela pacote
 
         */
 

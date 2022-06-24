@@ -42,7 +42,7 @@ if ($usuario_logado == 'Aluno') {
 
 //em curso.php, id_curso e pacote='Não' são passados tanto pelo form-matricula (ou seja, se a matrícula do aluno for feita por um administrador ou professor), quanto pelo matriculaAluno(), em que a matrícula no curso é feita pela próprio aluno
 $id_curso = $_POST['id_curso'];
-$pacote = $_POST['pacote'];
+$pacote = $_POST['pacote']; //recebe 'Não' de curso.php e 'Sim' de 'pacote.php'
 
 if($pacote == 'Sim') {
     $tabela = 'pacotes';
@@ -74,7 +74,7 @@ if ($total_reg > 0) {
     } 
     
     //insere matrícula do aluno na tabela matriculas
-    $pdo->query("INSERT into matriculas SET id_curso = '$id_curso', id_aluno = '$id_aluno', id_professor = '$id_professor', valor = '$valor', data = curDate(), status = 'Aguardando', pacote = '$pacote'");
+    $pdo->query("INSERT into matriculas SET id_curso = '$id_curso', id_aluno = '$id_aluno', id_professor = '$id_professor', valor = '$valor', data = curDate(), status = 'Aguardando', pacote = '$pacote', subtotal = '$valor'");
 
     echo 'Matriculado com Sucesso!';
 
