@@ -1,22 +1,27 @@
 <?php
 require_once("../../sistema/conexao.php");
 @session_start();
-$id_aluno = $_SESSION['id'];
+$id_aluno = $_SESSION['id_pessoa'];
 $data_hoje = date('Y-m-d');
+
+//o resultado final de transacao.php (ver no final do código) passa para gerar-boleto.php
+
 //ALIMENTAR O BOLETO
-$id = $_POST['id'];
+$id_curso = $_POST['id_curso']; //id do curso
 $cpf_aluno = $_POST['cpf'];
-if($id == ""){
+
+if($id_curso == ""){
   echo 'Você não selecionou nenhum curso!';
   exit();
 }
 
-$query = $pdo->query("SELECT * FROM matriculas where id_curso = '$id' and aluno = '$id_aluno'");
+//recupera id da matrícula e se é pacote ou curso
+$query = $pdo->query("SELECT * FROM matriculas where id_curso = '$id_curso' and id_aluno = '$id_aluno'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 if($total_reg > 0){
 $id_matricula = $res[0]['id'];
-$valor = $res[0]['subtotal'] * 100;
+$valor = $res[0]['subtotal'] * 100; //segundo autor se for 100 reais, ele coloca 1, por isso multiplica por 100, não entendi o porque de colocar 1 se for 100
 $data_venc = date('Y-m-d', strtotime("+7 days",strtotime($data_hoje)));
 $pacote = $res[0]['pacote'];
 
@@ -26,18 +31,21 @@ if($pacote == 'Sim'){
   $tabela = 'cursos';
 }
 
-$query = $pdo->query("SELECT * FROM $tabela where id = '$id'");
+//recupera nome do curso
+$query = $pdo->query("SELECT * FROM $tabela where id = '$id_curso'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $titulo = $res[0]['nome'];
 
-$query = $pdo->query("SELECT * FROM usuarios where id = '$id_aluno'");
+//recupera nome e email do aluno
+$query = $pdo->query("SELECT * FROM usuarios where id_pessoa = '$id_aluno'"); //alterei de id para id_pessoa
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $aluno = $res[0]['nome'];
 $email = $res[0]['email'];
-     
-$nome = $aluno;
-$telefone = $tel_sistema;
-$email = $email_sistema;
+
+//o que vai sair no boleto
+$nome = $aluno; //pra que?
+$telefone = $tel_sistema; //coloca o telefone do sistema ao invés do do aluno, pois ele pode preencher errado
+$email = $email_sistema;  //coloca o email do sistema ao invés do do aluno, pois ele pode preencher errado
 $cpf = $cpf_aluno;
 
 
@@ -70,6 +78,10 @@ use Gerencianet\Gerencianet;
 $clientId = CONF_ID; // insira seu Client_Id, conforme o ambiente (Des ou Prod)
 $clientSecret = CONF_SECRETO; // insira seu Client_Secret, conforme o ambiente (Des ou Prod)
 
+/* no pagseguro e no mercado pago o id da matrícula é o mesmo que será utilizado para fazer
+a aprovação do pagamento, mas para boleto temos que criar um id específico para o pagamento daquele boleto
+
+*/
 $boleto = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRIPPED);    
 
     $options = [

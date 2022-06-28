@@ -70,6 +70,7 @@ if ($total_reg == 0) { //se a tabela config não tiver nenhum registro
     $itens_rel = $res[0]['itens_relacionados'];
     $aulas_lib = $res[0]['aulas_liberadas'];
     $desconto_pix = $res[0]['desconto_pix'];
+    $email_adm_mat = $res[0]['email_adm_mat'];
 
     //$logo = $res[0]['logo']; //não precisa pois o nome nunca muda
     //$icone = $res[0]['icone']; 

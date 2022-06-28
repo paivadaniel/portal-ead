@@ -4,7 +4,9 @@ require_once('sistema/conexao.php');
 
 @session_start();
 
+$id_do_aluno = $_SESSION['id_pessoa'];
 $url = $_GET['url'];
+
 
 $nivel = @$_SESSION['nivel']; //@ pois se o usuário não estiver logado, não aparece warning
 
@@ -48,7 +50,6 @@ if ($total_reg > 0) {
 
     $valor_curso = $res[0]['valor']; //para não perder a referência
 
-
     if ($promocao > 0) {
         $valor = $promocao;
         $valor_curso = $promocao;
@@ -77,7 +78,7 @@ if ($total_reg > 0) {
 
 
     //valor formatado e descrição_longa formatada
-    $valor_cursoF = number_format($valor, 2, ',', '.',);
+    $valor_cursoF = number_format($valor, 2, ',', '.',); //valorF é variável para cursos relacionados, utilizada mais abaixo
     $promocaoF = number_format($promocao, 2, ',', '.',);
     $desc_longa = str_replace('"', '**', $desc_longa); //quando joga em onclick="editar()", como o conteúdo de $desc_longa muita das vezes tem aspas, como align="center", então dá problema
 }
@@ -691,7 +692,7 @@ require_once('cabecalho.php');
 </div>
 
 <!-- Modal Pagamento -->
-<div class="modal fade" id="Pagamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="Pagamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -741,6 +742,7 @@ require_once('cabecalho.php');
                         <div class="row" style="margin-bottom: 20px">
                             <div class="col-md-6 esquerda-mobile-input" id="listar-btn-mp">
                                 <img src="img/pagamentos/mercadopago.jpg" width="100%"> <!-- imagem do mercado pago aparece na classe é impressa em listar-btn-mp.php, nessa linha $btn = $pagar->PagarMP, porém, ela é colocada aqui para não haver demora de carregamento, depois ela é substituída pela outra, que é a mesma, para notar a diferença e o carregamento altere o width dessa imagem para 200% e clique em comprar e verá a substituição -->
+                                <!--link do botão está definido em pagarMP(), chamada em ajax/cursos/listar-btn-mp.php, e definida em pagamentoMP.php -->
                                 <div align="center"><i class="neutra"><small>(Divida em até 12 Vezes) <br> <span class="neutra ocultar-mobile">Pagamento no Cartão ou Saldo</span></small></i></div>
 
                             </div>
@@ -776,7 +778,8 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
 
         -->
 
-                                <a href="" data-toggle="modal" data-target="#modalCPF"><img src="img/pagamentos/boleto.jpg" width="90%" align="center"> </a>
+						 <a href="" data-toggle="modal" data-target="#modalCPF"><img src="img/pagamentos/boleto.jpg" width="90%" align="center">  </a>           
+                              
                             </div>
 
                             <div class="col-md-6 direita-mobile-input">
@@ -838,7 +841,7 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
 </div>
 
 <!-- Modal Matricular -->
-<div class="modal fade" id="Matricular" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="Matricular" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -866,6 +869,7 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
                     </div>
 
                     <input type="hidden" name="id_curso" id="id_curso_Matricular">
+                    <!-- id_curso_Matricular é definido na função pagamento -->
                     <input type="hidden" name="pacote" value="Não"> <!-- se o curso não for um pacote, recebe Não no input com name id="pacote" -->
 
 
@@ -913,6 +917,56 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
         </div>
     </div>
 </div>
+
+
+<!-- ModalCPF -->
+<div class="modal fade" id="modalCPF" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:300px; margin-top:100px; margin-left:90px">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Digite seu CPF</h4>
+                <button style="margin-top: -25px" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="neutra" aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <form action="pagamentos/boletos/transacao.php" class="contact-form" method="post" target="_blank">
+                    <!-- não precisou de id nem chamada do form via AJAX, pois não irá usar AJAX, quer só fazer um post, ou seja, transmitir os dados -->
+                    <!-- target blank pode ser usado não apenas para links, como também para forms que tenham action -->
+                    <div class="row">
+                        <div class="col-sm-12" align="center">
+                            <div class="form-group">
+                                <input type="text" name="cpf" id="cpf" class="form-control" required="required" style="width:80%">
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" name="submit" class="btn btn-default submit-button">Gerar Boleto <i class="fa fa-caret-right"></i></button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="id_curso" value="<?php echo $id_do_curso_pag ?>">
+                    <!-- não pode repetir id=id_curso_Matricular pois já sendo utilizado no form-matricular, por isso usou value=id_do_curso_pag-->
+                    <!-- id_curso_Matricular é definido na função pagamento -->
+
+                </form>
+
+            </div>
+
+            <!-- se remover o rodapé, quebra a modal -->
+            <div class="modal-footer">
+                <small>
+                    <div align="center" id="msg-matricula"></div>
+                </small>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
 <!-- link para chamar o AJAX para o form-cadastrar e o form-login -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -1184,13 +1238,14 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
     function listarBotaoMP() {
         var id_curso = '<?= $id_do_curso_pag ?>';
         var nome_curso = '<?= $nome_curso_titulo ?>';
+        var id_aluno = '<?= $id_do_aluno ?>';
 
         $.ajax({
             url: 'ajax/cursos/listar-btn-mp.php', //alunos.php aparece dentro do index.php, portanto, estamos em index.php, e consideramos a partir dele
             method: 'POST',
             data: {
                 id_curso,
-                nome_curso
+                nome_curso, id_aluno
             },
             dataType: "html",
 

@@ -443,7 +443,7 @@ $senha_usuario = $res[0]['senha'];
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label>Foto</label>
-                                <input type="file" name="foto" onChange="carregarImgPerfil();" id="foto-usu">
+                                <input class="form-control" type="file" name="foto" onChange="carregarImgPerfil();" id="foto-usu">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -492,20 +492,20 @@ $senha_usuario = $res[0]['senha'];
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Nome Sistema</label>
+                                <label for="nome_sistema">Nome Sistema</label>
                                 <input type="text" class="form-control" name="nome_sistema" value="<?php echo $nome_sistema ?>" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Email Sistema</label>
+                                <label for="email_sistema">Email Sistema</label>
                                 <input type="text" class="form-control" id="email_sistema" name="email_sistema" value="<?php echo $email_sistema ?>" required>
                             </div>
                         </div>
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Tel Sistema</label>
+                                <label for="tel_sistema">Tel Sistema</label>
                                 <input type="text" class="form-control" id="tel_sistema" name="tel_sistema" value="<?php echo $tel_sistema ?>" required>
                             </div>
                         </div>
@@ -517,13 +517,13 @@ $senha_usuario = $res[0]['senha'];
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>CNPJ Sistema</label>
+                                <label for="cnpj_sistema">CNPJ Sistema</label>
                                 <input type="text" class="form-control" name="cnpj_sistema" id="cnpj_sistema" value="<?php echo $cnpj_sistema ?>">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Tipo Chave Pix</label>
+                                <label for="tipo_chave_pix_sistema">Tipo Chave Pix</label>
                                 <select class="form-control" name="tipo_chave_pix_sistema" id="tipo_chave_pix_sistema" value="<?php echo $tipo_chave_pix ?>">
                                     <option value="CNPJ">CNPJ</option>
                                     <option value="CPF">CPF</option>
@@ -537,7 +537,7 @@ $senha_usuario = $res[0]['senha'];
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Chave Pix</label>
+                                <label for="chave_pix">Chave Pix</label>
                                 <input type="text" class="form-control" id="chave_pix" name="chave_pix" value="<?php echo $chave_pix ?>">
                             </div>
                         </div>
@@ -549,20 +549,20 @@ $senha_usuario = $res[0]['senha'];
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Facebook</label>
+                                <label for="facebook_sistema">Facebook</label>
                                 <input type="text" class="form-control" name="facebook_sistema" id="facebook_sistema" value="<?php echo $facebook_sistema ?>">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Instagram</label>
+                                <label for="instagram_sistema">Instagram</label>
                                 <input type="text" class="form-control" name="instagram_sistema" id="instagram_sistema" value="<?php echo $instagram_sistema ?>">
                             </div>
                         </div>
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Youtube</label>
+                                <label for="youtube_sistema">Youtube</label>
                                 <input type="text" class="form-control" id="youtube_sistema" name="youtube_sistema" value="<?php echo $youtube_sistema ?>">
                             </div>
                         </div>
@@ -574,28 +574,28 @@ $senha_usuario = $res[0]['senha'];
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Url Vídeo Página Sobre</label>
+                                <label for="video_sobre">Url Vídeo Página Sobre</label>
                                 <input type="text" class="form-control" id="video_sobre" name="video_sobre" value="<?php echo $video_sobre ?>">
                             </div>
                         </div>
 
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label>Itens Paginação</label>
+                                <label for="itens_pag">Itens Paginação</label>
                                 <input type="number" class="form-control" id="itens_pag" name="itens_pag" value="<?php echo $itens_pag ?>">
                             </div>
                         </div>
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Itens Relacionados</label>
+                                <label for="itens_rel">Itens Relacionados</label>
                                 <input type="number" class="form-control" id="itens_rel" name="itens_rel" value="<?php echo $itens_rel ?>">
                             </div>
                         </div>
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Aulas Disponíveis</label>
+                                <label for="aulas_lib">Aulas Disponíveis</label>
                                 <input type="number" class="form-control" id="aulas_lib" name="aulas_lib" value="<?php echo $aulas_lib ?>">
                             </div>
                         </div>
@@ -605,10 +605,29 @@ $senha_usuario = $res[0]['senha'];
 
                     <div class="row">
 
-                    <div class="col-md-3">
+                        <div class="col-md-3">
                             <div class="form-group">
-                                <label>Desconto Pix (%)</label>
+                                <label for="desconto_pix">Desconto Pix (%)</label>
                                 <input type="number" class="form-control" id="desconto_pix" name="desconto_pix" value="<?php echo $desconto_pix ?>">
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="email_adm_mat">Email ADM Matrícula</label>
+                                <select class="form-control" name="email_adm_mat" id="email_adm_mat" value="<?php echo $email_adm_mat ?>">
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- não sei porque não está mantendo o select acima para Não quando atualizo ele, mesmo recuperando corretamente do banco de dados, como se pode ver a seguir -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                              <?php echo $email_adm_mat ?>
+                                 
                             </div>
                         </div>
 

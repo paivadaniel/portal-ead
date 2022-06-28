@@ -31,6 +31,8 @@ if ($total_reg > 0) {
                 $id = $res[$i]['id'];
                 $nome = $res[$i]['nome'];
                 $descricao = $res[$i]['descricao'];
+                $descricao = mb_strimwidth($descricao, 0, 18, "..."); 
+
                 $foto = $res[$i]['foto'];
                 $url = $res[$i]['nome_url'];
 

@@ -2,7 +2,10 @@
 
 require_once('../../sistema/conexao.php');
 
-$remetente = $email_sistema;
+//email-matricula.php é aberto dentro de matricula.php
+
+//envio de email para o aluno
+$destinatario = $email_aluno; //$email_aluno = $res[0]['usuario'] definido em matricula.php;
 $assunto = 'Matrícula no Curso - ' .$nome_curso;
 
 //urlsistema = 'http://localhost/dashboard/www/portal-ead/';
@@ -26,7 +29,7 @@ WhatsApp -> <a href='http://api.whatsapp.com/send?1=pt_BR&phone=55$tel_sistema' 
 
 ";
 
-$dest = $usuario; //$usuario = $_POST['email']; definido em matricula.php
+$remetente = $email_sistema;
 
 //para não dar problemas na formatação do texto do email, e reconhecer quebra de linha, negrito, etc, coloque o seguinte texto antes de From dest
 $cabecalhos = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/html; charset=utf-8;' . "\r\n" . "From: " .$dest;
@@ -38,4 +41,30 @@ $cabecalhos .= 'Content-type: text/html; charset=utf-8;' . "\r\n";
 $cabecalhos .= "From: " .$dest;
 */
 
-mail($remetente, $assunto, $mensagem, $cabecalhos);
+mail($destinatario, $assunto, $mensagem, $cabecalhos);
+
+
+
+//envio de email para o administrador
+
+if($email_adm_mat == 'Sim') { //email_adm_mat é selecionada nas configurações no painel admin
+$destinatario = $email_sistema; //$email_aluno = $res[0]['usuario'] definido em matricula.php;
+$assunto = 'Novo Aluno Matriculado no Curso - ' .$nome_curso;
+
+$mensagem = "Aluno $nome_aluno iniciou matrícula no curso $nome_curso!";
+
+$remetente = $email_sistema;
+
+//para não dar problemas na formatação do texto do email, e reconhecer quebra de linha, negrito, etc, coloque o seguinte texto antes de From dest
+$cabecalhos = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/html; charset=utf-8;' . "\r\n" . "From: " .$dest;
+
+/*
+alternativa a única linha acima
+$cabecalhos = 'MIME-Version: 1.0' . "\r\n";
+$cabecalhos .= 'Content-type: text/html; charset=utf-8;' . "\r\n";
+$cabecalhos .= "From: " .$dest;
+*/
+
+mail($destinatario, $assunto, $mensagem, $cabecalhos);
+
+}

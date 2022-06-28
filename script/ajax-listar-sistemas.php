@@ -29,6 +29,8 @@ HTML;
     $id = $res[$i]['id'];
     $nome = $res[$i]['nome'];
     $desc_rapida = $res[$i]['desc_rapida'];
+    $desc_rapida = mb_strimwidth($desc_rapida, 0, 20, "..."); 
+
     $valor = $res[$i]['valor'];
     $foto = $res[$i]['imagem'];
     $promocao = $res[$i]['promocao'];

@@ -16,27 +16,28 @@ if($usuario_logado == 'Administrador' || $usuario_logado == 'Professor') {
     //verificar se o aluno está cadastrado no banco de dados
     $query = $pdo->prepare("SELECT * FROM usuarios WHERE usuario = :usuario and nivel = 'Aluno'");
     $query->bindValue(":usuario", $usuario_aluno);
-    $query->execute();
     
-    $res = $query->fetchAll(PDO::FETCH_ASSOC);
-    $total_reg = count($res);
-    
-    if ($total_reg == 0) {
-        echo 'Aluno não cadastrado no banco de dados!';
-        exit();
-    } else {
-        $id_aluno = $res[0]['id_pessoa'];
-        $nome_aluno = $res[0]['nome']; //será usado em email-matricula.php (mais abaixo)
-    }
-    
-} 
-
-if ($usuario_logado == 'Aluno') {
+} else if ($usuario_logado == 'Aluno') {
     
     $id_aluno = $_SESSION['id_pessoa'];
     $nome_aluno = $_SESSION['nome']; //será usado em email-matricula.php (mais abaixo)
 
     //não é necessário verificar se o aluno está cadastrado no banco de dados, pois se usuario_logao='Aluno' então ele está
+
+    $query = $pdo->prepare("SELECT * FROM usuarios WHERE id_pessoa = '$id_aluno'");
+}
+
+$query->execute();
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$total_reg = count($res);
+
+if ($total_reg == 0) {
+    echo 'Aluno não cadastrado no banco de dados!';
+    exit();
+} else {
+    $id_aluno = $res[0]['id_pessoa'];
+    $nome_aluno = $res[0]['nome']; //será usado em email-matricula.php (mais abaixo)
+    $email_aluno = $res[0]['usuario']; //tabela usuparios não tem campo email, tem campo usuario
 
 }
 

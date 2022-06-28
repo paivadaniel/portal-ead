@@ -3,14 +3,19 @@ require_once('../../sistema/conexao.php');
 include_once("../../pagamentos/mercadopago/lib/mercadopago.php");
 include_once("../../pagamentos/mercadopago/PagamentoMP.php");
 
-@session_start();
+//@session_start();
+//$id_aluno = $_SESSION['id_pessoa']; //id_pessoa é diferente de id
+/*
+no mod 09 aula 06, autor mudou de receber por SESSION o id_aluno para receber por POST da listarBotaoMP() em curso.php, e passou a recuperar id_aluno por SESSION em curso.php
+ele fez isso porque o botão do mercado livre não estava aparecendo no arquivo hospedado no servidor,
+segundo ele isso está ocorrendo por listar-btn-mp ser chamada via AJAX
+*/
 
-$id_aluno = $_SESSION['id_pessoa']; //id_pessoa é diferente de id
 //id_pessoa não é o id do aluno na tabela de alunos, mas o id em que na tabela usuários ele é relacionado com a tabela alunos
 
 $id_do_curso_pag = $_POST['id_curso'];
 $nome_curso = $_POST['nome_curso'];
-
+$id_aluno = $_POST['id_aluno'];
 
 
 $query = $pdo->query("SELECT * FROM matriculas WHERE id_curso = '$id_do_curso_pag' and id_aluno = '$id_aluno'");

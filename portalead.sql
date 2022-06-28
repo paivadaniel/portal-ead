@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 24-Jun-2022 às 22:05
+-- Tempo de geração: 28-Jun-2022 às 21:31
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -58,6 +58,7 @@ CREATE TABLE `alunos` (
   `email` varchar(50) NOT NULL,
   `telefone` varchar(20) DEFAULT NULL,
   `endereco` varchar(150) DEFAULT NULL,
+  `bairro` varchar(50) DEFAULT NULL,
   `cidade` varchar(40) DEFAULT NULL,
   `estado` varchar(40) DEFAULT NULL,
   `pais` varchar(40) DEFAULT NULL,
@@ -71,15 +72,15 @@ CREATE TABLE `alunos` (
 -- Extraindo dados da tabela `alunos`
 --
 
-INSERT INTO `alunos` (`id`, `nome`, `cpf`, `email`, `telefone`, `endereco`, `cidade`, `estado`, `pais`, `foto`, `data`, `cartao`, `ativo`) VALUES
-(5, 'Sassa Mutema', '212.121.212-21', 'sassamutema@gmail.com', '(21) 2112-2121', 'Sampaio Correio', 'Recife', 'PE', 'Costa Rica', '16-05-2022-19-33-37-galinha-pintadinha-ouvindo-musica.jpg', '2022-05-16', 10, 'Sim'),
-(6, 'Pedrinho Matador', '666.666.666-66', 'pedrinhomatador@hotmail.com', '(66) 6666-6666', 'Portões do Inferno, 666', 'Diadema', 'SP', 'Brasil', '16-05-2022-23-41-52-pintinho-amarelinho.jpg', '2022-05-16', 3, 'Sim'),
-(7, 'Juca Tobias', NULL, 'Jocelyn@hotmail.com', NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
-(8, 'Roberto Lucas', NULL, 'robertinho.com@hotmail.com', NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
-(9, 'Juca Tobias Novo', NULL, 'Jocelyn2@hotmail.com', NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
-(10, 'Juca Tobias Armanda Nero', NULL, 'Jocelyn23@hotmail.com', NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
-(11, 'Rubinho', NULL, 'barrichello@hotmail.com', NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, 'Sim'),
-(12, 'Aluno Louco', NULL, 'louco@hotmail.com', NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-21', 0, 'Sim');
+INSERT INTO `alunos` (`id`, `nome`, `cpf`, `email`, `telefone`, `endereco`, `bairro`, `cidade`, `estado`, `pais`, `foto`, `data`, `cartao`, `ativo`) VALUES
+(5, 'Sassa Mutema', '212.121.212-21', 'sassamutema@gmail.com', '(21) 2112-2121', 'Sampaio Correio', NULL, 'Recife', 'PE', 'Costa Rica', '16-05-2022-19-33-37-galinha-pintadinha-ouvindo-musica.jpg', '2022-05-16', 10, 'Sim'),
+(6, 'Pedrinho Matador', '666.666.666-66', 'pedrinhomatador@hotmail.com', '(66) 6666-6666', 'Portões do Inferno, 666', NULL, 'Diadema', 'SP', 'Brasil', '16-05-2022-23-41-52-pintinho-amarelinho.jpg', '2022-05-16', 3, 'Sim'),
+(7, 'Juca Tobias', NULL, 'Jocelyn@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
+(8, 'Roberto Lucas', NULL, 'robertinho.com@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
+(9, 'Juca Tobias Novo', NULL, 'Jocelyn2@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
+(10, 'Juca Tobias Armanda Nero', NULL, 'Jocelyn23@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
+(11, 'Rubens Barrichello do Brasil', '123.456.789-00', 'barrichello_rubens@hotmail.com', '(12) 2121-2121', 'Rua X, Número Y', 'Vila Z', 'Porto Alegre', 'RS', 'Brasil', '27-06-2022-23-31-36-buzanga.jpg', '2022-06-17', 0, 'Sim'),
+(12, 'Aluno Louco', NULL, 'louco@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-21', 0, 'Sim');
 
 -- --------------------------------------------------------
 
@@ -220,15 +221,16 @@ CREATE TABLE `config` (
   `video_sobre` varchar(100) NOT NULL,
   `itens_relacionados` int(11) NOT NULL,
   `aulas_liberadas` int(11) NOT NULL,
-  `desconto_pix` int(11) NOT NULL
+  `desconto_pix` int(11) NOT NULL,
+  `email_adm_mat` varchar(5) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `config`
 --
 
-INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnpj_sistema`, `tipo_chave_pix`, `chave_pix`, `logo`, `icone`, `logo_rel`, `qrcode_pix`, `facebook`, `instagram`, `youtube`, `itens_pag`, `video_sobre`, `itens_relacionados`, `aulas_liberadas`, `desconto_pix`) VALUES
-(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', 'danielantunespaiva@gmail.com', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead', 6, 'https://www.youtube.com/embed/GeH5_-4xkfE', 1, 2, 5);
+INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnpj_sistema`, `tipo_chave_pix`, `chave_pix`, `logo`, `icone`, `logo_rel`, `qrcode_pix`, `facebook`, `instagram`, `youtube`, `itens_pag`, `video_sobre`, `itens_relacionados`, `aulas_liberadas`, `desconto_pix`, `email_adm_mat`) VALUES
+(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', 'danielantunespaiva@gmail.com', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead', 6, 'https://www.youtube.com/embed/GeH5_-4xkfE', 1, 2, 5, 'Não');
 
 -- --------------------------------------------------------
 
@@ -361,16 +363,26 @@ CREATE TABLE `matriculas` (
   `alertado` varchar(5) DEFAULT NULL,
   `valor_cupom` decimal(8,2) NOT NULL,
   `subtotal` decimal(8,2) NOT NULL,
-  `forma_pgto` varchar(25) DEFAULT NULL
+  `forma_pgto` varchar(25) DEFAULT NULL,
+  `boleto` varchar(25) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `matriculas`
 --
 
-INSERT INTO `matriculas` (`id`, `id_curso`, `id_aluno`, `id_professor`, `aulas_concluidas`, `valor`, `data`, `status`, `pacote`, `alertado`, `valor_cupom`, `subtotal`, `forma_pgto`) VALUES
-(32, 6, 5, 1, 0, '12.00', '2022-06-24', 'Aguardando', 'Não', NULL, '0.00', '12.00', NULL),
-(33, 1, 5, 1, 0, '59.99', '2022-06-24', 'Aguardando', 'Não', NULL, '0.00', '59.99', NULL);
+INSERT INTO `matriculas` (`id`, `id_curso`, `id_aluno`, `id_professor`, `aulas_concluidas`, `valor`, `data`, `status`, `pacote`, `alertado`, `valor_cupom`, `subtotal`, `forma_pgto`, `boleto`) VALUES
+(32, 6, 5, 1, 0, '12.00', '2022-06-24', 'Aguardando', 'Não', NULL, '0.00', '12.00', NULL, NULL),
+(33, 1, 5, 1, 0, '59.99', '2022-06-24', 'Aguardando', 'Não', NULL, '0.00', '59.99', NULL, NULL),
+(34, 5, 0, 1, 0, '42.00', '2022-06-26', 'Aguardando', 'Não', NULL, '0.00', '42.00', NULL, NULL),
+(35, 5, 8, 1, 0, '42.00', '2022-06-26', 'Aguardando', 'Não', NULL, '0.00', '42.00', NULL, NULL),
+(36, 1, 8, 1, 0, '59.99', '2022-06-26', 'Aguardando', 'Não', NULL, '0.00', '59.99', NULL, NULL),
+(37, 10, 8, 1, 0, '75.00', '2022-06-27', 'Aguardando', 'Não', NULL, '0.00', '75.00', NULL, '447772081'),
+(38, 1, 10, 1, 0, '59.99', '2022-06-27', 'Aguardando', 'Não', NULL, '0.00', '59.99', NULL, '447966522'),
+(39, 9, 10, 1, 0, '500.00', '2022-06-27', 'Aguardando', 'Sim', NULL, '0.00', '500.00', NULL, '448038403'),
+(40, 5, 12, 1, 0, '42.00', '2022-06-27', 'Aguardando', 'Não', NULL, '0.00', '42.00', NULL, NULL),
+(41, 5, 11, 1, 0, '42.00', '2022-06-28', 'Aguardando', 'Não', NULL, '0.00', '42.00', NULL, NULL),
+(42, 1, 11, 1, 0, '59.99', '2022-06-28', 'Aguardando', 'Não', NULL, '0.00', '59.99', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -404,7 +416,7 @@ INSERT INTO `pacotes` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `prof
 (6, 'Teste', 'Teste', '', '600.00', 1, 'sem-foto.png', 6, 2022, '', 'teste', 'video', 7, '300.00'),
 (7, 'Teste 02', 'Teste 02', '', '900.00', 1, 'sem-foto.png', 6, 2022, '', 'teste-02', '', 6, '699.00'),
 (8, 'dsdsdsds', 'sfsfsfsfsfsfs', '', '500.00', 1, 'sem-foto.png', 6, 2022, '', 'dsdsdsds', 'http://google.com', 5, '600.00'),
-(9, 'Pacote de WEB', 'Aprendendo muito.', '', '700.00', 1, 'sem-foto.png', 4, 2022, '', 'pacote-de-web', '', 5, '500.00');
+(9, 'Pacote de WEB', 'Aprendendo muito.', '', '700.00', 1, '27-06-2022-15-08-40-banner-02.jpg', 4, 2022, '', 'pacote-de-web', 'video', 5, '500.00');
 
 -- --------------------------------------------------------
 
@@ -484,12 +496,12 @@ INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `usuario`, `senha`, `senha_crip`, `
 (14, 'Pedrinho Matador', '666.666.666-66', 'pedrinhomatador@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', '16-05-2022-23-41-52-pintinho-amarelinho.jpg', 6, 'Sim', '2022-05-16'),
 (18, 'Professor Girafalez', '535.335.353-53', 'professorgirafalez@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Professor', '18-05-2022-13-00-00-professor-girafalez.jpg', 3, 'Sim', '2022-05-18'),
 (19, 'Professor Buzanga', '942.920.313-04', 'buzangateacher@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Professor', '20-05-2022-13-56-39-buzanga.jpg', 4, 'Sim', '2022-05-20'),
-(20, 'Juca Tobias', NULL, 'Jocelyn@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'img/sem-perfil.jpg', 7, 'Sim', '2022-06-17'),
-(21, 'Roberto Lucas', NULL, 'robertinho.com@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'img/sem-perfil.jpg', 8, 'Sim', '2022-06-17'),
-(22, 'Juca Tobias Novo', NULL, 'Jocelyn2@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'img/sem-perfil.jpg', 9, 'Sim', '2022-06-17'),
-(23, 'Juca Tobias Armanda Nero', NULL, 'Jocelyn23@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'img/sem-perfil.jpg', 10, 'Sim', '2022-06-17'),
-(24, 'Rubinho', NULL, 'barrichello@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'img/sem-perfil.jpg', 11, 'Sim', '2022-06-17'),
-(25, 'Aluno Louco', NULL, 'louco@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'img/sem-perfil.jpg', 12, 'Sim', '2022-06-21');
+(20, 'Juca Tobias', NULL, 'Jocelyn@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 7, 'Sim', '2022-06-17'),
+(21, 'Roberto Lucas', NULL, 'robertinho.com@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 8, 'Sim', '2022-06-17'),
+(22, 'Juca Tobias Novo', NULL, 'Jocelyn2@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 9, 'Sim', '2022-06-17'),
+(23, 'Juca Tobias Armanda Nero', NULL, 'Jocelyn23@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 10, 'Sim', '2022-06-17'),
+(24, 'Rubens Barrichello do Brasil', '123.456.789-00', 'barrichello_rubens@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', '27-06-2022-23-31-36-buzanga.jpg', 11, 'Sim', '2022-06-17'),
+(25, 'Aluno Louco', NULL, 'louco@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 12, 'Sim', '2022-06-21');
 
 --
 -- Índices para tabelas despejadas
@@ -665,7 +677,7 @@ ALTER TABLE `linguagens`
 -- AUTO_INCREMENT de tabela `matriculas`
 --
 ALTER TABLE `matriculas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT de tabela `pacotes`

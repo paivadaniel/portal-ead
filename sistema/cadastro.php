@@ -33,7 +33,7 @@ $query->bindValue(":email", "$email");
 $query->execute();
 $ultimo_id = $pdo->lastInsertId(); //pega o último id cadastrado na tabela aluno
 
-$query = $pdo->prepare("INSERT INTO usuarios SET nome = :nome, usuario = :email, senha = :senha, senha_crip = :senha_crip, nivel = 'Aluno', foto = 'img/sem-perfil.jpg', id_pessoa = '$ultimo_id', ativo = 'Sim', data = curDate()");
+$query = $pdo->prepare("INSERT INTO usuarios SET nome = :nome, usuario = :email, senha = :senha, senha_crip = :senha_crip, nivel = 'Aluno', foto = 'sem-perfil.jpg', id_pessoa = '$ultimo_id', ativo = 'Sim', data = curDate()");
 $query->bindValue(":nome", "$nome");
 $query->bindValue(":email", "$email");
 $query->bindValue(":senha", "$senha");

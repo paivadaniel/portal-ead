@@ -61,6 +61,9 @@ em curso.php, por exemplo, se acessar o curso Xing, não está mostrando as aula
 do curso no lado direito, está mostrando do curso com id=01, que é o de html,
 muito provavelmente porque foi implementado errado as aulas e sessões no mod04 aulas 14 à 21.
 
+----- mod07 aula 46
+
+aulas 45 e 46 do gerencianet (boleto) não fiz o cadastro neles
 
 ----- ERROS:
 
@@ -75,6 +78,15 @@ ao digitar buscar na barra superior.
 está incrementando a aula de um mesmo módulo ao trocar de módulo na modal.
 
 - mod07 aula51
+
+- mod08 aula57 / mod09 aula06
+botão do mercado pago não está funcionando na modal Pagamento
+link do botão está definido em pagarMP(), chamada em ajax/cursos/listar-btn-mp.php,
+e definida em pagamentoMP.php
+
+- mod09 aula05
+não sei porque não está mantendo o select acima para 
+Não quando atualizo ele, mesmo recuperando corretamente do banco de dados
 
 ---- fiz diferente
 
