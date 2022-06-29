@@ -246,7 +246,7 @@ $pais_usuario = $res[0]['pais'];
                 <!--toggle button start-->
                 <button id="showLeftPush"><i class="fa fa-bars"></i></button>
                 <!--toggle button end-->
-          
+
                 <!--notification menu end -->
                 <div class="clearfix"> </div>
             </div>
@@ -292,6 +292,11 @@ $pais_usuario = $res[0]['pais'];
                 ?>
 
             </div>
+        </div>
+
+<!-- para aparecer na página a div abaixo, obrigatoriamente ela tem que pertencer a classe footer --->
+        <div class="footer">
+        <small><p><?php echo $nome_sistema ?> - Desenvolvido por Nubilus - <a href="http://api.whatsapp.com/send?1=pt_BR&phone=55<?php echo $tel_sistema ?>" title="Chamar no Whatsapp" target="_blank"><i class="fa fa-whatsapp" style="margin-right: 3px"></i><?php echo $tel_sistema ?></a></p>	</small>	
         </div>
 
     </div>
@@ -496,7 +501,7 @@ $pais_usuario = $res[0]['pais'];
 
                     <input type="hidden" name="id_usu" value="<?php echo $id_usuario ?>">
                     <input type="hidden" name="id_pessoa" value="<?php echo $id_pessoa ?>">
-                  
+
                     <input type="hidden" name="foto_usu" value="<?php echo $foto_usuario ?>">
 
                     <input type="hidden" name="antigoEmail" value="<?php echo $email_usuario; ?>">
