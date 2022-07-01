@@ -88,6 +88,12 @@ e definida em pagamentoMP.php
 não sei porque não está mantendo o select acima para 
 Não quando atualizo ele, mesmo recuperando corretamente do banco de dados
 
+- mod0 aula 41
+
+quando não estou logado e tento acessar a página de um pacote e comprá-lo, dá erro
+a variável url quando impressa está saindo como "pacote", ela é definida em ajax-listar-pacotes.php
+
+
 ---- fiz diferente
 
 mod07 Aula 06 e 07

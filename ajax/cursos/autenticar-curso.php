@@ -26,7 +26,6 @@ $total_reg = count($res);
 if ($total_reg == 0) {
     echo 'Usuário não cadastrado!';
     exit();
-
 }
 
 $query = $pdo->prepare("SELECT * FROM usuarios WHERE (usuario = :usuario OR cpf = :usuario) AND senha_crip = :senha_crip and nivel = 'Aluno'"); //passa a senha criptografada
@@ -58,11 +57,12 @@ if ($total_reg > 0) {
     $_SESSION['id'] = $res[0]['id'];
     @$_SESSION['id_pessoa'] = $res[0]['id_pessoa'];
 
-
     if ($_SESSION['nivel'] == 'Aluno') {
         //echo "<script> window.location='painel-aluno/index.php'</script>";
-        echo 'Logado com Sucesso!';
+        echo 'Logado com Sucesso!-' . $_SESSION['id_pessoa'];
     }
 } else {
     echo 'Senha incorreta!';
 }
+
+?>

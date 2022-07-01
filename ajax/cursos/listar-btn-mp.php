@@ -16,10 +16,12 @@ segundo ele isso está ocorrendo por listar-btn-mp ser chamada via AJAX
 $id_do_curso_pag = $_POST['id_curso'];
 $nome_curso = $_POST['nome_curso'];
 $id_aluno = $_POST['id_aluno'];
+$pacote = $_POST['pacote'];
 
-
-$query = $pdo->query("SELECT * FROM matriculas WHERE id_curso = '$id_do_curso_pag' and id_aluno = '$id_aluno'");
+$query = $pdo->query("SELECT * FROM matriculas WHERE id_curso = '$id_do_curso_pag' and id_aluno = '$id_aluno' and pacote = '$pacote'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+if(@count($res) > 0) {
 
 $id_matricula = $res[0]['id'];
 $valor_curso = $res[0]['subtotal'];
@@ -41,5 +43,4 @@ Seu negócio > Configurações, e em Gestão e administração clique em Credenc
 
 $btn = $pagar->PagarMP($id_do_curso_pag, $nome_curso, (float)$valor_curso, $url_sistema);
 echo '<div align="center"><i class="neutra"><small>(Divida em até 12 Vezes) <br> <span class="neutra ocultar-mobile">Pagamento no Cartão ou Saldo</span></small></i></div>';
-
-?>
+}

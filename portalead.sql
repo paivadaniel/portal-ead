@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 28-Jun-2022 às 21:31
+-- Tempo de geração: 01-Jul-2022 às 07:46
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -73,14 +73,15 @@ CREATE TABLE `alunos` (
 --
 
 INSERT INTO `alunos` (`id`, `nome`, `cpf`, `email`, `telefone`, `endereco`, `bairro`, `cidade`, `estado`, `pais`, `foto`, `data`, `cartao`, `ativo`) VALUES
-(5, 'Sassa Mutema', '212.121.212-21', 'sassamutema@gmail.com', '(21) 2112-2121', 'Sampaio Correio', NULL, 'Recife', 'PE', 'Costa Rica', '16-05-2022-19-33-37-galinha-pintadinha-ouvindo-musica.jpg', '2022-05-16', 10, 'Sim'),
+(5, 'Sassa Mutema', '212.121.212-21', 'sassamutema@gmail.com', '(11) 3355-5555', 'Sampaio Correio', 'Vila Madalena', 'Recife', 'AC', 'Costa Rica', '16-05-2022-19-33-37-galinha-pintadinha-ouvindo-musica.jpg', '2022-05-16', 10, 'Sim'),
 (6, 'Pedrinho Matador', '666.666.666-66', 'pedrinhomatador@hotmail.com', '(66) 6666-6666', 'Portões do Inferno, 666', NULL, 'Diadema', 'SP', 'Brasil', '16-05-2022-23-41-52-pintinho-amarelinho.jpg', '2022-05-16', 3, 'Sim'),
 (7, 'Juca Tobias', NULL, 'Jocelyn@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
 (8, 'Roberto Lucas', NULL, 'robertinho.com@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
 (9, 'Juca Tobias Novo', NULL, 'Jocelyn2@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
 (10, 'Juca Tobias Armanda Nero', NULL, 'Jocelyn23@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
 (11, 'Rubens Barrichello do Brasil', '123.456.789-00', 'barrichello_rubens@hotmail.com', '(12) 2121-2121', 'Rua X, Número Y', 'Vila Z', 'Porto Alegre', 'RS', 'Brasil', '27-06-2022-23-31-36-buzanga.jpg', '2022-06-17', 0, 'Sim'),
-(12, 'Aluno Louco', NULL, 'louco@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-21', 0, 'Sim');
+(12, 'Aluno Louco', NULL, 'louco@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-21', 0, 'Sim'),
+(13, 'Paula', NULL, 'paulinha@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-30', 0, 'Sim');
 
 -- --------------------------------------------------------
 
@@ -102,29 +103,8 @@ CREATE TABLE `aulas` (
 --
 
 INSERT INTO `aulas` (`id`, `numero`, `nome`, `link`, `id_curso`, `sessao`) VALUES
-(1, 2, 'Aula 02 Módulo 02', 'https://www.youtube.com/embed/ZniEV82UP_I', 1, 2),
-(2, 1, 'Aula 01 Módulo 02', '', 1, 2),
-(4, 2, 'Aula 02', '', 1, 3),
-(5, 3, 'txt', '', 1, 2),
-(7, 1, 'dadadadaa', '', 5, 0),
-(8, 1, 'dadafsfsfsfs', 'https://www.youtube.com/embed/SyqvezIagFY', 10, 0),
-(9, 4, 'fsfs', 'rwrwrwrwrw', 1, 2),
-(10, 1, 'Introdução ao Curso', '', 12, 4),
-(11, 2, 'Estrutura do Curso', '', 12, 4),
-(12, 1, 'Introdução ao Curso Avançado', '', 12, 5),
-(13, 2, 'Estrutura do Curso Avançado', '', 12, 5),
-(14, 3, 'Cronograma do Curso', '', 12, 4),
-(15, 2, 'fdafafafafa', 'https://www.youtube.com/embed/nNQFXd-R4ZY', 10, 0),
-(16, 3, 'rfwfssfsffsfs', '', 10, 0),
-(17, 4, 'dadadadda', '', 10, 0),
-(18, 5, '52rwrfwfafaaf', '', 10, 0),
-(19, 6, 'fdadafafafafafafa', '', 10, 0),
-(20, 7, 'rqwr24242fadfafa', '', 10, 0),
-(21, 8, 'dada25wfafafafa', '', 10, 0),
-(22, 2, 'dadadadada', '', 5, 0),
-(23, 2, 'Aula 02 Módulo 01', 'https://www.youtube.com/embed/SyqvezIagFY', 1, 1),
-(24, 3, 'Aula 03 Módulo 01', 'https://www.youtube.com/embed/SyqvezIagFY', 1, 1),
-(25, 3, 'dadada', 'https://www.youtube.com/embed/ZniEV82UP_I', 1, 3);
+(26, 1, 'Aula 01 Módulo 01', 'https://www.youtube.com/embed/lMMyvL0KR5s', 1, 6),
+(27, 1, 'Aula 01 Módulo 02', '', 1, 7);
 
 -- --------------------------------------------------------
 
@@ -267,15 +247,7 @@ CREATE TABLE `cursos` (
 --
 
 INSERT INTO `cursos` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `categoria`, `imagem`, `status`, `carga`, `mensagem`, `arquivo`, `ano`, `palavras`, `grupo`, `nome_url`, `pacote`, `sistema`, `link`, `tecnologias`, `promocao`) VALUES
-(1, 'Curso de HTML', 'Aprendendo WEB', '<p style=\"font-family: \">O curso de Painel de Gestão para <b>portais de cursos EAD</b> possui 60 aulas, este é o segundo módulo do desenvolvimento do site / <b>sistema para gestão de cursos</b>, vamos aprender neste módulo como criar o crud para cadastros dos Professores, Alunos e Administradores do sistema, bem como toda gestão de exclusão de dados, listagem, buscas, inserção e edição, relacionamento entre tabelas e muito mais, tudo que você vai precisar para desenvolver todo e qualquer tipo de sistema, <font size=\"4\" color=\"#996633\">adquira já</font> nosso treinamento e comece a criar seus projetos de forma profissional.</p>', '59.99', 1, 4, '20-05-2022-15-33-52-mendigo-fudido.jpg', 'Aprovado', 20, 'Ornitorrinco fuma', 'google.com', 2022, 'curso de programação, curso de html', 5, 'curso-de-html', 'pacote-curso-html', 'Não', 'teste2.com', 'html, css, bootstrap', '0.00'),
-(5, 'tefsfs', 'tetete', '', '42.00', 1, 3, 'sem-foto.png', 'Aprovado', 23, '', '', 2022, 'dsssd', 6, 'tefsfs', '', 'Não', '', '', '0.00'),
-(6, 'sasasa', 'sasasasa', 'dadada', '23.00', 1, 4, 'sem-foto.png', 'Aprovado', 32, '', '', 2022, 'dadada', 6, 'sasasa', '', 'Não', '', '', '12.00'),
-(7, 'dsdsdadada4242', 'dsds', 'dadadaxxx', '80.00', 1, 3, 'sem-foto.png', 'Aprovado', 23, '', '', 2022, 'dsds', 4, 'dsdsdadada4242', 'Não', 'Não', '', '', '60.00'),
-(8, 'sfsfsfsgsgs', 'sfsfsfs', 'fsfsfsfs', '23.00', 1, 6, 'sem-foto.png', 'Aprovado', 23, '', '', 2023, 'sdsdss', 6, 'sfsfsfsgsgs', '', 'Não', '', '', '15.00'),
-(9, '13fsfsfr3fsfsf', 'dadaee2', 'wtw&nbsp; w rwrw wrw rwr wr wr wr wr wrwr w&nbsp;', '9000.00', 1, 6, 'sem-foto.png', 'Aprovado', 500, '', '', 2023, '53tgdgddgdttgehrutrjtr', 1, '13fsfsfr3fsfsf', '', 'Não', '', '', '800.00'),
-(10, 'Curso do Gilmar', 'Receba!', '', '90.00', 1, 3, 'sem-foto.png', 'Aprovado', 1000, '', '', 2021, 'teste', 5, 'curso-do-gilmar', '', 'Não', '', '', '75.00'),
-(11, 'Sistema Advocacia', 'Somente Fontes', '', '250.00', 1, 6, 'sem-foto.png', 'Aprovado', 0, '', '', 2022, '', 6, 'sistema-advocacia', '', 'Sim', '', '', '0.00'),
-(12, 'Xing', 'Ling', 'Aprenda a fazer site chinês.', '100.00', 1, 3, 'sem-foto.png', 'Aprovado', 50, '', '', 2022, 'como fazer sites  na china, como fazer loja virtual na china', 5, 'xing', '', 'Não', '', 'html, css, php', '75.00');
+(1, 'Curso de HTML', 'Aprenda HTML', 'HTML e CSS para você', '100.00', 1, 3, '30-06-2022-21-06-03-mendigo-fudido.jpg', 'Aprovado', 120, '', 'https://www.youtube.com/embed/lMMyvL0KR5s', 2022, 'html, css', 4, 'curso-de-html', 'https://www.youtube.com/embed/lMMyvL0KR5s', 'Não', 'https://www.youtube.com/embed/lMMyvL0KR5s', 'html, css', '70.00');
 
 -- --------------------------------------------------------
 
@@ -372,17 +344,8 @@ CREATE TABLE `matriculas` (
 --
 
 INSERT INTO `matriculas` (`id`, `id_curso`, `id_aluno`, `id_professor`, `aulas_concluidas`, `valor`, `data`, `status`, `pacote`, `alertado`, `valor_cupom`, `subtotal`, `forma_pgto`, `boleto`) VALUES
-(32, 6, 5, 1, 0, '12.00', '2022-06-24', 'Aguardando', 'Não', NULL, '0.00', '12.00', NULL, NULL),
-(33, 1, 5, 1, 0, '59.99', '2022-06-24', 'Aguardando', 'Não', NULL, '0.00', '59.99', NULL, NULL),
-(34, 5, 0, 1, 0, '42.00', '2022-06-26', 'Aguardando', 'Não', NULL, '0.00', '42.00', NULL, NULL),
-(35, 5, 8, 1, 0, '42.00', '2022-06-26', 'Aguardando', 'Não', NULL, '0.00', '42.00', NULL, NULL),
-(36, 1, 8, 1, 0, '59.99', '2022-06-26', 'Aguardando', 'Não', NULL, '0.00', '59.99', NULL, NULL),
-(37, 10, 8, 1, 0, '75.00', '2022-06-27', 'Aguardando', 'Não', NULL, '0.00', '75.00', NULL, '447772081'),
-(38, 1, 10, 1, 0, '59.99', '2022-06-27', 'Aguardando', 'Não', NULL, '0.00', '59.99', NULL, '447966522'),
-(39, 9, 10, 1, 0, '500.00', '2022-06-27', 'Aguardando', 'Sim', NULL, '0.00', '500.00', NULL, '448038403'),
-(40, 5, 12, 1, 0, '42.00', '2022-06-27', 'Aguardando', 'Não', NULL, '0.00', '42.00', NULL, NULL),
-(41, 5, 11, 1, 0, '42.00', '2022-06-28', 'Aguardando', 'Não', NULL, '0.00', '42.00', NULL, NULL),
-(42, 1, 11, 1, 0, '59.99', '2022-06-28', 'Aguardando', 'Não', NULL, '0.00', '59.99', NULL, NULL);
+(74, 1, 5, 1, 0, '450.00', '2022-06-30', 'Aguardando', 'Sim', NULL, '0.00', '450.00', NULL, NULL),
+(76, 1, 5, 1, 0, '70.00', '2022-06-30', 'Matriculado', 'Não', NULL, '0.00', '70.00', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -412,11 +375,7 @@ CREATE TABLE `pacotes` (
 --
 
 INSERT INTO `pacotes` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `imagem`, `grupo`, `ano`, `palavras`, `nome_url`, `video`, `linguagem`, `promocao`) VALUES
-(3, 'Formação Delphi', 'Tudo em Delphi', '', '499.00', 1, 'sem-foto.png', 3, 2022, '', 'formacao-delphi', 'video', 5, '250.00'),
-(6, 'Teste', 'Teste', '', '600.00', 1, 'sem-foto.png', 6, 2022, '', 'teste', 'video', 7, '300.00'),
-(7, 'Teste 02', 'Teste 02', '', '900.00', 1, 'sem-foto.png', 6, 2022, '', 'teste-02', '', 6, '699.00'),
-(8, 'dsdsdsds', 'sfsfsfsfsfsfs', '', '500.00', 1, 'sem-foto.png', 6, 2022, '', 'dsdsdsds', 'http://google.com', 5, '600.00'),
-(9, 'Pacote de WEB', 'Aprendendo muito.', '', '700.00', 1, '27-06-2022-15-08-40-banner-02.jpg', 4, 2022, '', 'pacote-de-web', 'video', 5, '500.00');
+(1, 'Formação Delphi', 'Aprenda Mais', 'blablablablabla', '500.00', 1, '30-06-2022-20-54-53-tattoo-isa.jpg', 4, 2022, 'delphi, embarcadero', 'formacao-delphi', 'http://www.google.com', 1, '450.00');
 
 -- --------------------------------------------------------
 
@@ -460,11 +419,9 @@ CREATE TABLE `sessao` (
 --
 
 INSERT INTO `sessao` (`id`, `nome`, `id_curso`) VALUES
-(1, 'Módulo 01', 1),
-(2, 'Módulo 02', 1),
-(3, 'Módulo 03', 1),
-(4, 'Básico', 12),
-(5, 'Avançado', 12);
+(6, 'Módulo 01', 1),
+(7, 'Módulo 02', 1),
+(8, 'Módulo 03', 1);
 
 -- --------------------------------------------------------
 
@@ -501,7 +458,8 @@ INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `usuario`, `senha`, `senha_crip`, `
 (22, 'Juca Tobias Novo', NULL, 'Jocelyn2@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 9, 'Sim', '2022-06-17'),
 (23, 'Juca Tobias Armanda Nero', NULL, 'Jocelyn23@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 10, 'Sim', '2022-06-17'),
 (24, 'Rubens Barrichello do Brasil', '123.456.789-00', 'barrichello_rubens@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', '27-06-2022-23-31-36-buzanga.jpg', 11, 'Sim', '2022-06-17'),
-(25, 'Aluno Louco', NULL, 'louco@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 12, 'Sim', '2022-06-21');
+(25, 'Aluno Louco', NULL, 'louco@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 12, 'Sim', '2022-06-21'),
+(26, 'Paula', NULL, 'paulinha@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 13, 'Sim', '2022-06-30');
 
 --
 -- Índices para tabelas despejadas
@@ -617,13 +575,13 @@ ALTER TABLE `administradores`
 -- AUTO_INCREMENT de tabela `alunos`
 --
 ALTER TABLE `alunos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de tabela `aulas`
 --
 ALTER TABLE `aulas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de tabela `banner_index`
@@ -653,7 +611,7 @@ ALTER TABLE `config`
 -- AUTO_INCREMENT de tabela `cursos`
 --
 ALTER TABLE `cursos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `cursos_pacotes`
@@ -677,13 +635,13 @@ ALTER TABLE `linguagens`
 -- AUTO_INCREMENT de tabela `matriculas`
 --
 ALTER TABLE `matriculas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT de tabela `pacotes`
 --
 ALTER TABLE `pacotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `professores`
@@ -695,13 +653,13 @@ ALTER TABLE `professores`
 -- AUTO_INCREMENT de tabela `sessao`
 --
 ALTER TABLE `sessao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

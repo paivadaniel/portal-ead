@@ -123,7 +123,7 @@ $pais_usuario = $res[0]['pais'];
             });
 
             $('#demo-pie-3').pieChart({
-                barColor: '#ffc168',
+                barColor: '#e30e27',
                 trackColor: '#eee',
                 lineCap: 'square',
                 lineWidth: 8,
@@ -178,57 +178,12 @@ $pais_usuario = $res[0]['pais'];
                                     <i class="fa fa-home"></i> <span>Home</span>
                                 </a>
                             </li>
-                            <li class="treeview <?php echo $ocultar ?>">
-                                <a href="#">
-                                    <i class="fa fa-users"></i>
-                                    <span>Pessoas</span>
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="index.php?pagina=alunos"><i class="fa fa-angle-right"></i> Alunos</a></li>
-                                    <li><a href="index.php?pagina=professores"><i class="fa fa-angle-right"></i> Professores</a></li>
-                                    <li><a href="index.php?pagina=administradores"><i class="fa fa-angle-right"></i> Administradores</a></li>
-                                    <li><a href="index.php?pagina=usuarios"><i class="fa fa-angle-right"></i> Usuários</a></li>
-
-                                </ul>
-                            </li>
-
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-file-o"></i>
-                                    <span>Cursos/Pacotes</span>
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <!-- cursos e pacotes podem ser acessados por administradores e também professores -->
-                                    <li><a href="index.php?pagina=cursos"><i class="fa fa-angle-right"></i> Cursos</a></li>
-                                    <li><a href="index.php?pagina=pacotes"><i class="fa fa-angle-right"></i> Pacotes</a></li>
-
-                                    <!-- grupos, categorias e linguagens só podem ser criados pelos administradores, não por professores -->
-                                    <li class="<?php echo $ocultar ?>"><a href="index.php?pagina=grupos"><i class="fa fa-angle-right"></i> Grupos</a></li>
-                                    <li class="<?php echo $ocultar ?>"><a href="index.php?pagina=categorias"><i class="fa fa-angle-right"></i> Categorias</a></li>
-                                    <li class="<?php echo $ocultar ?>"><a href="index.php?pagina=linguagens"><i class="fa fa-angle-right"></i> Linguagens</a></li>
-
-
-                                </ul>
-                            </li>
-
 
 
                             <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-cog"></i>
-                                    <span>Recursos do Site</span>
-                                    <i class="fa fa-angle-left pull-right"></i>
+                                <a href="index.php?pagina=cursos">
+                                    <i class="fa fa-book "></i> <span>Meus Cursos</span>
                                 </a>
-                                <ul class="treeview-menu">
-                                    <!-- cursos e pacotes podem ser acessados por administradores e também professores -->
-                                    <li><a href="index.php?pagina=banner_login"><i class="fa fa-angle-right"></i> Banner Login</a></li>
-
-                                    <li><a href="index.php?pagina=banner_index"><i class="fa fa-angle-right"></i> Banner Index</a></li>
-
-
-                                </ul>
                             </li>
 
 

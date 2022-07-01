@@ -3,10 +3,9 @@
 require_once('sistema/conexao.php');
 
 @session_start();
+@$id_do_aluno = $_SESSION['id_pessoa'];
 
-$id_do_aluno = $_SESSION['id_pessoa'];
 $url = $_GET['url'];
-
 
 $nivel = @$_SESSION['nivel']; //@ pois se o usuário não estiver logado, não aparece warning
 
@@ -94,9 +93,12 @@ require_once('cabecalho.php');
 <hr>
 
 <div class="container">
+
+    <input type="hidden" id="id_do_aluno" value="<?php echo $id_do_aluno ?>">
+
     <div class="row">
         <div class="col-md-8 col-sm-12">
-            <a class="valor" title="Comprar o Curso - Liberação Imediata" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valor_cursoF ?>', '<?php echo $modal ?>')">
+            <a id="btn_pagamento" class="valor" title="Comprar o Curso - Liberação Imediata" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valor_cursoF ?>', '<?php echo $modal ?>')">
                 <p class="titulo-curso"><?php echo $nome_curso_titulo ?> - <small><?php echo $desc_rapida ?></small>
                 </p>
             </a>
@@ -778,8 +780,8 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
 
         -->
 
-						 <a href="" data-toggle="modal" data-target="#modalCPF"><img src="img/pagamentos/boleto.jpg" width="90%" align="center">  </a>           
-                              
+                                <a href="" data-toggle="modal" data-target="#modalCPF"><img src="img/pagamentos/boleto.jpg" width="90%" align="center"> </a>
+
                             </div>
 
                             <div class="col-md-6 direita-mobile-input">
@@ -1042,8 +1044,12 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
             success: function(mensagem) {
                 $('#msg-login2').text(''); //limpa o texto da div
                 $('#msg-login2').removeClass(); //remove a classe da div
-                if (mensagem.trim() == "Logado com Sucesso!") {
+
+                mensagem = mensagem.split('-');
+
+                if (mensagem[0].trim() == "Logado com Sucesso!") {
                     $('#btn-fechar-login').click();
+                    $('#id_do_aluno').val(mensagem[1]);
 
                     pagamento(id, nome, valor, modal);
 
@@ -1126,7 +1132,12 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
 
         if (modal == 'Pagamento') {
             matriculaAluno();
-            listarBotaoMP();
+            /*tem que incluir a setTimeout pois estava chamando a matriculaAluno que inclui a matrícula do aluno no banco de dados, e logo em seguida já executando a listarBotaoMP,
+            sem dar tempo para fazer a inclusão da matrícula no banco de dados, 500ms são suficientes para isso
+            */
+            setTimeout(() => {
+                listarBotaoMP();
+            }, 500);
         }
 
 
@@ -1236,16 +1247,20 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
 
 <script type="text/javascript">
     function listarBotaoMP() {
+
         var id_curso = '<?= $id_do_curso_pag ?>';
         var nome_curso = '<?= $nome_curso_titulo ?>';
-        var id_aluno = '<?= $id_do_aluno ?>';
+        var id_aluno = $("#id_do_aluno").val();
+        var pacote = 'Não';
 
         $.ajax({
             url: 'ajax/cursos/listar-btn-mp.php', //alunos.php aparece dentro do index.php, portanto, estamos em index.php, e consideramos a partir dele
             method: 'POST',
             data: {
                 id_curso,
-                nome_curso, id_aluno
+                nome_curso,
+                id_aluno,
+                pacote
             },
             dataType: "html",
 
@@ -1259,5 +1274,16 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
 <?php
 
 require_once('rodape.php');
+
+?>
+
+<?php
+
+//esse código tem que vir após o link com id btn_pagamento, após a função pagamento(), que é chamada no link com id btn_pagamento, e após o rodapé pois ali tem scripts necessários para ela
+//ela serve para quando dentro do painel aluno, o aluno clicar em pagar o curso, e ir para a página do curso, e abrir automaticamente a modal MatriculaAluno sem ter que passar várias referências, apenas clicando no botão btn_pagamento. na minha visão isso não funcionaria pois pularia direto para o btn_pagamento sem passar os 4 argumentos necessários da função pagamento, que são id do curso, nome, valor e nome da modal -> pagamento(id, nome, valor, modal);
+
+if(@$_POST['painel_aluno'] == 'sim'){
+	echo "<script>$('#btn_pagamento').click();</script>";
+}
 
 ?>

@@ -32,7 +32,7 @@ WhatsApp -> <a href='http://api.whatsapp.com/send?1=pt_BR&phone=55$tel_sistema' 
 $remetente = $email_sistema;
 
 //para não dar problemas na formatação do texto do email, e reconhecer quebra de linha, negrito, etc, coloque o seguinte texto antes de From dest
-$cabecalhos = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/html; charset=utf-8;' . "\r\n" . "From: " .$dest;
+$cabecalhos = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/html; charset=utf-8;' . "\r\n" . "From: " .$destinatario;
 
 /*
 alternativa a única linha acima

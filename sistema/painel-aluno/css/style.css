@@ -10417,6 +10417,14 @@ h4.asd label {
   color:#076e0d;
 }
 
+.verde_claro {
+  color:#03a11d;
+}
+
+.cinza_escuro{
+  color:#4f4f4e !important;
+}
+
 .textarea{
     width:540px;
     height:110px;

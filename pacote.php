@@ -3,6 +3,7 @@
 require_once('sistema/conexao.php');
 
 @session_start();
+@$id_do_aluno = $_SESSION['id_pessoa'];
 
 $url = $_GET['url'];
 
@@ -37,7 +38,7 @@ if ($total_reg > 0) {
     $linguagem = $res[0]['linguagem'];
     $foto = $res[0]['imagem'];
     $foto_do_curso_pag = $res[0]['imagem']; //mesma variável id declarada acima, porém, para não ser perdida durante a execução do código, já que uma variável chamada foto pode assumir outros valores por seu nome ser comum
-    
+
 
     $ano = $res[0]['ano'];
     $palavras = $res[0]['palavras'];
@@ -79,7 +80,6 @@ if ($total_reg > 0) {
 
         $valor_pix = (1 - ($desconto_pix / 100)) * $valor_curso;
         $valor_pixF = number_format($valor_pix, 2, ',', '.',);
-    
     }
 
     $carga = 0; //se não iniciar carga com zero, ele provavelmente considera que carga começa com lixo na soma do if abaixo, e acusa Undefined variable $carga
@@ -115,9 +115,13 @@ require_once('cabecalho.php');
 <hr>
 
 <div class="container">
+
+
+    <input type="hidden" id="id_do_aluno" value="<?php echo $id_do_aluno ?>">
+
     <div class="row">
         <div class="col-md-8 col-sm-12">
-            <a class="valor" title="Comprar o Pacote - Liberação Imediata" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valor_cursoF ?>', '<?php echo $modal ?>')">
+            <a id="btn_pagamento" class="valor" title="Comprar o Pacote - Liberação Imediata" href="#" onclick="pagamento('<?php echo $id ?>', '<?php echo $nome_curso_titulo ?>', '<?php echo $valor_cursoF ?>', '<?php echo $modal ?>')">
                 <p class="titulo-curso"><?php echo $nome_curso_titulo ?> - <small><?php echo $desc_rapida ?></small>
                 </p>
             </a>
@@ -413,8 +417,7 @@ require_once('cabecalho.php');
                     $nome_url_curso = $res2[0]['nome_url'];
                     $numero_curso = $i + 1;
 
-                    echo '<a title="Ver detalhes do curso" href="curso-de-'.$nome_url_curso.'" target="_blank"><span class="neutra-forte">'.$numero_curso.' - '.$nome_curso.'</span><br></a>';
-
+                    echo '<a title="Ver detalhes do curso" href="curso-de-' . $nome_url_curso . '" target="_blank"><span class="neutra-forte">' . $numero_curso . ' - ' . $nome_curso . '</span><br></a>';
                 }
             } else {
                 echo '<span class="neutra">Nenhum Curso Cadastrado</span>';
@@ -701,8 +704,8 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
 
         -->
 
-						 <a href="" data-toggle="modal" data-target="#modalCPF"><img src="img/pagamentos/boleto.jpg" width="90%" align="center">  </a>           
-                              
+                                <a href="" data-toggle="modal" data-target="#modalCPF"><img src="img/pagamentos/boleto.jpg" width="90%" align="center"> </a>
+
                             </div>
 
                             <div class="col-md-6 direita-mobile-input">
@@ -962,8 +965,12 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
             success: function(mensagem) {
                 $('#msg-login2').text(''); //limpa o texto da div
                 $('#msg-login2').removeClass(); //remove a classe da div
-                if (mensagem.trim() == "Logado com Sucesso!") {
+
+                mensagem = mensagem.split('-');
+
+                if (mensagem[0].trim() == "Logado com Sucesso!") {
                     $('#btn-fechar-login').click();
+                    $('#id_do_aluno').val(mensagem[1]);
 
                     pagamento(id, nome, valor, modal);
 
@@ -1046,7 +1053,9 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
 
         if (modal == 'Pagamento') {
             matriculaAluno();
-            listarBotaoMP();
+            setTimeout(() => {
+                listarBotaoMP();
+            }, 500);
         }
 
 
@@ -1159,13 +1168,17 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
     function listarBotaoMP() {
         var id_curso = '<?= $id_do_curso_pag ?>';
         var nome_curso = '<?= $nome_curso_titulo ?>';
+        var id_aluno = $("#id_do_aluno").val();
+        var pacote = 'Sim';
 
         $.ajax({
             url: 'ajax/cursos/listar-btn-mp.php', //alunos.php aparece dentro do index.php, portanto, estamos em index.php, e consideramos a partir dele
             method: 'POST',
             data: {
                 id_curso,
-                nome_curso
+                nome_curso,
+                id_aluno,
+                pacote
             },
             dataType: "html",
 
@@ -1180,5 +1193,13 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
 <?php
 
 require_once('rodape.php');
+
+?>
+
+<?php
+
+if(@$_POST['painel_aluno'] == 'sim'){
+	echo "<script>$('#btn_pagamento').click();</script>";
+}
 
 ?>
