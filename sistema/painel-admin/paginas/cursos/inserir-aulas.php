@@ -11,6 +11,18 @@ $sessao_curso = $_POST['sessao_curso'];
 $id_curso = $_POST['id_curso']; 
 $id_aula = $_POST['id_aula'];
 
+//busca total de aulas do curso
+$query = $pdo->query("SELECT * FROM $tabela where id_curso = '$id_curso'");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$total_aulas = @count($res);
+
+if($total_aulas == 0) {
+	$seq_aula = 1;
+} else {
+	$seq_aula = $total_aulas + 1;
+}
+
+//validar num_aula duplicado
 $query = $pdo->query("SELECT * FROM $tabela where id_curso = '$id_curso' AND numero = '$numero_aula' AND sessao = '$sessao_curso'"); //consulta com SELECT não precisa de prepare()
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
@@ -21,7 +33,7 @@ if ($total_reg > 0 AND $res[0]['id'] != $id_aula) {
 
 if ($id_aula == "") { // se a aula não existir, é inserção
 
-	$query = $pdo->prepare("INSERT INTO $tabela SET numero = :numero_aula, nome = :nome_aula, link = :link_aula, sessao = '$sessao_curso', id_curso = '$id_curso'");
+	$query = $pdo->prepare("INSERT INTO $tabela SET numero = :numero_aula, nome = :nome_aula, link = :link_aula, sessao = '$sessao_curso', id_curso = '$id_curso', sequencia_aula = '$seq_aula'");
 
 } else { //se a aula já existir, é edição
 

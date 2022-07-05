@@ -1,6 +1,12 @@
 <?php
-require_once("../../../conexao.php");
+/*
+listar.php é chamado na function listar(), que está em ../../js/ajax.js,
+que por sua vez é chamado em toda página que tem incluído <script src="js/ajax.js"></script>
+assim como em ../cursos.php
 
+*/
+
+require_once("../../../conexao.php");
 $tabela = 'matriculas';
 
 @session_start();
@@ -38,6 +44,7 @@ HTML;
         }
         $id = $res[$i]['id']; //id da matrícula
         $id_curso = $res[$i]['id_curso'];
+
         $id_professor = $res[$i]['id_professor'];
         $aulas_concluidas = $res[$i]['aulas_concluidas'];
         $valor = $res[$i]['subtotal']; //pega em subtotal, não em valor, pois pode ter sido aplicado um cupom sobre o valor do curso
@@ -45,39 +52,43 @@ HTML;
         $status = $res[$i]['status'];
         $pacote = $res[$i]['pacote'];
 
-        if($pacote == 'Sim') {
+        if ($pacote == 'Sim') {
             $tabela2 = 'pacotes';
             $link = 'cursos-do-';
         } else {
             $tabela2 = 'cursos';
             $link = 'curso-de-';
-
         }
 
-        $query2 = $pdo->query("SELECT * FROM $tabela2 WHERE id = '$id_curso'");
+        $query2 = $pdo->query("SELECT * FROM cursos WHERE id = '$id_curso'");
         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 
         if (@count($res2) > 0) {
             $nome_curso = $res2[0]['nome'];
             $nome_url = $res2[0]['nome_url'];
-            $url_do_curso = $link.$nome_url;
+            $url_do_curso = $link . $nome_url;
         } else {
             $nome_curso = '';
         }
 
         //substituir administradores por professores depois de ter cursos feitos pelos professores
-        $query2 = $pdo->query("SELECT * FROM administradores where id = '$id_professor'");
-        $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-        if (@count($res2) > 0) {
-            $nome_professor = $res2[0]['nome'];
+        $query3 = $pdo->query("SELECT * FROM administradores where id = '$id_professor'");
+        $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
+        if (@count($res3) > 0) {
+            $nome_professor = $res3[0]['nome'];
         } else {
             $nome_professor = "";
         }
 
+        $query4 = $pdo->query("SELECT * FROM aulas WHERE id_curso = '$id_curso'");
+        $res4 = $query4->fetchAll(PDO::FETCH_ASSOC);
+        $aulas = @count($res4); //total de aulas do curso
 
-        $query2 = $pdo->query("SELECT * FROM aulas WHERE id_curso = '$id_curso'");
-        $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-        $aulas = @count($res2); //total de aulas do curso
+        if ($aulas == 1) {
+            $aulas_singular_plural = 'aula';
+        } else {
+            $aulas_singular_plural = 'aulas';
+        }
 
         if ($status == 'Aguardando') {
             $excluir = '';
@@ -85,12 +96,14 @@ HTML;
             $classe_square = 'text-danger';
             $classe_nome = 'text-muted';
             $ocultar_aulas = 'ocultar';
+            $ocultar_pagar = '';
         } else {
             $excluir = 'ocultar';
             $icone = 'fa-square';
             $classe_square = 'verde';
             $classe_nome = 'verde_claro';
             $ocultar_aulas = '';
+            $ocultar_pagar = 'ocultar';
         }
 
         //valor formatado e descrição_longa formatada
@@ -101,10 +114,18 @@ HTML;
 
 <tr>
     
-        <td class="">
+<!-- quando o curso estiver pago oculta a mensagem de pagar com a classe ocultar_pagar
+e quando o curso não estiver pago oculta o link que chama a função aulas -->
+        <td>
+        <a href="#" onclick="aulas('{$id}', '{$nome_curso}', '{$aulas}', '{$aulas_singular_plural}', '{$id_curso}')" class="{$classe_nome} $ocultar_aulas">
         {$nome_curso}
+        <small><i class="fa fa-video-camera text-dark"></i></small>
+        </a>
 
-        <form action="../../{$url_do_curso}" method="post" target="_blank">
+        <form action="../../{$url_do_curso}" method="post" target="_blank" class="{$ocultar_pagar}">
+
+        <span class="text-muted">{$nome_curso}</span>
+     
                                 <button type="submit" style="background-color:transparent; border:none !important;">
                                     <i class="fa fa-money verde"></i>
                                     <span style="margin-left:3px">Pagar</span>
@@ -124,8 +145,8 @@ HTML;
         <td>
 
         <!-- abertura excluir -->
-        <li class="dropdown head-dpdn2 {$excluir}" style="display: inline-block;">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Excluir Dados"><big><i class="fa fa-trash-o text-danger"></i></big></a>
+        <li class="dropdown head-dpdn2" style="display: inline-block;">
+		<a href="#" class="dropdown-toggle {$excluir}" data-toggle="dropdown" aria-expanded="false" title="Excluir Dados"><big><i class="fa fa-trash-o text-danger"></i></big></a>
 
 		<ul class="dropdown-menu" style="margin-left:-230px;">
 		<li>
@@ -134,6 +155,7 @@ HTML;
 		</div>
 		</li>										
 		</ul>
+
 		</li>
         <!-- fechamento excluir -->
    
@@ -158,6 +180,9 @@ echo <<<HTML
 HTML;
 
 ?>
+
+
+
 <script type="text/javascript">
     $(document).ready(function() {
         $('#tabela').DataTable({ //id="tabela" é o id da tabela dessa página
@@ -168,9 +193,34 @@ HTML;
     });
 
 
-    function aulas(id_curso, nome, aulas) {
-        $('#id_curso').val(id_curso);
+    function aulas(id, nome, aulas, aulas_singular_plural, id_curso) {
+        $('#id_aulas').val(id);
+
+        //ids definidos na modalAulas, em ../cursos.php
         $('#nome_aula_titulo').text(nome);
+        $('#aulas_aula').text(aulas);
+        $('#aulas_singular_plural').text(aulas_singular_plural);
+        /*eu estava tentando chamar assim e deu problema 
+        $('#aulas_singular_plural').text('<?=$aulas_singular_plural?>');
+        */
 
         $('#modalAulas').modal('show');
+        listarAulas(id_curso, id);
+        //listarPerguntas();
     }
+
+    function listarAulas(id_curso, id_matricula){
+    $.ajax({
+        url: 'paginas/' + pag + "/listar-aulas.php", //a variável pag está em cursos.php, que tem incluído js/ajax.js, que chama listar(), que chama listarAulas() 
+        method: 'POST',
+        data: {id_curso, id_matricula},
+        dataType: "html",
+
+        success:function(result){
+            $("#listar-aulas").html(result);
+            $('#mensagem-aulas').text('');
+        }
+    });
+}
+
+    </script>

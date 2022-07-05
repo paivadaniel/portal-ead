@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 01-Jul-2022 às 07:46
+-- Tempo de geração: 05-Jul-2022 às 08:09
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -95,16 +95,23 @@ CREATE TABLE `aulas` (
   `nome` varchar(80) NOT NULL,
   `link` varchar(150) DEFAULT NULL,
   `id_curso` int(11) NOT NULL,
-  `sessao` int(11) NOT NULL
+  `sessao` int(11) NOT NULL,
+  `sequencia_aula` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `aulas`
 --
 
-INSERT INTO `aulas` (`id`, `numero`, `nome`, `link`, `id_curso`, `sessao`) VALUES
-(26, 1, 'Aula 01 Módulo 01', 'https://www.youtube.com/embed/lMMyvL0KR5s', 1, 6),
-(27, 1, 'Aula 01 Módulo 02', '', 1, 7);
+INSERT INTO `aulas` (`id`, `numero`, `nome`, `link`, `id_curso`, `sessao`, `sequencia_aula`) VALUES
+(13, 1, 'Aula 01 Módulo 01 HTML', 'https://www.youtube.com/embed/oX45dRTG5mA', 1, 4, 1),
+(14, 2, 'Aula 02 Módulo 01 HTML', 'https://www.youtube.com/embed/G_bXNsSZHW4', 1, 4, 2),
+(15, 3, 'sffsfs', 'https://www.youtube.com/embed/rrACL2gFY5M', 1, 4, 3),
+(22, 1, 'ffsfsfsfsfs', 'https://www.youtube.com/embed/a-1bdLEjwbg', 2, 0, 1),
+(23, 2, 'fsfsfsfsf', 'https://www.youtube.com/embed/W9Bgmc8VlN4', 2, 0, 2),
+(24, 3, 'aadsasassasa', 'https://www.youtube.com/embed/ME3FVpy7q_k', 2, 0, 3),
+(25, 1, 'dadaadada', '', 1, 5, 4),
+(26, 2, '35twwfsfsfs', '', 1, 5, 5);
 
 -- --------------------------------------------------------
 
@@ -247,7 +254,9 @@ CREATE TABLE `cursos` (
 --
 
 INSERT INTO `cursos` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `categoria`, `imagem`, `status`, `carga`, `mensagem`, `arquivo`, `ano`, `palavras`, `grupo`, `nome_url`, `pacote`, `sistema`, `link`, `tecnologias`, `promocao`) VALUES
-(1, 'Curso de HTML', 'Aprenda HTML', 'HTML e CSS para você', '100.00', 1, 3, '30-06-2022-21-06-03-mendigo-fudido.jpg', 'Aprovado', 120, '', 'https://www.youtube.com/embed/lMMyvL0KR5s', 2022, 'html, css', 4, 'curso-de-html', 'https://www.youtube.com/embed/lMMyvL0KR5s', 'Não', 'https://www.youtube.com/embed/lMMyvL0KR5s', 'html, css', '70.00');
+(1, 'Curso de HTML', 'Aprenda HTML5 e CSS3', 'Fique craque em desenvolver sites em html e css.', '100.00', 1, 3, '04-07-2022-00-34-59-curso-html-5-css-3.jpg', 'Aprovado', 120, '', 'https://www.youtube.com', 2022, 'html, css', 6, 'curso-de-html', '', 'Não', 'https://www.youtube.com/embed/gePgFx5ovgg', '', '70.00'),
+(2, 'Curso de PHP', 'Domine PHP8', 'Aprenda tudo sobre a melhor linguagem para desenvolvimento backend de sites e sistemas web', '250.00', 1, 3, '04-07-2022-00-36-30-curso-de-php.jpg', 'Aprovado', 250, '', 'https://www.google.com', 2022, 'php, laravel', 5, 'curso-de-php', '', 'Não', 'https://www.youtube.com/embed/J9NE5x6se3g', '', '150.00'),
+(3, 'Curso de Bootstrap', 'Frontend com Bootstrap', 'Aprenda frontend com o framework mais utilizado do mundo!', '90.00', 1, 4, '04-07-2022-01-15-30-curso-de-aplicativo-ecommerce-react-native.jpeg', 'Aprovado', 60, '', 'https://www.lance.com.br', 2022, 'bootstrap, framework, twitter', 3, 'curso-de-bootstrap', '', 'Não', 'https://www.youtube.com/embed/BdPGadO2Fkk', '', '68.00');
 
 -- --------------------------------------------------------
 
@@ -260,15 +269,6 @@ CREATE TABLE `cursos_pacotes` (
   `id_curso` int(11) NOT NULL,
   `id_pacote` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `cursos_pacotes`
---
-
-INSERT INTO `cursos_pacotes` (`id`, `id_curso`, `id_pacote`) VALUES
-(1, 1, 9),
-(2, 5, 9),
-(3, 6, 9);
 
 -- --------------------------------------------------------
 
@@ -344,8 +344,9 @@ CREATE TABLE `matriculas` (
 --
 
 INSERT INTO `matriculas` (`id`, `id_curso`, `id_aluno`, `id_professor`, `aulas_concluidas`, `valor`, `data`, `status`, `pacote`, `alertado`, `valor_cupom`, `subtotal`, `forma_pgto`, `boleto`) VALUES
-(74, 1, 5, 1, 0, '450.00', '2022-06-30', 'Aguardando', 'Sim', NULL, '0.00', '450.00', NULL, NULL),
-(76, 1, 5, 1, 0, '70.00', '2022-06-30', 'Matriculado', 'Não', NULL, '0.00', '70.00', NULL, NULL);
+(78, 2, 5, 1, 0, '150.00', '2022-07-04', 'Matriculado', 'Não', NULL, '0.00', '150.00', NULL, NULL),
+(79, 3, 5, 1, 0, '68.00', '2022-07-04', 'Matriculado', 'Não', NULL, '0.00', '68.00', NULL, NULL),
+(80, 1, 5, 1, 2, '70.00', '2022-07-04', 'Matriculado', 'Não', NULL, '0.00', '70.00', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -419,9 +420,10 @@ CREATE TABLE `sessao` (
 --
 
 INSERT INTO `sessao` (`id`, `nome`, `id_curso`) VALUES
-(6, 'Módulo 01', 1),
-(7, 'Módulo 02', 1),
-(8, 'Módulo 03', 1);
+(4, 'Módulo 01 HTML', 1),
+(5, 'Módulo 02 HTML', 1),
+(6, 'Módulo 03 HTML', 1),
+(7, 'Módulo 01 Bootstrap', 3);
 
 -- --------------------------------------------------------
 
@@ -581,7 +583,7 @@ ALTER TABLE `alunos`
 -- AUTO_INCREMENT de tabela `aulas`
 --
 ALTER TABLE `aulas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de tabela `banner_index`
@@ -611,13 +613,13 @@ ALTER TABLE `config`
 -- AUTO_INCREMENT de tabela `cursos`
 --
 ALTER TABLE `cursos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `cursos_pacotes`
 --
 ALTER TABLE `cursos_pacotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `grupos`
@@ -635,7 +637,7 @@ ALTER TABLE `linguagens`
 -- AUTO_INCREMENT de tabela `matriculas`
 --
 ALTER TABLE `matriculas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT de tabela `pacotes`
@@ -653,7 +655,7 @@ ALTER TABLE `professores`
 -- AUTO_INCREMENT de tabela `sessao`
 --
 ALTER TABLE `sessao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`

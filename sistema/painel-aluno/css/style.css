@@ -10452,3 +10452,11 @@ h4.asd label {
 .warning {
   color:#d9830b;
 }
+
+.cor_aula {
+  color:#630211 !important;
+}
+
+.link-aula:hover {
+  text-decoration: underline !important;
+}
