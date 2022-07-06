@@ -10460,3 +10460,7 @@ h4.asd label {
 .link-aula:hover {
   text-decoration: underline !important;
 }
+
+.azul {
+  color:steelblue;
+}

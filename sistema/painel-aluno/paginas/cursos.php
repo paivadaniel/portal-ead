@@ -111,8 +111,8 @@ if (@$_SESSION['nivel'] != 'Aluno') { //coloca @ para se caso não existir algum
 usada para após um usuário ver uma aula, ser atualizada na lista de aulas como aula vista
 os inputs abaixo são recebidos na function aulas()
  -->
-<input type="text" id="id_da_matricula">
-<input type="text" id="id_do_curso">
+<input type="hidden" id="id_da_matricula">
+<input type="hidden" id="id_do_curso">
 
 <script type="text/javascript">
 	var pag = "<?= $pag ?>"
@@ -191,6 +191,8 @@ os inputs abaixo são recebidos na function aulas()
 		var id_matricula = $('#id_da_matricula').val();
 
 		listarAulas(id_curso, id_matricula);
+		//para conferir se está passando id_curso e id_matricula, verifique se os os inputs id_do_curso e id_da_matricula estão recebendo val() corretamente da function aulas (em listar.php), para isso altere o type desses inputs de hidden para text 
+		listar(); //para atualizar sem refresh a relação entre (aulas concluidas)/(aulas do curso) em Meus Cursos
 	}
 
 	function anterior() {

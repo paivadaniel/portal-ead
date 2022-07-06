@@ -39,11 +39,17 @@ if ($total_reg > 0) {
     $res_a = $query_a->fetchAll(PDO::FETCH_ASSOC);
     $id_matricula = $res_a[0]['id'];
     $aulas_concluidas = $res_a[0]['aulas_concluidas'];
+    $status = $res_a[0]['status']; //Pode ser Aguardando, Matriculado ou Finalizado
 
     //verificar total de aulas do curso
     $query_a = $pdo->query("SELECT * FROM aulas where id_curso = '$id_curso'");
     $res_a = $query_a->fetchAll(PDO::FETCH_ASSOC);
     $total_aulas = @count($res_a);
+
+    //muda o status do curso para finalizado
+    if ($status != 'Finalizado' and $aulas_concluidas == $total_aulas) { //status tem que ser diferente de finalizado para ele não ficar entrando aqui novamente e atualizando desnecessariamente o status mesmo depois do curso ter sido finalizado
+        $query = $pdo->query("UPDATE matriculas SET status = 'Finalizado' where id = '$id_matricula'");
+    }
 
     //próxima aula
     if ($anterior_proxima_atual_aula == 'proximo' /*and $num_aula < $total_aulas*/ and $sessao == 0) { //curso sem sessão
@@ -51,11 +57,6 @@ if ($total_reg > 0) {
         $proxima_aula = $num_aula + 1;
 
         if ($proxima_aula > $total_aulas) { //afinal de contas, é possível que num_aula seja maior que total_aulas??? como isso pode acontecer?
-
-            $nome_aula = 'Curso Finalizado';
-            $num_aula = '';
-            $link = '';
-            //$id_aula = ''; //id da aula atualizado
 
             echo 'Curso Finalizado';
             exit();
@@ -86,11 +87,6 @@ if ($total_reg > 0) {
         $proxima_aula = $sequencia_aula + 1;
 
         if ($proxima_aula > $total_aulas) { //afinal de contas, é possível que num_aula seja maior que total_aulas??? como isso pode acontecer?
-
-            $nome_aula = 'Curso Finalizado';
-            $num_aula = '';
-            $link = '';
-            //$id_aula = ''; //id da aula atualizado
 
             echo 'Curso Finalizado';
             exit();

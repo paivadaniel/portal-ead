@@ -30,6 +30,7 @@ if ($total_reg > 0) {
 	<th>Curso</th>
 	<th class="">Professor</th>
     <th class="">Aulas Concluídas</th>	
+    <th class="esc">Progresso</th>	
     <th class="">Valor</th>	
     <th class="esc">Data da Matrícula</th>	
     <th class="esc">Status</th>	
@@ -90,25 +91,42 @@ HTML;
             $aulas_singular_plural = 'aulas';
         }
 
+        $icone = 'fa-square';
+
         if ($status == 'Aguardando') {
             $excluir = '';
-            $icone = 'fa-square';
             $classe_square = 'text-danger';
             $classe_nome = 'text-muted';
             $ocultar_aulas = 'ocultar';
             $ocultar_pagar = '';
-        } else {
+            $classe_progress = ''; //vazio pois vai continuar azul, que é a classe padrão da progress bar no bootstrap
+        } else if ($status == 'Matriculado') {
             $excluir = 'ocultar';
-            $icone = 'fa-square';
             $classe_square = 'verde';
             $classe_nome = 'verde_claro';
             $ocultar_aulas = '';
             $ocultar_pagar = 'ocultar';
+            $classe_progress = ''; //vazio pois vai continuar azul, que é a classe padrão da progress bar no bootstrap
+        } else if ($status == 'Finalizado') {
+            $excluir = 'ocultar';
+            $classe_square = 'azul';
+            $classe_nome = 'verde_claro';
+            $ocultar_aulas = '';
+            $ocultar_pagar = 'ocultar';
+            $classe_progress = '#015e23'; 
         }
 
         //valor formatado e descrição_longa formatada
         $valorF = number_format($valor, 2, ',', '.');
         $dataF = implode('/', array_reverse(explode('-', $data)));
+
+        //porcentagem aulas concluídas (progress bar)
+
+        $porcentagem_aulas_concluidas = 0;
+
+        if ($aulas_concluidas > 0 && $aulas > 0 )  {            
+            $porcentagem_aulas_concluidas = ($aulas_concluidas/$aulas) * 100;
+        }
 
         echo <<<HTML
 
@@ -137,7 +155,15 @@ e quando o curso não estiver pago oculta o link que chama a função aulas -->
 
         </td>
         <td class="">{$nome_professor}</td>
-        <td class="">{$aulas_concluidas} / {$aulas}</td>
+        <td class="">{$aulas_concluidas} / {$aulas}
+        <td class="esc">
+        <div class="progress" style="height:20px; background:#e8e8e8"> <!-- o background aqui afeta a cor de fundo da barra de progresso -->
+        <!-- outra opção de estilização do background da barra de progresso é adicionar progress-bar-striped na frente de progress-bar -->
+        <div class="progress-bar" role="progressbar" style="width: {$porcentagem_aulas_concluidas}%; background:{$classe_progress};" aria-valuenow="{$porcentagem_aulas_concluidas}" aria-valuemin="0" aria-valuemax="100">{$porcentagem_aulas_concluidas}%</div>
+        </div>
+        </td>
+
+        </td>
         <td class="">R$ {$valorF}</td> <!-- se deixar o $ do R$ junto do {valorF}, ou seja RS{SvalorF} dá erro-->
 
         <td class="esc">{$dataF}</td>
@@ -201,30 +227,32 @@ HTML;
         $('#aulas_aula').text(aulas);
         $('#aulas_singular_plural').text(aulas_singular_plural);
         /*eu estava tentando chamar assim e deu problema 
-        $('#aulas_singular_plural').text('<?=$aulas_singular_plural?>');
+        $('#aulas_singular_plural').text('<?= $aulas_singular_plural ?>');
         */
 
         //preenche os inputs hidden abaixo da modalAbrirAula, em cursos.php
-        $('#id_da_matricula').text(id);
-        $('#id_do_curso').text(id_curso);
-                
+        $('#id_da_matricula').val(id);
+        $('#id_do_curso').val(id_curso);
+
         $('#modalAulas').modal('show');
         listarAulas(id_curso, id);
         //listarPerguntas();
     }
 
-    function listarAulas(id_curso, id_matricula){
-    $.ajax({
-        url: 'paginas/' + pag + "/listar-aulas.php", //a variável pag está em cursos.php, que tem incluído js/ajax.js, que chama listar(), que chama listarAulas() 
-        method: 'POST',
-        data: {id_curso, id_matricula},
-        dataType: "html",
+    function listarAulas(id_curso, id_matricula) {
+        $.ajax({
+            url: 'paginas/' + pag + "/listar-aulas.php", //a variável pag está em cursos.php, que tem incluído js/ajax.js, que chama listar(), que chama listarAulas() 
+            method: 'POST',
+            data: {
+                id_curso,
+                id_matricula
+            },
+            dataType: "html",
 
-        success:function(result){
-            $("#listar-aulas").html(result);
-            $('#mensagem-aulas').text('');
-        }
-    });
-}
-
-    </script>
+            success: function(result) {
+                $("#listar-aulas").html(result);
+                $('#mensagem-aulas').text('');
+            }
+        });
+    }
+</script>

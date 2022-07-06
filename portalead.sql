@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 06-Jul-2022 às 03:02
--- Versão do servidor: 10.4.22-MariaDB
--- versão do PHP: 8.0.15
+-- Tempo de geração: 06-Jul-2022 às 22:13
+-- Versão do servidor: 10.4.21-MariaDB
+-- versão do PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -111,7 +111,14 @@ INSERT INTO `aulas` (`id`, `numero`, `nome`, `link`, `id_curso`, `sessao`, `sequ
 (23, 2, 'fsfsfsfsf', 'https://www.youtube.com/embed/W9Bgmc8VlN4', 2, 0, 2),
 (24, 3, 'aadsasassasa', 'https://www.youtube.com/embed/ME3FVpy7q_k', 2, 0, 3),
 (25, 1, 'dadaadada', '', 1, 5, 4),
-(26, 2, '35twwfsfsfs', '', 1, 5, 5);
+(26, 2, '35twwfsfsfs', '', 1, 5, 5),
+(27, 4, 'ddssdsdsdsds', '', 2, 0, 4),
+(28, 5, 'aadadadadadadaddada', '', 2, 0, 5),
+(29, 6, '2rwffsfwrw3535353', '', 2, 0, 6),
+(30, 7, 'dsdsd442rwfsfsfsf', '', 2, 0, 7),
+(31, 8, 'dada242fsadawr2r', '', 2, 0, 8),
+(32, 9, 'zczczcvxvrf24242', '', 2, 0, 9),
+(33, 10, 'vcbdt353sffazz', '', 2, 0, 10);
 
 -- --------------------------------------------------------
 
@@ -344,9 +351,9 @@ CREATE TABLE `matriculas` (
 --
 
 INSERT INTO `matriculas` (`id`, `id_curso`, `id_aluno`, `id_professor`, `aulas_concluidas`, `valor`, `data`, `status`, `pacote`, `alertado`, `valor_cupom`, `subtotal`, `forma_pgto`, `boleto`) VALUES
-(78, 2, 5, 1, 3, '150.00', '2022-07-04', 'Matriculado', 'Não', NULL, '0.00', '150.00', NULL, NULL),
+(78, 2, 5, 1, 8, '150.00', '2022-07-04', 'Matriculado', 'Não', NULL, '0.00', '150.00', NULL, NULL),
 (79, 3, 5, 1, 1, '68.00', '2022-07-04', 'Matriculado', 'Não', NULL, '0.00', '68.00', NULL, NULL),
-(80, 1, 5, 1, 1, '70.00', '2022-07-04', 'Matriculado', 'Não', NULL, '0.00', '70.00', NULL, NULL);
+(80, 1, 5, 1, 5, '70.00', '2022-07-04', 'Finalizado', 'Não', NULL, '0.00', '70.00', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -583,7 +590,7 @@ ALTER TABLE `alunos`
 -- AUTO_INCREMENT de tabela `aulas`
 --
 ALTER TABLE `aulas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de tabela `banner_index`

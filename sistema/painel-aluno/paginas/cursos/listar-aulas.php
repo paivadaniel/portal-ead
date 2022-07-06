@@ -9,11 +9,11 @@ $id_aluno = $_SESSION['id_pessoa'];
 $id_curso = $_POST['id_curso'];
 $id_matricula = $_POST['id_matricula'];
 
-//verificar se aluno está matriculado no curso
-$query = $pdo->query("SELECT * FROM matriculas where id_curso = '$id_curso' and id_aluno = '$id_aluno' and status != 'Aguardando'");
-$res = $query->fetchAll(PDO::FETCH_ASSOC);
+//verifica se o aluno está matriculado no curso
+$query_m = $pdo->query("SELECT * FROM matriculas where id_curso = '$id_curso' and id_aluno = '$id_aluno' and status != 'Aguardando'");
+$res_m = $query_m->fetchAll(PDO::FETCH_ASSOC);
 
-if(@count($res) == 0) {
+if(@count($res_m) == 0) {
     echo 'Você não está matriculado nesse curso!';
     exit();
 }
