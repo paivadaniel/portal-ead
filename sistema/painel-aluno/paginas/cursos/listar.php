@@ -194,7 +194,7 @@ HTML;
 
 
     function aulas(id, nome, aulas, aulas_singular_plural, id_curso) {
-        $('#id_aulas').val(id);
+        $('#id_aulas').val(id); //id é o id da matrícula
 
         //ids definidos na modalAulas, em ../cursos.php
         $('#nome_aula_titulo').text(nome);
@@ -204,6 +204,10 @@ HTML;
         $('#aulas_singular_plural').text('<?=$aulas_singular_plural?>');
         */
 
+        //preenche os inputs hidden abaixo da modalAbrirAula, em cursos.php
+        $('#id_da_matricula').text(id);
+        $('#id_do_curso').text(id_curso);
+                
         $('#modalAulas').modal('show');
         listarAulas(id_curso, id);
         //listarPerguntas();

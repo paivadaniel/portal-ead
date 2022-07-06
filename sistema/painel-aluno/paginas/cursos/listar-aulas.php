@@ -69,14 +69,23 @@ if ($total_reg_m > 0) { //para curso que tem sessão
                 */
                 if($seq_aula <= $aulas_concluidas) {
                     $cor_aula = 'cor_aula';
+                    $ocultar_link = '';
+                    $ocultar_span = 'ocultar';
                 } else {
                     $cor_aula = 'text-muted';
+                    $ocultar_link = 'ocultar';
+                    $ocultar_span = '';
+
                 }
 
 echo <<<HTML
-                    <a href="#" onclick="abrirAula('{$id_aula}', 'aula', '{$nome_sessao}')" title="Ver Aula" class="link-aula">
+                    <a href="#" onclick="abrirAula('{$id_aula}', 'aula', '{$nome_sessao}')" title="Ver Aula" class="link-aula {$ocultar_link}">
                     <i class="fa fa-video-camera {$cor_aula}"></i> <span class="{$cor_aula}">Aula {$num_aula} - {$nome_aula}</span> <br>
                     </a>
+
+                    <span class="{$ocultar_span}">
+                    <i class="fa fa-video-camera {$cor_aula}"></i> <span class="{$cor_aula}">Aula {$num_aula} - {$nome_aula}</span> <br>
+                    </span>
 HTML;
             }
         } else {
@@ -103,14 +112,33 @@ HTML;
 
             if($num_aula <= $aulas_concluidas) {
                 $cor_aula = 'cor_aula';
+                $ocultar_link = '';
+                $ocultar_span = 'ocultar';
+
             } else {
                 $cor_aula = 'text-muted';
+                                    $ocultar_link = 'ocultar';
+                    $ocultar_span = '';
+
             }
 
 echo <<<HTML
-                    <a href="#" onclick="abrirAula('{$id_aula}', 'aula', '')" title="Ver Aula" class="link-aula"> <!-- passa vazio pois não tem sessão, portanto, nome_sessao é vazio -->
+<!-- em abrirAula() passa vazio no terceiro argumento pois não tem sessão, portanto, nome_sessao é vazio -->
+<!--
+                    <a href="#" onclick="abrirAula('{$id_aula}', 'aula', '')" title="Ver Aula" class="link-aula"> 
                     <i class="fa fa-video-camera {$cor_aula}"></i> <span class="{$cor_aula}">Aula {$num_aula} - {$nome_aula}</span> <br>
                     </a>
+-->
+                    <a href="#" onclick="abrirAula('{$id_aula}', 'aula', '')" title="Ver Aula" class="link-aula {$ocultar_link}">
+                    <i class="fa fa-video-camera {$cor_aula}"></i> <span class="{$cor_aula}">Aula {$num_aula} - {$nome_aula}</span> <br>
+                    </a>
+
+                    <span class="{$ocultar_span}">
+                    <i class="fa fa-video-camera {$cor_aula}"></i> <span class="{$cor_aula}">Aula {$num_aula} - {$nome_aula}</span> <br>
+                    </span>
+
+        
+
 
 HTML;
 

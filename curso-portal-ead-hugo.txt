@@ -93,6 +93,11 @@ Não quando atualizo ele, mesmo recuperando corretamente do banco de dados
 quando não estou logado e tento acessar a página de um pacote e comprá-lo, dá erro
 a variável url quando impressa está saindo como "pacote", ela é definida em ajax-listar-pacotes.php
 
+- mod10 aula 18
+
+está mostrando nome da sessão errado, na primeira aula do módulo 02 está mostrando a sessão como módulo 01 ainda, só está mudando na aula 02 do módulo 02
+
+
 ---- fiz diferente
 
 mod07 Aula 06 e 07

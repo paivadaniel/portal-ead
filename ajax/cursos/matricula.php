@@ -75,7 +75,8 @@ if ($total_reg > 0) {
     } 
     
     //insere matrícula do aluno na tabela matriculas
-    $pdo->query("INSERT into matriculas SET id_curso = '$id_curso', id_aluno = '$id_aluno', id_professor = '$id_professor', valor = '$valor', data = curDate(), status = 'Aguardando', pacote = '$pacote', subtotal = '$valor'");
+    $pdo->query("INSERT into matriculas SET id_curso = '$id_curso', id_aluno = '$id_aluno', id_professor = '$id_professor', valor = '$valor', data = curDate(), status = 'Aguardando', pacote = '$pacote', subtotal = '$valor', aulas_concluidas = 1");
+    //aulas_concluidas = 1, pois para o aluno ter liberada a primeira aula para ele ver, já que para ver as próximas terá que ver a 1, para ver a 3 terá que ver a 2, e assim por diante
 
     echo 'Matriculado com Sucesso!';
 

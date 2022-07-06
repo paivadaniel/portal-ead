@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 05-Jul-2022 às 08:09
--- Versão do servidor: 10.4.21-MariaDB
--- versão do PHP: 8.0.10
+-- Tempo de geração: 06-Jul-2022 às 03:02
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -344,9 +344,9 @@ CREATE TABLE `matriculas` (
 --
 
 INSERT INTO `matriculas` (`id`, `id_curso`, `id_aluno`, `id_professor`, `aulas_concluidas`, `valor`, `data`, `status`, `pacote`, `alertado`, `valor_cupom`, `subtotal`, `forma_pgto`, `boleto`) VALUES
-(78, 2, 5, 1, 0, '150.00', '2022-07-04', 'Matriculado', 'Não', NULL, '0.00', '150.00', NULL, NULL),
-(79, 3, 5, 1, 0, '68.00', '2022-07-04', 'Matriculado', 'Não', NULL, '0.00', '68.00', NULL, NULL),
-(80, 1, 5, 1, 2, '70.00', '2022-07-04', 'Matriculado', 'Não', NULL, '0.00', '70.00', NULL, NULL);
+(78, 2, 5, 1, 3, '150.00', '2022-07-04', 'Matriculado', 'Não', NULL, '0.00', '150.00', NULL, NULL),
+(79, 3, 5, 1, 1, '68.00', '2022-07-04', 'Matriculado', 'Não', NULL, '0.00', '68.00', NULL, NULL),
+(80, 1, 5, 1, 1, '70.00', '2022-07-04', 'Matriculado', 'Não', NULL, '0.00', '70.00', NULL, NULL);
 
 -- --------------------------------------------------------
 

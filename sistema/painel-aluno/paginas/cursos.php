@@ -66,7 +66,7 @@ if (@$_SESSION['nivel'] != 'Aluno') { //coloca @ para se caso não existir algum
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="exampleModalLabel"><span class="neutra ocultar-mobile" id="nome_da_sessao"> </span> // Aula <span class="neutra ocultar-mobile" id="numero_aula"> </span> - <span class="neutra" id="nome_aula"></span></h4>
+				<h4 class="modal-title" id="exampleModalLabel"><span class="neutra ocultar-mobile" id="nome_da_sessao"> </span> <span class="neutra ocultar-mobile" id="numero_aula"> </span> <span class="neutra" id="nome_aula"></span></h4>
 				<button style="margin-top: -25px" type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span class="neutra" aria-hidden="true">&times;</span>
 				</button>
@@ -74,6 +74,8 @@ if (@$_SESSION['nivel'] != 'Aluno') { //coloca @ para se caso não existir algum
 
 			<div class="modal-body">
 				<iframe width="100%" height="400" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="videoModal"></iframe>
+
+				<span id="curso-finalizado"></span>
 
 				<div align="center">
 
@@ -90,7 +92,7 @@ if (@$_SESSION['nivel'] != 'Aluno') { //coloca @ para se caso não existir algum
 
 				</div>
 
-				<input type="text" id="id_numero_da_aula">
+				<input type="hidden" id="id_numero_da_aula">
 
 			</div>
 
@@ -105,8 +107,12 @@ if (@$_SESSION['nivel'] != 'Aluno') { //coloca @ para se caso não existir algum
 	</div>
 </div>
 
-
-
+<!-- id_curso e id_matricula são necessários para a função abrirAula, que será
+usada para após um usuário ver uma aula, ser atualizada na lista de aulas como aula vista
+os inputs abaixo são recebidos na function aulas()
+ -->
+<input type="text" id="id_da_matricula">
+<input type="text" id="id_do_curso">
 
 <script type="text/javascript">
 	var pag = "<?= $pag ?>"
@@ -124,7 +130,7 @@ if (@$_SESSION['nivel'] != 'Aluno') { //coloca @ para se caso não existir algum
 </script>
 
 <script type="text/javascript">
-	function abrirAula(id_aula, aula) {
+	function abrirAula(id_aula, aula) { //tem nome_sessao que essa função recebe como argumento em listar-aulas.php, porém, o autor não declarou nome_sessao como terceiro argumento não sei o porquê, e na aula 24, perto dos 03:30 ele mesmo não sabe o porquê não declarou
 
 		$('#id_numero_da_aula').val(id_aula);
 
@@ -140,20 +146,37 @@ if (@$_SESSION['nivel'] != 'Aluno') { //coloca @ para se caso não existir algum
 			success: function(result) {
 				var res = result.split('***');
 
-				$('#numero_aula').text(res[0]);
-				$('#nome_aula').text(res[1]);
-				$('#videoModal').attr('src', res[2]);
-				$('#id_numero_da_aula').val(res[3]); //valor atualizado do número da aula mudada para anterior ou próxima
-				$('#modalAbrirAula').modal('show'); //abrir a modal por script, a outra forma é abrir a modal 
-				$('#nome_da_sessao').text(res[4]);
-
-				/*if (res[0] == 1) {
+				if (result.trim() === 'Curso Finalizado') {
+					$('#nome_aula').text('Parabéns, você concluiu o curso!');
+					$('#numero_aula').text('');
+					$('#nome_da_sessao').text('');
 					document.getElementById('btn-anterior').style.display = 'none';
+					document.getElementById('btn-proximo').style.display = 'none';
+					document.getElementById('videoModal').style.display = 'none';
+					$('#curso-finalizado').text('Agora você já pode emitir seu certificado e avaliar nosso curso!');
+
 				} else {
 					document.getElementById('btn-anterior').style.display = 'inline';
+					document.getElementById('btn-proximo').style.display = 'inline';
+					document.getElementById('videoModal').style.display = 'block';
+					$('#curso-finalizado').text('');
+					$('#numero_aula').text('Aula ' + res[0]);
+					$('#nome_aula').text(' - ' + res[1]);
+					$('#videoModal').attr('src', res[2]);
+					$('#id_numero_da_aula').val(res[3]); //valor atualizado do número da aula mudada para anterior ou próxima
+					$('#modalAbrirAula').modal('show'); //abrir a modal por script, a outra forma é abrir a modal 
+					$('#nome_da_sessao').text(res[4]);
+
+					/*if (res[0] == 1) {
+						document.getElementById('btn-anterior').style.display = 'none';
+					} else {
+						document.getElementById('btn-anterior').style.display = 'inline';
+
+					}
+					*/
 
 				}
-				*/
+
 			}
 		});
 	}
@@ -164,6 +187,10 @@ if (@$_SESSION['nivel'] != 'Aluno') { //coloca @ para se caso não existir algum
 		var id_aula = $('#id_numero_da_aula').val();
 		abrirAula(id_aula, 'proximo');
 
+		var id_curso = $('#id_do_curso').val();
+		var id_matricula = $('#id_da_matricula').val();
+
+		listarAulas(id_curso, id_matricula);
 	}
 
 	function anterior() {
