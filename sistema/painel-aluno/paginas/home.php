@@ -89,12 +89,15 @@ if ($porcentagem_itens_preenchidos_perfil != 100) {
     $cor_porcent = 'demo-pie-1';
 }
 
+$porcentagem_itens_preenchidos_perfilF = round($porcentagem_itens_preenchidos_perfil, 2);
+
 if ($total_matriculas == 0) {
     $porcentagem_cursos_concluidos = 0; //php8 não aceita divisão por zero, por isso tem que ser feita essa condição
 } else {
     $porcentagem_cursos_concluidos = ($total_cursos_concluidos / $total_matriculas) * 100;
 }
 
+$porcentagem_cursos_concluidosF = round($porcentagem_cursos_concluidos, 2);
 
 ?>
 
@@ -189,6 +192,7 @@ if ($total_matriculas == 0) {
                     foreach ($res[$i] as $key => $value) {
                     }
 
+                    $id_mat = $res[$i]['id']; //id da matrícula
                     $id_curso = $res[$i]['id_curso'];
                     $subtotal = $res[$i]['subtotal'];
                     $status = $res[$i]['status'];
@@ -225,16 +229,28 @@ if ($total_matriculas == 0) {
                                 <!-- foi criada a div abaixo com align center, pois dentro do form, estava perdendo o align center do parágrafo acima-->
                                 <div align="center">
                                     <!-- background-color e border none são para estilizar o botão -->
-                                <button type="submit" style="background-color:transparent; border:none !important;"><i class="fa fa-money verde"></i><span style="margin-left:3px">Pagar</span></button>
+                                    <button type="submit" style="background-color:transparent; border:none !important;"><i class="fa fa-money verde"></i><span style="margin-left:3px">Pagar</span></button>
 
-                                <!-- esse form tem um input do tipo hidden para marcar que viemos a partir do painel do aluno -->
-                                <input type="hidden" name="painel_aluno" value="sim">
+                                    <!-- esse form tem um input do tipo hidden para marcar que viemos a partir do painel do aluno -->
+                                    <input type="hidden" name="painel_aluno" value="sim">
 
                                 </div>
                             </form>
                         <?php } else { ?>
 
-                            <p align="center"><a href="#"><span style="margin-left:3px">Ir para o Curso</span></a></p>
+
+                            <form action="index.php?pagina=cursos" method="post" target="_blank" class="">
+                                <!-- classe icones_finalizados foi usada em finalizados/listar.php -->
+                                <button type="submit" style="background-color:transparent; border:none !important;">
+                                <span style="margin-left:3px">Ir para o Curso</span>
+                                </button>
+
+                                <input type="text" name="id_mat_post" value="<?php echo $id_mat ?>">
+                                <input type="text" name="id_curso_post" value="<?php echo $id_curso ?>">
+
+                            </form>
+
+
 
                         <?php } ?>
 
@@ -257,20 +273,20 @@ if ($total_matriculas == 0) {
         <div class="content-top-1">
             <div class="col-md-6 top-content">
                 <h5><a href="" data-toggle="modal" data-target="#modalPerfil" style="text-decoration:none">Perfil Aluno</a></h5>
-                <label><?php echo $porcentagem_itens_preenchidos_perfil ?>%</label>
+                <label><?php echo $porcentagem_itens_preenchidos_perfilF ?>%</label>
             </div>
             <div class="col-md-6 top-content1">
-                <div id="<?php echo $cor_porcent ?>" class="pie-title-center" data-percent="<?php echo $porcentagem_itens_preenchidos_perfil ?>"> <span class="pie-value"></span> </div>
+                <div id="<?php echo $cor_porcent ?>" class="pie-title-center" data-percent="<?php echo $porcentagem_itens_preenchidos_perfilF ?>"> <span class="pie-value"></span> </div>
             </div>
             <div class="clearfix"> </div>
         </div>
         <div class="content-top-1">
             <div class="col-md-6 top-content">
                 <h5>Cursos Finalizados</h5>
-                <label><?php echo $porcentagem_cursos_concluidos ?>%</label>
+                <label><?php echo $porcentagem_cursos_concluidosF ?>%</label>
             </div>
             <div class="col-md-6 top-content1">
-                <div id="demo-pie-2" class="pie-title-center" data-percent="<?php echo $porcentagem_cursos_concluidos ?>"> <span class="pie-value"></span> </div>
+                <div id="demo-pie-2" class="pie-title-center" data-percent="<?php echo $porcentagem_cursos_concluidosF ?>"> <span class="pie-value"></span> </div>
             </div>
             <div class="clearfix"> </div>
         </div>

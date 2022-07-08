@@ -623,11 +623,22 @@ $senha_usuario = $res[0]['senha'];
                             </div>
                         </div>
 
-                        <!-- não sei porque não está mantendo o select acima para Não quando atualizo ele, mesmo recuperando corretamente do banco de dados, como se pode ver a seguir -->
+                        <!-- não sei porque não está mantendo o select acima para Não quando atualizo ele, mesmo recuperando corretamente do banco de dados, como se pode ver a seguir 
+                        
                         <div class="col-md-3">
-                            <div class="form-group">
-                              <?php echo $email_adm_mat ?>
+                            <div class="form-group"> 
+    
+                              <?php //echo $email_adm_mat 
+                                ?>
                                  
+                            </div>
+                        </div>
+                          -->
+
+                          <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="cartoes_fidelidade">Cartões Fidelidade</label>
+                                <input type="number" class="form-control" id="cartoes_fidelidade" name="cartoes_fidelidade" value="<?php echo $cartoes_fidelidade ?>">
                             </div>
                         </div>
 

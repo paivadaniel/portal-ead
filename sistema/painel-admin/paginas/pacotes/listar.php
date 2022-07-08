@@ -120,6 +120,11 @@ HTML;
             $promo = '';
         }
 
+        //total de alunos matriculados em um pacote
+        $query2 = $pdo->query("SELECT * FROM matriculas WHERE id_curso = '$id' and (status = 'Matriculado' or status = 'Finalizado') and pacote = 'Sim'");
+        $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+        $alunos = @count($res2);
+
         echo <<<HTML
 
 <tr class="">
@@ -136,7 +141,7 @@ HTML;
         <td class="">R$ {$valorF} <small><span class="text-danger"><b> {$promo} </b></span></small></td>
         <td class="">{$nome_professor}</td>
         <td class="">{$nome_linguagem}</td>
-        <td class="esc">0</td>
+        <td class="esc">{$alunos}</td>
         <td class="esc">{$cursos}</td>
 
         <td>

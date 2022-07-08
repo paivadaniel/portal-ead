@@ -48,7 +48,7 @@ if ($total_reg > 0) {
 
     //muda o status do curso para finalizado
     if ($status != 'Finalizado' and $aulas_concluidas == $total_aulas) { //status tem que ser diferente de finalizado para ele não ficar entrando aqui novamente e atualizando desnecessariamente o status mesmo depois do curso ter sido finalizado
-        $query = $pdo->query("UPDATE matriculas SET status = 'Finalizado' where id = '$id_matricula'");
+        $query = $pdo->query("UPDATE matriculas SET status = 'Finalizado', data_conclusao = curDate() where id = '$id_matricula'");
     }
 
     //próxima aula

@@ -5,6 +5,8 @@ require_once('verificar.php'); //aqui é dado @session_start();
 
 $pag = 'cursos';
 
+$id_pacote_post = @$_POST['id_pacote']; //recebe o id do pacote (que vem de paginas/pacotes/listar.php, e nela é chamado de id_curso), para assim poder filtrar os cursos desse pacote por meio da relação na tabela cursos_pacotes
+
 if (@$_SESSION['nivel'] != 'Aluno') { //coloca @ para se caso não existir alguma das variáveis de sessão, não exibir o warning
 	//professores e administradores podem ver cursos.php, alunos não
 	echo "<script> window.location='../index.php'</script>";
@@ -14,7 +16,7 @@ if (@$_SESSION['nivel'] != 'Aluno') { //coloca @ para se caso não existir algum
 ?>
 
 <!-- div id="listar", quando for chamo listar-aluno.php, o resultado dele ele passará para id="listar" -->
-<div class="bs-example widget-shadow" style="padding:15px" id="listar">
+<div class="bs-example widget-shadow margem-mobile" style="padding:15px; margin-top:-10px;" id="listar">
 
 </div>
 
@@ -115,12 +117,16 @@ os inputs abaixo são recebidos na function aulas()
 <input type="hidden" id="id_do_curso">
 
 <script type="text/javascript">
-	var pag = "<?= $pag ?>"
+	var pag = "<?=$pag?>"
 </script>
 <script src="js/ajax.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
+
+		var id_pacote_post = "<?=$id_pacote_post?>";
+		listarCursosDoPacote(id_pacote_post);
+
 		$('.sel2').select2({
 			//sel2 é um classe que eu dei o nome, cujo link está no index, e que tem uma classe chamada select2, não sei como onde sel2 se relaciona com select2, porém, não sei onde essa instânciação foi feita, se foi por exemplo no script do select2 no final da index 
 
@@ -192,7 +198,11 @@ os inputs abaixo são recebidos na function aulas()
 
 		listarAulas(id_curso, id_matricula);
 		//para conferir se está passando id_curso e id_matricula, verifique se os os inputs id_do_curso e id_da_matricula estão recebendo val() corretamente da function aulas (em listar.php), para isso altere o type desses inputs de hidden para text 
-		listar(); //para atualizar sem refresh a relação entre (aulas concluidas)/(aulas do curso) em Meus Cursos
+		//listar(); //para atualizar sem refresh a relação entre (aulas concluidas)/(aulas do curso) em Meus Cursos
+
+
+		var id_pacote_post = "<?=$id_pacote_post?>";
+		listarCursosDoPacote(id_pacote_post);
 	}
 
 	function anterior() {
@@ -200,4 +210,23 @@ os inputs abaixo são recebidos na function aulas()
 		abrirAula(id_aula, 'anterior');
 
 	}
+</script>
+
+<script type="text/javascript">
+
+
+function listarCursosDoPacote(id_pacote_post){
+    $.ajax({
+        url: 'paginas/' + pag + "/listar-cursos.php", //alunos.php aparece dentro do index.php, portanto, estamos em index.php, e consideramos a partir dele
+        method: 'POST',
+        data: {id_pacote_post}, //se tiver algum formulário serializa os dados, mas não é esse caso
+        dataType: "html",
+
+        success:function(result){
+            $("#listar").html(result);
+            $('#mensagem-excluir').text('');
+        }
+    });
+}
+
 </script>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 06-Jul-2022 às 22:13
+-- Tempo de geração: 08-Jul-2022 às 07:40
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -73,7 +73,7 @@ CREATE TABLE `alunos` (
 --
 
 INSERT INTO `alunos` (`id`, `nome`, `cpf`, `email`, `telefone`, `endereco`, `bairro`, `cidade`, `estado`, `pais`, `foto`, `data`, `cartao`, `ativo`) VALUES
-(5, 'Sassa Mutema', '212.121.212-21', 'sassamutema@gmail.com', '(11) 3355-5555', 'Sampaio Correio', 'Vila Madalena', 'Recife', 'AC', 'Costa Rica', '16-05-2022-19-33-37-galinha-pintadinha-ouvindo-musica.jpg', '2022-05-16', 10, 'Sim'),
+(5, 'Sassa Mutema', '212.121.212-21', 'sassamutema@gmail.com', '(11) 3355-5555', 'Sampaio Correio', 'Vila Madalena', 'Recife', 'AC', 'Costa Rica', '16-05-2022-19-33-37-galinha-pintadinha-ouvindo-musica.jpg', '2022-05-16', 5, 'Sim'),
 (6, 'Pedrinho Matador', '666.666.666-66', 'pedrinhomatador@hotmail.com', '(66) 6666-6666', 'Portões do Inferno, 666', NULL, 'Diadema', 'SP', 'Brasil', '16-05-2022-23-41-52-pintinho-amarelinho.jpg', '2022-05-16', 3, 'Sim'),
 (7, 'Juca Tobias', NULL, 'Jocelyn@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
 (8, 'Roberto Lucas', NULL, 'robertinho.com@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
@@ -81,7 +81,8 @@ INSERT INTO `alunos` (`id`, `nome`, `cpf`, `email`, `telefone`, `endereco`, `bai
 (10, 'Juca Tobias Armanda Nero', NULL, 'Jocelyn23@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
 (11, 'Rubens Barrichello do Brasil', '123.456.789-00', 'barrichello_rubens@hotmail.com', '(12) 2121-2121', 'Rua X, Número Y', 'Vila Z', 'Porto Alegre', 'RS', 'Brasil', '27-06-2022-23-31-36-buzanga.jpg', '2022-06-17', 0, 'Sim'),
 (12, 'Aluno Louco', NULL, 'louco@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-21', 0, 'Sim'),
-(13, 'Paula', NULL, 'paulinha@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-30', 0, 'Sim');
+(13, 'Paula', NULL, 'paulinha@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-30', 0, 'Sim'),
+(14, 'João Bosta', '313.131.313-13', 'joaobosta@hotmail.com', '(31) 3131-3141', 'Rua Bosta', 'Culândia', 'Tonto', 'AC', 'Merdalândia', '08-07-2022-02-23-35-buzanga.jpg', '2022-07-08', 0, 'Sim');
 
 -- --------------------------------------------------------
 
@@ -216,15 +217,16 @@ CREATE TABLE `config` (
   `itens_relacionados` int(11) NOT NULL,
   `aulas_liberadas` int(11) NOT NULL,
   `desconto_pix` int(11) NOT NULL,
-  `email_adm_mat` varchar(5) DEFAULT NULL
+  `email_adm_mat` varchar(5) DEFAULT NULL,
+  `cartoes_fidelidade` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `config`
 --
 
-INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnpj_sistema`, `tipo_chave_pix`, `chave_pix`, `logo`, `icone`, `logo_rel`, `qrcode_pix`, `facebook`, `instagram`, `youtube`, `itens_pag`, `video_sobre`, `itens_relacionados`, `aulas_liberadas`, `desconto_pix`, `email_adm_mat`) VALUES
-(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', 'danielantunespaiva@gmail.com', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead', 6, 'https://www.youtube.com/embed/GeH5_-4xkfE', 1, 2, 5, 'Não');
+INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnpj_sistema`, `tipo_chave_pix`, `chave_pix`, `logo`, `icone`, `logo_rel`, `qrcode_pix`, `facebook`, `instagram`, `youtube`, `itens_pag`, `video_sobre`, `itens_relacionados`, `aulas_liberadas`, `desconto_pix`, `email_adm_mat`, `cartoes_fidelidade`) VALUES
+(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', 'danielantunespaiva@gmail.com', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead', 6, 'https://www.youtube.com/embed/GeH5_-4xkfE', 1, 2, 5, 'Sim', 9);
 
 -- --------------------------------------------------------
 
@@ -261,9 +263,11 @@ CREATE TABLE `cursos` (
 --
 
 INSERT INTO `cursos` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `categoria`, `imagem`, `status`, `carga`, `mensagem`, `arquivo`, `ano`, `palavras`, `grupo`, `nome_url`, `pacote`, `sistema`, `link`, `tecnologias`, `promocao`) VALUES
-(1, 'Curso de HTML', 'Aprenda HTML5 e CSS3', 'Fique craque em desenvolver sites em html e css.', '100.00', 1, 3, '04-07-2022-00-34-59-curso-html-5-css-3.jpg', 'Aprovado', 120, '', 'https://www.youtube.com', 2022, 'html, css', 6, 'curso-de-html', '', 'Não', 'https://www.youtube.com/embed/gePgFx5ovgg', '', '70.00'),
-(2, 'Curso de PHP', 'Domine PHP8', 'Aprenda tudo sobre a melhor linguagem para desenvolvimento backend de sites e sistemas web', '250.00', 1, 3, '04-07-2022-00-36-30-curso-de-php.jpg', 'Aprovado', 250, '', 'https://www.google.com', 2022, 'php, laravel', 5, 'curso-de-php', '', 'Não', 'https://www.youtube.com/embed/J9NE5x6se3g', '', '150.00'),
-(3, 'Curso de Bootstrap', 'Frontend com Bootstrap', 'Aprenda frontend com o framework mais utilizado do mundo!', '90.00', 1, 4, '04-07-2022-01-15-30-curso-de-aplicativo-ecommerce-react-native.jpeg', 'Aprovado', 60, '', 'https://www.lance.com.br', 2022, 'bootstrap, framework, twitter', 3, 'curso-de-bootstrap', '', 'Não', 'https://www.youtube.com/embed/BdPGadO2Fkk', '', '68.00');
+(1, 'Curso de HTML', 'Aprenda HTML5 e CSS3', 'Fique craque em desenvolver sites em html e css.', '100.00', 1, 3, '04-07-2022-00-34-59-curso-html-5-css-3.jpg', 'Aprovado', 120, '', 'https://www.youtube.com', 2022, 'html, css', 6, 'curso-de-html', '', 'Não', 'https://www.youtube.com/embed/gePgFx5ovgg', 'html, css, bootstrap', '70.00'),
+(2, 'Curso de PHP', 'Domine PHP8', 'Aprenda tudo sobre a melhor linguagem para desenvolvimento backend de sites e sistemas web', '250.00', 1, 3, '04-07-2022-00-36-30-curso-de-php.jpg', 'Aprovado', 250, '', 'https://www.google.com', 2022, 'php, laravel', 5, 'curso-de-php', '', 'Não', 'https://www.youtube.com/embed/J9NE5x6se3g', 'php, laravel, mysql', '150.00'),
+(3, 'Curso de Bootstrap', 'Frontend com Bootstrap', 'Aprenda frontend com o framework mais utilizado do mundo!', '90.00', 1, 4, '04-07-2022-01-15-30-curso-de-aplicativo-ecommerce-react-native.jpeg', 'Aprovado', 60, '', 'https://www.lance.com.br', 2022, 'bootstrap, framework, twitter', 3, 'curso-de-bootstrap', '', 'Não', 'https://www.youtube.com/embed/BdPGadO2Fkk', '', '68.00'),
+(4, 'Curso Teste 01', 'Cursinho testinho 01', 'teste 01', '200.00', 1, 6, 'sem-foto.png', 'Aguardando', 200, '', '', 2022, 'teste 01', 6, 'curso-teste-01', '', 'Não', '', '', '100.00'),
+(5, 'Curso Teste 02', 'Cursinho testinho 02', 'teste 02', '300.00', 1, 6, 'sem-foto.png', 'Aguardando', 80, '', '', 2022, 'teste 02', 6, 'curso-teste-02', '', 'Não', '', '', '150.00');
 
 -- --------------------------------------------------------
 
@@ -276,6 +280,14 @@ CREATE TABLE `cursos_pacotes` (
   `id_curso` int(11) NOT NULL,
   `id_pacote` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `cursos_pacotes`
+--
+
+INSERT INTO `cursos_pacotes` (`id`, `id_curso`, `id_pacote`) VALUES
+(1, 4, 1),
+(2, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -343,17 +355,30 @@ CREATE TABLE `matriculas` (
   `valor_cupom` decimal(8,2) NOT NULL,
   `subtotal` decimal(8,2) NOT NULL,
   `forma_pgto` varchar(25) DEFAULT NULL,
-  `boleto` varchar(25) DEFAULT NULL
+  `boleto` varchar(25) DEFAULT NULL,
+  `id_pacote` int(11) NOT NULL,
+  `data_conclusao` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `matriculas`
 --
 
-INSERT INTO `matriculas` (`id`, `id_curso`, `id_aluno`, `id_professor`, `aulas_concluidas`, `valor`, `data`, `status`, `pacote`, `alertado`, `valor_cupom`, `subtotal`, `forma_pgto`, `boleto`) VALUES
-(78, 2, 5, 1, 8, '150.00', '2022-07-04', 'Matriculado', 'Não', NULL, '0.00', '150.00', NULL, NULL),
-(79, 3, 5, 1, 1, '68.00', '2022-07-04', 'Matriculado', 'Não', NULL, '0.00', '68.00', NULL, NULL),
-(80, 1, 5, 1, 5, '70.00', '2022-07-04', 'Finalizado', 'Não', NULL, '0.00', '70.00', NULL, NULL);
+INSERT INTO `matriculas` (`id`, `id_curso`, `id_aluno`, `id_professor`, `aulas_concluidas`, `valor`, `data`, `status`, `pacote`, `alertado`, `valor_cupom`, `subtotal`, `forma_pgto`, `boleto`, `id_pacote`, `data_conclusao`) VALUES
+(78, 2, 5, 1, 10, '150.00', '2022-07-04', 'Finalizado', 'Não', NULL, '0.00', '150.00', NULL, NULL, 0, '2022-07-07'),
+(79, 3, 5, 1, 1, '68.00', '2022-07-04', 'Matriculado', 'Não', NULL, '0.00', '68.00', NULL, NULL, 0, NULL),
+(80, 1, 5, 1, 5, '70.00', '2022-07-04', 'Finalizado', 'Não', NULL, '0.00', '70.00', NULL, NULL, 0, '2022-07-07'),
+(81, 1, 5, 1, 1, '450.00', '2022-07-07', 'Matriculado', 'Sim', NULL, '0.00', '450.00', NULL, NULL, 0, NULL),
+(82, 4, 5, 1, 1, '100.00', '2022-07-07', 'Aguardando', 'Não', NULL, '0.00', '100.00', NULL, NULL, 1, NULL),
+(83, 5, 5, 1, 1, '150.00', '2022-07-07', 'Aguardando', 'Não', NULL, '0.00', '150.00', NULL, NULL, 1, NULL),
+(87, 2, 5, 1, 1, '50.00', '2022-07-07', 'Aguardando', 'Sim', NULL, '0.00', '50.00', NULL, NULL, 0, NULL),
+(88, 2, 6, 1, 1, '150.00', '2022-07-07', 'Matriculado', 'Não', NULL, '0.00', '150.00', NULL, NULL, 0, NULL),
+(89, 2, 7, 1, 1, '150.00', '2022-07-07', 'Matriculado', 'Não', NULL, '0.00', '150.00', NULL, NULL, 0, NULL),
+(90, 3, 7, 1, 1, '68.00', '2022-07-07', 'Matriculado', 'Não', NULL, '0.00', '68.00', NULL, NULL, 0, NULL),
+(91, 2, 8, 1, 1, '150.00', '2022-07-07', 'Matriculado', 'Não', NULL, '0.00', '150.00', NULL, NULL, 0, NULL),
+(92, 3, 12, 1, 1, '68.00', '2022-07-07', 'Matriculado', 'Não', NULL, '0.00', '68.00', NULL, NULL, 0, NULL),
+(93, 1, 13, 1, 1, '450.00', '2022-07-07', 'Matriculado', 'Sim', NULL, '0.00', '450.00', NULL, NULL, 0, NULL),
+(94, 1, 11, 1, 1, '450.00', '2022-07-07', 'Matriculado', 'Sim', NULL, '0.00', '450.00', NULL, NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -383,7 +408,8 @@ CREATE TABLE `pacotes` (
 --
 
 INSERT INTO `pacotes` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `imagem`, `grupo`, `ano`, `palavras`, `nome_url`, `video`, `linguagem`, `promocao`) VALUES
-(1, 'Formação Delphi', 'Aprenda Mais', 'blablablablabla', '500.00', 1, '30-06-2022-20-54-53-tattoo-isa.jpg', 4, 2022, 'delphi, embarcadero', 'formacao-delphi', 'http://www.google.com', 1, '450.00');
+(1, 'Formação Delphi', 'Aprenda Mais', 'blablablablabla', '500.00', 1, '30-06-2022-20-54-53-tattoo-isa.jpg', 4, 2022, 'delphi, embarcadero', 'formacao-delphi', 'http://www.google.com', 1, '450.00'),
+(2, 'Pacote 02', '', '', '120.00', 1, 'sem-foto.png', 6, 2022, '', 'pacote-02', '', 5, '50.00');
 
 -- --------------------------------------------------------
 
@@ -468,7 +494,8 @@ INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `usuario`, `senha`, `senha_crip`, `
 (23, 'Juca Tobias Armanda Nero', NULL, 'Jocelyn23@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 10, 'Sim', '2022-06-17'),
 (24, 'Rubens Barrichello do Brasil', '123.456.789-00', 'barrichello_rubens@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', '27-06-2022-23-31-36-buzanga.jpg', 11, 'Sim', '2022-06-17'),
 (25, 'Aluno Louco', NULL, 'louco@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 12, 'Sim', '2022-06-21'),
-(26, 'Paula', NULL, 'paulinha@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 13, 'Sim', '2022-06-30');
+(26, 'Paula', NULL, 'paulinha@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 13, 'Sim', '2022-06-30'),
+(27, 'João Bosta', '313.131.313-13', 'joaobosta@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', '08-07-2022-02-23-35-buzanga.jpg', 14, 'Sim', '2022-07-08');
 
 --
 -- Índices para tabelas despejadas
@@ -584,7 +611,7 @@ ALTER TABLE `administradores`
 -- AUTO_INCREMENT de tabela `alunos`
 --
 ALTER TABLE `alunos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de tabela `aulas`
@@ -620,13 +647,13 @@ ALTER TABLE `config`
 -- AUTO_INCREMENT de tabela `cursos`
 --
 ALTER TABLE `cursos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `cursos_pacotes`
 --
 ALTER TABLE `cursos_pacotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `grupos`
@@ -644,13 +671,13 @@ ALTER TABLE `linguagens`
 -- AUTO_INCREMENT de tabela `matriculas`
 --
 ALTER TABLE `matriculas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT de tabela `pacotes`
 --
 ALTER TABLE `pacotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `professores`
@@ -668,7 +695,7 @@ ALTER TABLE `sessao`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

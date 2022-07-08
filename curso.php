@@ -71,7 +71,7 @@ if ($total_reg > 0) {
     $aulas = @count($res2);
     @$aula1 = $res2[0]['link']; //para caso o curso não ter aulas foi colocado @ para não mostrar warning
 
-    $query2 = $pdo->query("SELECT * FROM matriculas WHERE id_curso = '$id' and status = 'Matriculado'");
+    $query2 = $pdo->query("SELECT * FROM matriculas WHERE id_curso = '$id' and (status = 'Matriculado' or status = 'Finalizado') and pacote = 'Não'");
     $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
     $total_alunos = @count($res2);
 
@@ -159,11 +159,11 @@ require_once('cabecalho.php');
                     <div class="row">
 
                         <div class="col-md-7 esquerda-mobile">
-                            <span class="text-muted itens texto-menor-mobile"><i class="fa fa-user mr-1 itens" style="margin-right: 2px"></i>Professor : <?php echo $nome_professor; ?></span>
+                            <span class="text-muted itens texto-menor-mobile"><i class="fa fa-user mr-1 itens" style="margin-right: 2px"></i>Professor: <?php echo $nome_professor; ?></span>
                         </div>
 
                         <div class="col-md-5 direita-mobile">
-                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-video-camera mr-1 itens"></i>Aulas : <?php echo $aulas; ?> Aulas</span>
+                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-video-camera mr-1 itens"></i>Aulas: <?php echo $aulas; ?> Aulas</span>
                         </div>
 
                     </div>
@@ -172,11 +172,11 @@ require_once('cabecalho.php');
                     <div class="row mt-1">
 
                         <div class="col-md-7 esquerda-mobile">
-                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-list-alt mr-1 itens"></i>Categoria : <?php echo $nome_categoria; ?></span>
+                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-list-alt mr-1 itens"></i>Categoria: <?php echo $nome_categoria; ?></span>
                         </div>
 
                         <div class="col-md-5 direita-mobile">
-                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-certificate mr-1 itens"></i>Certificado : <?php echo $carga; ?> Horas</span>
+                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-certificate mr-1 itens"></i>Certificado: <?php echo $carga; ?> Horas</span>
                         </div>
 
                     </div>
@@ -186,11 +186,11 @@ require_once('cabecalho.php');
                     <div class="row mt-1 mb-3">
 
                         <div class="col-md-7 esquerda-mobile">
-                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-calendar mr-1 itens"></i>Ano : <?php echo $ano; ?></span>
+                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-calendar mr-1 itens"></i>Ano: <?php echo $ano; ?></span>
                         </div>
 
                         <div class="col-md-5 direita-mobile">
-                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-calculator mr-1 itens"></i>Alunos : <?php echo @$total_alunos; ?></span>
+                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-calculator mr-1 itens"></i>Alunos: <?php echo @$total_alunos; ?></span>
                         </div>
 
                     </div>

@@ -68,7 +68,7 @@ if ($total_reg > 0) {
     $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
     $nome_grupo = $res2[0]['nome'];
 
-    $query2 = $pdo->query("SELECT * FROM matriculas WHERE id_curso = '$id' and status = 'Matriculado'");
+    $query2 = $pdo->query("SELECT * FROM matriculas WHERE id_curso = '$id' and (status = 'Matriculado' or status = 'Finalizado') and pacote = 'Sim'");
     $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
     $total_alunos = @count($res2);
 

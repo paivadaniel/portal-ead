@@ -1,8 +1,8 @@
 <?php
 /*
-listar.php é chamado na function listar(), que está em ../../js/ajax.js,
+listar.php é chamado na function listar(), que está em "../../js/ajax.js",
 que por sua vez é chamado em toda página que tem incluído <script src="js/ajax.js"></script>
-assim como em ../cursos.php
+como "../cursos.php"
 
 */
 
@@ -11,13 +11,41 @@ $tabela = 'matriculas';
 
 @session_start();
 $id_usuario = $_SESSION['id_pessoa'];
+$id_pacote_post = '%'. $_POST['id_pacote_post'] . '%'; //vem da function listarCursosDoPacote em cursos.php, que chama listar.php
+//usou porcentagem para fazer busca aproximada com o operador LIKE no SQL, pois se não houver cursos cadastrados nesse pacote, ele despreza id_pacote_post da consulta
+
+//recebidos por post de um form contido em home.php, é para fazer o botão de na seção de últimas matrículas da home ir direto para o curso clicando no botão "Ir para o curso"
+//essas variáveis só irão existir se ocorrer a passagem por post, ou seja, se o aluno estiver na home e na seção "Últimas Matrículas", escolher um curso e clicar em "Ir para o curso"
+$id_matricula_post = @$_POST['id_mat_post'];
+$id_curso_post = @$_POST['id_curso_post'];
 
 echo <<<HTML
 <small>
 HTML;
 
-//só mostra os pacotes
-$query = $pdo->query("SELECT * FROM $tabela WHERE id_aluno = '$id_usuario' and pacote = 'Não' order by id desc");
+/* fazendo da forma abaixo eu teria que ter uma tabela para cursos e outra para cursos filtrados de um pacote, já a solução do autor consiste em criar um campo id_pacote na tabela matriculas e inseri-lo na próximo consulta (a mesma utilizada para mostrar cursos e cursos filtrados de um pacote), assim não é necessário criar outra tabela, e usa o operador LIKE
+
+//para filtrar cursos de um pacote
+$query = $pdo->query("SELECT * FROM cursos_pacotes WHERE id_pacote = '$id_pacote_post' order by id desc");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$total_reg = @count($res);
+
+if ($total_reg > 0) {
+
+    for ($i = 0; $i < $total_reg; $i++) {
+        foreach ($res[$i] as $key => $value) {
+        }
+        $id_curso_pacote = $res[$i]['id_curso'];
+        echo 'Curso '. $id_curso_pacote;
+
+    }
+}
+
+exit();
+*/
+
+//só mostra os cursos
+$query = $pdo->query("SELECT * FROM $tabela WHERE id_aluno = '$id_usuario' and pacote = 'Não' and id_pacote LIKE '$id_pacote_post' order by id desc");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 
@@ -45,9 +73,8 @@ HTML;
         }
         $id = $res[$i]['id']; //id da matrícula
         $id_curso = $res[$i]['id_curso'];
-
-        $id_professor = $res[$i]['id_professor'];
         $aulas_concluidas = $res[$i]['aulas_concluidas'];
+        $id_professor = $res[$i]['id_professor'];
         $valor = $res[$i]['subtotal']; //pega em subtotal, não em valor, pois pode ter sido aplicado um cupom sobre o valor do curso
         $data = $res[$i]['data'];
         $status = $res[$i]['status'];
@@ -100,6 +127,7 @@ HTML;
             $ocultar_aulas = 'ocultar';
             $ocultar_pagar = '';
             $classe_progress = ''; //vazio pois vai continuar azul, que é a classe padrão da progress bar no bootstrap
+            $icones_finalizados = 'ocultar';
         } else if ($status == 'Matriculado') {
             $excluir = 'ocultar';
             $classe_square = 'verde';
@@ -107,13 +135,15 @@ HTML;
             $ocultar_aulas = '';
             $ocultar_pagar = 'ocultar';
             $classe_progress = ''; //vazio pois vai continuar azul, que é a classe padrão da progress bar no bootstrap
+            $icones_finalizados = 'ocultar';
         } else if ($status == 'Finalizado') {
             $excluir = 'ocultar';
             $classe_square = 'azul';
             $classe_nome = 'verde_claro';
             $ocultar_aulas = '';
             $ocultar_pagar = 'ocultar';
-            $classe_progress = '#015e23'; 
+            $classe_progress = '#015e23';
+            $icones_finalizados = '';
         }
 
         //valor formatado e descrição_longa formatada
@@ -124,9 +154,11 @@ HTML;
 
         $porcentagem_aulas_concluidas = 0;
 
-        if ($aulas_concluidas > 0 && $aulas > 0 )  {            
-            $porcentagem_aulas_concluidas = ($aulas_concluidas/$aulas) * 100;
+        if ($aulas_concluidas > 0 && $aulas > 0) {
+            $porcentagem_aulas_concluidas = ($aulas_concluidas / $aulas) * 100;
         }
+
+        $porcentagem_aulas_concluidasF = round($porcentagem_aulas_concluidas, 2); //round é arredondamento
 
         echo <<<HTML
 
@@ -155,15 +187,16 @@ e quando o curso não estiver pago oculta o link que chama a função aulas -->
 
         </td>
         <td class="">{$nome_professor}</td>
-        <td class="">{$aulas_concluidas} / {$aulas}
+        <td class="">{$aulas_concluidas} / {$aulas}</td>
         <td class="esc">
         <div class="progress" style="height:20px; background:#e8e8e8"> <!-- o background aqui afeta a cor de fundo da barra de progresso -->
         <!-- outra opção de estilização do background da barra de progresso é adicionar progress-bar-striped na frente de progress-bar -->
         <div class="progress-bar" role="progressbar" style="width: {$porcentagem_aulas_concluidas}%; background:{$classe_progress};" aria-valuenow="{$porcentagem_aulas_concluidas}" aria-valuemin="0" aria-valuemax="100">{$porcentagem_aulas_concluidas}%</div>
         </div>
-        </td>
+        
 
         </td>
+
         <td class="">R$ {$valorF}</td> <!-- se deixar o $ do R$ junto do {valorF}, ou seja RS{SvalorF} dá erro-->
 
         <td class="esc">{$dataF}</td>
@@ -171,7 +204,8 @@ e quando o curso não estiver pago oculta o link que chama a função aulas -->
         <td>
 
         <!-- abertura excluir -->
-        <li class="dropdown head-dpdn2" style="display: inline-block;">
+        <!-- autor mudou o display de inline-block para flex pois estava afetando no posicionamento do ícone de certificado e de avaliação, mesmo o excluir ficando oculto-->
+        <li class="dropdown head-dpdn2" style="display: flex;">
 		<a href="#" class="dropdown-toggle {$excluir}" data-toggle="dropdown" aria-expanded="false" title="Excluir Dados"><big><i class="fa fa-trash-o text-danger"></i></big></a>
 
 		<ul class="dropdown-menu" style="margin-left:-230px;">
@@ -184,6 +218,28 @@ e quando o curso não estiver pago oculta o link que chama a função aulas -->
 
 		</li>
         <!-- fechamento excluir -->
+
+        <!-- abertura certificado -->
+
+        <!-- optou por passar a chamada do certificado por POST, e escolheu form com action, e não form com AJAX -->
+
+        <!-- volta de painel-aluno/index.php (pois cursos.php é chamada por require_once dentro de painel-aluno/index.php, e cursos.php chama por função listar-cursos.php) -->
+        <form action="../rel/rel_certificado.php" method="post" target="_blank" class="{$icones_finalizados}">
+<!-- classe icones_finalizados foi usada em finalizados/listar.php -->
+        <button type="submit" style="background-color:transparent; border:none !important;">
+            <img src="img/certificado.png" width="20px" height="20px">
+        </button>
+
+        <input type="hidden" name="id_mat" value="{$id}">
+
+        <!-- abertura avaliação -->
+        <a href="#" onclick="excluir('{$id}')" title="Avaliar Curso" class="{$icones_finalizados}"><i class="fa fa-star amarelo"></i></a>
+        <!-- fechamento avaliação -->
+
+        </form>
+        <!-- fechamento certificado -->
+
+
    
         </td>
 

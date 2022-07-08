@@ -97,9 +97,15 @@ HTML;
         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
         $nome_grupo = $res2[0]['nome'];
 
+        //total de aulas de um curso
         $query2 = $pdo->query("SELECT * FROM aulas WHERE id_curso = '$id'");
         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
         $aulas = @count($res2);
+
+        //total de alunos matriculados de um curso
+        $query2 = $pdo->query("SELECT * FROM matriculas WHERE id_curso = '$id' and (status = 'Matriculado' or status = 'Finalizado') and pacote = 'Não'");
+        $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+        $alunos = @count($res2);
 
         if ($status == 'Aprovado') {
             $excluir = 'ocultar'; //cursos aprovados não podem ser excluidos
@@ -156,7 +162,7 @@ HTML;
         <td class="">R$ {$valorF} <small><span class="text-danger"><b> {$promo} </b></span></small></td>
         <td class="">{$nome_professor}</td>
         <td class="">{$nome_categoria}</td>
-        <td class="esc">0</td>
+        <td class="esc">{$alunos}</td>
         <td class="esc">{$aulas}</td>
 
         <td>

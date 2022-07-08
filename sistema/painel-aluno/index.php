@@ -35,6 +35,7 @@ $bairro_usuario = $res[0]['bairro'];
 $cidade_usuario = $res[0]['cidade'];
 $estado_usuario = $res[0]['estado'];
 $pais_usuario = $res[0]['pais'];
+$cartao_aluno = $res[0]['cartao'];
 
 ?>
 
@@ -185,6 +186,31 @@ $pais_usuario = $res[0]['pais'];
                                     <i class="fa fa-book "></i> <span>Meus Cursos</span>
                                 </a>
                             </li>
+
+                            <li class="treeview">
+                                <a href="index.php?pagina=pacotes">
+                                    <i class="fa fa-th-large "></i> <span>Meus Pacotes</span>
+                                </a>
+                            </li>
+
+                            <li class="treeview">
+                                <a href="index.php?pagina=finalizados">
+                                    <i class="fa fa-check-square "></i> <span>Cursos Finalizados</span>
+                                </a>
+                            </li>
+
+                            <li class="treeview">
+                                <a href="index.php?pagina=cartoes">
+                                    <i class="fa fa-credit-card "></i> <span>Cartão Fidelidade</span>
+                                </a>
+                            </li>
+
+                            <li class="treeview">
+                                <a href="../../"> <!-- volta para index.php -->
+                                    <i class="fa fa-globe "></i> <span>Ir para o Site</span>
+                                </a>
+                            </li>
+
 
 
                         </ul>
