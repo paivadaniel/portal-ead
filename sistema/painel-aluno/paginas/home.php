@@ -212,6 +212,12 @@ $porcentagem_cursos_concluidosF = round($porcentagem_cursos_concluidos, 2);
                     $foto_curso = $res2[0]['imagem'];
                     $nome_url = $res2[0]['nome_url'];
 
+                    //total de aulas do curso
+                    $query = $pdo->query("SELECT * FROM aulas WHERE id_curso = '$id_curso' order by id desc limit 8");
+                    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+                    $aulas_curso = @count($res);
+        
+
             ?>
 
                     <div class="col-md-3 col-sm-6 col-xs-6" style="margin-bottom:15px">
@@ -238,19 +244,24 @@ $porcentagem_cursos_concluidosF = round($porcentagem_cursos_concluidos, 2);
                             </form>
                         <?php } else { ?>
 
+                            <div align="center">
+                                <form action="index.php?pagina=cursos" method="post" class="">
+                                    <!-- classe icones_finalizados foi usada em finalizados/listar.php -->
+                                    <small><small>
+                                            <button type="submit" style="background-color:transparent; border:none !important;">
+                                                <span style="margin-left:3px">Ir para o Curso</span>
+                                            </button>
+                                        </small></small>
 
-                            <form action="index.php?pagina=cursos" method="post" target="_blank" class="">
-                                <!-- classe icones_finalizados foi usada em finalizados/listar.php -->
-                                <button type="submit" style="background-color:transparent; border:none !important;">
-                                <span style="margin-left:3px">Ir para o Curso</span>
-                                </button>
-
-                                <input type="text" name="id_mat_post" value="<?php echo $id_mat ?>">
-                                <input type="text" name="id_curso_post" value="<?php echo $id_curso ?>">
-
-                            </form>
+                                    <input type="text" name="id_mat_post" value="<?php echo $id_mat ?>">
+                                    <input type="text" name="id_curso_post" value="<?php echo $id_curso ?>">
+                                    <input type="text" name="nome_curso_post" value="<?php echo $$nome_curso ?>">
+                                    <input type="text" name="aulas_curso_post" value="<?php echo $aulas_curso ?>">
 
 
+                                </form>
+
+                            </div>
 
                         <?php } ?>
 

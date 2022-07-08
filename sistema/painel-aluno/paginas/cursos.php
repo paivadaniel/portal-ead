@@ -7,6 +7,11 @@ $pag = 'cursos';
 
 $id_pacote_post = @$_POST['id_pacote']; //recebe o id do pacote (que vem de paginas/pacotes/listar.php, e nela é chamado de id_curso), para assim poder filtrar os cursos desse pacote por meio da relação na tabela cursos_pacotes
 
+//recebidos por post de um form contido em home.php, é para fazer o botão de na seção de últimas matrículas da home ir direto para o curso clicando no botão "Ir para o curso"
+//essas variáveis só irão existir se ocorrer a passagem por post, ou seja, se o aluno estiver na home e na seção "Últimas Matrículas", escolher um curso e clicar em "Ir para o curso"
+$id_matricula_post = @$_POST['id_mat_post'];
+$id_curso_post = @$_POST['id_curso_post'];
+
 if (@$_SESSION['nivel'] != 'Aluno') { //coloca @ para se caso não existir alguma das variáveis de sessão, não exibir o warning
 	//professores e administradores podem ver cursos.php, alunos não
 	echo "<script> window.location='../index.php'</script>";
@@ -127,13 +132,26 @@ os inputs abaixo são recebidos na function aulas()
 		var id_pacote_post = "<?=$id_pacote_post?>";
 		listarCursosDoPacote(id_pacote_post);
 
+		var id_matricula_post  = "<?=$id_matricula_post ?>";
+		var id_curso_post = "<?=$id_curso_post?>";
+
+		if (id_matricula_post != "") {
+			listarAulas(id_curso_post, id_matricula_post);
+			//mostra na modalAulas
+			//modalAulas é aberta na function aulas(), em listar-cursos.php
+
+		}
+
 		$('.sel2').select2({
 			//sel2 é um classe que eu dei o nome, cujo link está no index, e que tem uma classe chamada select2, não sei como onde sel2 se relaciona com select2, porém, não sei onde essa instânciação foi feita, se foi por exemplo no script do select2 no final da index 
 
+			
 			dropdownParent: $('#modalForm')
 		});
 	});
 </script>
+
+
 
 <script type="text/javascript">
 	function abrirAula(id_aula, aula) { //tem nome_sessao que essa função recebe como argumento em listar-aulas.php, porém, o autor não declarou nome_sessao como terceiro argumento não sei o porquê, e na aula 24, perto dos 03:30 ele mesmo não sabe o porquê não declarou
@@ -196,10 +214,9 @@ os inputs abaixo são recebidos na function aulas()
 		var id_curso = $('#id_do_curso').val();
 		var id_matricula = $('#id_da_matricula').val();
 
-		listarAulas(id_curso, id_matricula);
+		listarAulas(id_curso, id_matricula); //listarAulas está em painel-aluno/paginas/cursos/listar-cursos.php
 		//para conferir se está passando id_curso e id_matricula, verifique se os os inputs id_do_curso e id_da_matricula estão recebendo val() corretamente da function aulas (em listar.php), para isso altere o type desses inputs de hidden para text 
 		//listar(); //para atualizar sem refresh a relação entre (aulas concluidas)/(aulas do curso) em Meus Cursos
-
 
 		var id_pacote_post = "<?=$id_pacote_post?>";
 		listarCursosDoPacote(id_pacote_post);
