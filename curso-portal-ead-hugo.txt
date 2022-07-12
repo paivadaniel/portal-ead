@@ -97,6 +97,12 @@ a variável url quando impressa está saindo como "pacote", ela é definida em a
 
 está mostrando nome da sessão errado, na primeira aula do módulo 02 está mostrando a sessão como módulo 01 ainda, só está mudando na aula 02 do módulo 02
 
+- mod10 aula63
+
+na home, não está filtrando os cursos do pacote quando clico em Ir para Cursos do Pacote, 
+e nem quando clico em Meus Pacotes está filtrando os cursos do pacote.
+
+o problema está na função listarCursosdoPacote ou em painel-aluno/cursos/listar-cursos.php chamado no listarCursosdoPacote
 
 ---- fiz diferente
 

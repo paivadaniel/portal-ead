@@ -275,40 +275,5 @@ HTML;
     });
 
 
-    function aulas(id, nome, aulas, aulas_singular_plural, id_curso) {
-        $('#id_aulas').val(id); //id é o id da matrícula
 
-        //ids definidos na modalAulas, em ../cursos.php
-        $('#nome_aula_titulo').text(nome);
-        $('#aulas_aula').text(aulas);
-        $('#aulas_singular_plural').text(aulas_singular_plural);
-        /*eu estava tentando chamar assim e deu problema 
-        $('#aulas_singular_plural').text('<?= $aulas_singular_plural ?>');
-        */
-
-        //preenche os inputs hidden abaixo da modalAbrirAula, em cursos.php
-        $('#id_da_matricula').val(id);
-        $('#id_do_curso').val(id_curso);
-
-        $('#modalAulas').modal('show');
-        listarAulas(id_curso, id);
-        //listarPerguntas();
-    }
-
-    function listarAulas(id_curso, id_matricula) {
-        $.ajax({
-            url: 'paginas/' + pag + "/listar-aulas.php", //a variável pag está em cursos.php, que tem incluído js/ajax.js, que chama listar(), que chama listarAulas() 
-            method: 'POST',
-            data: {
-                id_curso,
-                id_matricula
-            },
-            dataType: "html",
-
-            success: function(result) {
-                $("#listar-aulas").html(result);
-                $('#mensagem-aulas').text('');
-            }
-        });
-    }
 </script>

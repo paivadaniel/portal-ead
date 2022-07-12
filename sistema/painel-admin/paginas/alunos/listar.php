@@ -84,7 +84,8 @@ HTML;
         echo <<<HTML
     <tr class="{$classe_linha}">
         <td> <!-- $classe_linha é uma formatação para a linha de alunos inativos -->
-        <img src="img/perfil/{$foto}" width="27px" class="me-2">
+        <!-- paginas/alunos/listar.php é chamada em alunos.php, que por sua vez abre dentro de sistema/painel-admin/index.php, daí o caminho abaixo -->
+        <img src="../painel-aluno/img/perfil/{$foto}" width="27px" class="me-2">
         </td>
         <td class="">{$nome}</td> <!-- repare que <?php echo $nome ?> é substituído aqui por {$nome}-->
         <td class="esc">{$email}</td>

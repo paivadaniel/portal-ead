@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 08-Jul-2022 às 07:40
+-- Tempo de geração: 12-Jul-2022 às 20:29
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -75,13 +75,13 @@ CREATE TABLE `alunos` (
 INSERT INTO `alunos` (`id`, `nome`, `cpf`, `email`, `telefone`, `endereco`, `bairro`, `cidade`, `estado`, `pais`, `foto`, `data`, `cartao`, `ativo`) VALUES
 (5, 'Sassa Mutema', '212.121.212-21', 'sassamutema@gmail.com', '(11) 3355-5555', 'Sampaio Correio', 'Vila Madalena', 'Recife', 'AC', 'Costa Rica', '16-05-2022-19-33-37-galinha-pintadinha-ouvindo-musica.jpg', '2022-05-16', 5, 'Sim'),
 (6, 'Pedrinho Matador', '666.666.666-66', 'pedrinhomatador@hotmail.com', '(66) 6666-6666', 'Portões do Inferno, 666', NULL, 'Diadema', 'SP', 'Brasil', '16-05-2022-23-41-52-pintinho-amarelinho.jpg', '2022-05-16', 3, 'Sim'),
-(7, 'Juca Tobias', NULL, 'Jocelyn@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
-(8, 'Roberto Lucas', NULL, 'robertinho.com@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
-(9, 'Juca Tobias Novo', NULL, 'Jocelyn2@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
-(10, 'Juca Tobias Armanda Nero', NULL, 'Jocelyn23@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-17', 0, NULL),
+(7, 'Juca Tobias', NULL, 'Jocelyn@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'sem-perfil.jpg', '2022-06-17', 0, NULL),
+(8, 'Roberto Lucas', NULL, 'robertinho.com@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'sem-perfil.jpg', '2022-06-17', 0, NULL),
+(9, 'Juca Tobias Novo', NULL, 'Jocelyn2@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'sem-perfil.jpg', '2022-06-17', 0, NULL),
+(10, 'Juca Tobias Armanda Nero', NULL, 'Jocelyn23@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'sem-perfil.jpg', '2022-06-17', 0, NULL),
 (11, 'Rubens Barrichello do Brasil', '123.456.789-00', 'barrichello_rubens@hotmail.com', '(12) 2121-2121', 'Rua X, Número Y', 'Vila Z', 'Porto Alegre', 'RS', 'Brasil', '27-06-2022-23-31-36-buzanga.jpg', '2022-06-17', 0, 'Sim'),
-(12, 'Aluno Louco', NULL, 'louco@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-21', 0, 'Sim'),
-(13, 'Paula', NULL, 'paulinha@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-06-30', 0, 'Sim'),
+(12, 'Aluno Louco', NULL, 'louco@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'sem-perfil.jpg', '2022-06-21', 0, 'Sim'),
+(13, 'Paula', NULL, 'paulinha@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'sem-perfil.jpg', '2022-06-30', 0, 'Sim'),
 (14, 'João Bosta', '313.131.313-13', 'joaobosta@hotmail.com', '(31) 3131-3141', 'Rua Bosta', 'Culândia', 'Tonto', 'AC', 'Merdalândia', '08-07-2022-02-23-35-buzanga.jpg', '2022-07-08', 0, 'Sim');
 
 -- --------------------------------------------------------
@@ -365,20 +365,13 @@ CREATE TABLE `matriculas` (
 --
 
 INSERT INTO `matriculas` (`id`, `id_curso`, `id_aluno`, `id_professor`, `aulas_concluidas`, `valor`, `data`, `status`, `pacote`, `alertado`, `valor_cupom`, `subtotal`, `forma_pgto`, `boleto`, `id_pacote`, `data_conclusao`) VALUES
-(78, 2, 5, 1, 10, '150.00', '2022-07-04', 'Finalizado', 'Não', NULL, '0.00', '150.00', NULL, NULL, 0, '2022-07-07'),
-(79, 3, 5, 1, 1, '68.00', '2022-07-04', 'Matriculado', 'Não', NULL, '0.00', '68.00', NULL, NULL, 0, NULL),
-(80, 1, 5, 1, 5, '70.00', '2022-07-04', 'Finalizado', 'Não', NULL, '0.00', '70.00', NULL, NULL, 0, '2022-07-07'),
-(81, 1, 5, 1, 1, '450.00', '2022-07-07', 'Matriculado', 'Sim', NULL, '0.00', '450.00', NULL, NULL, 0, NULL),
-(82, 4, 5, 1, 1, '100.00', '2022-07-07', 'Aguardando', 'Não', NULL, '0.00', '100.00', NULL, NULL, 1, NULL),
-(83, 5, 5, 1, 1, '150.00', '2022-07-07', 'Aguardando', 'Não', NULL, '0.00', '150.00', NULL, NULL, 1, NULL),
-(87, 2, 5, 1, 1, '50.00', '2022-07-07', 'Aguardando', 'Sim', NULL, '0.00', '50.00', NULL, NULL, 0, NULL),
-(88, 2, 6, 1, 1, '150.00', '2022-07-07', 'Matriculado', 'Não', NULL, '0.00', '150.00', NULL, NULL, 0, NULL),
-(89, 2, 7, 1, 1, '150.00', '2022-07-07', 'Matriculado', 'Não', NULL, '0.00', '150.00', NULL, NULL, 0, NULL),
-(90, 3, 7, 1, 1, '68.00', '2022-07-07', 'Matriculado', 'Não', NULL, '0.00', '68.00', NULL, NULL, 0, NULL),
-(91, 2, 8, 1, 1, '150.00', '2022-07-07', 'Matriculado', 'Não', NULL, '0.00', '150.00', NULL, NULL, 0, NULL),
-(92, 3, 12, 1, 1, '68.00', '2022-07-07', 'Matriculado', 'Não', NULL, '0.00', '68.00', NULL, NULL, 0, NULL),
-(93, 1, 13, 1, 1, '450.00', '2022-07-07', 'Matriculado', 'Sim', NULL, '0.00', '450.00', NULL, NULL, 0, NULL),
-(94, 1, 11, 1, 1, '450.00', '2022-07-07', 'Matriculado', 'Sim', NULL, '0.00', '450.00', NULL, NULL, 0, NULL);
+(95, 1, 5, 1, 5, '70.00', '2022-07-09', 'Finalizado', 'Não', NULL, '0.00', '70.00', NULL, NULL, 0, '2022-07-09'),
+(96, 2, 5, 1, 10, '150.00', '2022-07-09', 'Finalizado', 'Não', NULL, '0.00', '150.00', NULL, NULL, 0, '2022-07-09'),
+(97, 1, 5, 1, 1, '450.00', '2022-07-09', 'Matriculado', 'Sim', NULL, '0.00', '450.00', NULL, NULL, 0, NULL),
+(98, 4, 5, 1, 1, '100.00', '2022-07-09', 'Matriculado', 'Não', NULL, '0.00', '100.00', NULL, NULL, 0, NULL),
+(99, 5, 5, 1, 1, '150.00', '2022-07-09', 'Matriculado', 'Não', NULL, '0.00', '150.00', NULL, NULL, 0, NULL),
+(100, 3, 13, 1, 1, '68.00', '2022-07-11', 'Matriculado', 'Não', NULL, '0.00', '68.00', NULL, NULL, 0, NULL),
+(101, 3, 5, 1, 1, '68.00', '2022-07-11', 'Matriculado', 'Não', NULL, '0.00', '68.00', NULL, NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -414,6 +407,32 @@ INSERT INTO `pacotes` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `prof
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `perguntas`
+--
+
+CREATE TABLE `perguntas` (
+  `id` int(11) NOT NULL,
+  `num_aula` int(11) NOT NULL,
+  `pergunta` varchar(255) NOT NULL,
+  `id_curso` int(11) NOT NULL,
+  `id_aluno` int(11) NOT NULL,
+  `data` date NOT NULL,
+  `respondida` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `perguntas`
+--
+
+INSERT INTO `perguntas` (`id`, `num_aula`, `pergunta`, `id_curso`, `id_aluno`, `data`, `respondida`) VALUES
+(2, 4, 'vai se fuder palhaço, qual a letra que começa?', 2, 5, '2022-07-10', 'Sim'),
+(3, -1, 'Xirônfula caga?', 2, 5, '2022-07-10', 'Não'),
+(6, 2, 'Sei não senhor', 2, 5, '2022-07-11', 'Não'),
+(9, 1, 'fafafafa', 1, 5, '2022-07-11', 'Não');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `professores`
 --
 
@@ -435,6 +454,35 @@ CREATE TABLE `professores` (
 INSERT INTO `professores` (`id`, `nome`, `cpf`, `telefone`, `email`, `foto`, `ativo`, `data`) VALUES
 (3, 'Professor Girafalez', '535.335.353-53', '(31) 3131-3131', 'professorgirafalez@hotmail.com', '18-05-2022-13-00-00-professor-girafalez.jpg', 'Sim', '2022-05-18'),
 (4, 'Professor Buzanga', '942.920.313-04', '(42) 4242-9922', 'buzangateacher@hotmail.com', '20-05-2022-13-56-39-buzanga.jpg', 'Sim', '2022-05-20');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `respostas`
+--
+
+CREATE TABLE `respostas` (
+  `id` int(11) NOT NULL,
+  `resposta` varchar(500) NOT NULL,
+  `id_curso` int(11) NOT NULL,
+  `id_pessoa` int(11) NOT NULL,
+  `data` date NOT NULL,
+  `id_pergunta` int(11) NOT NULL,
+  `funcao` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `respostas`
+--
+
+INSERT INTO `respostas` (`id`, `resposta`, `id_curso`, `id_pessoa`, `data`, `id_pergunta`, `funcao`) VALUES
+(18, 'dadada', 1, 5, '2022-07-12', 9, 'Aluno'),
+(19, 'eqeqeqeqeq', 1, 5, '2022-07-12', 9, 'Aluno'),
+(20, 'fsfswrrwrw', 1, 5, '2022-07-12', 9, 'Aluno'),
+(21, 'fsfsfsfsfs', 2, 5, '2022-07-12', 6, 'Aluno'),
+(22, 'aadad', 2, 5, '2022-07-12', 6, 'Aluno'),
+(23, 'fsfsfsf', 2, 5, '2022-07-12', 3, 'Aluno'),
+(24, 'sfsfsfs', 2, 5, '2022-07-12', 2, 'Aluno');
 
 -- --------------------------------------------------------
 
@@ -580,9 +628,21 @@ ALTER TABLE `pacotes`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `perguntas`
+--
+ALTER TABLE `perguntas`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `professores`
 --
 ALTER TABLE `professores`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `respostas`
+--
+ALTER TABLE `respostas`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -611,7 +671,7 @@ ALTER TABLE `administradores`
 -- AUTO_INCREMENT de tabela `alunos`
 --
 ALTER TABLE `alunos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `aulas`
@@ -671,7 +731,7 @@ ALTER TABLE `linguagens`
 -- AUTO_INCREMENT de tabela `matriculas`
 --
 ALTER TABLE `matriculas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT de tabela `pacotes`
@@ -680,10 +740,22 @@ ALTER TABLE `pacotes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de tabela `perguntas`
+--
+ALTER TABLE `perguntas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT de tabela `professores`
 --
 ALTER TABLE `professores`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de tabela `respostas`
+--
+ALTER TABLE `respostas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de tabela `sessao`
@@ -695,7 +767,7 @@ ALTER TABLE `sessao`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -212,11 +212,18 @@ $porcentagem_cursos_concluidosF = round($porcentagem_cursos_concluidos, 2);
                     $foto_curso = $res2[0]['imagem'];
                     $nome_url = $res2[0]['nome_url'];
 
-                    //total de aulas do curso
-                    $query = $pdo->query("SELECT * FROM aulas WHERE id_curso = '$id_curso' order by id desc limit 8");
-                    $res = $query->fetchAll(PDO::FETCH_ASSOC);
-                    $aulas_curso = @count($res);
-        
+                    if ($pacote == 'Não') {
+                        //total de aulas do curso
+                        $query2 = $pdo->query("SELECT * FROM aulas WHERE id_curso = '$id_curso'");
+                        $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+                        $aulas_curso = @count($res2);
+
+                        if ($aulas_curso == 1) {
+                            $aulas_singular_plural = 'aula';
+                        } else {
+                            $aulas_singular_plural = 'aulas';
+                        }
+                    }
 
             ?>
 
@@ -242,26 +249,59 @@ $porcentagem_cursos_concluidosF = round($porcentagem_cursos_concluidos, 2);
 
                                 </div>
                             </form>
-                        <?php } else { ?>
+                        <?php } else { 
 
+if($pacote == 'Não') {
+
+?>
                             <div align="center">
                                 <form action="index.php?pagina=cursos" method="post" class="">
                                     <!-- classe icones_finalizados foi usada em finalizados/listar.php -->
                                     <small><small>
                                             <button type="submit" style="background-color:transparent; border:none !important;">
-                                                <span style="margin-left:3px">Ir para o Curso</span>
+                                                <span style="margin-left:3px">
+
+                                                    Ir para o Curso</span>
                                             </button>
                                         </small></small>
 
                                     <input type="text" name="id_mat_post" value="<?php echo $id_mat ?>">
                                     <input type="text" name="id_curso_post" value="<?php echo $id_curso ?>">
-                                    <input type="text" name="nome_curso_post" value="<?php echo $$nome_curso ?>">
+                                    <input type="text" name="nome_curso_post" value="<?php echo $nome_curso ?>">
                                     <input type="text" name="aulas_curso_post" value="<?php echo $aulas_curso ?>">
+                                    <input type="text" name="aulas_singular_plural_post" value="<?php echo $aulas_singular_plural ?>">
+
 
 
                                 </form>
 
                             </div>
+<?php
+} else { //se for pacote ?>
+
+<div align="center">
+                                <form action="index.php?pagina=cursos" method="post" class="">
+                                    <!-- classe icones_finalizados foi usada em finalizados/listar.php -->
+                                    <small><small>
+                                            <button type="submit" style="background-color:transparent; border:none !important;">
+                                                <span style="margin-left:3px">
+
+                                                    Ir para Cursos do Pacote</span>
+                                            </button>
+                                        </small></small>
+
+                                        <input type="text" name="id_pacote" value="<?php echo $id_curso ?>">
+
+
+
+                                </form>
+
+                            </div>
+<?php
+}
+?>
+
+
 
                         <?php } ?>
 

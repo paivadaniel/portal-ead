@@ -48,7 +48,7 @@ if ($total_reg > 0) {
 $nome_img = date('d-m-Y H:i:s') . '-' . @$_FILES['foto']['name'];
 $nome_img = preg_replace('/[ :]+/', '-', $nome_img);
 
-$caminho = '../../img/perfil/' . $nome_img; //volta apenas um, o de paginas/alunos/inserir.php, para paginas/alunos.php, pois esse já está sendo chamado dentro de painel-admin/index.php, e não conta a volta para index
+$caminho = '../../../painel-aluno/img/perfil/' . $nome_img; //volta apenas um, o de paginas/alunos/inserir.php, para paginas/alunos.php, pois esse já está sendo chamado dentro de painel-admin/index.php, e não conta a volta para index
 
 $imagem_temp = @$_FILES['foto']['tmp_name'];
 
@@ -58,7 +58,7 @@ if (@$_FILES['foto']['name'] != "") {
 
 		//EXCLUO A FOTO ANTERIOR
 		if ($foto != "sem-perfil.jpg") {
-			@unlink('../../img/perfil/' . $foto);
+			@unlink('../../../painel-aluno/img/perfil/' . $foto);
 		}
 
 		$foto = $nome_img;

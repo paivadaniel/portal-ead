@@ -4,7 +4,7 @@ require_once('../conexao.php');
 require_once('verificar.php'); //aqui é dado @session_start();
 
 //@session_start() foi criado em verificar.php
-$id_usuario = $_SESSION['id']; //criada em autenticar.php, o id de um usuário nunca irá ser alterado
+$id_usuario = $_SESSION['id_pessoa']; //criada em autenticar.php, o id de um usuário nunca irá ser alterado
 
 //ao invés de crir as variáveis do menu administrativo, utilizou outra forma para chamar as opções do menu 
 if (@$_GET['pagina'] != "") { //coloca o arroba pois $_GET['pagina'] pode ser nula
@@ -21,7 +21,7 @@ if (@$_SESSION['nivel'] == 'Professor') { //coloca @ para se caso não existir a
 }
 
 //recuperar dados o usuário
-$query = $pdo->query("SELECT * FROM usuarios WHERE id = '$id_usuario'");
+$query = $pdo->query("SELECT * FROM usuarios WHERE id_pessoa = '$id_usuario'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 //if(@count($res)) { //desnecessário, pois se chegou até aqui, e passou por verificar.php, o usuário tem um id
 $nome_usuario = $res[0]['nome'];
@@ -239,6 +239,38 @@ $senha_usuario = $res[0]['senha'];
         <!-- header-starts -->
         <div class="sticky-header header-section ">
             <div class="header-left">
+
+                <?php
+
+                $total_perguntas_respondidas = 0;
+
+                $query = $pdo->query("SELECT * FROM perguntas where respondida = 'Não'"); //se for edição
+                $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                for ($i = 0; $i < @count($res); $i++) {
+                    foreach ($res[$i] as $key => $value) {
+                    }
+
+                    $id_curso = $res[$i]['id_curso'];
+
+                    $query2 = $pdo->query("SELECT * FROM cursos where id = '$id_curso' and professor = '$id_usuario'"); //se for edição
+                    $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+
+                    if(@count($res2) > 0) {
+                        $total_perguntas_respondidas += 1;
+
+                    }
+
+                }            
+
+                if ($total_perguntas_respondidas == 0) {
+                    $classe_badge = 'fundo-verde';
+                } else {
+                    $classe_badge = 'red';
+                }
+
+                ?>
+
                 <!--toggle button start-->
                 <button id="showLeftPush"><i class="fa fa-bars"></i></button>
                 <!--toggle button end-->
@@ -247,51 +279,7 @@ $senha_usuario = $res[0]['senha'];
                     <ul class="nofitications-dropdown">
 
                         <li class="dropdown head-dpdn">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">4</span></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <div class="notification_header">
-                                        <h3>You have 3 new notification</h3>
-                                    </div>
-                                </li>
-                                <li><a href="#">
-                                        <div class="user_img"><img src="images/4.jpg" alt=""></div>
-                                        <div class="notification_desc">
-                                            <p>Lorem ipsum dolor amet</p>
-                                            <p><span>1 hour ago</span></p>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </a></li>
-                                <li class="odd"><a href="#">
-                                        <div class="user_img"><img src="images/1.jpg" alt=""></div>
-                                        <div class="notification_desc">
-                                            <p>Lorem ipsum dolor amet </p>
-                                            <p><span>1 hour ago</span></p>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </a></li>
-                                <li><a href="#">
-                                        <div class="user_img"><img src="images/3.jpg" alt=""></div>
-                                        <div class="notification_desc">
-                                            <p>Lorem ipsum dolor amet </p>
-                                            <p><span>1 hour ago</span></p>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </a></li>
-                                <li><a href="#">
-                                        <div class="user_img"><img src="images/2.jpg" alt=""></div>
-                                        <div class="notification_desc">
-                                            <p>Lorem ipsum dolor amet </p>
-                                            <p><span>1 hour ago</span></p>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </a></li>
-                                <li>
-                                    <div class="notification_bottom">
-                                        <a href="#">See all notifications</a>
-                                    </div>
-                                </li>
-                            </ul>
+                            <a href="index.php?pagina=perguntas" class="dropdown-toggle"><i class="fa fa-bell"></i><span class="badge <?php echo $classe_badge ?>"><?php echo $total_perguntas_respondidas ?></span></a>
                         </li>
                     </ul>
                     <div class="clearfix"> </div>
@@ -635,7 +623,7 @@ $senha_usuario = $res[0]['senha'];
                         </div>
                           -->
 
-                          <div class="col-md-3">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="cartoes_fidelidade">Cartões Fidelidade</label>
                                 <input type="number" class="form-control" id="cartoes_fidelidade" name="cartoes_fidelidade" value="<?php echo $cartoes_fidelidade ?>">
