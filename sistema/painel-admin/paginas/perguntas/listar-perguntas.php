@@ -23,12 +23,12 @@ $num_aula = $res[$i]['num_aula'];
 $data = $res[$i]['data'];
 $dataF = implode('/', array_reverse(explode('-', $data)));
 $id_aluno = $res[$i]['id_aluno'];
+$respondida = $res[$i]['respondida'];
 
-//se o aluno que estiver logado for o que fez a pergunta, ele poderá exclui-la, caso contrário, não
-if($id_aluno == $aluno_logado) {
-    $mostrar_excluir = '';
+if($respondida == 'Não') {
+    $classe_pergunta = 'link-pergunta';
 } else {
-    $mostrar_excluir = 'ocultar';
+    $classe_pergunta = 'link-pergunta-respondida';
 }
 
 $query2 = $pdo->query("SELECT * FROM usuarios where id_pessoa = '$id_aluno'");
@@ -69,7 +69,7 @@ echo <<<HTML
     <span class="text-muted" style="margin-left:10px">{$respostas} Respostas</span> </span>
     
         <li class="dropdown head-dpdn2" style="display: inline-block;">
-            <a class="{$mostrar_excluir}" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Excluir Pergunta"><big><i class="fa fa-trash-o text-danger "></i></big></a>
+            <a class="" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Excluir Pergunta"><big><i class="fa fa-trash-o text-danger "></i></big></a>
     
             <ul class="dropdown-menu" style="margin-left:-230px;">
             <li>
@@ -81,9 +81,12 @@ echo <<<HTML
             </li>
     
     <br>
-    <span > <a class="link-aula" href="#" onclick="abreModalResposta('{$id_pergunta}', '{$pergunta}')" title="Abrir Pergunta">Aula {$num_aula} - {$pergunta}</a> </span></small>
+    <span > <a class="{$classe_pergunta}" href="#" onclick="abreModalResposta('{$id_pergunta}', '{$pergunta}')" title="Abrir Pergunta"><small>Aula {$num_aula} - {$pergunta}</a> </small></span>
     </div>
     <hr>
 HTML;
     }
 }
+
+?>
+

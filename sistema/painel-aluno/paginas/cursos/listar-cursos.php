@@ -233,7 +233,7 @@ e quando o curso não estiver pago oculta o link que chama a função aulas -->
         <input type="hidden" name="id_mat" value="{$id}">
 
         <!-- abertura avaliação -->
-        <a href="#" onclick="excluir('{$id}')" title="Avaliar Curso" class="{$icones_finalizados}"><i class="fa fa-star amarelo"></i></a>
+        <a href="#" onclick="avaliar('{$id_curso}', '{$nome_curso}')" title="Avaliar Curso" class="{$icones_finalizados}"><i class="fa fa-star amarelo"></i></a>
         <!-- fechamento avaliação -->
 
         </form>

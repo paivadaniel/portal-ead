@@ -22,6 +22,9 @@ $resposta = $_POST['resposta'];
 $id_curso = $_POST['id_curso_resposta'];
 $id_pergunta = $_POST['id_pergunta_resposta'];
 
+//se vier algum caractere com aspas simples, será substituído por vazio
+$resposta = str_replace("'", " ", $resposta);
+
 $query = $pdo->prepare("INSERT INTO respostas SET resposta = :resposta, id_curso = '$id_curso', id_pessoa = '$id_pessoa', data = curDate(), id_pergunta = '$id_pergunta', funcao = 'Aluno'");
 $query->bindValue(":resposta", "$resposta");
 $query->execute();

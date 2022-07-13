@@ -10445,3 +10445,29 @@ h4.asd label {
 .fundo-verde {
   background-color: #03a11d !important;
 }
+
+.link-pergunta-respondida {
+  color:#ababab;
+}
+
+.link-pergunta-respondida:hover {
+  text-decoration: underline !important;
+}
+
+.link-pergunta {
+  color:#3b3b3b;
+}
+
+.link-pergunta:hover {
+  text-decoration: underline !important;
+}
+
+
+.azul {
+  color:#2036a1;
+}
+
+.amarelo {
+  color:#e0e016;
+}
+

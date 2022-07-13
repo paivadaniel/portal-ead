@@ -24,11 +24,10 @@ $dataF = implode('/', array_reverse(explode('-', $data)));
 $id_aluno = $res[$i]['id_pessoa'];
 $funcao = $res[$i]['funcao'];
 
-//se o aluno que estiver logado for o que respondeu, ele poderá exclui-la, caso contrário, não
-if($id_aluno == $aluno_logado) {
-    $mostrar_excluir = '';
+if($funcao == 'Professor') {
+    $texto_professor = 'Professor ';
 } else {
-    $mostrar_excluir = 'ocultar';
+    $texto_professor = '';
 }
 
 $query2 = $pdo->query("SELECT * FROM usuarios where id_pessoa = '$id_aluno'");
@@ -40,11 +39,11 @@ echo <<<HTML
     <div class="mt-3">
         <!-- listar-perguntas.php é chamado em cursos.php, este por sua vez está dentro de painel-aluno/index.php -->
     <span> <img style="border-radius: 100%;" class="rounded-circle z-depth-0" src="../painel-aluno/img/perfil/{$foto_de_quem_respondeu}" width="25" height="25">  
-    <span class="text-muted"><b>{$nome_de_quem_respondeu}</b> </span>
+    <span class="text-muted"><b>{$texto_professor} {$nome_de_quem_respondeu}</b> </span>
     <span class="text-muted" style="margin-left:10px">{$dataF}</span> 
     
         <li class="dropdown head-dpdn2" style="display: inline-block;">
-            <a class="{$mostrar_excluir}" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Excluir Resposta"><big><i class="fa fa-trash-o text-danger "></i></big></a>
+            <a class="" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Excluir Resposta"><big><i class="fa fa-trash-o text-danger "></i></big></a>
     
             <ul class="dropdown-menu" style="margin-left:-230px;">
             <li>

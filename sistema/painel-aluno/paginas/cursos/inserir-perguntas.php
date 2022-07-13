@@ -10,6 +10,9 @@ $pergunta = $_POST['pergunta'];
 $num_aula = $_POST['num_aula'];
 $id_curso = $_POST['id_curso_pergunta'];
 
+//se vier algum caractere com aspas simples, será substituído por vazio
+$pergunta = str_replace("'", " ", $pergunta);
+
 $query = $pdo->prepare("INSERT INTO $tabela SET pergunta = :pergunta, num_aula = '$num_aula', id_curso = '$id_curso', id_aluno = '$id_aluno', data = curDate(), respondida = 'Não'");
 $query->bindValue(":pergunta", "$pergunta");
 $query->execute();

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 12-Jul-2022 às 20:29
--- Versão do servidor: 10.4.21-MariaDB
--- versão do PHP: 8.0.10
+-- Tempo de geração: 13-Jul-2022 às 03:15
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -120,6 +120,21 @@ INSERT INTO `aulas` (`id`, `numero`, `nome`, `link`, `id_curso`, `sessao`, `sequ
 (31, 8, 'dada242fsadawr2r', '', 2, 0, 8),
 (32, 9, 'zczczcvxvrf24242', '', 2, 0, 9),
 (33, 10, 'vcbdt353sffazz', '', 2, 0, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `avaliacoes`
+--
+
+CREATE TABLE `avaliacoes` (
+  `id` int(11) NOT NULL,
+  `nota` int(11) NOT NULL,
+  `comentario` varchar(500) NOT NULL,
+  `id_curso` int(11) NOT NULL,
+  `id_aluno` int(11) NOT NULL,
+  `data` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -425,10 +440,11 @@ CREATE TABLE `perguntas` (
 --
 
 INSERT INTO `perguntas` (`id`, `num_aula`, `pergunta`, `id_curso`, `id_aluno`, `data`, `respondida`) VALUES
-(2, 4, 'vai se fuder palhaço, qual a letra que começa?', 2, 5, '2022-07-10', 'Sim'),
-(3, -1, 'Xirônfula caga?', 2, 5, '2022-07-10', 'Não'),
-(6, 2, 'Sei não senhor', 2, 5, '2022-07-11', 'Não'),
-(9, 1, 'fafafafa', 1, 5, '2022-07-11', 'Não');
+(9, 1, 'fafafafa', 1, 5, '2022-07-11', 'Sim'),
+(11, 4, 'Minha nova pergunta', 1, 5, '2022-07-12', 'Sim'),
+(13, 3, 'dadada', 1, 5, '2022-07-12', 'Sim'),
+(14, 8, 'dadadafgsfgsf*', 1, 5, '2022-07-12', 'Sim'),
+(16, 12, 'wffwrtwrtwr ', 1, 5, '2022-07-12', 'Não');
 
 -- --------------------------------------------------------
 
@@ -479,10 +495,10 @@ INSERT INTO `respostas` (`id`, `resposta`, `id_curso`, `id_pessoa`, `data`, `id_
 (18, 'dadada', 1, 5, '2022-07-12', 9, 'Aluno'),
 (19, 'eqeqeqeqeq', 1, 5, '2022-07-12', 9, 'Aluno'),
 (20, 'fsfswrrwrw', 1, 5, '2022-07-12', 9, 'Aluno'),
-(21, 'fsfsfsfsfs', 2, 5, '2022-07-12', 6, 'Aluno'),
-(22, 'aadad', 2, 5, '2022-07-12', 6, 'Aluno'),
-(23, 'fsfsfsf', 2, 5, '2022-07-12', 3, 'Aluno'),
-(24, 'sfsfsfs', 2, 5, '2022-07-12', 2, 'Aluno');
+(25, 'certo', 1, 5, '2022-07-12', 9, 'Aluno'),
+(34, 'Admin respondendo agora', 0, 1, '2022-07-12', 9, 'Professor'),
+(36, 'sfssfsfsfsffs ', 0, 1, '2022-07-12', 13, 'Professor'),
+(37, '     ', 0, 1, '2022-07-12', 14, 'Professor');
 
 -- --------------------------------------------------------
 
@@ -565,6 +581,12 @@ ALTER TABLE `alunos`
 -- Índices para tabela `aulas`
 --
 ALTER TABLE `aulas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `avaliacoes`
+--
+ALTER TABLE `avaliacoes`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -680,6 +702,12 @@ ALTER TABLE `aulas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
+-- AUTO_INCREMENT de tabela `avaliacoes`
+--
+ALTER TABLE `avaliacoes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `banner_index`
 --
 ALTER TABLE `banner_index`
@@ -743,7 +771,7 @@ ALTER TABLE `pacotes`
 -- AUTO_INCREMENT de tabela `perguntas`
 --
 ALTER TABLE `perguntas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `professores`
@@ -755,7 +783,7 @@ ALTER TABLE `professores`
 -- AUTO_INCREMENT de tabela `respostas`
 --
 ALTER TABLE `respostas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT de tabela `sessao`

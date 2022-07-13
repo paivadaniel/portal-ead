@@ -55,7 +55,6 @@ $senha_usuario = $res[0]['senha'];
     <!-- Favicon -->
     <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
 
-
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
 
@@ -228,6 +227,14 @@ $senha_usuario = $res[0]['senha'];
                             </li>
 
 
+
+                            <li class="treeview">
+                                <a href="index.php?pagina=perguntas">
+                                    <i class="fa fa-question"></i> <span>Perguntas Pendentes</span>
+                                </a>
+                            </li>
+
+
                         </ul>
                     </div>
                     <!-- /.navbar-collapse -->
@@ -279,7 +286,7 @@ $senha_usuario = $res[0]['senha'];
                     <ul class="nofitications-dropdown">
 
                         <li class="dropdown head-dpdn">
-                            <a href="index.php?pagina=perguntas" class="dropdown-toggle"><i class="fa fa-bell"></i><span class="badge <?php echo $classe_badge ?>"><?php echo $total_perguntas_respondidas ?></span></a>
+                            <a href="index.php?pagina=perguntas" class="dropdown-toggle" title="Perguntas Pendentes"><i class="fa fa-bell"></i><span class="badge <?php echo $classe_badge ?>"><?php echo $total_perguntas_respondidas ?></span></a>
                         </li>
                     </ul>
                     <div class="clearfix"> </div>
