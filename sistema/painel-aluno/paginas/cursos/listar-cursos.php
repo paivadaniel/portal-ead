@@ -11,7 +11,7 @@ $tabela = 'matriculas';
 
 @session_start();
 $id_usuario = $_SESSION['id_pessoa'];
-$id_pacote_post = '%'. $_POST['id_pacote_post'] . '%'; //vem da function listarCursosDoPacote em cursos.php, que chama listar.php
+$id_pacote_post = '%'. @$_POST['id_pacote_post'] . '%'; //vem da function listarCursosDoPacote em cursos.php, que chama listar.php
 //usou porcentagem para fazer busca aproximada com o operador LIKE no SQL, pois se não houver cursos cadastrados nesse pacote, ele despreza id_pacote_post da consulta
 
 //recebidos por post de um form contido em home.php, é para fazer o botão de na seção de últimas matrículas da home ir direto para o curso clicando no botão "Ir para o curso"
@@ -100,22 +100,31 @@ HTML;
         }
 
         //substituir administradores por professores depois de ter cursos feitos pelos professores
-        $query3 = $pdo->query("SELECT * FROM administradores where id = '$id_professor'");
-        $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
-        if (@count($res3) > 0) {
-            $nome_professor = $res3[0]['nome'];
+        $query2 = $pdo->query("SELECT * FROM administradores where id = '$id_professor'");
+        $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+        if (@count($res2) > 0) {
+            $nome_professor = $res2[0]['nome'];
         } else {
             $nome_professor = "";
         }
 
-        $query4 = $pdo->query("SELECT * FROM aulas WHERE id_curso = '$id_curso'");
-        $res4 = $query4->fetchAll(PDO::FETCH_ASSOC);
-        $aulas = @count($res4); //total de aulas do curso
+        $query2 = $pdo->query("SELECT * FROM aulas WHERE id_curso = '$id_curso'");
+        $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+        $aulas = @count($res2); //total de aulas do curso
 
         if ($aulas == 1) {
             $aulas_singular_plural = 'aula';
         } else {
             $aulas_singular_plural = 'aulas';
+        }
+
+        //verificar se o curso já foi avaliado
+        $query2 = $pdo->query("SELECT * FROM avaliacoes WHERE id_curso = '$id_curso' and id_aluno = '$id_usuario'");
+        $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+        if(@count($res2) > 0) {
+            $classe_avaliacao = 'ocultar';
+        } else {
+            $classe_avaliacao = '';
         }
 
         $icone = 'fa-square';
@@ -233,7 +242,7 @@ e quando o curso não estiver pago oculta o link que chama a função aulas -->
         <input type="hidden" name="id_mat" value="{$id}">
 
         <!-- abertura avaliação -->
-        <a href="#" onclick="avaliar('{$id_curso}', '{$nome_curso}')" title="Avaliar Curso" class="{$icones_finalizados}"><i class="fa fa-star amarelo"></i></a>
+        <a href="#" onclick="avaliar('{$id_curso}', '{$nome_curso}')" title="Avaliar Curso" class="{$icones_finalizados} {$classe_avaliacao}"><i class="fa fa-star amarelo"></i></a>
         <!-- fechamento avaliação -->
 
         </form>

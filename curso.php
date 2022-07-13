@@ -363,30 +363,66 @@ require_once('cabecalho.php');
                     <p class="titulo-curso"><small>Comentário dos Alunos</small></p>
 
 
-                    <div>
-                        <span class="nome-aluno"> <img src="img/portfolio-1.jpg" width="25" height="25" style="border-radius: 100%;"> Nome do Aluno
-                        </span>
-                        <span class="neutra ocultar-mobile" style="margin-left: 10px">01/01/2022</span>
+                    <?php
 
-                        <span class="estrelas">
-                            <i class="estrela fa fa-star"></i>
-                            <i class="estrela fa fa-star"></i>
-                            <i class="estrela fa fa-star"></i>
-                            <i class="estrela fa fa-star"></i>
-                            <i class="estrela fa fa-star"></i>
-                        </span>
+                    $query = $pdo->query("SELECT * FROM avaliacoes WHERE id_curso = '$id_do_curso_pag' order by id desc");
+                    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+                    $total_reg = @count($res);
 
-                        <span class="ml-1 text-muted ocultar-mobile"><i class="neutra"> - Excelente</i></span>
+                    if ($total_reg > 0) {
 
-                        <div class="comentario">
-                            <i class="neutra">"ffaf fd af asf asffadfdasfadsf fdasfdsf dafs safsadfa fd fadsdf ads fads fdsafffaf fd af asf asffadfdasfadsf fdasfdsf dafs safsadfa fd fadsdf ads fads fdsafffaf fd af asf asffadfdasfadsf fdasfdsf dafs safsadfa fd fadsdf ads fads fdsaf"</i>
-                        </div>
+                        for ($i = 0; $i < $total_reg; $i++) {
+                            foreach ($res[$i] as $key => $value) {
+                            }
+
+                            $id_avaliacao = $res[$i]['id'];
+                            $id_aluno_avaliacao = $res[$i]['id_aluno'];
+                            $id_nota_avaliacao = $res[$i]['nota'];
+                            $id_comentario_avaliacao = $res[$i]['comentario'];
+                            $data_avaliacao = $res[$i]['data'];
+                            $data_avaliacaoF = implode('/', array_reverse(explode('-', $data_avaliacao)));
 
 
-                    </div>
 
-                    <hr>
+                            $query2 = $pdo->query("SELECT * FROM alunos WHERE id = '$id_aluno_avaliacao'");
+                            $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+                            if(@count($res2) > 0) {
+                                $nome_aluno_avaliacao = $res2[0]['nome'];
+                                $foto_aluno_avaliacao = $res2[0]['foto'];
+                            }
 
+                    ?>
+
+                            <div>
+                                <span class="nome-aluno"> <img src="img/perfil/<?php echo $foto_aluno_avaliacao ?>" width="25" height="25" style="border-radius: 100%;"> <?php echo $nome_aluno_avaliacao ?>
+                                </span>
+                                <span class="neutra ocultar-mobile" style="margin-left: 10px"><?php echo $data_avaliacaoF ?></span>
+
+                                <span class="estrelas">
+                                    <i class="estrela fa fa-star"></i>
+                                    <i class="estrela fa fa-star"></i>
+                                    <i class="estrela fa fa-star"></i>
+                                    <i class="estrela fa fa-star"></i>
+                                    <i class="estrela fa fa-star"></i>
+                                </span>
+
+                                <span class="ml-1 text-muted ocultar-mobile"><i class="neutra"> - Excelente</i></span>
+
+                                <div class="comentario">
+                                    <i class="neutra">"ffaf fd af asf asffadfdasfadsf fdasfdsf dafs safsadfa fd fadsdf ads fads fdsafffaf fd af asf asffadfdasfadsf fdasfdsf dafs safsadfa fd fadsdf ads fads fdsafffaf fd af asf asffadfdasfadsf fdasfdsf dafs safsadfa fd fadsdf ads fads fdsaf"</i>
+                                </div>
+
+
+                            </div>
+
+                            <hr>
+
+                    <?php
+                        }
+                    } else {
+                        echo 'Esse curso ainda não possui avaliações.';
+                    }
+                    ?>
 
                 </div>
 
@@ -1282,8 +1318,8 @@ require_once('rodape.php');
 //esse código tem que vir após o link com id btn_pagamento, após a função pagamento(), que é chamada no link com id btn_pagamento, e após o rodapé pois ali tem scripts necessários para ela
 //ela serve para quando dentro do painel aluno, o aluno clicar em pagar o curso, e ir para a página do curso, e abrir automaticamente a modal MatriculaAluno sem ter que passar várias referências, apenas clicando no botão btn_pagamento. na minha visão isso não funcionaria pois pularia direto para o btn_pagamento sem passar os 4 argumentos necessários da função pagamento, que são id do curso, nome, valor e nome da modal -> pagamento(id, nome, valor, modal);
 
-if(@$_POST['painel_aluno'] == 'sim'){
-	echo "<script>$('#btn_pagamento').click();</script>";
+if (@$_POST['painel_aluno'] == 'sim') {
+    echo "<script>$('#btn_pagamento').click();</script>";
 }
 
 ?>

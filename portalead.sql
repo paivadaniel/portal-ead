@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 13-Jul-2022 às 03:15
--- Versão do servidor: 10.4.22-MariaDB
--- versão do PHP: 8.0.15
+-- Tempo de geração: 13-Jul-2022 às 22:18
+-- Versão do servidor: 10.4.21-MariaDB
+-- versão do PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -135,6 +135,16 @@ CREATE TABLE `avaliacoes` (
   `id_aluno` int(11) NOT NULL,
   `data` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `avaliacoes`
+--
+
+INSERT INTO `avaliacoes` (`id`, `nota`, `comentario`, `id_curso`, `id_aluno`, `data`) VALUES
+(8, 5, 'ok!', 2, 5, '2022-07-13'),
+(9, 5, 'Beleza!', 1, 5, '2022-07-13'),
+(10, 5, 'Fodástico!', 1, 13, '2022-07-13'),
+(11, 3, 'Supimpa!', 2, 13, '2022-07-13');
 
 -- --------------------------------------------------------
 
@@ -386,7 +396,9 @@ INSERT INTO `matriculas` (`id`, `id_curso`, `id_aluno`, `id_professor`, `aulas_c
 (98, 4, 5, 1, 1, '100.00', '2022-07-09', 'Matriculado', 'Não', NULL, '0.00', '100.00', NULL, NULL, 0, NULL),
 (99, 5, 5, 1, 1, '150.00', '2022-07-09', 'Matriculado', 'Não', NULL, '0.00', '150.00', NULL, NULL, 0, NULL),
 (100, 3, 13, 1, 1, '68.00', '2022-07-11', 'Matriculado', 'Não', NULL, '0.00', '68.00', NULL, NULL, 0, NULL),
-(101, 3, 5, 1, 1, '68.00', '2022-07-11', 'Matriculado', 'Não', NULL, '0.00', '68.00', NULL, NULL, 0, NULL);
+(101, 3, 5, 1, 1, '68.00', '2022-07-11', 'Matriculado', 'Não', NULL, '0.00', '68.00', NULL, NULL, 0, NULL),
+(102, 2, 13, 1, 10, '150.00', '2022-07-13', 'Finalizado', 'Não', NULL, '0.00', '150.00', NULL, NULL, 0, '2022-07-13'),
+(103, 1, 13, 1, 5, '70.00', '2022-07-13', 'Finalizado', 'Não', NULL, '0.00', '70.00', NULL, NULL, 0, '2022-07-13');
 
 -- --------------------------------------------------------
 
@@ -705,7 +717,7 @@ ALTER TABLE `aulas`
 -- AUTO_INCREMENT de tabela `avaliacoes`
 --
 ALTER TABLE `avaliacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `banner_index`
@@ -759,7 +771,7 @@ ALTER TABLE `linguagens`
 -- AUTO_INCREMENT de tabela `matriculas`
 --
 ALTER TABLE `matriculas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT de tabela `pacotes`

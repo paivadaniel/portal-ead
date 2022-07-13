@@ -217,7 +217,7 @@ if (@$_SESSION['nivel'] != 'Aluno') { //coloca @ para se caso não existir algum
 			<div class="modal-header">
 				<h4 class="modal-title">Avaliar <span id="nome_curso_avaliar"></span></h4>
 
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px" id="btn-fechar-resposta">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px" id="btn-fechar-avaliar">
 					<span aria-hidden="true">&times;</span>
 				</button>
 
@@ -248,8 +248,8 @@ if (@$_SESSION['nivel'] != 'Aluno') { //coloca @ para se caso não existir algum
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
-								<label for="avaliacao">Avaliação <small>(Máx. 500 caracteres)</small></label>
-								<textarea class="form-control" name="avaliacao" id="avaliacao" maxlength="500"></textarea>
+								<label for="avaliacao">Comentário <small>(Máx. 500 caracteres)</small></label>
+								<textarea class="form-control" name="comentario_avaliacao" id="comentario_avaliacao" maxlength="500"></textarea>
 							</div>
 						</div>
 					</div>
@@ -263,10 +263,10 @@ if (@$_SESSION['nivel'] != 'Aluno') { //coloca @ para se caso não existir algum
 
 					</div>
 
-					<input type="text" name="id_curso_avaliar" id="id_curso_avaliar">
+					<input type="text" name="id_curso_avaliacao" id="id_curso_avaliacao">
 
 					<small>
-						<div id="mensagem-avaliar" align="center" class="mt-3"></div>
+						<div id="mensagem-avaliacao" align="center" class="mt-3"></div>
 					</small>
 
 
@@ -616,7 +616,7 @@ os inputs abaixo são recebidos na function aulas()
 <script type="text/javascript">
 	function avaliar(id_curso, nome_curso) {
 
-		$('#id_curso_avaliar').val(id_curso);
+		$('#id_curso_avaliacao').val(id_curso);
 		$('#nome_curso_avaliar').text(nome_curso);
 		$('#modalAvaliar').modal('show');
 
@@ -730,18 +730,19 @@ os inputs abaixo são recebidos na function aulas()
 			data: formData,
 
 			success: function(result) {
-				$('#mensagem-avaliar').text('');
-				$('#mensagem-avaliar').removeClass()
+				$('#mensagem-avaliacao').text('');
+				$('#mensagem-avaliacao').removeClass()
 
 				if (result.trim() == "Avaliado com sucesso!") {
-					//$('#btn-fechar-resposta').click();
+					$('#btn-fechar-avaliar').click();
 
 					//limpa resposta, repare que textarea também usa val(), e não text()
-					$('#avaliacao').val('');
+					$('#comentario_avaliacao').val('');
+					listarCursosDoPacote(); //abre e executa tudo em listar-cursos.php, porém, agora sem o id do pacote  
 
 				} else {
-					$('#mensagem-avaliar').addClass('text-danger')
-					$('#mensagem-avaliar').text(result)
+					$('#mensagem-avaliacao').addClass('text-danger')
+					$('#mensagem-avaliacao').text(result)
 				}
 
 			},
