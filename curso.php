@@ -75,11 +75,17 @@ if ($total_reg > 0) {
     $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
     $total_alunos = @count($res2);
 
+    if ($desconto_pix > 0) { //caso o admin tiver setado nas configurações uma porcentagem de desconto para pagamentos em pix, aparece essa mensagem 
+
+        $valor_pix = (1 - ($desconto_pix / 100)) * $valor_curso;
+    }
+
 
     //valor formatado e descrição_longa formatada
     $valor_cursoF = number_format($valor, 2, ',', '.',); //valorF é variável para cursos relacionados, utilizada mais abaixo
     $promocaoF = number_format($promocao, 2, ',', '.',);
     $desc_longa = str_replace('"', '**', $desc_longa); //quando joga em onclick="editar()", como o conteúdo de $desc_longa muita das vezes tem aspas, como align="center", então dá problema
+    $valor_pixF = number_format($valor_pix, 2, ',', '.',);
 }
 
 //para não ter que usar palavras_chave e nome_curso_titulo como variáveis globais, o segredo está nelas serem definidas antes de serem chamadas, e como estão em cabecalho.php,
@@ -245,7 +251,7 @@ require_once('cabecalho.php');
                 </div>
 
                 <div class="col-md-8 col-sm-12">
-                    <iframe width="100%" height="300" src="<?php echo @$aula1 ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="target-video"></iframe>
+                    <iframe width="100%" class="video-mobile" height="300" src="<?php echo @$aula1 ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="target-video"></iframe>
                 </div>
             </div>
 
@@ -365,7 +371,7 @@ require_once('cabecalho.php');
 
                     <?php
 
-                    $query = $pdo->query("SELECT * FROM avaliacoes WHERE id_curso = '$id_do_curso_pag' order by id desc");
+                    $query = $pdo->query("SELECT * FROM avaliacoes WHERE id_curso = '$id_do_curso_pag' /*and nota >= 3*/ order by id desc"); //opetei por não limitar a mostrar apenas comentários com mais de 3 estrelas
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
                     $total_reg = @count($res);
 
@@ -377,16 +383,14 @@ require_once('cabecalho.php');
 
                             $id_avaliacao = $res[$i]['id'];
                             $id_aluno_avaliacao = $res[$i]['id_aluno'];
-                            $id_nota_avaliacao = $res[$i]['nota'];
-                            $id_comentario_avaliacao = $res[$i]['comentario'];
+                            $nota_avaliacao = $res[$i]['nota'];
+                            $comentario_avaliacao = $res[$i]['comentario'];
                             $data_avaliacao = $res[$i]['data'];
                             $data_avaliacaoF = implode('/', array_reverse(explode('-', $data_avaliacao)));
 
-
-
                             $query2 = $pdo->query("SELECT * FROM alunos WHERE id = '$id_aluno_avaliacao'");
                             $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-                            if(@count($res2) > 0) {
+                            if (@count($res2) > 0) {
                                 $nome_aluno_avaliacao = $res2[0]['nome'];
                                 $foto_aluno_avaliacao = $res2[0]['foto'];
                             }
@@ -394,22 +398,128 @@ require_once('cabecalho.php');
                     ?>
 
                             <div>
-                                <span class="nome-aluno"> <img src="img/perfil/<?php echo $foto_aluno_avaliacao ?>" width="25" height="25" style="border-radius: 100%;"> <?php echo $nome_aluno_avaliacao ?>
+                                <span class="nome-aluno"> <img src="sistema/painel-aluno/img/perfil/<?php echo $foto_aluno_avaliacao ?>" width="25" height="25" style="border-radius: 100%;"> <?php echo $nome_aluno_avaliacao ?>
                                 </span>
                                 <span class="neutra ocultar-mobile" style="margin-left: 10px"><?php echo $data_avaliacaoF ?></span>
 
-                                <span class="estrelas">
-                                    <i class="estrela fa fa-star"></i>
-                                    <i class="estrela fa fa-star"></i>
-                                    <i class="estrela fa fa-star"></i>
-                                    <i class="estrela fa fa-star"></i>
-                                    <i class="estrela fa fa-star"></i>
-                                </span>
+                                <?php
 
-                                <span class="ml-1 text-muted ocultar-mobile"><i class="neutra"> - Excelente</i></span>
+                                if ($nota_avaliacao == 1) {
+
+                                ?>
+
+                                    <span class="estrelas">
+                                        <i class="estrela fa fa-star"></i>
+                                    </span>
+                                    <!-- Bom, Muito Bom e Excelente vai ser ocultado em celulares com a classe ocultar-mobile -->
+                                    <span class="ml-1 text-muted ocultar-mobile"><i class="neutra"> - Ruim!</i></span>
+
+                                <?php
+                                }
+                                ?>
+
+                                <?php
+
+                                if ($nota_avaliacao == 2) {
+
+                                ?>
+
+                                    <span class="estrelas">
+                                        <i class="estrela fa fa-star"></i>
+                                        <i class="estrela fa fa-star"></i>
+                                    </span>
+                                    <!-- Bom, Muito Bom e Excelente vai ser ocultado em celulares com a classe ocultar-mobile -->
+                                    <span class="ml-1 text-muted ocultar-mobile"><i class="neutra"> - Mediano!</i></span>
+
+                                <?php
+                                }
+                                ?>
+
+                                <?php
+
+                                if ($nota_avaliacao == 3) {
+
+                                ?>
+
+                                    <span class="estrelas">
+                                        <i class="estrela fa fa-star"></i>
+                                        <i class="estrela fa fa-star"></i>
+                                        <i class="estrela fa fa-star"></i>
+                                    </span>
+                                    <!-- Bom, Muito Bom e Excelente vai ser ocultado em celulares com a classe ocultar-mobile -->
+                                    <span class="ml-1 text-muted ocultar-mobile"><i class="neutra"> - Bom!</i></span>
+
+                                <?php
+                                }
+                                ?>
+
+
+                                <?php
+
+                                if ($nota_avaliacao == 4) {
+
+                                ?>
+
+                                    <span class="estrelas">
+                                        <i class="estrela fa fa-star"></i>
+                                        <i class="estrela fa fa-star"></i>
+                                        <i class="estrela fa fa-star"></i>
+                                        <i class="estrela fa fa-star"></i>
+                                    </span>
+
+                                    <span class="ml-1 text-muted ocultar-mobile"><i class="neutra"> - Muito Bom!</i></span>
+
+                                <?php
+                                }
+                                ?>
+
+                                <?php
+
+                                if ($nota_avaliacao == 5) {
+
+                                ?>
+
+                                    <span class="estrelas">
+                                        <i class="estrela fa fa-star"></i>
+                                        <i class="estrela fa fa-star"></i>
+                                        <i class="estrela fa fa-star"></i>
+                                        <i class="estrela fa fa-star"></i>
+                                        <i class="estrela fa fa-star"></i>
+                                    </span>
+
+                                    <span class="ml-1 text-muted ocultar-mobile"><i class="neutra"> - Excelente!</i></span>
+
+                                <?php
+                                }
+
+                                //ocultar opção de excluir comentário caso o aluno logado não seja o autor do comentário ou para quem não está logado
+                                if ($id_do_aluno == $id_aluno_avaliacao || $nivel == 'Professor' || $nivel == 'Administrador') {
+                                    $mostrar_excluir = '';
+                                } else {
+                                    $mostrar_excluir = 'ocultar';
+                                }
+
+                                ?>
+
+                                <!-- abertura excluir -->
+                                <li class="dropdown head-dpdn2" style="display: inline-block;">
+                                    <a href="#" class="dropdown-toggle <?php echo $mostrar_excluir ?>" data-toggle="dropdown" aria-expanded="false" title="Excluir Avaliação"><big><i class="fa fa-trash-o text-danger"></i></big></a>
+
+                                    <ul class="dropdown-menu" style="margin-left:-145px;">
+                                        <li>
+                                            <div class="notification_desc2">
+                                                <p>Confirmar Exclusão? <a href="#" onclick="excluirAvaliacao('<?php echo $id_avaliacao ?>')"><span class="text-danger">Sim</span></a></p>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </li>
+                                <!-- fechamento excluir -->
+
+
 
                                 <div class="comentario">
-                                    <i class="neutra">"ffaf fd af asf asffadfdasfadsf fdasfdsf dafs safsadfa fd fadsdf ads fads fdsafffaf fd af asf asffadfdasfadsf fdasfdsf dafs safsadfa fd fadsdf ads fads fdsafffaf fd af asf asffadfdasfadsf fdasfdsf dafs safsadfa fd fadsdf ads fads fdsaf"</i>
+                                    <i class="neutra"><?php echo $comentario_avaliacao ?></i>
                                 </div>
 
 
@@ -565,7 +675,7 @@ require_once('cabecalho.php');
             <div class="modal-body">
 
 
-                <form id="form" class="contact-form" name="contact-form" method="post">
+                <form id="form-contato" class="contact-form" name="contact-form">
                     <div class="row">
                         <div class="col-sm-5 col-sm-offset-1">
                             <div class="form-group">
@@ -588,7 +698,7 @@ require_once('cabecalho.php');
                                 <textarea name="mensagem" id="mensagem" required="required" class="form-control" rows="8"></textarea>
                             </div>
                             <div class="form-group">
-                                <button id="btn-enviar" type="submit" name="submit" class="btn btn-default submit-button">Enviar <i class="fa fa-caret-right"></i></button>
+                                <button id="btn-enviar-contato" type="submit" name="submit" class="btn btn-default submit-button">Enviar <i class="fa fa-caret-right"></i></button>
                             </div>
                         </div>
                     </div>
@@ -598,6 +708,7 @@ require_once('cabecalho.php');
 
 
                 </form>
+
 
 
 
@@ -734,8 +845,8 @@ require_once('cabecalho.php');
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel"> <span class="neutra ocultar-mobile">Liberação Automática - </span><span class="neutra" id="nome_curso_Pagamento"></span> <span class="neutra">- R$</span><span class="neutra" id="valor_curso_Pagamento"></span></h4>
-                <button style="margin-top: -25px" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h4 class="modal-title" id="exampleModalLabel"><span class="neutra ocultar-mobile">Liberação Automática -</span> <span class="neutra" id="nome_curso_Pagamento"></span> - R$<span class="neutra" id="valor_curso_Pagamento"></span></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px">
                     <span class="neutra" aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -751,55 +862,68 @@ require_once('cabecalho.php');
                             <div class="col-sm-8 direita-mobile-checkout">
                                 <span class="neutra-escura">VALOR ----------------- R$<?php echo $valor_cursoF ?></span>
                                 <hr style="margin:5px">
-                                <span class="neutra-escura">DESCONTO ------------- R$ 0,00</span>
+                                <span class="neutra-escura">DESCONTO PIX ------------- <?php echo $desconto_pix ?>%</span>
                                 <hr style="margin:5px">
-                                <span class="neutra-escura">TOTAL ------------------ R$<?php echo $valor_cursoF ?></span>
+                                <span class="neutra-escura"><b>TOTAL ------------------ R$<?php echo @$valor_pixF ?></b></span>
 
                             </div>
-                        </div>
-
-                        <div class="row" style="margin-top: 25px">
-                            <form id="cupom-desconto">
-
-                                <div class="col-sm-7 esquerda-mobile-input">
-                                    <div class="form-group">
-                                        <input type="text" name="cupom" id="cupom" class="form-control" required placeholder="Código do Cupom" style="height:50px">
-
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-5 direita-mobile-input">
-                                    <button id="btn-cupom" type="submit" name="submit" class="btn btn-primary submit-button">Aplicar <i class="fa fa-caret-right"></i></button>
-                                </div>
-                            </form>
                         </div>
 
                     </div>
 
-                    <div class="col-md-6 col-sm-12" style="margin-bottom: 10px">
-                        <div class="row" style="margin-bottom: 20px">
-                            <div class="col-md-6 esquerda-mobile-input" id="listar-btn-mp">
-                                <img src="img/pagamentos/mercadopago.jpg" width="100%"> <!-- imagem do mercado pago aparece na classe é impressa em listar-btn-mp.php, nessa linha $btn = $pagar->PagarMP, porém, ela é colocada aqui para não haver demora de carregamento, depois ela é substituída pela outra, que é a mesma, para notar a diferença e o carregamento altere o width dessa imagem para 200% e clique em comprar e verá a substituição -->
-                                <!--link do botão está definido em pagarMP(), chamada em ajax/cursos/listar-btn-mp.php, e definida em pagamentoMP.php -->
-                                <div align="center"><i class="neutra"><small>(Divida em até 12 Vezes) <br> <span class="neutra ocultar-mobile">Pagamento no Cartão ou Saldo</span></small></i></div>
 
+                    <div class="col-md-6 col-sm-12" style="margin-bottom: 10px" align="center">
+
+                        <?php if ($desconto_pix > 0) { ?>
+                            <div>
+                                <small>Estamos dando um <b>desconto de <?php echo $desconto_pix ?>% </b>no pagamento via PIX. </small>
                             </div>
+                        <?php } ?>
+                        <img src="img/pagamentos/pix.jpg" width="80%">
+                    </div>
+                </div>
 
-                            <div class="col-md-6 direita-mobile-input">
-                                <a title="Paypal - Acesso Imediato ao Curso" href="pagamentos/paypal/checkout.php?id=<?php echo $id_do_curso_pag; ?>" target="_blank"><img src="img/pagamentos/paypal.png" width="100%"></a>
-                                <div align="center"><i class="neutra"><small>(Pagamento Cartão Visa) <br><span class="neutra ocultar-mobile"> Melhor opção para estrangeiros</span></small></i></div>
+                <hr>
 
-                            </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-12" style="margin-bottom: 10px">
+                        <div class="row botoes-mobile" style="margin-top: 25px" align="center">
+                            <form id="form-cupom-desconto" method="post">
 
+                                <div class="col-sm-9 esquerda-mobile-input-botao">
+                                    <div class="form-group">
+                                        <input type="text" name="codigo_cupom" id="codigo_cupom" class="form-control" required placeholder="Código do Cupom">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3 direita-mobile-input-botao" style="margin-left:-20px">
+                                    <button id="btn-cupom" type="submit" name="submit" class="btn btn-success botao-laranja submit-button">Aplicar </button>
+                                </div>
+
+                                <!--
+autor disse que não poderia usar o id da matrícula, pois quando clicado em Comprar R$ XX Inicie Imediatamente, segundo ele o id da matrícula não é gerado automaticamente, isso ocorre se ou usuário não estiver logado
+
+dessa forma ele optou por pegar as variáveis que já tinham valor antes disso e que com elas são possíveis idenitificar o id da matrícula gerada posteriormente, que são id do curso e id do aluno
+ -->
+                                <input type="hidden" name="id_curso_cupom" value="<?php echo $id_do_curso_pag ?>">
+                                <input type="hidden" name="id_aluno_cupom" value="<?php echo $id_do_aluno ?>">
+
+
+                            </form>
                         </div>
 
+                        <small>
+                            <div align="center" id="msg-cupom"></div>
+                        </small>
 
 
-                        <div class="row">
-                            <div class="col-md-6 esquerda-mobile-input" align="right">
-                                <!-- right para não ficar colado no botão APLICAR !-->
+                    </div>
 
-                                <!-- para utilizar boleto será necessário fazer um cadastro no gerencia net (gerencianet.com.br),
+                    <div class="col-md-3 col-sm-12" style="margin-bottom: 20px; " align="right">
+                        <!-- right para não ficar colado no botão APLICAR !-->
+
+                        <!-- para utilizar boleto será necessário fazer um cadastro no gerencia net (gerencianet.com.br),
 que é a API de boleto que o autor utiliza
 
 porém, o próprio Mercado Pago já fornece a opção com boleto
@@ -816,45 +940,50 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
 
         -->
 
-                                <a href="" data-toggle="modal" data-target="#modalCPF"><img src="img/pagamentos/boleto.jpg" width="90%" align="center"> </a>
-
-                            </div>
-
-                            <div class="col-md-6 direita-mobile-input">
-                                <img src="img/pagamentos/bradesco.png" width="20px" align="center"><span class="neutra-escura">Chave Pix: <?php echo $tipo_chave_pix ?></span><br>
-                                <span class="neutra"><?php echo $chave_pix ?></span><br>
-
-                            </div>
-
+                        <div class="row" style="margin-top: 20px" align="center">
+                            <a href="" data-toggle="modal" data-target="#modalCPF">
+                                <img src="img/pagamentos/boleto.jpg" width="70%" align="center" class="ocultar-mobile">
+                                <img src="img/pagamentos/boleto-mobile.jpg" width="70%" align="center" class="ocultar-web">
+                            </a>
                         </div>
 
                     </div>
 
 
+
+
+                    <div class="col-sm-6" style="margin-bottom: 10px; ">
+
+                        <div class="col-md-6 col-sm-6 esquerda-mobile-input" id="listar-btn-mp">
+                            <img src="img/pagamentos/mercadopago.jpg" width="100%">
+                            <div align="center"><i class="neutra"><small>(Dívida em até 12 Vezes) <br> <span class="neutra ocultar-mobile">Pagamento no Cartão ou Saldo</span></small></i></div>
+
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 direita-mobile-input">
+                            <a title="Paypal - Acesso Imediato ao Curso" href="pagamentos/paypal/checkout.php?id=<?php echo $id_do_curso_pag; ?>" target="_blank"><img src="img/pagamentos/paypal.png" width="100%"></a>
+                            <div align="center"><i class="neutra"><small>(Pagamento Cartão Visa) <br><span class="neutra ocultar-mobile"> Melhor opção para estrangeiros</span></small></i></div>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
-                <hr style="margin:10px">
+                <br>
+
 
                 <div class="row">
                     <div class="col-md-2 ocultar-mobile">
                         <!-- ocultou para celulares de tela menor, porque não faz sentido mostrar o QRCODE na tela do celular, pois creio que ainda não há tecnologia para scannear o QRCODE da tela do celular com o próprio celular -->
+
                         <a href="sistema/img/qrcode.jpg" target="_blank" title="Abrir imagem QR-Code"><img src="sistema/img/qrcode.jpg" width="100%" align="center"></a>
                     </div>
 
                     <div class="col-md-10">
 
-                        <?php if ($desconto_pix > 0) { //caso o admin tiver setado nas configurações uma porcentagem de desconto para pagamentos em pix, aparece essa mensagem 
-
-                            $valor_pix = (1 - ($desconto_pix / 100)) * $valor_curso;
-                            $valor_pixF = number_format($valor_pix, 2, ',', '.',);
-                        ?>
-                            <div>
-
-                                Estamos dando um <b>desconto de <?php echo $desconto_pix ?>% </b>no pagamento via PIX, este curso sai à <b>R$ <?php echo @$valor_pixF ?></b> pagando via Pix.
-                            </div>
-                        <?php } ?>
                         <hr style="margin:8px">
-                        <div>Caso efetue o pagamento via pix favor enviar o comprovante no email ou whatsapp para agilizarmos a liberação. <br>
+                        <div>Caso efetue o pagamento via pix favor enviar o comprovante no email ou whatsapp para agilizarmos a liberação. Inserir o valor já com o desconto ao efetuar o pagamento pelo QR-Code. <br>
 
                             <i class="fa fa-envelope neutra-escura" style="color:#FFF; margin-right:5px"> </i><a href=""><?php echo $email_sistema ?></a> /
 
@@ -867,13 +996,13 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
                 </div>
 
             </div>
-            <!-- se remover o rodapé, quebra a modal -->
             <div class="modal-footer">
                 <div align="center">
                     Se já efetuou o pagamento, <a href="sistema/painel-aluno" target="_blank"><i>clique aqui</i></a> para ir para o painel do aluno!
 
                 </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -926,7 +1055,7 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
     </div>
 </div>
 
-<!-- Modal modalAbrirAula -->
+<!-- Modal AbrirAula -->
 <div class="modal fade" id="modalAbrirAula" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -938,7 +1067,7 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
             </div>
 
             <div class="modal-body">
-                <iframe width="100%" height="400" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="videoModal"></iframe>
+                <iframe width="100%" class="video-mobile" height="400" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="videoModal"></iframe>
 
 
 
@@ -1148,6 +1277,49 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
 </script>
 
 
+<script type="text/javascript">
+    $("#form-cupom-desconto").submit(function() {
+
+        var id = '<?= $id ?>';
+
+        event.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: "ajax/cursos/cupom.php",
+            type: 'POST',
+            data: formData,
+
+            success: function(mensagem) {
+                $('#msg-cupom').text('');
+                $('#msg-cupom').removeClass();
+                if (mensagem.trim() == "Cupom Inserido com Sucesso!") {
+                    $('#msg-cupom').addClass('text-success');
+                    $('#msg-cupom').text(mensagem);
+
+                    $('#codigo_cupom').val('');
+
+                } else {
+
+                    $('#msg-cupom').addClass('text-danger');
+                    $('#msg-cupom').text(mensagem);
+                }
+
+
+            },
+
+            //para limparo cache e processar os dados do formulário
+            cache: false,
+            contentType: false,
+            processData: false,
+
+        });
+
+    });
+</script>
+
+
+
 
 <script type="text/javascript">
     function enviarEmail(nome) {
@@ -1186,48 +1358,49 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
 
 <!--AJAX PARA CHAMAR O ENVIAR.PHP DO EMAIL -->
 <script type="text/javascript">
-    $(document).ready(function() {
+    $("#form-contato").submit(function() {
+        event.preventDefault();
+        var formData = new FormData(this);
 
-        //poderia ser $('#form-contatos').submit ao invés do clique no btn-enviar, dá na mesma
-        $('#btn-enviar').click(function(event) {
-            event.preventDefault();
+        $.ajax({
+            url: 'enviar.php',
+            type: 'POST',
+            data: formData,
+            success: function(mensagem) {
 
-            $.ajax({
-                url: "enviar.php",
-                method: "post",
-                data: $('form').serialize(), //não funcionou quando chamei o id do form de form-contatos, e aqui também coloquei form-contatos
-                dataType: "text",
-                success: function(mensagem) {
+                $('#msg').removeClass()
 
-                    $('#msg').removeClass()
+                if (mensagem.trim() === 'Enviado com Sucesso!') {
 
-                    if (mensagem.trim() === 'Enviado com Sucesso!') {
-
-                        $('#msg').addClass('text-success')
+                    $('#msg').addClass('text-success')
 
 
-                        $('#nome').val('');
-                        $('#telefone').val('');
-                        $('#email').val('');
-                        $('#mensagem').val('');
+                    $('#nome').val('');
+                    $('#telefone').val('');
+                    $('#email').val('');
+                    $('#mensagem').val('');
 
 
-                        //$('#btn-fechar').click();
-                        //location.reload();
+                    //$('#btn-fechar').click();
+                    //location.reload();
 
 
-                    } else {
+                } else {
 
-                        $('#msg').addClass('text-danger')
-                    }
+                    $('#msg').addClass('text-danger')
+                }
 
-                    $('#msg').text(mensagem)
+                $('#msg').text(mensagem)
 
-                },
+            },
 
-            })
-        })
-    })
+            cache: false,
+            contentType: false,
+            processData: false,
+
+        });
+
+    });
 </script>
 
 <script type="text/javascript">
@@ -1323,3 +1496,27 @@ if (@$_POST['painel_aluno'] == 'sim') {
 }
 
 ?>
+
+<script type="text/javascript">
+    function excluirAvaliacao(id) {
+        $.ajax({
+            url: "ajax/cursos/excluir-avaliacao.php",
+            method: 'POST',
+            data: {
+                id
+            },
+            dataType: "text",
+
+            success: function(mensagem) {
+                if (mensagem.trim() == "Excluído com Sucesso") {
+                    location.reload();
+                } else {
+                    $('#mensagem-excluir').addClass('text-danger')
+                    $('#mensagem-excluir').text(mensagem)
+                }
+
+            },
+
+        });
+    }
+</script>

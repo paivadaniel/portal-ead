@@ -3,7 +3,6 @@
 require_once("../../../conexao.php");
 
 @session_start();
-$aluno_logado = $_SESSION['id_pessoa'];
 
 $id_curso = $_POST['id_curso'];
 

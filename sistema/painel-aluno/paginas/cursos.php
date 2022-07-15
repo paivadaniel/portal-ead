@@ -293,7 +293,7 @@ if (@$_SESSION['nivel'] != 'Aluno') { //coloca @ para se caso não existir algum
 			</div>
 
 			<div class="modal-body">
-				<iframe width="100%" height="400" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="videoModal"></iframe>
+				<iframe class="video-mobile" width="100%" height="400" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="videoModal"></iframe>
 
 				<span id="curso-finalizado"></span>
 
@@ -533,11 +533,12 @@ os inputs abaixo são recebidos na function aulas()
 
 
 				if (result.trim() == "Pergunta enviada!") {
-					$('#btn-fechar-pergunta').click();
-
 					//limpa os campos
 					$('#pergunta').val('');
 					$('#num_aula').val('');
+
+					$('#btn-fechar-pergunta').click();
+
 					listarPerguntas(id_curso);
 
 				} else {
@@ -754,4 +755,29 @@ os inputs abaixo são recebidos na function aulas()
 		});
 
 	});
+</script>
+
+<script type="text/javascript">
+
+//poderia ter sido usada a function excluir em js/ajax.js, porém, ela chama listar() e não listarCursosDoPacote(), dessa forma, não atualiza automaticamente a página com a matrícula excluída, sendo necessário atualizar a página, por isso criamos uma function excluirMatricula() idêntica à function excluir() (do js/ajax.js), porém, com listarCursosDoPacote() ao invés de listar()
+//em listarCursosDoPacote(), quando não passa argumento, vai sem id pacote, e funciona para listar cursos
+function excluirMatricula(id){
+    $.ajax({
+        url: 'paginas/' + pag + "/excluir.php",
+        method: 'POST',
+        data: {id},
+        dataType: "text",
+
+        success: function (mensagem) {            
+            if (mensagem.trim() == "Excluído com Sucesso") {                
+                listarCursosDoPacote();              
+            } else {
+                    $('#mensagem-excluir').addClass('text-danger')
+                    $('#mensagem-excluir').text(mensagem)
+                }
+
+        },      
+
+    });
+}
 </script>

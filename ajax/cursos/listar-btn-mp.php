@@ -3,6 +3,8 @@ require_once('../../sistema/conexao.php');
 include_once("../../pagamentos/mercadopago/lib/mercadopago.php");
 include_once("../../pagamentos/mercadopago/PagamentoMP.php");
 
+//esse arquivo lista o botão do mercado pago na modal Pagamento (que fica em curso.php e pacote.php)
+
 //@session_start();
 //$id_aluno = $_SESSION['id_pessoa']; //id_pessoa é diferente de id
 /*
@@ -18,7 +20,13 @@ $nome_curso = $_POST['nome_curso'];
 $id_aluno = $_POST['id_aluno'];
 $pacote = $_POST['pacote'];
 
-$query = $pdo->query("SELECT * FROM matriculas WHERE id_curso = '$id_do_curso_pag' and id_aluno = '$id_aluno' and pacote = '$pacote'");
+$query = $pdo->query("SELECT * FROM matriculas WHERE id_curso = '$id_do_curso_pag' and id_aluno = $id_aluno and pacote = '$pacote'");
+/*
+autor falou algo que não tem lógica nenhuma e ele mesmo assumiu isso e não soube explicar o porquê de ter que tirar as aspas simples em volta de $id_aluno no SELECT acima, isso está no mod12 aula03 minutagem 03:55
+
+para mim fazer isso aparentemente não mudou nada, o botão do mercado livre continua aparecendo e sumindo
+
+*/
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
 if(@count($res) > 0) {

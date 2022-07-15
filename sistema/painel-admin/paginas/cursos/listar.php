@@ -58,7 +58,7 @@ HTML;
         foreach ($res[$i] as $key => $value) {
         }
 
-        $id = $res[$i]['id'];
+        $id = $res[$i]['id']; //id do curso
         $nome = $res[$i]['nome'];
         $desc_rapida = $res[$i]['desc_rapida'];
         $desc_longa = $res[$i]['desc_longa'];

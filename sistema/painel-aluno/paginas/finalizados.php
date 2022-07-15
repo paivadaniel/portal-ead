@@ -107,6 +107,76 @@ if (@$_SESSION['nivel'] != 'Aluno') { //coloca @ para se caso não existir algum
 	</div>
 </div>
 
+<!-- Modal Avaliar-->
+<div class="modal fade" id="modalAvaliar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-backdrop="static">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Avaliar <span id="nome_curso_avaliar"></span></h4>
+
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px" id="btn-fechar-avaliar">
+					<span aria-hidden="true">&times;</span>
+				</button>
+
+			</div>
+
+			<div class="modal-body">
+
+				<form method="post" id="form-avaliar">
+
+					<div class="row">
+						<div class="col-md-3">
+							<div class="form-group">
+								<label for="resposta">Nota <small>(De 1 a 5)</small></label>
+								<select name="nota_avaliacao" id="nota_avaliacao" class="form-control">
+
+									<option value="5">5</option>
+									<option value="4">4</option>
+									<option value="3">3</option>
+									<option value="2">2</option>
+									<option value="1">1</option>
+
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="avaliacao">Comentário <small>(Máx. 500 caracteres)</small></label>
+								<textarea class="form-control" name="comentario_avaliacao" id="comentario_avaliacao" maxlength="500"></textarea>
+							</div>
+						</div>
+					</div>
+
+					<div class="row" align="right" style="margin-bottom:15px">
+
+						<div class="col-md-12">
+							<button type="submit" class="btn btn-primary">Avaliar</button>
+
+						</div>
+
+					</div>
+
+					<input type="text" name="id_curso_avaliacao" id="id_curso_avaliacao">
+
+					<small>
+						<div id="mensagem-avaliacao" align="center" class="mt-3"></div>
+					</small>
+
+
+				</form>
+
+			</div>
+
+
+
+		</div>
+	</div>
+</div>
+
 <!-- id_curso e id_matricula são necessários para a função abrirAula, que será
 usada para após um usuário ver uma aula, ser atualizada na lista de aulas como aula vista
 os inputs abaixo são recebidos na function aulas()
@@ -202,4 +272,53 @@ os inputs abaixo são recebidos na function aulas()
 		abrirAula(id_aula, 'anterior');
 
 	}
+</script>
+
+<script type="text/javascript">
+	function avaliar(id_curso, nome_curso) {
+
+		$('#id_curso_avaliacao').val(id_curso);
+		$('#nome_curso_avaliar').text(nome_curso);
+		$('#modalAvaliar').modal('show');
+
+	}
+</script>
+
+<script type="text/javascript">
+	$("#form-avaliar").submit(function() {
+
+		event.preventDefault();
+		var formData = new FormData(this);
+
+		$.ajax({
+			url: 'paginas/' + pag + "/inserir-avaliar.php", //em sistema/painel-admin/paginas/alunos.php foi definido que $pag= 'alunos';
+
+			type: 'POST',
+			data: formData,
+
+			success: function(result) {
+				$('#mensagem-avaliacao').text('');
+				$('#mensagem-avaliacao').removeClass()
+
+				if (result.trim() == "Avaliado com sucesso!") {
+					$('#btn-fechar-avaliar').click();
+
+					//limpa resposta, repare que textarea também usa val(), e não text()
+					$('#comentario_avaliacao').val('');
+					listarCursosDoPacote(); //abre e executa tudo em listar-cursos.php, porém, agora sem o id do pacote  
+
+				} else {
+					$('#mensagem-avaliacao').addClass('text-danger')
+					$('#mensagem-avaliacao').text(result)
+				}
+
+			},
+
+			cache: false,
+			contentType: false,
+			processData: false,
+
+		});
+
+	});
 </script>

@@ -11822,6 +11822,10 @@ body #login-reg .forms-right-icons .icon {
 		left: 70%;
 		/* é para a barra de buscar no topo não ficar tão próxima dos ícones de redes sociais no mobile pequeno, deixa ela mais afastada no canto direito */
 	}
+
+	.video-mobile{
+		height: 220px; /* ão usou video-card pois para maior que 700px, ou seja, instrução acima, está com height de 200px, o que deixa o vídeo distorcido em md e lg */
+	}
 }
 
 /* btn-primary2*/

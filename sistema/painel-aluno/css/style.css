@@ -8531,6 +8531,11 @@ h4.asd label {
   .margem-mobile{
     margin-top: -25px !important; /* important é para não deixar que outras classes sobrescrevam esse comando*/
   }
+
+.video-mobile {
+  height:200px;
+}
+  
 }
 
 

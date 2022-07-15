@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 13-Jul-2022 às 22:18
+-- Tempo de geração: 15-Jul-2022 às 08:08
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -119,7 +119,8 @@ INSERT INTO `aulas` (`id`, `numero`, `nome`, `link`, `id_curso`, `sessao`, `sequ
 (30, 7, 'dsdsd442rwfsfsfsf', '', 2, 0, 7),
 (31, 8, 'dada242fsadawr2r', '', 2, 0, 8),
 (32, 9, 'zczczcvxvrf24242', '', 2, 0, 9),
-(33, 10, 'vcbdt353sffazz', '', 2, 0, 10);
+(33, 10, 'vcbdt353sffazz', '', 2, 0, 10),
+(47, 1, 'fsfsfs', '', 8, 12, 1);
 
 -- --------------------------------------------------------
 
@@ -144,7 +145,8 @@ INSERT INTO `avaliacoes` (`id`, `nota`, `comentario`, `id_curso`, `id_aluno`, `d
 (8, 5, 'ok!', 2, 5, '2022-07-13'),
 (9, 5, 'Beleza!', 1, 5, '2022-07-13'),
 (10, 5, 'Fodástico!', 1, 13, '2022-07-13'),
-(11, 3, 'Supimpa!', 2, 13, '2022-07-13');
+(11, 3, 'Supimpa!', 2, 13, '2022-07-13'),
+(13, 4, 'foda!', 3, 13, '2022-07-14');
 
 -- --------------------------------------------------------
 
@@ -256,6 +258,25 @@ INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnp
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `cupons`
+--
+
+CREATE TABLE `cupons` (
+  `id` int(11) NOT NULL,
+  `codigo` varchar(25) NOT NULL,
+  `valor` decimal(8,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `cupons`
+--
+
+INSERT INTO `cupons` (`id`, `codigo`, `valor`) VALUES
+(2, 'DANI15', '15.00');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `cursos`
 --
 
@@ -280,19 +301,20 @@ CREATE TABLE `cursos` (
   `sistema` varchar(5) NOT NULL,
   `link` varchar(150) NOT NULL,
   `tecnologias` varchar(150) NOT NULL,
-  `promocao` decimal(8,2) NOT NULL
+  `promocao` decimal(8,2) NOT NULL,
+  `matriculas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `cursos`
 --
 
-INSERT INTO `cursos` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `categoria`, `imagem`, `status`, `carga`, `mensagem`, `arquivo`, `ano`, `palavras`, `grupo`, `nome_url`, `pacote`, `sistema`, `link`, `tecnologias`, `promocao`) VALUES
-(1, 'Curso de HTML', 'Aprenda HTML5 e CSS3', 'Fique craque em desenvolver sites em html e css.', '100.00', 1, 3, '04-07-2022-00-34-59-curso-html-5-css-3.jpg', 'Aprovado', 120, '', 'https://www.youtube.com', 2022, 'html, css', 6, 'curso-de-html', '', 'Não', 'https://www.youtube.com/embed/gePgFx5ovgg', 'html, css, bootstrap', '70.00'),
-(2, 'Curso de PHP', 'Domine PHP8', 'Aprenda tudo sobre a melhor linguagem para desenvolvimento backend de sites e sistemas web', '250.00', 1, 3, '04-07-2022-00-36-30-curso-de-php.jpg', 'Aprovado', 250, '', 'https://www.google.com', 2022, 'php, laravel', 5, 'curso-de-php', '', 'Não', 'https://www.youtube.com/embed/J9NE5x6se3g', 'php, laravel, mysql', '150.00'),
-(3, 'Curso de Bootstrap', 'Frontend com Bootstrap', 'Aprenda frontend com o framework mais utilizado do mundo!', '90.00', 1, 4, '04-07-2022-01-15-30-curso-de-aplicativo-ecommerce-react-native.jpeg', 'Aprovado', 60, '', 'https://www.lance.com.br', 2022, 'bootstrap, framework, twitter', 3, 'curso-de-bootstrap', '', 'Não', 'https://www.youtube.com/embed/BdPGadO2Fkk', '', '68.00'),
-(4, 'Curso Teste 01', 'Cursinho testinho 01', 'teste 01', '200.00', 1, 6, 'sem-foto.png', 'Aguardando', 200, '', '', 2022, 'teste 01', 6, 'curso-teste-01', '', 'Não', '', '', '100.00'),
-(5, 'Curso Teste 02', 'Cursinho testinho 02', 'teste 02', '300.00', 1, 6, 'sem-foto.png', 'Aguardando', 80, '', '', 2022, 'teste 02', 6, 'curso-teste-02', '', 'Não', '', '', '150.00');
+INSERT INTO `cursos` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `categoria`, `imagem`, `status`, `carga`, `mensagem`, `arquivo`, `ano`, `palavras`, `grupo`, `nome_url`, `pacote`, `sistema`, `link`, `tecnologias`, `promocao`, `matriculas`) VALUES
+(1, 'Curso de HTML', 'Aprenda HTML5 e CSS3', 'Fique craque em desenvolver sites em html e css.', '100.00', 1, 3, '04-07-2022-00-34-59-curso-html-5-css-3.jpg', 'Aprovado', 120, '', 'https://www.youtube.com', 2022, 'html, css', 6, 'curso-de-html', '', 'Não', 'https://www.youtube.com/embed/gePgFx5ovgg', 'html, css, bootstrap', '70.00', 0),
+(2, 'Curso de PHP', 'Domine PHP8', 'Aprenda tudo sobre a melhor linguagem para desenvolvimento backend de sites e sistemas web', '250.00', 1, 3, '04-07-2022-00-36-30-curso-de-php.jpg', 'Aprovado', 250, '', 'https://www.google.com', 2022, 'php, laravel', 5, 'curso-de-php', '', 'Não', 'https://www.youtube.com/embed/J9NE5x6se3g', 'php, laravel, mysql', '150.00', 0),
+(6, 'Sistema Escritório', 'Somente Fontes', '', '270.00', 1, 6, 'sem-foto.png', 'Aprovado', 0, '', '', 2022, 'sistema para escritorio de contabilidade', 6, 'sistema-escritorio', '', 'Sim', '', '', '250.00', 0),
+(8, 'Curso 02', 'Blablabla', '', '160.00', 1, 6, 'sem-foto.png', 'Aguardando', 80, '', '', 2022, '', 4, 'curso-02', '', 'Não', '', '', '90.00', 0),
+(9, 'Curso Laravel', 'O Framework PHP mais usado', 'Aprenda!', '150.00', 1, 6, 'sem-foto.png', 'Aprovado', 45, '', '', 2022, '', 5, 'curso-laravel', '', 'Não', '', '', '90.00', 0);
 
 -- --------------------------------------------------------
 
@@ -311,8 +333,7 @@ CREATE TABLE `cursos_pacotes` (
 --
 
 INSERT INTO `cursos_pacotes` (`id`, `id_curso`, `id_pacote`) VALUES
-(1, 4, 1),
-(2, 5, 1);
+(6, 8, 1);
 
 -- --------------------------------------------------------
 
@@ -393,12 +414,9 @@ INSERT INTO `matriculas` (`id`, `id_curso`, `id_aluno`, `id_professor`, `aulas_c
 (95, 1, 5, 1, 5, '70.00', '2022-07-09', 'Finalizado', 'Não', NULL, '0.00', '70.00', NULL, NULL, 0, '2022-07-09'),
 (96, 2, 5, 1, 10, '150.00', '2022-07-09', 'Finalizado', 'Não', NULL, '0.00', '150.00', NULL, NULL, 0, '2022-07-09'),
 (97, 1, 5, 1, 1, '450.00', '2022-07-09', 'Matriculado', 'Sim', NULL, '0.00', '450.00', NULL, NULL, 0, NULL),
-(98, 4, 5, 1, 1, '100.00', '2022-07-09', 'Matriculado', 'Não', NULL, '0.00', '100.00', NULL, NULL, 0, NULL),
-(99, 5, 5, 1, 1, '150.00', '2022-07-09', 'Matriculado', 'Não', NULL, '0.00', '150.00', NULL, NULL, 0, NULL),
-(100, 3, 13, 1, 1, '68.00', '2022-07-11', 'Matriculado', 'Não', NULL, '0.00', '68.00', NULL, NULL, 0, NULL),
-(101, 3, 5, 1, 1, '68.00', '2022-07-11', 'Matriculado', 'Não', NULL, '0.00', '68.00', NULL, NULL, 0, NULL),
 (102, 2, 13, 1, 10, '150.00', '2022-07-13', 'Finalizado', 'Não', NULL, '0.00', '150.00', NULL, NULL, 0, '2022-07-13'),
-(103, 1, 13, 1, 5, '70.00', '2022-07-13', 'Finalizado', 'Não', NULL, '0.00', '70.00', NULL, NULL, 0, '2022-07-13');
+(103, 1, 13, 1, 5, '70.00', '2022-07-13', 'Finalizado', 'Não', NULL, '0.00', '70.00', NULL, NULL, 0, '2022-07-13'),
+(107, 9, 5, 1, 1, '90.00', '2022-07-15', 'Aguardando', 'Não', NULL, '0.00', '90.00', NULL, NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -420,16 +438,18 @@ CREATE TABLE `pacotes` (
   `nome_url` varchar(150) NOT NULL,
   `video` varchar(150) NOT NULL,
   `linguagem` int(11) NOT NULL,
-  `promocao` decimal(8,2) NOT NULL
+  `promocao` decimal(8,2) NOT NULL,
+  `matriculas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `pacotes`
 --
 
-INSERT INTO `pacotes` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `imagem`, `grupo`, `ano`, `palavras`, `nome_url`, `video`, `linguagem`, `promocao`) VALUES
-(1, 'Formação Delphi', 'Aprenda Mais', 'blablablablabla', '500.00', 1, '30-06-2022-20-54-53-tattoo-isa.jpg', 4, 2022, 'delphi, embarcadero', 'formacao-delphi', 'http://www.google.com', 1, '450.00'),
-(2, 'Pacote 02', '', '', '120.00', 1, 'sem-foto.png', 6, 2022, '', 'pacote-02', '', 5, '50.00');
+INSERT INTO `pacotes` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `imagem`, `grupo`, `ano`, `palavras`, `nome_url`, `video`, `linguagem`, `promocao`, `matriculas`) VALUES
+(1, 'Formação Delphi', 'Aprenda Mais', 'blablablablabla', '500.00', 1, '30-06-2022-20-54-53-tattoo-isa.jpg', 4, 2022, 'delphi, embarcadero', 'formacao-delphi', 'http://www.google.com', 1, '450.00', 0),
+(2, 'Pacote 02', '', '', '120.00', 1, 'sem-foto.png', 6, 2022, '', 'pacote-02', '', 5, '50.00', 0),
+(3, 'Formação PHP', 'Tudo em PHP', '', '600.00', 1, 'sem-foto.png', 3, 2022, '', 'formacao-php', '', 1, '0.00', 0);
 
 -- --------------------------------------------------------
 
@@ -452,11 +472,11 @@ CREATE TABLE `perguntas` (
 --
 
 INSERT INTO `perguntas` (`id`, `num_aula`, `pergunta`, `id_curso`, `id_aluno`, `data`, `respondida`) VALUES
-(9, 1, 'fafafafa', 1, 5, '2022-07-11', 'Sim'),
-(11, 4, 'Minha nova pergunta', 1, 5, '2022-07-12', 'Sim'),
 (13, 3, 'dadada', 1, 5, '2022-07-12', 'Sim'),
-(14, 8, 'dadadafgsfgsf*', 1, 5, '2022-07-12', 'Sim'),
-(16, 12, 'wffwrtwrtwr ', 1, 5, '2022-07-12', 'Não');
+(16, 12, 'wffwrtwrtwr ', 1, 5, '2022-07-12', 'Não'),
+(18, 3, 'cuzeroloco ', 1, 5, '2022-07-14', 'Não'),
+(19, 7, 'tá doidão de ácido o mané?', 1, 5, '2022-07-14', 'Não'),
+(21, 1, 'Vadiozão ? ', 1, 5, '2022-07-14', 'Não');
 
 -- --------------------------------------------------------
 
@@ -504,13 +524,7 @@ CREATE TABLE `respostas` (
 --
 
 INSERT INTO `respostas` (`id`, `resposta`, `id_curso`, `id_pessoa`, `data`, `id_pergunta`, `funcao`) VALUES
-(18, 'dadada', 1, 5, '2022-07-12', 9, 'Aluno'),
-(19, 'eqeqeqeqeq', 1, 5, '2022-07-12', 9, 'Aluno'),
-(20, 'fsfswrrwrw', 1, 5, '2022-07-12', 9, 'Aluno'),
-(25, 'certo', 1, 5, '2022-07-12', 9, 'Aluno'),
-(34, 'Admin respondendo agora', 0, 1, '2022-07-12', 9, 'Professor'),
-(36, 'sfssfsfsfsffs ', 0, 1, '2022-07-12', 13, 'Professor'),
-(37, '     ', 0, 1, '2022-07-12', 14, 'Professor');
+(36, 'sfssfsfsfsffs ', 0, 1, '2022-07-12', 13, 'Professor');
 
 -- --------------------------------------------------------
 
@@ -532,7 +546,8 @@ INSERT INTO `sessao` (`id`, `nome`, `id_curso`) VALUES
 (4, 'Módulo 01 HTML', 1),
 (5, 'Módulo 02 HTML', 1),
 (6, 'Módulo 03 HTML', 1),
-(7, 'Módulo 01 Bootstrap', 3);
+(9, 'Intermediário', 6),
+(12, 'fsfs', 8);
 
 -- --------------------------------------------------------
 
@@ -626,6 +641,12 @@ ALTER TABLE `config`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `cupons`
+--
+ALTER TABLE `cupons`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `cursos`
 --
 ALTER TABLE `cursos`
@@ -711,13 +732,13 @@ ALTER TABLE `alunos`
 -- AUTO_INCREMENT de tabela `aulas`
 --
 ALTER TABLE `aulas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT de tabela `avaliacoes`
 --
 ALTER TABLE `avaliacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de tabela `banner_index`
@@ -744,16 +765,22 @@ ALTER TABLE `config`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de tabela `cupons`
+--
+ALTER TABLE `cupons`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de tabela `cursos`
 --
 ALTER TABLE `cursos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `cursos_pacotes`
 --
 ALTER TABLE `cursos_pacotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `grupos`
@@ -771,19 +798,19 @@ ALTER TABLE `linguagens`
 -- AUTO_INCREMENT de tabela `matriculas`
 --
 ALTER TABLE `matriculas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT de tabela `pacotes`
 --
 ALTER TABLE `pacotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `perguntas`
 --
 ALTER TABLE `perguntas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de tabela `professores`
@@ -801,7 +828,7 @@ ALTER TABLE `respostas`
 -- AUTO_INCREMENT de tabela `sessao`
 --
 ALTER TABLE `sessao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`

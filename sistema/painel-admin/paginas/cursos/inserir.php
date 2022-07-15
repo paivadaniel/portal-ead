@@ -26,6 +26,16 @@ $arquivo = $_POST['arquivo'];
 $link = $_POST['link'];
 $desc_longa = $_POST['desc_longa']; //POST usa o name, não o id
 
+$nome = str_replace("'", " ", $nome); //remove aspas simples
+$nome = str_replace('"', " ", $nome); //remove aspas duplas
+
+$desc_rapida = str_replace("'", " ", $desc_rapida); //remove aspas simples
+$desc_rapida = str_replace('"', " ", $desc_rapida); //remove aspas duplas
+
+$desc_longa = str_replace("'", " ", $desc_longa); //remove aspas simples
+$desc_longa = str_replace('"', " ", $desc_longa); //remove aspas duplas
+
+
 $id = $_POST['id']; //recuperou o id para depois analisar se é inserção (id vazio) ou edição (id diferente de vazio)
 
 //com o código abaixo, se digitar para url "Curso de Programação WEB", irá se tornar "curso-de-programacao-web"

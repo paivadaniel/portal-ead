@@ -210,10 +210,19 @@ $senha_usuario = $res[0]['senha'];
 
 
 
-                            <li class="treeview">
+
+                            <li class="treeview <?php echo $ocultar ?>"> <!-- oculta para professores -->
+                                <a href="index.php?pagina=cupons">
+                                    <i class="fa fa-money"></i>
+                                    <span>Cupons de Desconto</span>
+                                </a>
+                            </li>
+
+                            <li class="treeview <?php echo $ocultar ?>">
                                 <a href="#">
                                     <i class="fa fa-cog"></i>
                                     <span>Recursos do Site</span>
+                                    <!-- ícone a seguir é a flechinha do menu -->
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </a>
                                 <ul class="treeview-menu">

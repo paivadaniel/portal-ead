@@ -4,7 +4,7 @@ require_once("sistema/conexao.php");
 $destinatario = $email_sistema;
 
 if(@$_POST['nome_curso'] != ""){ //formulário vindo da modalContato, em curso.php
-	$assunto = 'Pergunta do Curso - ' .@$_POST['nome_curso'];
+	$assunto = 'Dúvida Antes de Comprar Curso - ' .@$_POST['nome_curso'];
 
 } else {
 	$assunto = 'Contato - ' .$nome_sistema; //formulário vindo de contatos.php

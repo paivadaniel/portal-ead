@@ -264,7 +264,7 @@ require_once('cabecalho.php');
                 </div>
 
                 <div class="col-md-8 col-sm-12">
-                    <iframe width="100%" height="300" src="<?php echo $video ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="target-video"></iframe>
+                    <iframe class="video-mobile" width="100%" height="300" src="<?php echo $video ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="target-video"></iframe>
                 </div>
             </div>
 
@@ -825,7 +825,7 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
             </div>
 
             <div class="modal-body">
-                <iframe width="100%" height="400" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="videoModal"></iframe>
+                <iframe class="video-mobile" width="100%" height="400" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="videoModal"></iframe>
 
 
 

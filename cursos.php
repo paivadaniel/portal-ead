@@ -8,7 +8,7 @@ require_once('cabecalho.php');
 
 <?php
 
-$query = $pdo->query("SELECT * FROM cursos WHERE status = 'Aprovado' and sistema = 'Não' ORDER BY id asc limit 8");
+$query = $pdo->query("SELECT * FROM cursos WHERE status = 'Aprovado' and sistema = 'Não' ORDER BY matriculas desc limit 8"); //campo matriculas guarda quantas matrícula aprovadas (ou seja, vendas) tem cada curso, daí a ordenação dos mais vendidos ser descendente, do maior para o menor em número de matrículas aprovadas
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 
@@ -119,7 +119,7 @@ if ($total_reg > 0) {
 
 <?php
 
-$query = $pdo->query("SELECT * FROM pacotes ORDER BY id asc limit 12");
+$query = $pdo->query("SELECT * FROM pacotes ORDER BY matriculas desc limit 12");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 
