@@ -50,8 +50,9 @@ if ($total_reg > 0) {
     $valor_curso = $res[0]['valor']; //para não perder a referência
 
     if ($promocao > 0) {
-        $valor = $promocao;
         $valor_curso = $promocao;
+    } else {
+        $valor_curso = $valor;
     }
 
     $query2 = $pdo->query("SELECT * FROM usuarios WHERE id = '$professor'");
@@ -75,14 +76,30 @@ if ($total_reg > 0) {
     $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
     $total_alunos = @count($res2);
 
-    if ($desconto_pix > 0) { //caso o admin tiver setado nas configurações uma porcentagem de desconto para pagamentos em pix, aparece essa mensagem 
+    //verificar e buscar se o aluno já se matriculou nesse curso para exibir os valores na modal Pagamento atualizados com o cupom pagamento, já que quando ele clica em comprar o curso, a matrícula ainda não existe, então não há id dela para comparar e mudar o valor do curso e valor do pix na modal Pagamento
+    $query2 = $pdo->query("SELECT * FROM matriculas WHERE id_curso = '$id_do_curso_pag' and id_aluno = $id_do_aluno /*and pacote = '$pacote'*/");
 
-        $valor_pix = (1 - ($desconto_pix / 100)) * $valor_curso;
+    /*não entendi porquê tive que remover pacote daqui, pois se não se fizer
+    echo $valor_curso;
+    exit();
+
+    está imprimindo o subtotal sem o cupom de desconto (ver final da aula 18 mod 12)
+
+    se tirar pacote, está imprimindo o novo subtotal, porém, a variável pacote não é alterada após alterar o subtotal
+*/
+    $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+
+    if (@count($res2) > 0) {
+        $valor_curso = $res2[0]['subtotal'];
     }
 
 
+    if ($desconto_pix > 0) { //caso o admin tiver setado nas configurações uma porcentagem de desconto para pagamentos em pix, aparece essa mensagem 
+        $valor_pix = (1 - ($desconto_pix / 100)) * $valor_curso;
+    }
+
     //valor formatado e descrição_longa formatada
-    $valor_cursoF = number_format($valor, 2, ',', '.',); //valorF é variável para cursos relacionados, utilizada mais abaixo
+    $valor_cursoF = number_format($valor_curso, 2, ',', '.',); //valorF é variável para cursos relacionados, utilizada mais abaixo
     $promocaoF = number_format($promocao, 2, ',', '.',);
     $desc_longa = str_replace('"', '**', $desc_longa); //quando joga em onclick="editar()", como o conteúdo de $desc_longa muita das vezes tem aspas, como align="center", então dá problema
     $valor_pixF = number_format($valor_pix, 2, ',', '.',);
@@ -864,7 +881,7 @@ require_once('cabecalho.php');
                                 <hr style="margin:5px">
                                 <span class="neutra-escura">DESCONTO PIX ------------- <?php echo $desconto_pix ?>%</span>
                                 <hr style="margin:5px">
-                                <span class="neutra-escura"><b>TOTAL ------------------ R$<?php echo @$valor_pixF ?></b></span>
+                                <span class="neutra-escura"><b>TOTAL NO PIX ------------------ R$<?php echo @$valor_pixF ?></b></span>
 
                             </div>
                         </div>
@@ -1187,9 +1204,6 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
     });
 </script>
 
-
-
-
 <script type="text/javascript">
     $("#form-login").submit(function() {
 
@@ -1278,6 +1292,8 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
 
 
 <script type="text/javascript">
+    //ao invés de declarar novamente as variáveis id, nome, valor e modal (utilizadas no form-login) para chamar novamente a function pagamento, e então atualizar os valores do subtotal que aparecem na tela (valor e total no pix) agora com o desconto do cupom, iremos apenas atualizar esses valores
+
     $("#form-cupom-desconto").submit(function() {
 
         var id = '<?= $id ?>';
@@ -1317,9 +1333,6 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
 
     });
 </script>
-
-
-
 
 <script type="text/javascript">
     function enviarEmail(nome) {

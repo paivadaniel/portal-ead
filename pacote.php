@@ -76,12 +76,6 @@ if ($total_reg > 0) {
     $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
     $total_cursos = @count($res2);
 
-    if ($desconto_pix > 0) { //caso o admin tiver setado nas configurações uma porcentagem de desconto para pagamentos em pix, aparece essa mensagem 
-
-        $valor_pix = (1 - ($desconto_pix / 100)) * $valor_curso;
-        $valor_pixF = number_format($valor_pix, 2, ',', '.',);
-    }
-
     $carga = 0; //se não iniciar carga com zero, ele provavelmente considera que carga começa com lixo na soma do if abaixo, e acusa Undefined variable $carga
 
     if ($total_cursos > 0) {
@@ -97,6 +91,21 @@ if ($total_reg > 0) {
 
         }
     }
+
+    $query2 = $pdo->query("SELECT * FROM matriculas WHERE id_curso = '$id_do_curso_pag' and id_aluno = $id_do_aluno and pacote = '$pacote'");
+    $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+
+    if(@count($res) > 0) {
+        $valor_curso = $res2[0]['subtotal'];
+
+    }
+
+    if ($desconto_pix > 0) { //caso o admin tiver setado nas configurações uma porcentagem de desconto para pagamentos em pix, aparece essa mensagem 
+
+        $valor_pix = (1 - ($desconto_pix / 100)) * $valor_curso;
+        $valor_pixF = number_format($valor_pix, 2, ',', '.',);
+    }
+
 
     //valor formatodo e descrição_longa formatada
     $valor_cursoF = number_format($valor_curso, 2, ',', '.',);
