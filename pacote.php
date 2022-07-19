@@ -39,12 +39,14 @@ if ($total_reg > 0) {
     $foto = $res[0]['imagem'];
     $foto_do_curso_pag = $res[0]['imagem']; //mesma variável id declarada acima, porém, para não ser perdida durante a execução do código, já que uma variável chamada foto pode assumir outros valores por seu nome ser comum
 
-
     $ano = $res[0]['ano'];
     $palavras = $res[0]['palavras'];
     $grupo = $res[0]['grupo'];
     $nome_url = $res[0]['nome_url'];
     $video = $res[0]['video'];
+    $matriculas = $res[0]['matriculas'];
+
+    $valor_curso = $res[0]['valor']; //para não perder a referência ao longo do código ao chamar essa, nomeou duas vezes a variável para recuperar o mesmo valor do banco
 
     if ($promocao > 0) {
         $valor_curso = $promocao;
@@ -92,14 +94,14 @@ if ($total_reg > 0) {
         }
     }
 
-    $query2 = $pdo->query("SELECT * FROM matriculas WHERE id_curso = '$id_do_curso_pag' and id_aluno = $id_do_aluno and pacote = '$pacote'");
+    $query2 = $pdo->query("SELECT * FROM matriculas WHERE id_curso = '$id_do_curso_pag' and id_aluno = '$id_do_aluno'"); 
     $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 
-    if(@count($res) > 0) {
+    if (@count($res2) > 0) {
         $valor_curso = $res2[0]['subtotal'];
-
     }
 
+    $valor_pix = $valor_curso; //para caso não haja desconto por pix
     if ($desconto_pix > 0) { //caso o admin tiver setado nas configurações uma porcentagem de desconto para pagamentos em pix, aparece essa mensagem 
 
         $valor_pix = (1 - ($desconto_pix / 100)) * $valor_curso;
@@ -223,7 +225,7 @@ require_once('cabecalho.php');
                         </div>
 
                         <div class="col-md-5 direita-mobile">
-                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-calculator mr-1 itens"></i>Alunos: <?php echo @$total_alunos; ?></span>
+                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-calculator mr-1 itens"></i>Alunos: <?php echo @$matriculas; ?></span>
                         </div>
 
                     </div>
@@ -636,6 +638,9 @@ require_once('cabecalho.php');
                 </button>
             </div>
 
+
+
+
             <div class="modal-body">
 
                 <div class="row">
@@ -645,58 +650,70 @@ require_once('cabecalho.php');
                                 <img src="sistema/painel-admin/img/pacotes/<?php echo $foto_do_curso_pag ?>" width="100%">
                             </div>
                             <div class="col-sm-8 direita-mobile-checkout">
-                                <span class="neutra-escura">VALOR ----------------- R$<?php echo $valor_cursoF ?></span>
+                                <span class="neutra-escura">VALOR ----------------- R$<span id="valor_curso_span" class="neutra-escura"><?php echo $valor_cursoF ?></span></span>
                                 <hr style="margin:5px">
-                                <span class="neutra-escura">DESCONTO ------------- R$ 0,00</span>
+                                <span class="neutra-escura">DESCONTO PIX ------------- <?php echo $desconto_pix ?>%</span>
                                 <hr style="margin:5px">
-                                <span class="neutra-escura">TOTAL ------------------ R$<?php echo $valor_cursoF ?></span>
+                                <span class="neutra-escura"><b>TOTAL NO PIX ------------------ R$<span id="valor_curso_desconto_span" class="neutra-escura"><?php echo @$valor_pixF ?></span></b></span>
 
                             </div>
-                        </div>
-
-                        <div class="row" style="margin-top: 25px">
-                            <form id="cupom-desconto">
-
-                                <div class="col-sm-7 esquerda-mobile-input">
-                                    <div class="form-group">
-                                        <input type="text" name="cupom" id="cupom" class="form-control" required placeholder="Código do Cupom" style="height:50px">
-
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-5 direita-mobile-input">
-                                    <button id="btn-cupom" type="submit" name="submit" class="btn btn-primary submit-button">Aplicar <i class="fa fa-caret-right"></i></button>
-                                </div>
-                            </form>
                         </div>
 
                     </div>
 
-                    <div class="col-md-6 col-sm-12" style="margin-bottom: 10px">
-                        <div class="row" style="margin-bottom: 20px">
-                            <div class="col-md-6 esquerda-mobile-input" id="listar-btn-mp">
-                                <img src="img/pagamentos/mercadopago.jpg" width="100%"> <!-- imagem do mercado pago aparece na classe é impressa em listar-btn-mp.php, nessa linha $btn = $pagar->PagarMP, porém, ela é colocada aqui para não haver demora de carregamento, depois ela é substituída pela outra, que é a mesma, para notar a diferença e o carregamento altere o width dessa imagem para 200% e clique em comprar e verá a substituição -->
-                                <!--link do botão está definido em pagarMP(), chamada em ajax/cursos/listar-btn-mp.php, e definida em pagamentoMP.php -->
 
-                                <div align="center"><i class="neutra"><small>(Divida em até 12 Vezes) <br> <span class="neutra ocultar-mobile">Pagamento no Cartão ou Saldo</span></small></i></div>
+                    <div class="col-md-6 col-sm-12" style="margin-bottom: 10px" align="center">
 
+                        <?php if ($desconto_pix > 0) { ?>
+                            <div>
+                                <small>Estamos dando um <b>desconto de <?php echo $desconto_pix ?>% </b>no pagamento via PIX. </small>
                             </div>
+                        <?php } ?>
+                        <img src="img/pagamentos/pix.jpg" width="80%">
+                    </div>
+                </div>
 
-                            <div class="col-md-6 direita-mobile-input">
-                                <a title="Paypal - Acesso Imediato ao Curso" href="pagamentos/paypal/checkout.php?id=<?php echo $id_do_curso_pag; ?>" target="_blank"><img src="img/pagamentos/paypal.png" width="100%"></a>
-                                <div align="center"><i class="neutra"><small>(Pagamento Cartão Visa) <br><span class="neutra ocultar-mobile"> Melhor opção para estrangeiros</span></small></i></div>
+                <hr>
 
-                            </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-12" style="margin-bottom: 10px">
+                        <div class="row botoes-mobile" style="margin-top: 25px" align="center">
+                            <form id="form-cupom-desconto" method="post">
 
+                                <div class="col-sm-9 esquerda-mobile-input-botao">
+                                    <div class="form-group">
+                                        <input type="text" name="codigo_cupom" id="codigo_cupom" class="form-control" required placeholder="Código do Cupom">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3 direita-mobile-input-botao" style="margin-left:-20px">
+                                    <button id="btn-cupom" type="submit" name="submit" class="btn btn-success botao-laranja submit-button">Aplicar </button>
+                                </div>
+
+                                <!--
+autor disse que não poderia usar o id da matrícula, pois quando clicado em Comprar R$ XX Inicie Imediatamente, segundo ele o id da matrícula não é gerado automaticamente, isso ocorre se ou usuário não estiver logado
+
+dessa forma ele optou por pegar as variáveis que já tinham valor antes disso e que com elas são possíveis idenitificar o id da matrícula gerada posteriormente, que são id do curso e id do aluno
+ -->
+                                <input type="hidden" name="id_curso_cupom" value="<?php echo $id_do_curso_pag ?>">
+                                <input type="hidden" name="id_aluno_cupom" value="<?php echo $id_do_aluno ?>">
+
+
+                            </form>
                         </div>
 
+                        <small>
+                            <div align="center" id="msg-cupom"></div>
+                        </small>
 
 
-                        <div class="row">
-                            <div class="col-md-6 esquerda-mobile-input" align="right">
-                                <!-- right para não ficar colado no botão APLICAR !-->
+                    </div>
 
-                                <!-- para utilizar boleto será necessário fazer um cadastro no gerencia net (gerencianet.com.br),
+                    <div class="col-md-3 col-sm-12" style="margin-bottom: 20px; " align="right">
+                        <!-- right para não ficar colado no botão APLICAR !-->
+
+                        <!-- para utilizar boleto será necessário fazer um cadastro no gerencia net (gerencianet.com.br),
 que é a API de boleto que o autor utiliza
 
 porém, o próprio Mercado Pago já fornece a opção com boleto
@@ -713,45 +730,50 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
 
         -->
 
-                                <a href="" data-toggle="modal" data-target="#modalCPF"><img src="img/pagamentos/boleto.jpg" width="90%" align="center"> </a>
-
-                            </div>
-
-                            <div class="col-md-6 direita-mobile-input">
-                                <img src="img/pagamentos/bradesco.png" width="20px" align="center"><span class="neutra-escura">Chave Pix: <?php echo $tipo_chave_pix ?></span><br>
-                                <span class="neutra"><?php echo $chave_pix ?></span><br>
-
-                            </div>
-
+                        <div class="row" style="margin-top: 20px" align="center">
+                            <a href="" data-toggle="modal" data-target="#modalCPF">
+                                <img src="img/pagamentos/boleto.jpg" width="70%" align="center" class="ocultar-mobile">
+                                <img src="img/pagamentos/boleto-mobile.jpg" width="70%" align="center" class="ocultar-web">
+                            </a>
                         </div>
 
                     </div>
 
 
+
+
+                    <div class="col-sm-6" style="margin-bottom: 10px; ">
+
+                        <div class="col-md-6 col-sm-6 esquerda-mobile-input" id="listar-btn-mp">
+                            <img src="img/pagamentos/mercadopago.jpg" width="100%">
+                            <div align="center"><i class="neutra"><small>(Dívida em até 12 Vezes) <br> <span class="neutra ocultar-mobile">Pagamento no Cartão ou Saldo</span></small></i></div>
+
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 direita-mobile-input">
+                            <a title="Paypal - Acesso Imediato ao Curso" href="pagamentos/paypal/checkout.php?id=<?php echo $id_do_curso_pag; ?>" target="_blank"><img src="img/pagamentos/paypal.png" width="100%"></a>
+                            <div align="center"><i class="neutra"><small>(Pagamento Cartão Visa) <br><span class="neutra ocultar-mobile"> Melhor opção para estrangeiros</span></small></i></div>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
-                <hr style="margin:10px">
+                <br>
+
 
                 <div class="row">
                     <div class="col-md-2 ocultar-mobile">
                         <!-- ocultou para celulares de tela menor, porque não faz sentido mostrar o QRCODE na tela do celular, pois creio que ainda não há tecnologia para scannear o QRCODE da tela do celular com o próprio celular -->
+
                         <a href="sistema/img/qrcode.jpg" target="_blank" title="Abrir imagem QR-Code"><img src="sistema/img/qrcode.jpg" width="100%" align="center"></a>
                     </div>
 
                     <div class="col-md-10">
 
-                        <?php if ($desconto_pix > 0) { //caso o admin tiver setado nas configurações uma porcentagem de desconto para pagamentos em pix, aparece essa mensagem 
-
-                            $valor_pix = (1 - ($desconto_pix / 100)) * $valor_curso;
-                            $valor_pixF = number_format($valor_pix, 2, ',', '.',);
-                        ?>
-                            <div>
-
-                                Estamos dando um <b>desconto de <?php echo $desconto_pix ?>% </b>no pagamento via PIX, este curso sai à <b>R$ <?php echo @$valor_pixF ?></b> pagando via Pix.
-                            </div>
-                        <?php } ?>
                         <hr style="margin:8px">
-                        <div>Caso efetue o pagamento via pix favor enviar o comprovante no email ou whatsapp para agilizarmos a liberação. <br>
+                        <div>Caso efetue o pagamento via pix favor enviar o comprovante no email ou whatsapp para agilizarmos a liberação. Inserir o valor já com o desconto ao efetuar o pagamento pelo QR-Code. <br>
 
                             <i class="fa fa-envelope neutra-escura" style="color:#FFF; margin-right:5px"> </i><a href=""><?php echo $email_sistema ?></a> /
 
@@ -764,6 +786,13 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
                 </div>
 
             </div>
+
+
+
+
+
+
+
             <!-- se remover o rodapé, quebra a modal -->
             <div class="modal-footer">
                 <div align="center">
@@ -953,8 +982,6 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
     });
 </script>
 
-
-
 <script type="text/javascript">
     $("#form-login").submit(function() {
 
@@ -1041,6 +1068,52 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
     });
 </script>
 
+<script type="text/javascript">
+    $("#form-cupom-desconto").submit(function() {
+
+        event.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: "ajax/cursos/cupom.php",
+            type: 'POST',
+            data: formData,
+
+            success: function(mensagem) {
+                $('#msg-cupom').text('');
+                $('#msg-cupom').removeClass();
+
+                mensagem = mensagem.split('-');
+
+                if (mensagem[0].trim() == "Cupom Inserido com Sucesso!") {
+                    $('#msg-cupom').addClass('text-success');
+                    $('#msg-cupom').text(mensagem[0]);
+
+                    $('#codigo_cupom').val('');
+
+                    $('#valor_curso_span').text(mensagem[1]);
+                    $('#valor_curso_desconto_span').text(mensagem[2]);
+                    listarBotaoMP(); //para atualizar o valor no Mercado Pago com o desconto do cupom
+
+
+                } else {
+
+                    $('#msg-cupom').addClass('text-danger');
+                    $('#msg-cupom').text(mensagem);
+                }
+
+
+            },
+
+            //para limparo cache e processar os dados do formulário
+            cache: false,
+            contentType: false,
+            processData: false,
+
+        });
+
+    });
+</script>
 
 
 <script type="text/javascript">
@@ -1207,8 +1280,8 @@ require_once('rodape.php');
 
 <?php
 
-if(@$_POST['painel_aluno'] == 'sim'){
-	echo "<script>$('#btn_pagamento').click();</script>";
+if (@$_POST['painel_aluno'] == 'sim') {
+    echo "<script>$('#btn_pagamento').click();</script>";
 }
 
 ?>

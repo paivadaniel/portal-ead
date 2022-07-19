@@ -24,7 +24,7 @@ include 'PaypalExpress.class.php';
 $paypal = new PaypalExpress;
 
 // buscar do banco informações do cursp
-$id_curso = $_GET['id'];
+$id_curso = $_GET['id']; //recebido de curso.php via GET
 
 $query = $pdo->query("SELECT * FROM matriculas where id_curso = '$id_curso' and id_aluno = '$id_aluno'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);

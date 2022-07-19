@@ -18,6 +18,16 @@ $aulas_lib = $_POST['aulas_lib'];
 $desconto_pix = $_POST['desconto_pix'];
 $email_adm_mat = $_POST['email_adm_mat'];
 $cartoes_fidelidade = $_POST['cartoes_fidelidade'];
+$taxa_boleto = $_POST['taxa_boleto'];
+$taxa_mp = $_POST['taxa_mp'];
+$taxa_paypal = $_POST['taxa_paypal'];
+$valor_max_cartao = $_POST['valor_max_cartao'];
+
+$taxa_boleto = str_replace(',', '.', $taxa_boleto);
+$taxa_mp = str_replace(',', '.', $taxa_mp);
+$taxa_paypal = str_replace(',', '.', $taxa_paypal);
+$valor_max_cartao = str_replace(',', '.', $valor_max_cartao);
+
 
 //script para subir foto no servidor
 //logo
@@ -81,7 +91,7 @@ if (@$_FILES['imgQRCode']['name'] != "") {
 }
 
 //atualiza a tabela config
-$query = $pdo->prepare("UPDATE config SET nome_sistema = :nome_sistema, email_sistema = :email_sistema, tel_sistema = :tel_sistema, cnpj_sistema = :cnpj_sistema, tipo_chave_pix = '$tipo_chave_pix_sistema', chave_pix = :chave_pix, logo = 'logo.png', icone = 'favicon.ico', logo_rel = 'logo_rel.jpg', qrcode_pix = 'qrcode.jpg', facebook = :facebook, instagram = :instagram, youtube = :youtube, itens_pag = '$itens_pag', video_sobre = :video_sobre, itens_relacionados = '$itens_rel', aulas_liberadas = '$aulas_lib', desconto_pix = '$desconto_pix', email_adm_mat = '$email_adm_mat', cartoes_fidelidade = '$cartoes_fidelidade'");
+$query = $pdo->prepare("UPDATE config SET nome_sistema = :nome_sistema, email_sistema = :email_sistema, tel_sistema = :tel_sistema, cnpj_sistema = :cnpj_sistema, tipo_chave_pix = '$tipo_chave_pix_sistema', chave_pix = :chave_pix, logo = 'logo.png', icone = 'favicon.ico', logo_rel = 'logo_rel.jpg', qrcode_pix = 'qrcode.jpg', facebook = :facebook, instagram = :instagram, youtube = :youtube, itens_pag = '$itens_pag', video_sobre = :video_sobre, itens_relacionados = '$itens_rel', aulas_liberadas = '$aulas_lib', desconto_pix = '$desconto_pix', email_adm_mat = '$email_adm_mat', cartoes_fidelidade = '$cartoes_fidelidade', taxa_boleto = :taxa_boleto, taxa_mp = :taxa_mp, taxa_paypal = :taxa_paypal, valor_max_cartao = :valor_max_cartao");
 
 //não fez bindValue para inputs de select (tipo_chave_pix) e img (logo, icone, logo_rel e qrcode_pix), no caso não precisa para itens_pag e tipo_chave_pix_sistema, já que não há como injetar informações nesses campos
 $query->bindValue(':nome_sistema', $nome_sistema);
@@ -93,6 +103,10 @@ $query->bindValue(':facebook', $facebook_sistema);
 $query->bindValue(':instagram', $instagram_sistema);
 $query->bindValue(':youtube', $youtube_sistema);
 $query->bindValue(':video_sobre', $video_sobre);
+$query->bindValue(':taxa_boleto', $taxa_boleto);
+$query->bindValue(':taxa_mp', $taxa_mp);
+$query->bindValue(':taxa_paypal', $taxa_paypal);
+$query->bindValue(':valor_max_cartao', $valor_max_cartao);
 
 $query->execute();
 

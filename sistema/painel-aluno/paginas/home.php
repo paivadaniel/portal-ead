@@ -1,5 +1,35 @@
 <?php
 
+//verificar matriculas pendentes (assim que entra na home, ele verifica se o status do boleto foi atualizado para pago ou continua pendente, lembrando que no gerencianet, eles dão baixa em boletos pagos de madrugada, todos os dias)
+$query = $pdo->query("SELECT * FROM matriculas where id_aluno = '$id_pessoa' and status = 'Aguardando'");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$total_m = @count($res);
+if($total_m > 0){
+
+	for($i=0; $i < $total_m; $i++){
+		foreach ($res[$i] as $key => $value){}
+		$id_mat = $res[$i]['id'];
+		$id_curso = $res[$i]['id_curso'];
+		$subtotal = $res[$i]['subtotal'];
+		$status = $res[$i]['status'];
+		$pacote = $res[$i]['pacote'];
+		$boleto = $res[$i]['boleto'];
+
+		if($boleto != "" and $status == 'Aguardando'){ //colocou também verificação no status, para fazer apenas uma vez e não ficar deixando lento, pois o require abaixo faz com que seja acionada uma API para trazer dados do boleto
+			require("../../pagamentos/boletos/notificacoes.php"); //aqui não pode ser require_once, pois ele pode chamar várias vezes esse código na página
+
+
+			if(@$status_boleto == 'paid'){ //$status_boleto é declarada em pagamentos/boletos/notificacoes.php
+				$id_matricula = $id_mat; //pois em pagamentos/mercadopago/PagamentoMP.php consta $id_matricula = $ref;
+				$forma_pgto = 'Boleto';
+				$total_recebido = $subtotal - $taxa_boleto;
+				require("../../pagamentos/aprovar-matricula.php");
+			}
+
+		}
+	}
+}
+
 //inicializa variáveis com zero para evitar lixo
 $total_matriculas = 0;
 $total_matriculas_pendentes = 0;
@@ -197,6 +227,7 @@ $porcentagem_cursos_concluidosF = round($porcentagem_cursos_concluidos, 2);
                     $subtotal = $res[$i]['subtotal'];
                     $status = $res[$i]['status'];
                     $pacote = $res[$i]['pacote'];
+                    $boleto = $res[$i]['boleto'];
 
                     if ($pacote == 'Sim') {
                         $tabela = 'pacotes';
@@ -249,57 +280,58 @@ $porcentagem_cursos_concluidosF = round($porcentagem_cursos_concluidos, 2);
 
                                 </div>
                             </form>
-                        <?php } else { 
+                            <?php } else {
 
-if($pacote == 'Não') {
+                            if ($pacote == 'Não') {
 
-?>
-                            <div align="center">
-                                <form action="index.php?pagina=cursos" method="post" class="">
-                                    <!-- classe icones_finalizados foi usada em finalizados/listar.php -->
-                                    <small><small>
-                                            <button type="submit" style="background-color:transparent; border:none !important;">
-                                                <span style="margin-left:3px">
+                            ?>
+                                <div align="center">
+                                    <form action="index.php?pagina=cursos" method="post" class="">
+                                        <!-- classe icones_finalizados foi usada em finalizados/listar.php -->
+                                        <small><small>
+                                                <button type="submit" style="background-color:transparent; border:none !important;">
+                                                    <span style="margin-left:3px">
 
-                                                    Ir para o Curso</span>
-                                            </button>
-                                        </small></small>
+                                                        Ir para o Curso</span>
+                                                </button>
+                                            </small></small>
 
-                                    <input type="text" name="id_mat_post" value="<?php echo $id_mat ?>">
-                                    <input type="text" name="id_curso_post" value="<?php echo $id_curso ?>">
-                                    <input type="text" name="nome_curso_post" value="<?php echo $nome_curso ?>">
-                                    <input type="text" name="aulas_curso_post" value="<?php echo $aulas_curso ?>">
-                                    <input type="text" name="aulas_singular_plural_post" value="<?php echo $aulas_singular_plural ?>">
+                                        <input type="text" name="id_mat_post" value="<?php echo $id_mat ?>">
+                                        <input type="text" name="id_curso_post" value="<?php echo $id_curso ?>">
+                                        <input type="text" name="nome_curso_post" value="<?php echo $nome_curso ?>">
+                                        <input type="text" name="aulas_curso_post" value="<?php echo $aulas_curso ?>">
+                                        <input type="text" name="aulas_singular_plural_post" value="<?php echo $aulas_singular_plural ?>">
 
 
 
-                                </form>
+                                    </form>
 
-                            </div>
-<?php
-} else { //se for pacote ?>
+                                </div>
+                            <?php
+                            } else { //se for pacote 
+                            ?>
 
-<div align="center">
-                                <form action="index.php?pagina=cursos" method="post" class="">
-                                    <!-- classe icones_finalizados foi usada em finalizados/listar.php -->
-                                    <small><small>
-                                            <button type="submit" style="background-color:transparent; border:none !important;">
-                                                <span style="margin-left:3px">
+                                <div align="center">
+                                    <form action="index.php?pagina=cursos" method="post" class="">
+                                        <!-- classe icones_finalizados foi usada em finalizados/listar.php -->
+                                        <small><small>
+                                                <button type="submit" style="background-color:transparent; border:none !important;">
+                                                    <span style="margin-left:3px">
 
-                                                    Ir para Cursos do Pacote</span>
-                                            </button>
-                                        </small></small>
+                                                        Ir para Cursos do Pacote</span>
+                                                </button>
+                                            </small></small>
 
                                         <input type="text" name="id_pacote" value="<?php echo $id_curso ?>">
 
 
 
-                                </form>
+                                    </form>
 
-                            </div>
-<?php
-}
-?>
+                                </div>
+                            <?php
+                            }
+                            ?>
 
 
 

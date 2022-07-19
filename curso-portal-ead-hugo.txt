@@ -104,6 +104,10 @@ e nem quando clico em Meus Pacotes está filtrando os cursos do pacote.
 
 o problema está na função listarCursosdoPacote ou em painel-aluno/cursos/listar-cursos.php chamado no listarCursosdoPacote
 
+- mod12 aula52
+não fiz o teste pagando pelo paypal para saber se ao comprar um pacote, está fazendo a matrícula corretamente em cada curso do pacote,
+e eventualmente excluindo matrícula de cursos desse pacote em que o aluno tenha se matriculado isoladamente
+
 ---- fiz diferente
 
 mod07 Aula 06 e 07

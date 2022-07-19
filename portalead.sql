@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 15-Jul-2022 às 08:08
+-- Tempo de geração: 19-Jul-2022 às 18:42
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -245,15 +245,19 @@ CREATE TABLE `config` (
   `aulas_liberadas` int(11) NOT NULL,
   `desconto_pix` int(11) NOT NULL,
   `email_adm_mat` varchar(5) DEFAULT NULL,
-  `cartoes_fidelidade` int(11) NOT NULL
+  `cartoes_fidelidade` int(11) NOT NULL,
+  `taxa_boleto` decimal(8,2) NOT NULL,
+  `taxa_mp` decimal(8,2) NOT NULL,
+  `taxa_paypal` decimal(8,2) NOT NULL,
+  `valor_max_cartao` decimal(8,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `config`
 --
 
-INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnpj_sistema`, `tipo_chave_pix`, `chave_pix`, `logo`, `icone`, `logo_rel`, `qrcode_pix`, `facebook`, `instagram`, `youtube`, `itens_pag`, `video_sobre`, `itens_relacionados`, `aulas_liberadas`, `desconto_pix`, `email_adm_mat`, `cartoes_fidelidade`) VALUES
-(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', 'danielantunespaiva@gmail.com', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead', 6, 'https://www.youtube.com/embed/GeH5_-4xkfE', 1, 2, 5, 'Sim', 9);
+INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnpj_sistema`, `tipo_chave_pix`, `chave_pix`, `logo`, `icone`, `logo_rel`, `qrcode_pix`, `facebook`, `instagram`, `youtube`, `itens_pag`, `video_sobre`, `itens_relacionados`, `aulas_liberadas`, `desconto_pix`, `email_adm_mat`, `cartoes_fidelidade`, `taxa_boleto`, `taxa_mp`, `taxa_paypal`, `valor_max_cartao`) VALUES
+(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', 'danielantunespaiva@gmail.com', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead', 6, 'https://www.youtube.com/embed/GeH5_-4xkfE', 1, 2, 5, 'Sim', 5, '6.37', '5.24', '7.29', '141.27');
 
 -- --------------------------------------------------------
 
@@ -266,13 +270,6 @@ CREATE TABLE `cupons` (
   `codigo` varchar(25) NOT NULL,
   `valor` decimal(8,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `cupons`
---
-
-INSERT INTO `cupons` (`id`, `codigo`, `valor`) VALUES
-(2, 'DANI15', '15.00');
 
 -- --------------------------------------------------------
 
@@ -333,7 +330,9 @@ CREATE TABLE `cursos_pacotes` (
 --
 
 INSERT INTO `cursos_pacotes` (`id`, `id_curso`, `id_pacote`) VALUES
-(6, 8, 1);
+(6, 8, 1),
+(7, 8, 4),
+(8, 9, 4);
 
 -- --------------------------------------------------------
 
@@ -403,20 +402,17 @@ CREATE TABLE `matriculas` (
   `forma_pgto` varchar(25) DEFAULT NULL,
   `boleto` varchar(25) DEFAULT NULL,
   `id_pacote` int(11) NOT NULL,
-  `data_conclusao` date DEFAULT NULL
+  `data_conclusao` date DEFAULT NULL,
+  `total_recebido` decimal(8,2) NOT NULL,
+  `obs` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `matriculas`
 --
 
-INSERT INTO `matriculas` (`id`, `id_curso`, `id_aluno`, `id_professor`, `aulas_concluidas`, `valor`, `data`, `status`, `pacote`, `alertado`, `valor_cupom`, `subtotal`, `forma_pgto`, `boleto`, `id_pacote`, `data_conclusao`) VALUES
-(95, 1, 5, 1, 5, '70.00', '2022-07-09', 'Finalizado', 'Não', NULL, '0.00', '70.00', NULL, NULL, 0, '2022-07-09'),
-(96, 2, 5, 1, 10, '150.00', '2022-07-09', 'Finalizado', 'Não', NULL, '0.00', '150.00', NULL, NULL, 0, '2022-07-09'),
-(97, 1, 5, 1, 1, '450.00', '2022-07-09', 'Matriculado', 'Sim', NULL, '0.00', '450.00', NULL, NULL, 0, NULL),
-(102, 2, 13, 1, 10, '150.00', '2022-07-13', 'Finalizado', 'Não', NULL, '0.00', '150.00', NULL, NULL, 0, '2022-07-13'),
-(103, 1, 13, 1, 5, '70.00', '2022-07-13', 'Finalizado', 'Não', NULL, '0.00', '70.00', NULL, NULL, 0, '2022-07-13'),
-(107, 9, 5, 1, 1, '90.00', '2022-07-15', 'Aguardando', 'Não', NULL, '0.00', '90.00', NULL, NULL, 0, NULL);
+INSERT INTO `matriculas` (`id`, `id_curso`, `id_aluno`, `id_professor`, `aulas_concluidas`, `valor`, `data`, `status`, `pacote`, `alertado`, `valor_cupom`, `subtotal`, `forma_pgto`, `boleto`, `id_pacote`, `data_conclusao`, `total_recebido`, `obs`) VALUES
+(5, 1, 5, 1, 1, '70.00', '2022-07-19', 'Aguardando', 'Não', NULL, '0.00', '70.00', NULL, NULL, 0, NULL, '0.00', '');
 
 -- --------------------------------------------------------
 
@@ -447,9 +443,7 @@ CREATE TABLE `pacotes` (
 --
 
 INSERT INTO `pacotes` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `imagem`, `grupo`, `ano`, `palavras`, `nome_url`, `video`, `linguagem`, `promocao`, `matriculas`) VALUES
-(1, 'Formação Delphi', 'Aprenda Mais', 'blablablablabla', '500.00', 1, '30-06-2022-20-54-53-tattoo-isa.jpg', 4, 2022, 'delphi, embarcadero', 'formacao-delphi', 'http://www.google.com', 1, '450.00', 0),
-(2, 'Pacote 02', '', '', '120.00', 1, 'sem-foto.png', 6, 2022, '', 'pacote-02', '', 5, '50.00', 0),
-(3, 'Formação PHP', 'Tudo em PHP', '', '600.00', 1, 'sem-foto.png', 3, 2022, '', 'formacao-php', '', 1, '0.00', 0);
+(4, 'Formação WEB', 'WEB', 'blablabla', '500.00', 1, '18-07-2022-03-51-32-banner-teste.jpg', 4, 2022, 'qualquer coisa', 'formacao-web', '', 7, '400.00', 0);
 
 -- --------------------------------------------------------
 
@@ -768,7 +762,7 @@ ALTER TABLE `config`
 -- AUTO_INCREMENT de tabela `cupons`
 --
 ALTER TABLE `cupons`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `cursos`
@@ -780,7 +774,7 @@ ALTER TABLE `cursos`
 -- AUTO_INCREMENT de tabela `cursos_pacotes`
 --
 ALTER TABLE `cursos_pacotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `grupos`
@@ -798,13 +792,13 @@ ALTER TABLE `linguagens`
 -- AUTO_INCREMENT de tabela `matriculas`
 --
 ALTER TABLE `matriculas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `pacotes`
 --
 ALTER TABLE `pacotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `perguntas`

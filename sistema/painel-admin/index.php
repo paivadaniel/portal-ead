@@ -211,7 +211,8 @@ $senha_usuario = $res[0]['senha'];
 
 
 
-                            <li class="treeview <?php echo $ocultar ?>"> <!-- oculta para professores -->
+                            <li class="treeview <?php echo $ocultar ?>">
+                                <!-- oculta para professores -->
                                 <a href="index.php?pagina=cupons">
                                     <i class="fa fa-money"></i>
                                     <span>Cupons de Desconto</span>
@@ -272,12 +273,10 @@ $senha_usuario = $res[0]['senha'];
                     $query2 = $pdo->query("SELECT * FROM cursos where id = '$id_curso' and professor = '$id_usuario'"); //se for edição
                     $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 
-                    if(@count($res2) > 0) {
+                    if (@count($res2) > 0) {
                         $total_perguntas_respondidas += 1;
-
                     }
-
-                }            
+                }
 
                 if ($total_perguntas_respondidas == 0) {
                     $classe_badge = 'fundo-verde';
@@ -609,15 +608,38 @@ $senha_usuario = $res[0]['senha'];
 
                     <div class="row">
 
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
-                                <label for="desconto_pix">Desconto Pix (%)</label>
+                                <label for="desconto_pix">Desc. Pix (%)</label>
                                 <input type="number" class="form-control" id="desconto_pix" name="desconto_pix" value="<?php echo $desconto_pix ?>">
                             </div>
                         </div>
 
 
-                        <div class="col-md-3">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="taxa_boleto">Taxa Boleto (R$)</label>
+                                <input type="text" class="form-control" id="taxa_boleto" name="taxa_boleto" value="<?php echo $taxa_boleto ?>">
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="taxa_mp">Taxa MP (%)</label>
+                                <input type="text" class="form-control" id="taxa_mp" name="taxa_mp" value="<?php echo $taxa_mp ?>">
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="taxa_paypal">Taxa Paypal (%)</label>
+                                <input type="text" class="form-control" id="taxa_paypal" name="taxa_paypal" value="<?php echo $taxa_paypal ?>">
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="email_adm_mat">Email ADM Matrícula</label>
                                 <select class="form-control" name="email_adm_mat" id="email_adm_mat" value="<?php echo $email_adm_mat ?>">
@@ -639,12 +661,26 @@ $senha_usuario = $res[0]['senha'];
                         </div>
                           -->
 
-                        <div class="col-md-3">
+
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="col-md-2">
                             <div class="form-group">
-                                <label for="cartoes_fidelidade">Cartões Fidelidade</label>
+                                <label for="cartoes_fidelidade">Cartões Fid.</label>
                                 <input type="number" class="form-control" id="cartoes_fidelidade" name="cartoes_fidelidade" value="<?php echo $cartoes_fidelidade ?>">
                             </div>
                         </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="cartoes_fidelidade">Valor Máx. Cartões Fid.</label>
+                                <input type="text" class="form-control" id="valor_max_cartao" name="valor_max_cartao" value="<?php echo $valor_max_cartao ?>">
+                            </div>
+                        </div>
+
 
 
                     </div>

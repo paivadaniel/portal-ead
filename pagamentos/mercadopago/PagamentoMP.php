@@ -12,7 +12,7 @@
      public $info = array();
      // Se for em modo de teste, esta variável recebe true, caso 
      // contrário o sistema estará em modo de produção
-     private $sandbox = false;
+     private $sandbox = false; //se true, é modo de teste
      // Suas credenciais do mercado pago
      private $client_id = "6748425745253616";
      private $client_secret = "Xpx0Xyi3nZgAGQMAYSOK0wrQjCLxzRZP";
@@ -74,7 +74,7 @@ Seu negócio > Configurações, e em Gestão e administração clique em Credenc
      
      
      }
-   public function Retorno($id , $conexao){
+   public function Retorno($id , $conexao){ //vonexao não foi utilizada, mas foi necessária passá-la, pelo menos é o que afirma o autor no 01:20 da aula 42
       // iniciando as credenciais do MP
       $mp = new MP($this->client_id, $this->client_secret);
       
@@ -117,12 +117,14 @@ Seu negócio > Configurações, e em Gestão e administração clique em Credenc
         
         
      $ref = $payment_info["response"]["collection"]["external_reference"];
-     $id_matricula = $ref;
+     $id_matricula = $ref; //ref guarda o id do curso, não da matrícula, foi passado em function PagarMP($ref ....), por isso temos que adaptar agora o aprovar-matricula.php
 
 
       if ($status == "Aprovado"){
-        //neste arquivo temos a aprovação da matricula, o envio por email e o lançamento na tabela de vendas
-         include_once('../aprovar_matricula.php');          
+         $forma_pgto = 'MP';  
+
+         //neste arquivo temos a aprovação da matricula, o envio por email e o lançamento na tabela de vendas
+         include_once('../aprovar-matricula.php');          
          
       }
         

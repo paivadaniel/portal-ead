@@ -5,6 +5,13 @@ require_once('sistema/conexao.php');
 @session_start();
 @$id_do_aluno = $_SESSION['id_pessoa'];
 
+$query = $pdo->query("SELECT * FROM alunos WHERE id = '$id_do_aluno'");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+if (@count($res) > 0) { //ou seja, se houver um aluno logado
+    $cartoes = $res[0]['cartao']; //cartões fidelidade, para habilitar o botão de usar cartões fidelidade na modal Pagamento
+}
+
 $url = $_GET['url'];
 
 $nivel = @$_SESSION['nivel']; //@ pois se o usuário não estiver logado, não aparece warning
@@ -46,8 +53,9 @@ if ($total_reg > 0) {
     $sistema = $res[0]['sistema'];
     $link = $res[0]['link'];
     $tecnologias = $res[0]['tecnologias'];
+    $matriculas = $res[0]['matriculas'];
 
-    $valor_curso = $res[0]['valor']; //para não perder a referência
+    $valor_curso = $res[0]['valor']; //para não perder a referência ao longo do código ao chamar essa variável, nomeou duas vezes a variável para recuperar o mesmo valor do banco
 
     if ($promocao > 0) {
         $valor_curso = $promocao;
@@ -76,26 +84,32 @@ if ($total_reg > 0) {
     $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
     $total_alunos = @count($res2);
 
-    //verificar e buscar se o aluno já se matriculou nesse curso para exibir os valores na modal Pagamento atualizados com o cupom pagamento, já que quando ele clica em comprar o curso, a matrícula ainda não existe, então não há id dela para comparar e mudar o valor do curso e valor do pix na modal Pagamento
-    $query2 = $pdo->query("SELECT * FROM matriculas WHERE id_curso = '$id_do_curso_pag' and id_aluno = $id_do_aluno /*and pacote = '$pacote'*/");
-
-    /*não entendi porquê tive que remover pacote daqui, pois se não se fizer
-    echo $valor_curso;
-    exit();
-
-    está imprimindo o subtotal sem o cupom de desconto (ver final da aula 18 mod 12)
-
-    se tirar pacote, está imprimindo o novo subtotal, porém, a variável pacote não é alterada após alterar o subtotal
-*/
-    $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-
-    if (@count($res2) > 0) {
-        $valor_curso = $res2[0]['subtotal'];
-    }
-
+    $valor_pix = $valor_curso; //caso não pague por pix
 
     if ($desconto_pix > 0) { //caso o admin tiver setado nas configurações uma porcentagem de desconto para pagamentos em pix, aparece essa mensagem 
         $valor_pix = (1 - ($desconto_pix / 100)) * $valor_curso;
+    }
+
+
+    //verificar e buscar se o aluno já se matriculou nesse curso para exibir os valores na modal Pagamento atualizados com o cupom pagamento, já que quando ele clica em comprar o curso, a matrícula ainda não existe, então não há id dela para comparar e mudar o valor do curso e valor do pix na modal Pagamento
+    $query3 = $pdo->query("SELECT * FROM matriculas WHERE id_curso = '$id_do_curso_pag' and id_aluno = '$id_do_aluno' /*and pacote = '$pacote'*/");
+
+    /*não entendi porquê tive que remover pacote daqui, pois se não se fizer
+  echo $valor_curso;
+  exit();
+
+  está imprimindo o subtotal sem o cupom de desconto (ver final da aula 18 mod 12)
+
+  se tirar pacote, está imprimindo o novo subtotal, porém, a variável pacote não é alterada após alterar o subtotal
+*/
+    $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
+
+    if (@count($res3) > 0) {
+        $valor_curso = $res3[0]['subtotal'];
+        $valor_pix = $valor_curso;
+        if ($desconto_pix > 0) { //caso o admin tiver setado nas configurações uma porcentagem de desconto para pagamentos em pix, aparece essa mensagem 
+            $valor_pix = (1 - ($desconto_pix / 100)) * $valor_curso;
+        }
     }
 
     //valor formatado e descrição_longa formatada
@@ -213,7 +227,7 @@ require_once('cabecalho.php');
                         </div>
 
                         <div class="col-md-5 direita-mobile">
-                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-calculator mr-1 itens"></i>Alunos: <?php echo @$total_alunos; ?></span>
+                            <span class="text-muted itens texto-menor-mobile"><i style="margin-right: 2px" class="fa fa-calculator mr-1 itens"></i>Alunos: <?php echo @$matriculas; ?></span>
                         </div>
 
                     </div>
@@ -877,11 +891,11 @@ require_once('cabecalho.php');
                                 <img src="sistema/painel-admin/img/cursos/<?php echo $foto_do_curso_pag ?>" width="100%">
                             </div>
                             <div class="col-sm-8 direita-mobile-checkout">
-                                <span class="neutra-escura">VALOR ----------------- R$<?php echo $valor_cursoF ?></span>
+                                <span class="neutra-escura">VALOR ----------------- R$<span id="valor_curso_span" class="neutra-escura"><?php echo $valor_cursoF ?></span></span>
                                 <hr style="margin:5px">
                                 <span class="neutra-escura">DESCONTO PIX ------------- <?php echo $desconto_pix ?>%</span>
                                 <hr style="margin:5px">
-                                <span class="neutra-escura"><b>TOTAL NO PIX ------------------ R$<?php echo @$valor_pixF ?></b></span>
+                                <span class="neutra-escura"><b>TOTAL NO PIX ------------------ R$<span id="valor_curso_desconto_span" class="neutra-escura"><?php echo @$valor_pixF ?></span></b></span>
 
                             </div>
                         </div>
@@ -933,7 +947,6 @@ dessa forma ele optou por pegar as variáveis que já tinham valor antes disso e
                         <small>
                             <div align="center" id="msg-cupom"></div>
                         </small>
-
 
                     </div>
 
@@ -1014,7 +1027,25 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
 
             </div>
             <div class="modal-footer">
+
+
+
                 <div align="center">
+
+                    <?php if (@$cartoes >= $cartoes_fidelidade) { //cartoes_fidelidade é variável global definida em conexao.php ?>
+
+                        <form id="form-cartao-fidelidade">
+
+                        <button type="submit" class="btn btn-primary slide">Usar Cartão Fidelidade <i class="fa fa-caret-right"></i></button>
+
+                        <input type="hidden" name="id_curso_cartao" value="<?php echo $id_do_curso_pag ?>"> 
+                        <input type="hidden" name="id_aluno_cartao" value="<?php echo $id_do_aluno ?>">
+                        
+                        <!-- passa o id do curso, para depois com ele e com o id do aluno, encontrar o id da matrícula, e liberar o curso baseado no uso dos cartões fidelidade do aluno -->
+
+                        </form>
+                    <?php } ?>
+
                     Se já efetuou o pagamento, <a href="sistema/painel-aluno" target="_blank"><i>clique aqui</i></a> para ir para o painel do aluno!
 
                 </div>
@@ -1296,8 +1327,6 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
 
     $("#form-cupom-desconto").submit(function() {
 
-        var id = '<?= $id ?>';
-
         event.preventDefault();
         var formData = new FormData(this);
 
@@ -1309,11 +1338,19 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
             success: function(mensagem) {
                 $('#msg-cupom').text('');
                 $('#msg-cupom').removeClass();
-                if (mensagem.trim() == "Cupom Inserido com Sucesso!") {
+
+                mensagem = mensagem.split('-');
+
+                if (mensagem[0].trim() == "Cupom Inserido com Sucesso!") {
                     $('#msg-cupom').addClass('text-success');
-                    $('#msg-cupom').text(mensagem);
+                    $('#msg-cupom').text(mensagem[0]);
 
                     $('#codigo_cupom').val('');
+
+                    $('#valor_curso_span').text(mensagem[1]);
+                    $('#valor_curso_desconto_span').text(mensagem[2]);
+
+                    listarBotaoMP(); //para atualizar o valor no Mercado Pago com o desconto do cupom
 
                 } else {
 
@@ -1333,6 +1370,41 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
 
     });
 </script>
+
+
+<script type="text/javascript">
+
+    $("#form-cartao-fidelidade").submit(function() {
+
+        event.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: "ajax/cursos/cartao.php",
+            type: 'POST',
+            data: formData,
+
+            success: function(mensagem) {
+
+                if (mensagem.trim() == "Cartão Utilizado com Sucesso!") {
+
+                    location.reload('sistema/painel-aluno/')
+                }
+
+
+            },
+
+            //para limparo cache e processar os dados do formulário
+            cache: false,
+            contentType: false,
+            processData: false,
+
+        });
+
+    });
+</script>
+
+
 
 <script type="text/javascript">
     function enviarEmail(nome) {

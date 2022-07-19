@@ -18,7 +18,7 @@ if (@$_SESSION['nivel'] != 'Aluno') {
     <br><br>
     <h4>Como Funciona?</h4>
     <br>
-    <p></i><small>Após efetuar <?php echo $cartoes_fidelidade ?> compras no site automáticamente ao se matricular em um curso irá aparecer uma opção na tela de pagamentos para usar seu cartão, de imediato o curso estará aprovado em seu painél, essa promoção só é valida para cursos, para pacotes não, pode escolher qualquer curso do site com valor até 100 reais!!</small></i></p>
+    <p></i><small>Após efetuar <?php echo $cartoes_fidelidade ?> compras no site automáticamente ao se matricular em um curso irá aparecer uma opção na tela de pagamentos para usar seu cartão, de imediato o curso estará aprovado em seu painél, essa promoção só é valida para cursos, para pacotes não, pode escolher qualquer curso do site com valor até R$<?php echo $valor_max_cartaoF ?>.</small></i></p>
 
     <hr>
     <div class="row">

@@ -11,7 +11,7 @@ $tabela = 'matriculas';
 
 @session_start();
 $id_usuario = $_SESSION['id_pessoa'];
-$id_pacote_post = '%'. @$_POST['id_pacote_post'] . '%'; //vem da function listarCursosDoPacote em cursos.php, que chama listar.php
+$id_pacote_post = '%' . @$_POST['id_pacote_post'] . '%'; //vem da function listarCursosDoPacote em cursos.php, que chama listar.php
 //usou porcentagem para fazer busca aproximada com o operador LIKE no SQL, pois se não houver cursos cadastrados nesse pacote, ele despreza id_pacote_post da consulta
 
 //recebidos por post de um form contido em home.php, é para fazer o botão de na seção de últimas matrículas da home ir direto para o curso clicando no botão "Ir para o curso"
@@ -79,6 +79,13 @@ HTML;
         $data = $res[$i]['data'];
         $status = $res[$i]['status'];
         $pacote = $res[$i]['pacote'];
+        $boleto = $res[$i]['boleto']; //guarda o número do boleto caso for escolhida a opção de pagamento por boleto
+
+        //optei por fazer essa verificação apenas na home, por isso comentei o require, pois demora muito para ela ser feita e listar os cursos
+        if ($boleto != "" and $status == 'Aguardando') { 
+            //require('../../../../pagamentos/boletos/notificacoes.php'); 
+
+        }
 
         if ($pacote == 'Sim') {
             $tabela2 = 'pacotes';
@@ -121,7 +128,7 @@ HTML;
         //verificar se o curso já foi avaliado
         $query2 = $pdo->query("SELECT * FROM avaliacoes WHERE id_curso = '$id_curso' and id_aluno = '$id_usuario'");
         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-        if(@count($res2) > 0) {
+        if (@count($res2) > 0) {
             $classe_avaliacao = 'ocultar';
         } else {
             $classe_avaliacao = '';
@@ -209,7 +216,7 @@ e quando o curso não estiver pago oculta o link que chama a função aulas -->
         <td class="">R$ {$valorF}</td> <!-- se deixar o $ do R$ junto do {valorF}, ou seja RS{SvalorF} dá erro-->
 
         <td class="esc">{$dataF}</td>
-        <td class="esc"><i class="fa {$icone} $classe_square"></i></td>
+        <td class="esc"><i class="fa {$icone} {$classe_square}"></i></td>
         <td>
 
         <!-- abertura excluir -->
@@ -282,7 +289,4 @@ HTML;
         });
         $('#tabela_filter label input').focus();
     });
-
-
-
 </script>

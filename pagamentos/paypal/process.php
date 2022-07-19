@@ -47,9 +47,10 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
     }
 
      $id_matricula = $productID;
+     $forma_pgto = 'Paypal';
 
          //neste arquivo temos a aprovação da matricula, o envio por email e o lançamento na tabela de vendas
-        include_once('../aprovar_matricula.php');     
+        include_once('../aprovar-matricula.php');     
     
     // Redirect to payment status page
 

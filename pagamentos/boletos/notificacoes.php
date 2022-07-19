@@ -41,9 +41,9 @@ try {
     $api = new Gerencianet($options);
     $charge = $api->detailCharge($params, []);
     //print_r($charge);   
-    print_r($charge['data']['status']);  
+    //print_r($charge['data']['status']); //se deixar ativo vai imprimir "waiting" ou o outro status que tiver
 
-    $status = $charge['data']['status'];   
+    $status_boleto = $charge['data']['status']; //guarda o resultado nessa variável status
    
 } catch (GerencianetException $e) {
     print_r($e->code);
