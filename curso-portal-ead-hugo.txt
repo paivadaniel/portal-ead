@@ -108,6 +108,13 @@ o problema está na função listarCursosdoPacote ou em painel-aluno/cursos/list
 não fiz o teste pagando pelo paypal para saber se ao comprar um pacote, está fazendo a matrícula corretamente em cada curso do pacote,
 e eventualmente excluindo matrícula de cursos desse pacote em que o aluno tenha se matriculado isoladamente
 
+- mod12 aula67 e aula68
+//rever o final da aula 67 e início da 68, não deu certo o uso dos cartões fidelidade
+ajax/cursos/cartao.php
+
+- mod13 aula04
+só dá para testar com hospedagem, é no gerencianet, boleto
+
 ---- fiz diferente
 
 mod07 Aula 06 e 07

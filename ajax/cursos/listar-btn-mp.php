@@ -34,6 +34,11 @@ if(@count($res) > 0) {
 $id_matricula = $res[0]['id'];
 $valor_curso = $res[0]['subtotal'];
 
+if($valor_curso == 0) { //fez isso para evitar um problema que ele citou mod13 aula03, que seria o aluno logar clicando em comprar um curso que ele já comprou e ainda com o cartão fidelidade
+    $valor_curso = 1;
+}
+
+
 $pagar = new PagamentoMP;
 
 /* para configurar suas credenciais do Mercado Pago, no arquivo pagamentos/mercadopago/PagamentoMP.php, altere as variáveis
