@@ -115,6 +115,8 @@ ajax/cursos/cartao.php
 - mod13 aula04
 só dá para testar com hospedagem, é no gerencianet, boleto
 
+final do mod11, quando começa com emails, e mod12 dos cartões fidelidade, tem que ser revistos e testados online
+
 ---- fiz diferente
 
 mod07 Aula 06 e 07

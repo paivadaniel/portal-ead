@@ -43,7 +43,7 @@ $cabecalhos .= 'Content-type: text/html; charset=utf-8;' . "\r\n";
 $cabecalhos .= "From: " .$dest;
 */
 
-mail($destinatario, $assunto, $mensagem, $cabecalhos);
+@mail($destinatario, $assunto, $mensagem, $cabecalhos);
 
 
 
@@ -67,7 +67,7 @@ $cabecalhos .= 'Content-type: text/html; charset=utf-8;' . "\r\n";
 $cabecalhos .= "From: " .$remetente;
 */
 
-mail($destinatario, $assunto, $mensagem, $cabecalhos);
+@mail($destinatario, $assunto, $mensagem, $cabecalhos);
 
 }
 
@@ -83,6 +83,6 @@ if($email_sistema != $email_professor) {
     
     $cabecalhos = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/html; charset=utf-8;' . "\r\n" . "From: " .$remetente;
     
-    mail($destinatario, $assunto, $mensagem, $cabecalhos);
+    @mail($destinatario, $assunto, $mensagem, $cabecalhos);
     
     }

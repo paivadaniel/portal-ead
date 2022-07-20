@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 20-Jul-2022 às 03:10
--- Versão do servidor: 10.4.22-MariaDB
--- versão do PHP: 8.0.15
+-- Tempo de geração: 20-Jul-2022 às 22:29
+-- Versão do servidor: 10.4.21-MariaDB
+-- versão do PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -413,9 +413,9 @@ CREATE TABLE `matriculas` (
 
 INSERT INTO `matriculas` (`id`, `id_curso`, `id_aluno`, `id_professor`, `aulas_concluidas`, `valor`, `data`, `status`, `pacote`, `alertado`, `valor_cupom`, `subtotal`, `forma_pgto`, `boleto`, `id_pacote`, `data_conclusao`, `total_recebido`, `obs`) VALUES
 (5, 1, 5, 1, 1, '70.00', '2022-07-19', 'Aguardando', 'Não', NULL, '0.00', '70.00', NULL, NULL, 0, NULL, '0.00', ''),
-(8, 4, 5, 1, 1, '400.00', '2022-07-19', 'Aguardando', 'Sim', NULL, '0.00', '400.00', NULL, NULL, 0, NULL, '0.00', ''),
 (9, 9, 5, 1, 1, '90.00', '2022-07-19', 'Aguardando', 'Não', NULL, '0.00', '90.00', NULL, NULL, 0, NULL, '0.00', ''),
-(10, 2, 5, 1, 1, '150.00', '2022-07-19', 'Aguardando', 'Não', NULL, '0.00', '150.00', NULL, NULL, 0, NULL, '0.00', '');
+(10, 2, 5, 1, 1, '150.00', '2022-07-19', 'Aguardando', 'Não', NULL, '0.00', '150.00', NULL, NULL, 0, NULL, '0.00', ''),
+(11, 4, 5, 1, 1, '400.00', '2022-07-20', 'Aguardando', 'Sim', NULL, '0.00', '400.00', NULL, NULL, 0, NULL, '0.00', '');
 
 -- --------------------------------------------------------
 
@@ -795,7 +795,7 @@ ALTER TABLE `linguagens`
 -- AUTO_INCREMENT de tabela `matriculas`
 --
 ALTER TABLE `matriculas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `pacotes`

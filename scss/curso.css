@@ -147,6 +147,11 @@
 		margin-bottom:0px;
 	}
 
+  .scrollbar-mobile {
+    overflow: scroll;
+    height:600px;
+    scrollbar-width:thin;
+  }
 
 }
 
@@ -156,4 +161,6 @@
     .margem-sup{    
     margin-top: -15px;
   }
+
+
 }

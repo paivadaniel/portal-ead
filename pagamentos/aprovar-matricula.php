@@ -92,12 +92,13 @@ if ($pacote == 'Sim') {
             $id_professor = $res2[$i]['id_professor'];
             $quant_mat = $matriculas+1; //soma 1 venda ao curso
 
-            //pega id da matrícula
+            //pega id da matrícula por curso (não do pacote)
             $query3 = $pdo->query("SELECT * FROM matriculas where id_curso = '$id_do_curso' and id_aluno = '$id_aluno'");  //id_do_curso, não id_curso, este último é para pacote, e vamos liberar os cursos
             $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
-            $id_mat = $res3[0]['id']; //id da matrícula que já existe
 
             if (@count($res3) > 0) { //excluir a matrícula do curso se ela já existir, independente do status, tanto como Aguardando como Matriculado
+                $id_mat = $res3[0]['id']; //id da matrícula do curso que já existe, porém, tem que ficar dentro do if, pois pode não existir
+
                 $pdo->query("DELETE FROM matriculas where id = 'id_mat'");
             }
 

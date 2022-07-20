@@ -649,8 +649,6 @@ require_once('cabecalho.php');
 
                 <?php if (@$status_mat != 'Matriculado' and @$status_mat != 'Finalizado') {
 
-                    echo $status_mat;
-
                 ?>
 
                     <div class="row">

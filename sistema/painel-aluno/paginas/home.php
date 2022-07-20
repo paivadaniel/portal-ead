@@ -7,13 +7,13 @@ $total_m = @count($res);
 if($total_m > 0){
 
 	for($i=0; $i < $total_m; $i++){
-		foreach ($res[$i] as $key => $value){}
-		$id_mat = $res[$i]['id'];
-		$id_curso = $res[$i]['id_curso'];
-		$subtotal = $res[$i]['subtotal'];
-		$status = $res[$i]['status'];
-		$pacote = $res[$i]['pacote'];
-		$boleto = $res[$i]['boleto'];
+		//foreach ($res[$i] as $key => $value){} //autor disse no mod12 aula05 03:20 que o foreach era desnecessário aqui, não entendi o porquê, ele justificou a remoção dizendo que seria por conta de requisição na API
+		@$id_mat = $res[$i]['id'];
+		@$id_curso = $res[$i]['id_curso'];
+		@$subtotal = $res[$i]['subtotal'];
+		@$status = $res[$i]['status'];
+		@$pacote = $res[$i]['pacote'];
+		@$boleto = $res[$i]['boleto'];
 
 		if($boleto != "" and $status == 'Aguardando'){ //colocou também verificação no status, para fazer apenas uma vez e não ficar deixando lento, pois o require abaixo faz com que seja acionada uma API para trazer dados do boleto
 			require("../../pagamentos/boletos/notificacoes.php"); //aqui não pode ser require_once, pois ele pode chamar várias vezes esse código na página

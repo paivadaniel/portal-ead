@@ -876,10 +876,19 @@ require_once('cabecalho.php');
 </div>
 
 <!-- Modal Pagamento -->
-<div class="modal fade" id="Pagamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
+
+<!-- se colocar a scroll na div com a class modal-content ela fica de um jeito, se colocar na div com a class modal fade, a scroll fica fora da modal, o mesmo se colocar na div que tem a class modal-dialog. Eu não consegui ver na modal fade, mas não inseri na modal-content, pois quando o aluno já tem o curso matriculado, e deve aparecer "Você já possui esse curso", a modal fica muito grande com o scroll, já sem ela inserida na classe, a altura da modal é menor, então deixei a classe scrollbar-mobile na div com a class modal fade, nela não ocorre isso -->
+<div class="modal fade scrollbar-mobile" id="Pagamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-lg " role="document">
+        <div class="modal-content ">
             <div class="modal-header">
+                <!-- scrollbar-mobile foi a classe scroll criada para mobile, que tem:
+        
+            overflow: scroll;
+            height:600px;
+            scrollbar-width:thin;
+-->
+
                 <h4 class="modal-title" id="exampleModalLabel"><span class="neutra ocultar-mobile">Liberação Automática -</span> <span class="neutra" id="nome_curso_Pagamento"></span> - R$<span class="neutra" id="valor_curso_Pagamento"></span></h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px">
                     <span class="neutra" aria-hidden="true">&times;</span>
@@ -889,8 +898,8 @@ require_once('cabecalho.php');
             <div class="modal-body">
 
                 <?php if (@$status_mat != 'Matriculado' and @$status_mat != 'Finalizado') {
-                   
-                     ?>
+
+                ?>
 
                     <div class="row">
                         <div class="col-md-6 col-sm-12" style="margin-bottom: 10px">
@@ -1046,7 +1055,7 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
                 <div align="center">
 
                     <?php if (@$cartoes >= $cartoes_fidelidade and $valor_real_curso <= $valor_max_cartao) { //cartoes_fidelidade é variável global definida em conexao.php 
-                    //se o curso for maior que 100 (valor_max_cartao), por exemplo, 180, autor não fez com que pudesse usar os cartões e diminuir 100 do valor do curso, daí não dá para usar os cartões para cursos com preço maior que 100
+                        //se o curso for maior que 100 (valor_max_cartao), por exemplo, 180, autor não fez com que pudesse usar os cartões e diminuir 100 do valor do curso, daí não dá para usar os cartões para cursos com preço maior que 100
                     ?>
 
                         <form id="form-cartao-fidelidade" class="contact-form" name="contact-form" method="post">
