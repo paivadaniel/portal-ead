@@ -224,7 +224,7 @@ $senha_usuario = $res[0]['senha'];
                                     <i class="fa fa-cog"></i>
                                     <span>Recursos do Site</span>
                                     <!-- ícone a seguir é a flechinha do menu -->
-                                    <i class="fa fa-angle-left pull-right"></i>
+                                    <i class="fa fa-angle-left pull-right"></i> <!-- pull-right é para jogar no canto direito, o ícone de flechinha é o fa-angle-left -->
                                 </a>
                                 <ul class="treeview-menu">
                                     <!-- cursos e pacotes podem ser acessados por administradores e também professores -->
@@ -235,6 +235,31 @@ $senha_usuario = $res[0]['senha'];
 
                                 </ul>
                             </li>
+
+
+                            <li class="treeview <?php echo $ocultar ?>">
+                                <a href="#">
+                                    <i class="fa fa-usd"></i><!-- fa-usd ou fa-dollar, são o mesmo ícone -->
+                                    <span>Financeiro</span>
+                                    <!-- ícone a seguir é a flechinha do menu -->
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <!-- cursos e pacotes podem ser acessados por administradores e também professores -->
+                                    <li><a href="index.php?pagina=vendas"><i class="fa fa-angle-right"></i> Vendas</a></li>
+
+                                    <li><a href="index.php?pagina=contas_pagar"><i class="fa fa-angle-right"></i> Contas à Pagar</a></li>
+
+                                    <li><a href="index.php?pagina=contas_receber"><i class="fa fa-angle-right"></i> Contas à Receber</a></li>
+
+                                    <li><a href="index.php?pagina=movimentacoes"><i class="fa fa-angle-right"></i> Movimentações</a></li>
+
+
+
+
+                                </ul>
+                            </li>
+
 
 
 
