@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 20-Jul-2022 às 22:29
+-- Tempo de geração: 26-Jul-2022 às 21:15
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -415,7 +415,7 @@ INSERT INTO `matriculas` (`id`, `id_curso`, `id_aluno`, `id_professor`, `aulas_c
 (5, 1, 5, 1, 1, '70.00', '2022-07-19', 'Aguardando', 'Não', NULL, '0.00', '70.00', NULL, NULL, 0, NULL, '0.00', ''),
 (9, 9, 5, 1, 1, '90.00', '2022-07-19', 'Aguardando', 'Não', NULL, '0.00', '90.00', NULL, NULL, 0, NULL, '0.00', ''),
 (10, 2, 5, 1, 1, '150.00', '2022-07-19', 'Aguardando', 'Não', NULL, '0.00', '150.00', NULL, NULL, 0, NULL, '0.00', ''),
-(11, 4, 5, 1, 1, '400.00', '2022-07-20', 'Aguardando', 'Sim', NULL, '0.00', '400.00', NULL, NULL, 0, NULL, '0.00', '');
+(11, 4, 5, 1, 1, '400.00', '2022-07-20', 'Matriculado', 'Sim', NULL, '0.00', '400.00', 'MP', NULL, 0, NULL, '5.00', 'Pagamento não efetuado');
 
 -- --------------------------------------------------------
 
@@ -447,6 +447,32 @@ CREATE TABLE `pacotes` (
 
 INSERT INTO `pacotes` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `imagem`, `grupo`, `ano`, `palavras`, `nome_url`, `video`, `linguagem`, `promocao`, `matriculas`) VALUES
 (4, 'Formação WEB', 'WEB', 'blablabla', '500.00', 1, '18-07-2022-03-51-32-banner-teste.jpg', 4, 2022, 'qualquer coisa', 'formacao-web', '', 7, '400.00', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `pagar`
+--
+
+CREATE TABLE `pagar` (
+  `id` int(11) NOT NULL,
+  `descricao` varchar(150) NOT NULL,
+  `valor` decimal(8,2) NOT NULL,
+  `data` date NOT NULL,
+  `vencimento` date NOT NULL,
+  `pago` varchar(5) NOT NULL,
+  `data_pago` date NOT NULL,
+  `arquivo` varchar(150) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `pagar`
+--
+
+INSERT INTO `pagar` (`id`, `descricao`, `valor`, `data`, `vencimento`, `pago`, `data_pago`, `arquivo`) VALUES
+(2, 'teste', '12.00', '2022-07-25', '2022-07-25', 'Sim', '2022-07-25', 'sem-foto.png'),
+(4, 'fsfsfsfs', '92.00', '2022-07-25', '2022-07-07', 'Sim', '2022-07-25', '25-07-2022-21-11-16-19-04-2022-18-17-15-09-11-2021-12-04-29-pdfteste.zip'),
+(5, 'Xironfula', '23.87', '2022-07-25', '2022-07-26', 'Sim', '2022-07-25', '25-07-2022-21-12-08-19-04-2022-18-16-43-09-11-2021-10-17-10-pdfteste.pdf');
 
 -- --------------------------------------------------------
 
@@ -499,6 +525,31 @@ CREATE TABLE `professores` (
 INSERT INTO `professores` (`id`, `nome`, `cpf`, `telefone`, `email`, `foto`, `ativo`, `data`) VALUES
 (3, 'Professor Girafalez', '535.335.353-53', '(31) 3131-3131', 'professorgirafalez@hotmail.com', '18-05-2022-13-00-00-professor-girafalez.jpg', 'Sim', '2022-05-18'),
 (4, 'Professor Buzanga', '942.920.313-04', '(42) 4242-9922', 'buzangateacher@hotmail.com', '20-05-2022-13-56-39-buzanga.jpg', 'Sim', '2022-05-20');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `receber`
+--
+
+CREATE TABLE `receber` (
+  `id` int(11) NOT NULL,
+  `descricao` varchar(150) NOT NULL,
+  `valor` decimal(8,2) NOT NULL,
+  `data` date NOT NULL,
+  `vencimento` date NOT NULL,
+  `pago` varchar(5) NOT NULL,
+  `data_pago` date NOT NULL,
+  `arquivo` varchar(150) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `receber`
+--
+
+INSERT INTO `receber` (`id`, `descricao`, `valor`, `data`, `vencimento`, `pago`, `data_pago`, `arquivo`) VALUES
+(2, 'receber03', '13.42', '2022-07-25', '2022-07-28', 'Sim', '2022-07-26', 'sem-foto.png'),
+(3, 'merda', '32.13', '2022-07-25', '2022-07-13', 'Sim', '2022-07-26', '25-07-2022-22-14-09-20220723_153756.jpg');
 
 -- --------------------------------------------------------
 
@@ -680,6 +731,12 @@ ALTER TABLE `pacotes`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `pagar`
+--
+ALTER TABLE `pagar`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `perguntas`
 --
 ALTER TABLE `perguntas`
@@ -689,6 +746,12 @@ ALTER TABLE `perguntas`
 -- Índices para tabela `professores`
 --
 ALTER TABLE `professores`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `receber`
+--
+ALTER TABLE `receber`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -804,6 +867,12 @@ ALTER TABLE `pacotes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de tabela `pagar`
+--
+ALTER TABLE `pagar`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT de tabela `perguntas`
 --
 ALTER TABLE `perguntas`
@@ -814,6 +883,12 @@ ALTER TABLE `perguntas`
 --
 ALTER TABLE `professores`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de tabela `receber`
+--
+ALTER TABLE `receber`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `respostas`
