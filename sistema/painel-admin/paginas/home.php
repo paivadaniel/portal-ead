@@ -48,7 +48,7 @@ $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_matriculas_aprovadas = @count($res);
 
 //total_vendas_dia
-$query = $pdo->query("SELECT * FROM matriculas WHERE (status = 'Matriculado' or status = 'Finalizado') and subtotal > 0 and data = curDate()"); //subtotal > 0 para excluir vendas de graça, por cartão fidelidade
+$query = $pdo->query("SELECT * FROM matriculas WHERE (status = 'Finalizado' or status = 'Matriculado') and subtotal > 0 and data = curDate()"); //subtotal > 0 para excluir vendas de graça, por cartão fidelidade
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 
@@ -72,32 +72,39 @@ $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_cursos = @count($res);
 
 //alimentar dados para o eixo y do gráfico
-for($i=1; $i <= 12; $i++){
+for ($i = 1; $i <= 12; $i++) {
 
-    if($i < 10) {
-        $mes_atual = '0'.$i;
+    if ($i < 10) {
+        $mes_atual = '0' . $i;
     } else {
         $mes_atual = $i;
     }
 
-//último dia do mês
-if($mes_atual == '01' || $mes_atual == '03' || $mes_atual == '05' || $mes_atual == '07' || $mes_atual == '8' || $mes_atual == '10' || $mes_atual == '12') {
-	$ultimo_dia_mes = '31';
-} else if ($mes_atual == '04' || $mes_atual == '06' || $mes_atual == '09' || $mes_atual == '11') {
-	$ultimo_dia_mes = '30';
-} else if ($mes_atual == '02') {
-	$ultimo_dia_mes = '28';
+    //último dia do mês
+    if ($mes_atual == '01' || $mes_atual == '03' || $mes_atual == '05' || $mes_atual == '07' || $mes_atual == '8' || $mes_atual == '10' || $mes_atual == '12') {
+        $ultimo_dia_mes = '31';
+    } else if ($mes_atual == '04' || $mes_atual == '06' || $mes_atual == '09' || $mes_atual == '11') {
+        $ultimo_dia_mes = '30';
+    } else if ($mes_atual == '02') {
+        $ultimo_dia_mes = '28';
+    }
+
+    $data_inicio_mes_grafico = $ano_atual . "-" . $mes_atual . "-01";
+    $data_final_mes_grafico = $ano_atual . "-" . $mes_atual . "-" . $ultimo_dia_mes;
+
+    $total_mes = 0;
+    $query = $pdo->query("SELECT * FROM matriculas WHERE (status = 'Matriculado' or status = 'Finalizado') and subtotal > 0 and data >= '$data_inicio_mes_grafico' and data <= '$data_final_mes_grafico' ORDER BY data desc"); //subtotal > 0 para excluir vendas de graça, por cartão fidelidade
+    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+    $total_reg = @count($res);
+    if($total_reg > 0){
+        for($i2=0; $i2 < $total_reg; $i2++){
+            foreach ($res[$i2] as $key => $value){}
+        $total_mes +=  $res[$i2]['total_recebido'];
+    }
+    }
+    echo $total_mes . ' - ';
+
 }
-
-$data_inicio_mes_grafico = $ano_atual . "-" . $mes_atual . "-01";
-$data_final_mes_grafico = $ano_atual . "-" . $mes_atual . "-".$ultimo_dia_mes;
-
-echo $data_inicio_mes_grafico . ' - ' . $data_final_mes_grafico;
-echo '<br>';
-
-}
-
-
 ?>
 
 <div class="col_3">
@@ -185,7 +192,7 @@ echo '<br>';
 
         </div>
     </div>
-    
+
     <div class="clearfix"> </div>
 </div>
 
@@ -205,8 +212,8 @@ echo '<br>';
 
 
 
-     
-                
+
+
 
 
 <!-- for index page weekly sales java script -->
@@ -215,19 +222,54 @@ echo '<br>';
     var graphdata1 = {
         linecolor: "#035908",
         title: "Monday",
-        values: [            
-            { X: "Janeiro", Y: parseFloat(saldo_mes[0]) },
-            { X: "Fevereiro", Y: parseFloat(saldo_mes[1]) },
-            { X: "Março", Y: parseFloat(saldo_mes[2]) },
-            { X: "Abril", Y: parseFloat(saldo_mes[3]) },
-            { X: "Maio", Y: parseFloat(saldo_mes[4]) },
-            { X: "Junho", Y: parseFloat(saldo_mes[5]) },
-            { X: "Julho", Y: parseFloat(saldo_mes[6]) },
-            { X: "Agosto", Y: parseFloat(saldo_mes[7]) },
-            { X: "Setembro", Y: parseFloat(saldo_mes[8]) },
-            { X: "Outubro", Y: parseFloat(saldo_mes[9]) },
-            { X: "Novembro", Y: parseFloat(saldo_mes[10]) },
-            { X: "Dezembro", Y: parseFloat(saldo_mes[11]) },
+        values: [{
+                X: "Janeiro",
+                Y: parseFloat(saldo_mes[0])
+            },
+            {
+                X: "Fevereiro",
+                Y: parseFloat(saldo_mes[1])
+            },
+            {
+                X: "Março",
+                Y: parseFloat(saldo_mes[2])
+            },
+            {
+                X: "Abril",
+                Y: parseFloat(saldo_mes[3])
+            },
+            {
+                X: "Maio",
+                Y: parseFloat(saldo_mes[4])
+            },
+            {
+                X: "Junho",
+                Y: parseFloat(saldo_mes[5])
+            },
+            {
+                X: "Julho",
+                Y: parseFloat(saldo_mes[6])
+            },
+            {
+                X: "Agosto",
+                Y: parseFloat(saldo_mes[7])
+            },
+            {
+                X: "Setembro",
+                Y: parseFloat(saldo_mes[8])
+            },
+            {
+                X: "Outubro",
+                Y: parseFloat(saldo_mes[9])
+            },
+            {
+                X: "Novembro",
+                Y: parseFloat(saldo_mes[10])
+            },
+            {
+                X: "Dezembro",
+                Y: parseFloat(saldo_mes[11])
+            },
 
         ]
     };
@@ -336,7 +378,7 @@ echo '<br>';
     */
 
     $(function() {
-                  
+
         $("#Linegraph").SimpleChart({
             ChartType: "Line",
             toolwidth: "50",
@@ -344,7 +386,7 @@ echo '<br>';
             axiscolor: "#E6E6E6",
             textcolor: "#6E6E6E",
             showlegends: false,
-            data: [/*graphdata4, graphdata3, graphdata2, */graphdata1],
+            data: [ /*graphdata4, graphdata3, graphdata2, */ graphdata1],
             legendsize: "140",
             legendposition: 'bottom',
             xaxislabel: 'Meses',

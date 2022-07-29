@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 29-Jul-2022 às 04:43
+-- Tempo de geração: 29-Jul-2022 às 20:13
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -412,9 +412,9 @@ CREATE TABLE `matriculas` (
 --
 
 INSERT INTO `matriculas` (`id`, `id_curso`, `id_aluno`, `id_professor`, `aulas_concluidas`, `valor`, `data`, `status`, `pacote`, `alertado`, `valor_cupom`, `subtotal`, `forma_pgto`, `boleto`, `id_pacote`, `data_conclusao`, `total_recebido`, `obs`) VALUES
-(5, 1, 5, 1, 1, '70.00', '2022-07-19', 'Aguardando', 'Não', NULL, '0.00', '70.00', '', NULL, 0, NULL, '0.00', ''),
-(9, 9, 5, 1, 1, '90.00', '2022-07-19', 'Aguardando', 'Não', NULL, '0.00', '90.00', '', NULL, 0, NULL, '0.00', ''),
-(10, 2, 5, 1, 1, '150.00', '2022-07-19', 'Aguardando', 'Não', NULL, '0.00', '150.00', '', NULL, 0, NULL, '0.00', ''),
+(5, 1, 5, 1, 1, '70.00', '2022-06-19', 'Matriculado', 'Não', NULL, '0.00', '70.00', '', NULL, 0, NULL, '15.00', ''),
+(9, 9, 5, 1, 1, '90.00', '2022-06-19', 'Matriculado', 'Não', NULL, '0.00', '90.00', '', NULL, 0, NULL, '20.00', ''),
+(10, 2, 5, 1, 1, '150.00', '2022-07-19', 'Matriculado', 'Não', NULL, '0.00', '150.00', '', NULL, 0, NULL, '60.00', ''),
 (11, 4, 5, 1, 1, '400.00', '2022-07-28', 'Matriculado', 'Sim', NULL, '0.00', '400.00', '', NULL, 0, NULL, '30.00', 'Pagamento não efetuado');
 
 -- --------------------------------------------------------
