@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 26-Jul-2022 às 21:15
+-- Tempo de geração: 29-Jul-2022 às 04:43
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -399,7 +399,7 @@ CREATE TABLE `matriculas` (
   `alertado` varchar(5) DEFAULT NULL,
   `valor_cupom` decimal(8,2) NOT NULL,
   `subtotal` decimal(8,2) NOT NULL,
-  `forma_pgto` varchar(25) DEFAULT NULL,
+  `forma_pgto` varchar(25) NOT NULL,
   `boleto` varchar(25) DEFAULT NULL,
   `id_pacote` int(11) NOT NULL,
   `data_conclusao` date DEFAULT NULL,
@@ -412,10 +412,10 @@ CREATE TABLE `matriculas` (
 --
 
 INSERT INTO `matriculas` (`id`, `id_curso`, `id_aluno`, `id_professor`, `aulas_concluidas`, `valor`, `data`, `status`, `pacote`, `alertado`, `valor_cupom`, `subtotal`, `forma_pgto`, `boleto`, `id_pacote`, `data_conclusao`, `total_recebido`, `obs`) VALUES
-(5, 1, 5, 1, 1, '70.00', '2022-07-19', 'Aguardando', 'Não', NULL, '0.00', '70.00', NULL, NULL, 0, NULL, '0.00', ''),
-(9, 9, 5, 1, 1, '90.00', '2022-07-19', 'Aguardando', 'Não', NULL, '0.00', '90.00', NULL, NULL, 0, NULL, '0.00', ''),
-(10, 2, 5, 1, 1, '150.00', '2022-07-19', 'Aguardando', 'Não', NULL, '0.00', '150.00', NULL, NULL, 0, NULL, '0.00', ''),
-(11, 4, 5, 1, 1, '400.00', '2022-07-20', 'Matriculado', 'Sim', NULL, '0.00', '400.00', 'MP', NULL, 0, NULL, '5.00', 'Pagamento não efetuado');
+(5, 1, 5, 1, 1, '70.00', '2022-07-19', 'Aguardando', 'Não', NULL, '0.00', '70.00', '', NULL, 0, NULL, '0.00', ''),
+(9, 9, 5, 1, 1, '90.00', '2022-07-19', 'Aguardando', 'Não', NULL, '0.00', '90.00', '', NULL, 0, NULL, '0.00', ''),
+(10, 2, 5, 1, 1, '150.00', '2022-07-19', 'Aguardando', 'Não', NULL, '0.00', '150.00', '', NULL, 0, NULL, '0.00', ''),
+(11, 4, 5, 1, 1, '400.00', '2022-07-28', 'Matriculado', 'Sim', NULL, '0.00', '400.00', '', NULL, 0, NULL, '30.00', 'Pagamento não efetuado');
 
 -- --------------------------------------------------------
 
@@ -470,9 +470,9 @@ CREATE TABLE `pagar` (
 --
 
 INSERT INTO `pagar` (`id`, `descricao`, `valor`, `data`, `vencimento`, `pago`, `data_pago`, `arquivo`) VALUES
-(2, 'teste', '12.00', '2022-07-25', '2022-07-25', 'Sim', '2022-07-25', 'sem-foto.png'),
+(2, 'teste', '12.00', '2022-07-25', '2022-07-25', 'Não', '0000-00-00', 'sem-foto.png'),
 (4, 'fsfsfsfs', '92.00', '2022-07-25', '2022-07-07', 'Sim', '2022-07-25', '25-07-2022-21-11-16-19-04-2022-18-17-15-09-11-2021-12-04-29-pdfteste.zip'),
-(5, 'Xironfula', '23.87', '2022-07-25', '2022-07-26', 'Sim', '2022-07-25', '25-07-2022-21-12-08-19-04-2022-18-16-43-09-11-2021-10-17-10-pdfteste.pdf');
+(5, 'Xironfula', '23.87', '2022-07-25', '2022-07-26', 'Não', '0000-00-00', '25-07-2022-21-12-08-19-04-2022-18-16-43-09-11-2021-10-17-10-pdfteste.pdf');
 
 -- --------------------------------------------------------
 

@@ -20,7 +20,7 @@ $data_inicio_mes = $ano_atual . "-" . $mes_atual . "-01";
 
 if($mes_atual == '1' || $mes_atual == '3' || $mes_atual == '5' || $mes_atual == '7' || $mes_atual == '8' || $mes_atual == '10' || $mes_atual == '12') {
 	$ultimo_dia_mes = '31';
-} else if ($mes_autal == '4' || $mes_autal == '6' || $mes_autal == '9' || $mes_autal == '11') {
+} else if ($mes_atual == '4' || $mes_atual == '6' || $mes_atual == '9' || $mes_atual == '11') {
 	$ultimo_dia_mes = '30';
 } else if ($mes_atual == '2') {
 	$ultimo_dia_mes = '28';

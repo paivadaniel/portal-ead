@@ -21,11 +21,8 @@ $pdf = new DOMPDF($options);
 
 $dataInicial = $_POST['dataInicial'];
 $dataFinal = $_POST['dataFinal'];
-$pago = urlencode($_POST['pago']); //urlencode é para não dar problema e passar por POST ou GET palavras que tem espaço ou barra, como por exemplo 'cartão de débito', 'cartão de crédito', ou datas, como '19/12/2020'.
 
-$html = utf8_encode(file_get_contents("http://localhost/dashboard/www/portal-ead/sistema/rel/vendas.php?pago=$pago&dataInicial=$dataInicial&dataFinal=$dataFinal"));
-
-
+$html = utf8_encode(file_get_contents("http://localhost/dashboard/www/portal-ead/sistema/rel/lucro.php?dataInicial=$dataInicial&dataFinal=$dataFinal"));
 
 //Definir o tamanho do papel e orientação da página
 $pdf->set_paper('A4', 'portrait'); //ou portrait
@@ -38,7 +35,7 @@ $pdf->render();
 
 //NOMEAR O PDF GERADO
 $pdf->stream(
-'vendas.pdf',
+'lucro.pdf',
 array("Attachment" => false) //se deixar true, baixa o arquivo, se false exibe o arquivo e tem a opção de depois salvar ou imprimir
 );
 
