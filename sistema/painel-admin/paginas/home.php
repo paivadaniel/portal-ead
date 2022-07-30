@@ -71,6 +71,8 @@ $query = $pdo->query("SELECT * FROM cursos WHERE status = 'Aprovado'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_cursos = @count($res);
 
+$dados_meses = '';
+
 //alimentar dados para o eixo y do gráfico
 for ($i = 1; $i <= 12; $i++) {
 
@@ -96,16 +98,20 @@ for ($i = 1; $i <= 12; $i++) {
     $query = $pdo->query("SELECT * FROM matriculas WHERE (status = 'Matriculado' or status = 'Finalizado') and subtotal > 0 and data >= '$data_inicio_mes_grafico' and data <= '$data_final_mes_grafico' ORDER BY data desc"); //subtotal > 0 para excluir vendas de graça, por cartão fidelidade
     $res = $query->fetchAll(PDO::FETCH_ASSOC);
     $total_reg = @count($res);
-    if($total_reg > 0){
-        for($i2=0; $i2 < $total_reg; $i2++){
-            foreach ($res[$i2] as $key => $value){}
-        $total_mes +=  $res[$i2]['total_recebido'];
+    if ($total_reg > 0) {
+        for ($i2 = 0; $i2 < $total_reg; $i2++) {
+            foreach ($res[$i2] as $key => $value) {
+            }
+            $total_mes +=  $res[$i2]['total_recebido'];
+        }
     }
-    }
-    echo $total_mes . ' - ';
+
+    $dados_meses = $dados_meses . $total_mes . '-'; //array que recebe o valor de venda de cada mês
 
 }
+
 ?>
+<input type="text" id="dados_grafico">
 
 <div class="col_3">
 
@@ -219,6 +225,11 @@ for ($i = 1; $i <= 12; $i++) {
 <!-- for index page weekly sales java script -->
 <script src="js/SimpleChart.js"></script>
 <script>
+    $('#dados_grafico').val('<?= $dados_meses ?>'); //input dados_grafico recebe o resultado do array dados_meses, que guarda os valores de venda de cada mês
+
+    var dados = $('#dados_grafico').val();
+    saldo_mes = 0;
+
     var graphdata1 = {
         linecolor: "#035908",
         title: "Monday",
@@ -378,7 +389,6 @@ for ($i = 1; $i <= 12; $i++) {
     */
 
     $(function() {
-
         $("#Linegraph").SimpleChart({
             ChartType: "Line",
             toolwidth: "50",
