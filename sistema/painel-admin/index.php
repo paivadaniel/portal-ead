@@ -16,7 +16,11 @@ $id_usuario = $_SESSION['id_pessoa']; //criada em autenticar.php, o id de um usu
 if (@$_GET['pagina'] != "") { //coloca o arroba pois $_GET['pagina'] pode ser nula
     $menu = $_GET['pagina'];
 } else {
-    $menu = 'home';
+    if (@$_SESSION['nivel'] == 'Administrador') {
+        $menu = 'home';
+    } else {
+        $menu = 'perguntas';
+    }
 }
 
 //para esconder o menu "Pessoas" dos professores, e mostrar apenas para administradores

@@ -107,11 +107,11 @@ for ($i = 1; $i <= 12; $i++) {
     }
 
     $dados_meses = $dados_meses . $total_mes . '-'; //array que recebe o valor de venda de cada mês
-
+//a expressão acima é como se fosse $dados_meses +-=$total_mes, porém, não pode usá-la, pois é uma string, total_mes é diferente para cada mês, e dados_meses vai crescendo mês a mês, no primeiro mês é 0
 }
 
 ?>
-<input type="text" id="dados_grafico">
+<input type="hidden" id="dados_grafico">
 
 <div class="col_3">
 
@@ -193,7 +193,7 @@ for ($i = 1; $i <= 12; $i++) {
                 <h3>Vendas</h3>
             </div>
 
-            <div id="Linegraph" style="width: 98%; height: 350px">
+            <div id="Linegraph" style="width: 98%; height: 350px"> <!-- altura do gráfico -->
             </div>
 
         </div>
@@ -228,14 +228,14 @@ for ($i = 1; $i <= 12; $i++) {
     $('#dados_grafico').val('<?= $dados_meses ?>'); //input dados_grafico recebe o resultado do array dados_meses, que guarda os valores de venda de cada mês
 
     var dados = $('#dados_grafico').val();
-    saldo_mes = 0;
+    saldo_mes = dados.split('-');
 
     var graphdata1 = {
         linecolor: "#035908",
         title: "Monday",
         values: [{
                 X: "Janeiro",
-                Y: parseFloat(saldo_mes[0])
+                Y: parseFloat(saldo_mes[0]) //parseFloat converte de string para float
             },
             {
                 X: "Fevereiro",
