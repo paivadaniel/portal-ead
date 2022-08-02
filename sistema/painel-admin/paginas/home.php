@@ -107,7 +107,7 @@ for ($i = 1; $i <= 12; $i++) {
     }
 
     $dados_meses = $dados_meses . $total_mes . '-'; //array que recebe o valor de venda de cada mês
-//a expressão acima é como se fosse $dados_meses +-=$total_mes, porém, não pode usá-la, pois é uma string, total_mes é diferente para cada mês, e dados_meses vai crescendo mês a mês, no primeiro mês é 0
+    //a expressão acima é como se fosse $dados_meses +-=$total_mes, porém, não pode usá-la, pois é uma string, total_mes é diferente para cada mês, e dados_meses vai crescendo mês a mês, no primeiro mês é 0
 }
 
 ?>
@@ -116,58 +116,80 @@ for ($i = 1; $i <= 12; $i++) {
 <div class="col_3">
 
     <!-- qualquer número que eu altere de col-md-3 para col-md-8 ou col-md-5 ou menor com col-md-2, com 5 colunas aqui vai fazer o espaçamento das colunas crescer, isso com certeza por algo da classe col_3 que o autor do tema criou -->
-    <div class="col-md-3 widget widget1">
-        <div class="r3_counter_box">
-            <i class="pull-left fa fa-dollar icon-rounded"></i>
-            <div class="stats">
-                <h5><strong><big><big><?php echo $total_alunos ?></big></big></strong></h5>
 
-                <hr style="margin-bottom:5px">
-                <div align="center">
-                    <span>Total de Alunos</span>
+    <a href="index.php?pagina=alunos">
+
+        <div class="col-md-3 widget widget1">
+            <div class="r3_counter_box">
+                <i class="pull-left fa fa-dollar icon-rounded"></i>
+                <div class="stats">
+                    <h5><strong><big><big><?php echo $total_alunos ?></big></big></strong></h5>
+
+                    <hr style="margin-bottom:5px">
+                    <div align="center">
+                        <span>Total de Alunos</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-3 widget widget1">
-        <div class="r3_counter_box">
-            <i class="pull-left fa fa-laptop user1 icon-rounded"></i>
-            <div class="stats">
-                <h5><strong><big><big><?php echo $total_matriculas_pendentes ?></big></big></strong></h5>
+    </a>
 
-                <hr style="margin-bottom:5px">
-                <div align="center">
-                    <span>Matrículas Pendentes</span>
+    <a href="index.php?pagina=matriculas">
+        <div class="col-md-3 widget widget1">
+            <div class="r3_counter_box">
+                <i class="pull-left fa fa-laptop user1 icon-rounded"></i>
+                <div class="stats">
+                    <h5><strong><big><big><?php echo $total_matriculas_pendentes ?></big></big></strong></h5>
+
+                    <hr style="margin-bottom:5px">
+                    <div align="center">
+                        <span>Matrículas Pendentes</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-3 widget widget1">
-        <div class="r3_counter_box">
-            <i class="pull-left fa fa-money dollar2 icon-rounded"></i>
-            <div class="stats">
-                <h5><strong><big><big><?php echo $total_matriculas_aprovadas ?></big></big></strong></h5>
 
-                <hr style="margin-bottom:5px">
-                <div align="center">
-                    <span>Matrículas Aprovadas do Mês</span>
+    </a>
+
+    <a href="index.php?pagina=matriculas_aprovadas">
+
+        <div class="col-md-3 widget widget1">
+            <div class="r3_counter_box">
+                <i class="pull-left fa fa-money dollar2 icon-rounded"></i>
+                <div class="stats">
+                    <h5><strong><big><big><?php echo $total_matriculas_aprovadas ?></big></big></strong></h5>
+
+                    <hr style="margin-bottom:5px">
+                    <div align="center">
+                        <span>Matrículas Aprovadas do Mês</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-3 widget widget1">
-        <div class="r3_counter_box">
-            <i class="pull-left fa fa-pie-chart dollar1 icon-rounded"></i>
-            <div class="stats">
-                <h5><strong><big><big><?php echo $total_vendas_diaF ?></big></big></strong></h5>
 
-                <hr style="margin-bottom:5px">
-                <div align="center">
-                    <span>Vendas do Dia</span>
+    </a>
+
+    <a href="index.php?pagina=vendas">
+
+        <div class="col-md-3 widget widget1">
+            <div class="r3_counter_box">
+                <i class="pull-left fa fa-pie-chart dollar1 icon-rounded"></i>
+                <div class="stats">
+                    <h5><strong><big><big><?php echo $total_vendas_diaF ?></big></big></strong></h5>
+
+                    <hr style="margin-bottom:5px">
+                    <div align="center">
+                        <span>Vendas do Dia</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
+    </a>
+
+    <a href="index.php?pagina=cursos">
+
+
     <div class="col-md-3 widget esc">
         <div class="r3_counter_box">
             <i class="pull-left fa fa-credit-card user2 icon-rounded"></i>
@@ -181,6 +203,9 @@ for ($i = 1; $i <= 12; $i++) {
             </div>
         </div>
     </div>
+
+    </a>
+
     <div class="clearfix"> </div>
 </div>
 
@@ -193,7 +218,8 @@ for ($i = 1; $i <= 12; $i++) {
                 <h3>Vendas</h3>
             </div>
 
-            <div id="Linegraph" style="width: 98%; height: 350px"> <!-- altura do gráfico -->
+            <div id="Linegraph" style="width: 98%; height: 350px">
+                <!-- altura do gráfico -->
             </div>
 
         </div>
@@ -413,121 +439,3 @@ for ($i = 1; $i <= 12; $i++) {
 
 <script src="js/Chart.bundle.js"></script>
 <script src="js/utils.js"></script>
-
-<script>
-    var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var color = Chart.helpers.color;
-    var barChartData = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [{
-            label: 'Dataset 1',
-            backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
-            borderColor: window.chartColors.red,
-            borderWidth: 1,
-            data: [
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor()
-            ]
-        }, {
-            label: 'Dataset 2',
-            backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-            borderColor: window.chartColors.blue,
-            borderWidth: 1,
-            data: [
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor()
-            ]
-        }]
-
-    };
-
-    window.onload = function() {
-        var ctx = document.getElementById("canvas").getContext("2d");
-        window.myBar = new Chart(ctx, {
-            type: 'bar',
-            data: barChartData,
-            options: {
-                responsive: true,
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Chart.js Bar Chart'
-                }
-            }
-        });
-
-    };
-
-    document.getElementById('randomizeData').addEventListener('click', function() {
-        var zero = Math.random() < 0.2 ? true : false;
-        barChartData.datasets.forEach(function(dataset) {
-            dataset.data = dataset.data.map(function() {
-                return zero ? 0.0 : randomScalingFactor();
-            });
-
-        });
-        window.myBar.update();
-    });
-
-    var colorNames = Object.keys(window.chartColors);
-    document.getElementById('addDataset').addEventListener('click', function() {
-        var colorName = colorNames[barChartData.datasets.length % colorNames.length];;
-        var dsColor = window.chartColors[colorName];
-        var newDataset = {
-            label: 'Dataset ' + barChartData.datasets.length,
-            backgroundColor: color(dsColor).alpha(0.5).rgbString(),
-            borderColor: dsColor,
-            borderWidth: 1,
-            data: []
-        };
-
-        for (var index = 0; index < barChartData.labels.length; ++index) {
-            newDataset.data.push(randomScalingFactor());
-        }
-
-        barChartData.datasets.push(newDataset);
-        window.myBar.update();
-    });
-
-    document.getElementById('addData').addEventListener('click', function() {
-        if (barChartData.datasets.length > 0) {
-            var month = MONTHS[barChartData.labels.length % MONTHS.length];
-            barChartData.labels.push(month);
-
-            for (var index = 0; index < barChartData.datasets.length; ++index) {
-                //window.myBar.addData(randomScalingFactor(), index);
-                barChartData.datasets[index].data.push(randomScalingFactor());
-            }
-
-            window.myBar.update();
-        }
-    });
-
-    document.getElementById('removeDataset').addEventListener('click', function() {
-        barChartData.datasets.splice(0, 1);
-        window.myBar.update();
-    });
-
-    document.getElementById('removeData').addEventListener('click', function() {
-        barChartData.labels.splice(-1, 1); // remove the label first
-
-        barChartData.datasets.forEach(function(dataset, datasetIndex) {
-            dataset.data.pop();
-        });
-
-        window.myBar.update();
-    });
-</script>
-<!-- new added graphs chart js-->

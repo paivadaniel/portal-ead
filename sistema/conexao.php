@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('America/Sao_Paulo');
+
 //VARIÁVEIS DO SERVIDOR LOCAL
 $servidor = 'localhost';
 $banco = 'portalead';
@@ -33,8 +35,6 @@ if($url[1] == 'localhost/'){
 $nome_sistema = 'Portal EAD do Danielzinho'; //esse é o nome padrão, depois o usuário pode mudar o nome do sistema, que o resultado ficará armazenado na variável nome_sistema na tabela config do banco de dados
 $email_sistema = 'danielantunespaiva@gmail.com';
 $tel_sistema = '(15) 99180-5895';
-
-date_default_timezone_set('America/Sao_Paulo');
 
 try {
     //fora a PDO, existem outros tipos de conexões com o banco de dados, como mysqli

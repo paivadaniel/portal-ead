@@ -71,7 +71,7 @@ if ($total_reg > 0) {
     }
 
 
-    $query2 = $pdo->query("SELECT * FROM usuarios WHERE id = '$professor'");
+    $query2 = $pdo->query("SELECT * FROM usuarios WHERE id_pessoa = '$professor'");
     $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
     $nome_professor = $res2[0]['nome'];
 
@@ -722,9 +722,15 @@ require_once('cabecalho.php');
                                 <input type="email" name="email" id="email" class="form-control" required="required">
                             </div>
                             <div class="form-group">
-                                <label>WhatssApp</label>
+                                <label>Whatsapp</label>
                                 <input type="text" name="telefone" id="telefone" class="form-control">
                             </div>
+
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="novidades" name="novidades" value="Sim" checked> <!-- checked deixa marcado a caixa como padrão -->
+                                <label for="novidades" class="form-check-label"><small>Marque para receber nossas novidades por email.</small></label>
+                            </div>
+
 
                         </div>
                         <div class="col-sm-5">

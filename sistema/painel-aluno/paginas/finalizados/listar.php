@@ -79,9 +79,20 @@ HTML;
             $nome_professor = "";
         }
 
+        //verificar se o curso já foi avaliado
+        $query2 = $pdo->query("SELECT * FROM avaliacoes where id_curso = '$id_curso' and id_aluno = '$id_usuario'");
+        $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+        $avaliacoes = @count($res2);
+        if ($avaliacoes > 0) {
+            $ocultar_avaliar = 'ocultar';
+        } else {
+            $ocultar_avaliar = '';
+        }
+
         $query4 = $pdo->query("SELECT * FROM aulas WHERE id_curso = '$id_curso'");
         $res4 = $query4->fetchAll(PDO::FETCH_ASSOC);
         $aulas = @count($res4); //total de aulas do curso
+
 
         if ($aulas == 1) {
             $aulas_singular_plural = 'aula';
@@ -166,7 +177,10 @@ e quando o curso não estiver pago oculta o link que chama a função aulas -->
         <input type="hidden" name="id_mat" value="{$id}">
 
         <!-- abertura avaliação -->
-        <a href="#" onclick="excluir('{$id}')" title="Avaliar Curso" class="{$icones_finalizados}"><i class="fa fa-star amarelo"></i></a>
+
+		<big><a class="{$icones_finalizados} {$ocultar_avaliar}" href="#" onclick="avaliar('{$id_curso}', '{$nome_curso}')" title="Avaliar Curso"><i class="fa fa-star amarelo"></i></a></big>
+
+
         <!-- fechamento avaliação -->
 
         </form>

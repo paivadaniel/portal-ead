@@ -7,7 +7,7 @@ $tabela = 'cursos';
 $ano_atual = date('Y');
 
 @session_start();
-$id_usuario = $_SESSION['id']; //id do usuário que inseriu o curso, que pode ser um professor ou administrador
+$id_usuario = $_SESSION['id_pessoa']; //id do usuário que inseriu o curso, que pode ser um professor ou administrador
 
 $nome = $_POST['nome'];
 $desc_rapida = $_POST['desc_rapida'];

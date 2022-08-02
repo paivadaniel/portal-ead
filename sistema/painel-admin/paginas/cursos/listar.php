@@ -11,7 +11,7 @@ if ($_SESSION['nivel'] == 'Administrador') {
     $id_usuario = '%' . '' . '%';
 } else { // se um professor estiver acessando a página
     $acesso = 'ocultar';
-    $id_usuario = '%' . $_SESSION['id'] . '%'; //o porcento antes e depois é uma obrigatoriedade do LIKE, para que busque por aproximações no começo e no final do que se procura
+    $id_usuario = '%' . $_SESSION['id_pessoa'] . '%'; //o porcento antes e depois é uma obrigatoriedade do LIKE, para que busque por aproximações no começo e no final do que se procura
 }
 
 echo <<<HTML
@@ -80,7 +80,7 @@ HTML;
         $link = $res[$i]['link'];
         $tecnologias = $res[$i]['tecnologias'];
 
-        $query2 = $pdo->query("SELECT * FROM usuarios WHERE id = '$professor'");
+        $query2 = $pdo->query("SELECT * FROM usuarios WHERE id_pessoa = '$professor'");
         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 
         if (@count($res2) > 0) {

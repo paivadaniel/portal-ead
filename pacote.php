@@ -478,9 +478,15 @@ require_once('cabecalho.php');
                                 <input type="email" name="email" id="email" class="form-control" required="required">
                             </div>
                             <div class="form-group">
-                                <label>WhatssApp</label>
+                                <label>Whatsapp</label>
                                 <input type="text" name="telefone" id="telefone" class="form-control">
                             </div>
+
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="novidades" name="novidades" value="Sim" checked> <!-- checked deixa marcado a caixa como padrão -->
+                                <label for="novidades" class="form-check-label"><small>Marque para receber nossas novidades por email.</small></label>
+                            </div>
+
 
                         </div>
                         <div class="col-sm-5">
@@ -795,7 +801,6 @@ Não ative modo de compatibilidade nem nada e clique em criar nova aplicação
 
                 <?php } else {
                     echo 'Você já possui esse pacote!';
-
                 } ?>
 
 

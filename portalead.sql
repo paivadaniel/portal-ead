@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 30-Jul-2022 às 02:24
--- Versão do servidor: 10.4.22-MariaDB
--- versão do PHP: 8.0.15
+-- Tempo de geração: 02-Ago-2022 às 05:01
+-- Versão do servidor: 10.4.21-MariaDB
+-- versão do PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -73,16 +73,19 @@ CREATE TABLE `alunos` (
 --
 
 INSERT INTO `alunos` (`id`, `nome`, `cpf`, `email`, `telefone`, `endereco`, `bairro`, `cidade`, `estado`, `pais`, `foto`, `data`, `cartao`, `ativo`) VALUES
-(5, 'Sassa Mutema', '212.121.212-21', 'sassamutema@gmail.com', '(11) 3355-5555', 'Sampaio Correio', 'Vila Madalena', 'Recife', 'AC', 'Costa Rica', '16-05-2022-19-33-37-galinha-pintadinha-ouvindo-musica.jpg', '2022-05-16', 5, 'Sim'),
-(6, 'Pedrinho Matador', '666.666.666-66', 'pedrinhomatador@hotmail.com', '(66) 6666-6666', 'Portões do Inferno, 666', NULL, 'Diadema', 'SP', 'Brasil', '16-05-2022-23-41-52-pintinho-amarelinho.jpg', '2022-05-16', 3, 'Sim'),
+(5, 'Sassa Mutema', '212.121.212-21', 'sassamutema@gmail.com', '(11) 3355-5555', 'Sampaio Correio', 'Vila Madalena', 'Recife', 'AC', 'Costa Rica', '16-05-2022-19-33-37-galinha-pintadinha-ouvindo-musica.jpg', '2022-05-16', 7, 'Sim'),
+(6, 'Pedrinho Matador', '666.666.666-66', 'pedrinhomatador@hotmail.com', '(66) 6666-6666', 'Portões do Inferno, 666', NULL, 'Diadema', 'SP', 'Brasil', '16-05-2022-23-41-52-pintinho-amarelinho.jpg', '2022-05-16', 4, 'Sim'),
 (7, 'Juca Tobias', NULL, 'Jocelyn@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'sem-perfil.jpg', '2022-06-17', 0, NULL),
 (8, 'Roberto Lucas', NULL, 'robertinho.com@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'sem-perfil.jpg', '2022-06-17', 0, NULL),
 (9, 'Juca Tobias Novo', NULL, 'Jocelyn2@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'sem-perfil.jpg', '2022-06-17', 0, NULL),
-(10, 'Juca Tobias Armanda Nero', NULL, 'Jocelyn23@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'sem-perfil.jpg', '2022-06-17', 0, NULL),
+(10, 'Juca Tobias Armanda Nero', NULL, 'Jocelyn23@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'sem-perfil.jpg', '2022-06-17', 1, NULL),
 (11, 'Rubens Barrichello do Brasil', '123.456.789-00', 'barrichello_rubens@hotmail.com', '(12) 2121-2121', 'Rua X, Número Y', 'Vila Z', 'Porto Alegre', 'RS', 'Brasil', '27-06-2022-23-31-36-buzanga.jpg', '2022-06-17', 0, 'Sim'),
 (12, 'Aluno Louco', NULL, 'louco@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'sem-perfil.jpg', '2022-06-21', 0, 'Sim'),
-(13, 'Paula', NULL, 'paulinha@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'sem-perfil.jpg', '2022-06-30', 0, 'Sim'),
-(14, 'João Bosta', '313.131.313-13', 'joaobosta@hotmail.com', '(31) 3131-3141', 'Rua Bosta', 'Culândia', 'Tonto', 'AC', 'Merdalândia', '08-07-2022-02-23-35-buzanga.jpg', '2022-07-08', 0, 'Sim');
+(13, 'Paula', NULL, 'paulinha@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'sem-perfil.jpg', '2022-06-30', 1, 'Sim'),
+(14, 'João Bosta', '313.131.313-13', 'joaobosta@hotmail.com', '(31) 3131-3141', 'Rua Bosta', 'Culândia', 'Tonto', 'AC', 'Merdalândia', '08-07-2022-02-23-35-buzanga.jpg', '2022-07-08', 1, 'Sim'),
+(17, 'Marsenildo Pinto', NULL, 'marsenildo@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-08-01', 0, 'Sim'),
+(18, 'Juca Tubia', NULL, 'marsenildo2@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-08-01', 0, 'Sim'),
+(19, 'Juca Tubia', NULL, 'marsenildo3@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-08-01', 0, 'Sim');
 
 -- --------------------------------------------------------
 
@@ -142,8 +145,6 @@ CREATE TABLE `avaliacoes` (
 --
 
 INSERT INTO `avaliacoes` (`id`, `nota`, `comentario`, `id_curso`, `id_aluno`, `data`) VALUES
-(8, 5, 'ok!', 2, 5, '2022-07-13'),
-(9, 5, 'Beleza!', 1, 5, '2022-07-13'),
 (10, 5, 'Fodástico!', 1, 13, '2022-07-13'),
 (11, 3, 'Supimpa!', 2, 13, '2022-07-13'),
 (13, 4, 'foda!', 3, 13, '2022-07-14');
@@ -307,11 +308,13 @@ CREATE TABLE `cursos` (
 --
 
 INSERT INTO `cursos` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `categoria`, `imagem`, `status`, `carga`, `mensagem`, `arquivo`, `ano`, `palavras`, `grupo`, `nome_url`, `pacote`, `sistema`, `link`, `tecnologias`, `promocao`, `matriculas`) VALUES
-(1, 'Curso de HTML', 'Aprenda HTML5 e CSS3', 'Fique craque em desenvolver sites em html e css.', '100.00', 1, 3, '04-07-2022-00-34-59-curso-html-5-css-3.jpg', 'Aprovado', 120, '', 'https://www.youtube.com', 2022, 'html, css', 6, 'curso-de-html', '', 'Não', 'https://www.youtube.com/embed/gePgFx5ovgg', 'html, css, bootstrap', '70.00', 0),
+(1, 'Curso de HTML', 'Aprenda HTML5 e CSS3', 'Fique craque em desenvolver sites em html e css.', '100.00', 1, 3, '04-07-2022-00-34-59-curso-html-5-css-3.jpg', 'Aprovado', 120, '', 'https://www.youtube.com', 2022, 'html, css', 6, 'curso-de-html', '', 'Não', 'https://www.youtube.com/embed/gePgFx5ovgg', 'html, css, bootstrap', '70.00', 4),
 (2, 'Curso de PHP', 'Domine PHP8', 'Aprenda tudo sobre a melhor linguagem para desenvolvimento backend de sites e sistemas web', '250.00', 1, 3, '04-07-2022-00-36-30-curso-de-php.jpg', 'Aprovado', 250, '', 'https://www.google.com', 2022, 'php, laravel', 5, 'curso-de-php', '', 'Não', 'https://www.youtube.com/embed/J9NE5x6se3g', 'php, laravel, mysql', '150.00', 0),
 (6, 'Sistema Escritório', 'Somente Fontes', '', '270.00', 1, 6, 'sem-foto.png', 'Aprovado', 0, '', '', 2022, 'sistema para escritorio de contabilidade', 6, 'sistema-escritorio', '', 'Sim', '', '', '250.00', 0),
-(8, 'Curso 02', 'Blablabla', '', '160.00', 1, 6, 'sem-foto.png', 'Aguardando', 80, '', '', 2022, '', 4, 'curso-02', '', 'Não', '', '', '90.00', 0),
-(9, 'Curso Laravel', 'O Framework PHP mais usado', 'Aprenda!', '150.00', 1, 6, 'sem-foto.png', 'Aprovado', 45, '', '', 2022, '', 5, 'curso-laravel', '', 'Não', '', '', '90.00', 0);
+(8, 'Curso 02', 'Blablabla', '', '160.00', 1, 6, 'sem-foto.png', 'Aprovado', 80, '', '', 2022, '', 4, 'curso-02', '', 'Não', '', '', '90.00', 1),
+(9, 'Curso Laravel', 'O Framework PHP mais usado', 'Aprenda!', '150.00', 1, 6, 'sem-foto.png', 'Aprovado', 45, '', '', 2022, '', 5, 'curso-laravel', '', 'Não', '', '', '90.00', 1),
+(11, 'marsupilami', '42424242', 'daadda', '13.00', 4, 6, 'sem-foto.png', 'Aprovado', 0, '', '', 2022, '', 6, 'marsupilami', '', 'Não', '', '', '11.00', 1),
+(12, 'afa2422', '2442r2wq', 'sfsfs', '42.00', 4, 6, 'sem-foto.png', 'Aprovado', 0, '', '', 2022, '', 6, 'afa2422', '', 'Não', '', '', '14.00', 0);
 
 -- --------------------------------------------------------
 
@@ -330,9 +333,49 @@ CREATE TABLE `cursos_pacotes` (
 --
 
 INSERT INTO `cursos_pacotes` (`id`, `id_curso`, `id_pacote`) VALUES
-(6, 8, 1),
 (7, 8, 4),
 (8, 9, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `emails`
+--
+
+CREATE TABLE `emails` (
+  `id` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `nome` varchar(50) DEFAULT NULL,
+  `enviar` varchar(5) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `emails`
+--
+
+INSERT INTO `emails` (`id`, `email`, `nome`, `enviar`) VALUES
+(1, 'merdolis@gmail.com', 'Merdólis', 'Sim'),
+(2, 'chupeto@gmail.com', 'chupeto', 'Sim'),
+(3, 'chupeto2@gmail.com', 'Mardoqueu', 'Sim'),
+(4, 'chupeto23@gmail.com', 'Mardoqueu', 'Sim'),
+(5, 'marsenildo@gmail.com', 'Marsenildo Pinto', 'Sim'),
+(6, 'marsenildo2@gmail.com', 'Juca Tubia', 'Sim'),
+(7, 'marsenildo3@gmail.com', 'Juca Tubia', 'Sim');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `envios`
+--
+
+CREATE TABLE `envios` (
+  `id` int(11) NOT NULL,
+  `data` datetime NOT NULL,
+  `final` int(11) NOT NULL,
+  `assunto` varchar(150) NOT NULL,
+  `mensagem` text NOT NULL,
+  `link` varchar(150) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -412,10 +455,13 @@ CREATE TABLE `matriculas` (
 --
 
 INSERT INTO `matriculas` (`id`, `id_curso`, `id_aluno`, `id_professor`, `aulas_concluidas`, `valor`, `data`, `status`, `pacote`, `alertado`, `valor_cupom`, `subtotal`, `forma_pgto`, `boleto`, `id_pacote`, `data_conclusao`, `total_recebido`, `obs`) VALUES
-(5, 1, 5, 1, 1, '70.00', '2022-06-19', 'Matriculado', 'Não', NULL, '0.00', '70.00', '', NULL, 0, NULL, '15.00', ''),
-(9, 9, 5, 1, 1, '90.00', '2022-06-19', 'Matriculado', 'Não', NULL, '0.00', '90.00', '', NULL, 0, NULL, '20.00', ''),
-(10, 2, 5, 1, 1, '150.00', '2022-07-19', 'Matriculado', 'Não', NULL, '0.00', '150.00', '', NULL, 0, NULL, '60.00', ''),
-(11, 4, 5, 1, 1, '400.00', '2022-07-28', 'Matriculado', 'Sim', NULL, '0.00', '400.00', '', NULL, 0, NULL, '30.00', 'Pagamento não efetuado');
+(5, 1, 5, 1, 5, '70.00', '2022-08-01', 'Finalizado', 'Não', NULL, '0.00', '82.00', 'MP', NULL, 0, NULL, '77.70', 'MP'),
+(9, 9, 5, 1, 1, '90.00', '2022-06-19', 'Matriculado', 'Não', NULL, '0.00', '90.00', '', NULL, 0, NULL, '90.00', ''),
+(10, 2, 5, 1, 10, '150.00', '2022-07-19', 'Finalizado', 'Não', NULL, '0.00', '150.00', '', NULL, 0, NULL, '60.00', ''),
+(11, 4, 5, 1, 1, '400.00', '2022-07-28', 'Matriculado', 'Sim', NULL, '0.00', '400.00', '', NULL, 0, NULL, '30.00', 'Pagamento não efetuado'),
+(13, 11, 6, 4, 1, '11.00', '2022-08-01', 'Matriculado', 'Não', NULL, '0.00', '11.00', 'Pix', NULL, 0, NULL, '11.00', 'Nenhuma'),
+(19, 4, 13, 1, 1, '400.00', '2022-08-01', 'Matriculado', 'Sim', NULL, '0.00', '350.00', 'Boleto', NULL, 0, NULL, '343.63', 'Boleto'),
+(20, 9, 13, 1, 1, '0.00', '2022-08-01', 'Matriculado', 'Não', NULL, '0.00', '0.00', '', NULL, 4, NULL, '0.00', 'Pacote');
 
 -- --------------------------------------------------------
 
@@ -446,7 +492,7 @@ CREATE TABLE `pacotes` (
 --
 
 INSERT INTO `pacotes` (`id`, `nome`, `desc_rapida`, `desc_longa`, `valor`, `professor`, `imagem`, `grupo`, `ano`, `palavras`, `nome_url`, `video`, `linguagem`, `promocao`, `matriculas`) VALUES
-(4, 'Formação WEB', 'WEB', 'blablabla', '500.00', 1, '18-07-2022-03-51-32-banner-teste.jpg', 4, 2022, 'qualquer coisa', 'formacao-web', '', 7, '400.00', 0);
+(4, 'Formação WEB', 'WEB', 'blablabla', '500.00', 1, '18-07-2022-03-51-32-banner-teste.jpg', 4, 2022, 'qualquer coisa', 'formacao-web', '', 7, '400.00', 1);
 
 -- --------------------------------------------------------
 
@@ -496,10 +542,12 @@ CREATE TABLE `perguntas` (
 
 INSERT INTO `perguntas` (`id`, `num_aula`, `pergunta`, `id_curso`, `id_aluno`, `data`, `respondida`) VALUES
 (13, 3, 'dadada', 1, 5, '2022-07-12', 'Sim'),
-(16, 12, 'wffwrtwrtwr ', 1, 5, '2022-07-12', 'Não'),
-(18, 3, 'cuzeroloco ', 1, 5, '2022-07-14', 'Não'),
-(19, 7, 'tá doidão de ácido o mané?', 1, 5, '2022-07-14', 'Não'),
-(21, 1, 'Vadiozão ? ', 1, 5, '2022-07-14', 'Não');
+(16, 12, 'wffwrtwrtwr ', 1, 5, '2022-07-12', 'Sim'),
+(18, 3, 'cuzeroloco ', 1, 5, '2022-07-14', 'Sim'),
+(19, 7, 'tá doidão de ácido o mané?', 1, 5, '2022-07-14', 'Sim'),
+(21, 1, 'Vadiozão ? ', 1, 5, '2022-07-14', 'Sim'),
+(22, 1, 'Pergunta para aula que não existe', 10, 6, '2022-07-30', 'Não'),
+(23, 2, 'Qualquer pergunta para testar', 11, 6, '2022-07-30', 'Sim');
 
 -- --------------------------------------------------------
 
@@ -572,7 +620,8 @@ CREATE TABLE `respostas` (
 --
 
 INSERT INTO `respostas` (`id`, `resposta`, `id_curso`, `id_pessoa`, `data`, `id_pergunta`, `funcao`) VALUES
-(36, 'sfssfsfsfsffs ', 0, 1, '2022-07-12', 13, 'Professor');
+(36, 'sfssfsfsfsffs ', 0, 1, '2022-07-12', 13, 'Professor'),
+(38, 'vai se fuder matimbu', 0, 4, '2022-07-31', 23, 'Professor');
 
 -- --------------------------------------------------------
 
@@ -634,7 +683,10 @@ INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `usuario`, `senha`, `senha_crip`, `
 (24, 'Rubens Barrichello do Brasil', '123.456.789-00', 'barrichello_rubens@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', '27-06-2022-23-31-36-buzanga.jpg', 11, 'Sim', '2022-06-17'),
 (25, 'Aluno Louco', NULL, 'louco@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 12, 'Sim', '2022-06-21'),
 (26, 'Paula', NULL, 'paulinha@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 13, 'Sim', '2022-06-30'),
-(27, 'João Bosta', '313.131.313-13', 'joaobosta@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', '08-07-2022-02-23-35-buzanga.jpg', 14, 'Sim', '2022-07-08');
+(27, 'João Bosta', '313.131.313-13', 'joaobosta@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', '08-07-2022-02-23-35-buzanga.jpg', 14, 'Sim', '2022-07-08'),
+(30, 'Marsenildo Pinto', NULL, 'marsenildo@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 17, 'Sim', '2022-08-01'),
+(31, 'Juca Tubia', NULL, 'marsenildo2@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 18, 'Sim', '2022-08-01'),
+(32, 'Juca Tubia', NULL, 'marsenildo3@gmail.com', '12345', '827ccb0eea8a706c4c34a16891f84e7b', 'Aluno', 'sem-perfil.jpg', 19, 'Sim', '2022-08-01');
 
 --
 -- Índices para tabelas despejadas
@@ -704,6 +756,18 @@ ALTER TABLE `cursos`
 -- Índices para tabela `cursos_pacotes`
 --
 ALTER TABLE `cursos_pacotes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `emails`
+--
+ALTER TABLE `emails`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `envios`
+--
+ALTER TABLE `envios`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -786,7 +850,7 @@ ALTER TABLE `administradores`
 -- AUTO_INCREMENT de tabela `alunos`
 --
 ALTER TABLE `alunos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de tabela `aulas`
@@ -798,7 +862,7 @@ ALTER TABLE `aulas`
 -- AUTO_INCREMENT de tabela `avaliacoes`
 --
 ALTER TABLE `avaliacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `banner_index`
@@ -834,13 +898,25 @@ ALTER TABLE `cupons`
 -- AUTO_INCREMENT de tabela `cursos`
 --
 ALTER TABLE `cursos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `cursos_pacotes`
 --
 ALTER TABLE `cursos_pacotes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de tabela `emails`
+--
+ALTER TABLE `emails`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de tabela `envios`
+--
+ALTER TABLE `envios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `grupos`
@@ -858,7 +934,7 @@ ALTER TABLE `linguagens`
 -- AUTO_INCREMENT de tabela `matriculas`
 --
 ALTER TABLE `matriculas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de tabela `pacotes`
@@ -876,7 +952,7 @@ ALTER TABLE `pagar`
 -- AUTO_INCREMENT de tabela `perguntas`
 --
 ALTER TABLE `perguntas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de tabela `professores`
@@ -894,7 +970,7 @@ ALTER TABLE `receber`
 -- AUTO_INCREMENT de tabela `respostas`
 --
 ALTER TABLE `respostas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de tabela `sessao`
@@ -906,7 +982,7 @@ ALTER TABLE `sessao`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

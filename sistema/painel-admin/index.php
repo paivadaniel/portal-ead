@@ -19,7 +19,7 @@ if (@$_GET['pagina'] != "") { //coloca o arroba pois $_GET['pagina'] pode ser nu
     if (@$_SESSION['nivel'] == 'Administrador') {
         $menu = 'home';
     } else {
-        $menu = 'perguntas';
+        $menu = 'perguntas'; //professor vai para a página de perguntas, aluno não tem como logar no painel-admin
     }
 }
 
@@ -183,6 +183,25 @@ $senha_usuario = $res[0]['senha'];
                                     <i class="fa fa-home"></i> <span>Home</span>
                                 </a>
                             </li>
+
+
+                            <li class="treeview <?php echo $ocultar ?>">
+                                <a href="#">
+                                    <i class="fa fa-envelope-o"></i>
+                                    <span>Matrículas</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="index.php?pagina=matriculas"><i class="fa fa-angle-right"></i> Pendentes</a></li>
+                                    <li><a href="index.php?pagina=matriculas_aprovadas"><i class="fa fa-angle-right"></i> Aprovadas</a></li>
+
+                                    
+                                </ul>
+                            </li>
+
+
+
+
                             <li class="treeview <?php echo $ocultar ?>">
                                 <a href="#">
                                     <i class="fa fa-users"></i>
@@ -232,7 +251,7 @@ $senha_usuario = $res[0]['senha'];
                             <li class="treeview <?php echo $ocultar ?>">
                                 <a href="#">
                                     <i class="fa fa-cog"></i>
-                                    <span>Recursos do Site</span>
+                                    <span>Ferramentas </span>
                                     <!-- ícone a seguir é a flechinha do menu -->
                                     <i class="fa fa-angle-left pull-right"></i> <!-- pull-right é para jogar no canto direito, o ícone de flechinha é o fa-angle-left -->
                                 </a>
@@ -242,6 +261,7 @@ $senha_usuario = $res[0]['senha'];
 
                                     <li><a href="index.php?pagina=banner_index"><i class="fa fa-angle-right"></i> Banner Index</a></li>
 
+                                    <li><a href="#" data-toggle="modal" data-target="#modalEmail"><i class="fa fa-angle-right"></i> Email Marketing</a></li>
 
                                 </ul>
                             </li>
@@ -985,11 +1005,6 @@ $senha_usuario = $res[0]['senha'];
     </div>
 </div>
 
-
-
-
-
-
 <!-- Modal Rel Lucro -->
 <div class="modal fade" id="RelLuc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -1051,6 +1066,55 @@ $senha_usuario = $res[0]['senha'];
 </div>
 
 
+
+
+<!-- Modal Email -->
+<div class="modal fade" id="modalEmail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Email Marketing
+                    <small>
+                        Total de Emails: <?php echo $total_emails ?>
+                    </small>
+
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" action="../rel/lucro_class.php" target="_blank">
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Data Inicial</label>
+                                <input type="date" class="form-control" name="dataInicial" id="dataInicialRel-Luc" value="<?php echo date('Y-m-d') ?>" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Data Final</label>
+                                <input type="date" class="form-control" name="dataFinal" id="dataFinalRel-Luc" value="<?php echo date('Y-m-d') ?>" required>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Gerar Relatório</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 
 
 
