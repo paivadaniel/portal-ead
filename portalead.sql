@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02-Ago-2022 às 18:18
+-- Tempo de geração: 02-Ago-2022 às 21:15
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -252,15 +252,18 @@ CREATE TABLE `config` (
   `taxa_paypal` decimal(8,2) NOT NULL,
   `valor_max_cartao` decimal(8,2) NOT NULL,
   `total_emails_por_envio` int(11) NOT NULL,
-  `intervalo_envio_email` int(11) NOT NULL
+  `intervalo_envio_email` int(11) NOT NULL,
+  `script_dia` date DEFAULT NULL,
+  `dias_email_matricula` int(11) NOT NULL,
+  `dias_excluir_matricula` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `config`
 --
 
-INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnpj_sistema`, `tipo_chave_pix`, `chave_pix`, `logo`, `icone`, `logo_rel`, `qrcode_pix`, `facebook`, `instagram`, `youtube`, `itens_pag`, `video_sobre`, `itens_relacionados`, `aulas_liberadas`, `desconto_pix`, `email_adm_mat`, `cartoes_fidelidade`, `taxa_boleto`, `taxa_mp`, `taxa_paypal`, `valor_max_cartao`, `total_emails_por_envio`, `intervalo_envio_email`) VALUES
-(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', 'danielantunespaiva@gmail.com', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead', 6, 'https://www.youtube.com/embed/GeH5_-4xkfE', 1, 2, 5, 'Sim', 5, '6.37', '5.24', '7.29', '141.27', 480, 70);
+INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnpj_sistema`, `tipo_chave_pix`, `chave_pix`, `logo`, `icone`, `logo_rel`, `qrcode_pix`, `facebook`, `instagram`, `youtube`, `itens_pag`, `video_sobre`, `itens_relacionados`, `aulas_liberadas`, `desconto_pix`, `email_adm_mat`, `cartoes_fidelidade`, `taxa_boleto`, `taxa_mp`, `taxa_paypal`, `valor_max_cartao`, `total_emails_por_envio`, `intervalo_envio_email`, `script_dia`, `dias_email_matricula`, `dias_excluir_matricula`) VALUES
+(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', 'danielantunespaiva@gmail.com', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead', 6, 'https://www.youtube.com/embed/GeH5_-4xkfE', 1, 2, 5, 'Sim', 5, '6.37', '5.24', '7.29', '141.27', 480, 70, NULL, 3, 30);
 
 -- --------------------------------------------------------
 
@@ -384,7 +387,7 @@ CREATE TABLE `envios` (
 --
 
 INSERT INTO `envios` (`id`, `data`, `final`, `assunto`, `mensagem`, `link`) VALUES
-(1, '2022-08-02 14:27:05', 480, 'Ei doideira', '<b>Merdinha doido</b><div><br></div><div>Você sabia que <font color=\"#ff0000\">pode </font>ganhar até <font color=\"#ff3399\">R$10 mil</font>?</div>', 'curso-de-curso-02');
+(1, '2022-08-02 15:14:13', 0, 'assunto lixo', 'fsfs', 'link bosta');
 
 -- --------------------------------------------------------
 
