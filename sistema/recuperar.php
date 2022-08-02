@@ -24,7 +24,9 @@ if($total_reg == 0) {
 //ENVIAR O EMAIL COM A SENHA
 $destinatario = $email;
 $assunto = $nome_sistema . ' - Recuperação de Senha';
-$mensagem = utf8_decode('Sua senha é ' .$senha);
+//$mensagem = utf8_decode('Sua senha é ' .$senha); //utf8_decode dá gerando problemas de acentuação
+$mensagem = 'Sua senha é ' .$senha;
+
 $cabecalhos = "From: ".$email_sistema;
 
 mail($destinatario, $assunto, $mensagem, $cabecalhos);

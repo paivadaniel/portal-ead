@@ -102,6 +102,7 @@ HTML;
             $nome_curso = $res2[0]['nome'];
             $nome_url = $res2[0]['nome_url'];
             $url_do_curso = $link . $nome_url;
+            $link_curso = $res2[0]['link'];
         } else {
             $nome_curso = '';
         }
@@ -183,7 +184,8 @@ HTML;
 <!-- quando o curso estiver pago oculta a mensagem de pagar com a classe ocultar_pagar
 e quando o curso não estiver pago oculta o link que chama a função aulas -->
         <td>
-        <a href="#" onclick="aulas('{$id}', '{$nome_curso}', '{$aulas}', '{$aulas_singular_plural}', '{$id_curso}')" class="{$classe_nome} $ocultar_aulas">
+            <!-- function aulas é chamada em painel-aluno/cursos/listar.php -->
+        <a href="#" onclick="aulas('{$id}', '{$nome_curso}', '{$aulas}', '{$aulas_singular_plural}', '{$id_curso}', '{$link_curso}')" class="{$classe_nome} $ocultar_aulas">
         {$nome_curso}
         <small><i class="fa fa-video-camera text-dark"></i></small>
         </a>

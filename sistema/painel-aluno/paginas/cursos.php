@@ -33,7 +33,10 @@ if (@$_SESSION['nivel'] != 'Aluno') { //coloca @ para se caso não existir algum
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title"><span id="nome_aula_titulo"></span> - <span id="aulas_aula"></span> <span id="aulas_singular_plural"> </span></h4>
+				<h4 class="modal-title"><span id="nome_aula_titulo"></span> - <span id="aulas_aula"></span> <span id="aulas_singular_plural"> </span>  </h4>
+
+				<span id="link_drive" class="text-muted"> <a id="link_drive_curso" href="#" target="_blank" title="Assistir pelo Google Drive"> <i class="fa fa-link" style="margin-right:3px"> </i><small><small>Assistir pelo Google Drive </a> (Após Finalizar Curso Solicitar Certificado)</small></small></span>
+
 				<button id="btn-fechar-aula" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -45,7 +48,6 @@ if (@$_SESSION['nivel'] != 'Aluno') { //coloca @ para se caso não existir algum
 				<div class="row">
 					<div class="col-md-5" style="margin-bottom: 8px">
 						<div id="listar-aulas">
-							Listar Aulas
 						</div>
 					</div>
 
@@ -449,13 +451,22 @@ os inputs abaixo são recebidos na function aulas()
 <script type="text/javascript">
 	//migrei function aulas() e function listarAulas() de painel-aluno/paginas/cursos/listar-cursos.php para painel-aluno/paginas/cursos.php, caso ocorra algum problema, basta copiar as funções para o arquivo listar-cursos.php
 
-	function aulas(id, nome, aulas, aulas_singular_plural, id_curso) {
+	function aulas(id, nome, aulas, aulas_singular_plural, id_curso, link_curso) { //da modalAulas
 		$('#id_aulas').val(id); //id é o id da matrícula
 
-		//ids definidos na modalAulas, em ../cursos.php
+				//ids definidos na modalAulas, em ../cursos.php
 		$('#nome_aula_titulo').text(nome);
 		$('#aulas_aula').text(aulas);
 		$('#aulas_singular_plural').text(aulas_singular_plural);
+	
+		if(link_curso == '') {
+			document.getElementById('link_drive').style.display = 'none';
+		} else {
+			document.getElementById('link_drive').style.display = 'block';
+		}
+	
+		$('#link_drive_curso').attr('href', link_curso);
+
 		/*eu estava tentando chamar assim e deu problema 
 		$('#aulas_singular_plural').text('<?= $aulas_singular_plural ?>');
 		*/

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02-Ago-2022 às 21:15
--- Versão do servidor: 10.4.21-MariaDB
--- versão do PHP: 8.0.10
+-- Tempo de geração: 03-Ago-2022 às 01:20
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -263,7 +263,7 @@ CREATE TABLE `config` (
 --
 
 INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnpj_sistema`, `tipo_chave_pix`, `chave_pix`, `logo`, `icone`, `logo_rel`, `qrcode_pix`, `facebook`, `instagram`, `youtube`, `itens_pag`, `video_sobre`, `itens_relacionados`, `aulas_liberadas`, `desconto_pix`, `email_adm_mat`, `cartoes_fidelidade`, `taxa_boleto`, `taxa_mp`, `taxa_paypal`, `valor_max_cartao`, `total_emails_por_envio`, `intervalo_envio_email`, `script_dia`, `dias_email_matricula`, `dias_excluir_matricula`) VALUES
-(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', 'danielantunespaiva@gmail.com', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead', 6, 'https://www.youtube.com/embed/GeH5_-4xkfE', 1, 2, 5, 'Sim', 5, '6.37', '5.24', '7.29', '141.27', 480, 70, NULL, 3, 30);
+(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', 'danielantunespaiva@gmail.com', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead', 6, 'https://www.youtube.com/embed/GeH5_-4xkfE', 1, 2, 5, 'Sim', 5, '6.37', '5.24', '7.29', '141.27', 480, 70, '2022-08-02', 3, 30);
 
 -- --------------------------------------------------------
 
@@ -467,13 +467,14 @@ CREATE TABLE `matriculas` (
 --
 
 INSERT INTO `matriculas` (`id`, `id_curso`, `id_aluno`, `id_professor`, `aulas_concluidas`, `valor`, `data`, `status`, `pacote`, `alertado`, `valor_cupom`, `subtotal`, `forma_pgto`, `boleto`, `id_pacote`, `data_conclusao`, `total_recebido`, `obs`) VALUES
-(5, 1, 5, 1, 5, '70.00', '2022-08-01', 'Finalizado', 'Não', NULL, '0.00', '82.00', 'MP', NULL, 0, NULL, '77.70', 'MP'),
 (9, 9, 5, 1, 1, '90.00', '2022-06-19', 'Matriculado', 'Não', NULL, '0.00', '90.00', '', NULL, 0, NULL, '90.00', ''),
 (10, 2, 5, 1, 10, '150.00', '2022-07-19', 'Finalizado', 'Não', NULL, '0.00', '150.00', '', NULL, 0, NULL, '60.00', ''),
-(11, 4, 5, 1, 1, '400.00', '2022-07-28', 'Matriculado', 'Sim', NULL, '0.00', '400.00', '', NULL, 0, NULL, '30.00', 'Pagamento não efetuado'),
+(11, 4, 5, 1, 1, '400.00', '2022-07-28', 'Aguardando', 'Sim', 'Sim', '0.00', '400.00', '', NULL, 0, NULL, '0.00', 'Pagamento não efetuado'),
 (13, 11, 6, 4, 1, '11.00', '2022-08-01', 'Matriculado', 'Não', NULL, '0.00', '11.00', 'Pix', NULL, 0, NULL, '11.00', 'Nenhuma'),
 (19, 4, 13, 1, 1, '400.00', '2022-08-01', 'Matriculado', 'Sim', NULL, '0.00', '350.00', 'Boleto', NULL, 0, NULL, '343.63', 'Boleto'),
-(20, 9, 13, 1, 1, '0.00', '2022-08-01', 'Matriculado', 'Não', NULL, '0.00', '0.00', '', NULL, 4, NULL, '0.00', 'Pacote');
+(20, 9, 13, 1, 1, '0.00', '2022-08-01', 'Matriculado', 'Não', NULL, '0.00', '0.00', '', NULL, 4, NULL, '0.00', 'Pacote'),
+(25, 8, 8, 1, 1, '90.00', '2022-07-21', 'Aguardando', 'Não', 'Sim', '0.00', '90.00', '', NULL, 0, NULL, '0.00', ''),
+(26, 2, 8, 1, 1, '150.00', '2022-07-20', 'Aguardando', 'Não', 'Sim', '0.00', '150.00', '', NULL, 0, NULL, '0.00', '');
 
 -- --------------------------------------------------------
 
@@ -946,7 +947,7 @@ ALTER TABLE `linguagens`
 -- AUTO_INCREMENT de tabela `matriculas`
 --
 ALTER TABLE `matriculas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de tabela `pacotes`

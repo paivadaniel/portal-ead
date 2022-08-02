@@ -466,6 +466,62 @@ if ($total_reg > 0) {
 
 </section>
 
+
+
+<!-- faixa verde  que aparece na homepage informando sobre a lei de proteção de dados -->
+<style type="text/css">
+    .alerta{
+      background-color: #1d9670; color:#FFF; padding:15px; font-family: Arial; text-align:center; position:fixed; bottom:0; width:100%; opacity: 80%; z-index: 100;
+    }
+
+     .alerta.hide{
+       display:none !important;
+    }
+
+    .link-alerta{
+      color:#f2f2f2; 
+    }
+
+    .link-alerta:hover{
+      text-decoration: underline;
+      color:#FFF;
+    }
+
+    .botao-aceitar{
+      background-color: #e3e3e3; padding:7px; margin-left: 15px; border-radius: 5px; border: none; margin-top:3px;
+    }
+
+    .botao-aceitar:hover{
+      background-color: #f7f7f7;
+      text-decoration: none;
+
+    }
+
+  </style>
+
+<div class="alerta hide">
+  A gente guarda estatísticas de visitas para melhorar sua experiência de navegação, saiba mais em nossa  <a href="politica" class="link-alerta" title="Ver as políticas de privacidade" target="_blank">política de privacidade.</a>
+  <a class="  text-dark" href="#">Aceitar</a>
+</div>
+
+
+<!-- script que faz a verificação do cookie, para não mostrar novamente para quem já clicou em aceitar -->
+<script>
+        if (!localStorage.meuCookie) {
+            document.querySelector(".alerta").classList.remove('hide');
+        }
+
+        const acceptCookies = () => {
+            document.querySelector(".alerta").classList.add('hide');
+            localStorage.setItem("meuCookie", "accept");
+        };
+
+        const btnCookies = document.querySelector(".botao-aceitar");
+
+        btnCookies.addEventListener('click', acceptCookies);
+    </script>
+
+
 <?php
 
 require_once('rodape.php');

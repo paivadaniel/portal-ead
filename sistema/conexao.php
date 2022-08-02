@@ -21,11 +21,11 @@ $senha = 'localhost';
 $url_sistema = "http://$_SERVER[HTTP_HOST]/"; //se for servidor local, armazena localhost, do contrário, armazena http://hugocursos.com.br, se este for o domínio em que estão hospedados os arquivos
 $url = explode("//", $url_sistema);
 if($url[1] == 'localhost/'){
-	$url_sistema = "http://$_SERVER[HTTP_HOST]/dashboard/www/portalead/";
-    /*antes estava apenas = "http://$_SERVER[HTTP_HOST]/portalead/";
+	$url_sistema = "http://$_SERVER[HTTP_HOST]/dashboard/www/portal-ead/";
+    /*antes estava apenas = "http://$_SERVER[HTTP_HOST]/portal-ead/";
     daí, por exemplo, aqui: http://localhost/dashboard/www/portal-ead/pagamentos/paypal/payment-status.php
 
-    estava redirecionando para: http://localhost/portalead/sistema/painel-aluno/
+    estava redirecionando para: http://localhost/portal-ead/sistema/painel-aluno/
     ao invés de: http://localhost/dashboard/www/portal-ead/sistema/painel-aluno/
 
     */
