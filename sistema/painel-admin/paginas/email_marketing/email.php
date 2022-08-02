@@ -87,7 +87,7 @@ for ($i = 0; $i < count($res); $i++) {
 //ENVIAR EMAIL PARA O ADMIM INFORMANDO SOBRE O ULTIMO ENVIO DE EMAIL
 $destinatario = $email_sistema;
 $assunto = $nome_sistema . ' - Campanha Email';
-$mensagem = 'Email enviado até o email de número ' . $final;
+$mensagem = 'Email enviado até o email de número ' . $final; //removeu utf8_decode, pois estava fazendo com que os acentos não chegassem no corpo do email enviado
 $cabecalhos = "From: " . $email_sistema;
 @mail($destinatario, $assunto, $mensagem, $cabecalhos);
 

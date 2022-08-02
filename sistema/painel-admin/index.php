@@ -261,11 +261,14 @@ $senha_usuario = $res[0]['senha'];
 
                                     <li><a href="index.php?pagina=banner_index"><i class="fa fa-angle-right"></i> Banner Index</a></li>
 
-                                    <!--
+                                    <!-- aqui a chamada de Email Marketing com modal, autor preferiu criar uma página para isso, por conta do textarea com nicEditor não ser copiado para os outros textarea sem nicEditor, mas para mim era só mudar os ids que não teria problema
+
                                     <li><a href="#" data-toggle="modal" data-target="#modalEmail"><i class="fa fa-angle-right"></i> Email Marketing</a></li>
-    -->
+                                    -->
 
                                     <li><a href="index.php?pagina=email_marketing"><i class="fa fa-angle-right"></i> Email Marketing</a></li>
+
+                                    <li><a href="paginas/email_marketing/script-enviar.php" target="_blank"><i class="fa fa-angle-right"></i> Script Campanha Email</a></li>
 
                                 </ul>
                             </li>
@@ -754,7 +757,7 @@ $senha_usuario = $res[0]['senha'];
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="cartoes_fidelidade">Valor Máx. Cartões Fid.</label>
+                                <label for="valor_max_cartao">Valor Máx. Cartões Fid.</label>
                                 <input type="text" class="form-control" id="valor_max_cartao" name="valor_max_cartao" value="<?php echo $valor_max_cartao ?>">
                             </div>
                         </div>
@@ -762,17 +765,42 @@ $senha_usuario = $res[0]['senha'];
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="cartoes_fidelidade">Total Emails por Envio</label>
+                                <label for="total_emails_por_envio">Total Emails por Envio</label>
                                 <input type="number" class="form-control" id="total_emails_por_envio" name="total_emails_por_envio" value="<?php echo $total_emails_por_envio ?>">
                             </div>
                         </div>
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="cartoes_fidelidade">Intervalo Envio Email</label>
+                                <label for="intervalo_envio_email">Intervalo Envio Email</label>
                                 <input type="number" class="form-control" id="intervalo_envio_email" name="intervalo_envio_email" value="<?php echo $intervalo_envio_email ?>">
                             </div>
                         </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <!-- quantos dias após uma matrícula não concretizada o sistema irá enviar email lembrando o aluno de pagar e concluir a matrícula -->
+
+                                <label for="dias_email_matricula">Dias Email Matrícula</label>
+                                <input type="number" class="form-control" id="dias_email_matricula" name="dias_email_matricula" value="<?php echo $dias_email_matricula ?>">
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <!-- quantos dias após uma matrícula não concretizada o sistema irá exclui-la automaticamente -->
+                                <label for="dias_excluir_matricula">Dias Excluir Matrícula</label>
+                                <input type="number" class="form-control" id="dias_excluir_matricula" name="dias_excluir_matricula" value="<?php echo $dias_excluir_matricula ?>">
+                            </div>
+                        </div>
+
+
+
 
                     </div>
 
