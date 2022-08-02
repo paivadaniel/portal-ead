@@ -30,7 +30,7 @@ if (@$_SESSION['nivel'] == 'Professor') { //coloca @ para se caso não existir a
     $ocultar = '';
 }
 
-//recuperar dados o usuário
+//recuperar dados do usuário
 $query = $pdo->query("SELECT * FROM usuarios WHERE id_pessoa = '$id_usuario'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 //if(@count($res)) { //desnecessário, pois se chegou até aqui, e passou por verificar.php, o usuário tem um id
@@ -195,7 +195,7 @@ $senha_usuario = $res[0]['senha'];
                                     <li><a href="index.php?pagina=matriculas"><i class="fa fa-angle-right"></i> Pendentes</a></li>
                                     <li><a href="index.php?pagina=matriculas_aprovadas"><i class="fa fa-angle-right"></i> Aprovadas</a></li>
 
-                                    
+
                                 </ul>
                             </li>
 
@@ -261,7 +261,11 @@ $senha_usuario = $res[0]['senha'];
 
                                     <li><a href="index.php?pagina=banner_index"><i class="fa fa-angle-right"></i> Banner Index</a></li>
 
+                                    <!--
                                     <li><a href="#" data-toggle="modal" data-target="#modalEmail"><i class="fa fa-angle-right"></i> Email Marketing</a></li>
+    -->
+
+                                    <li><a href="index.php?pagina=email_marketing"><i class="fa fa-angle-right"></i> Email Marketing</a></li>
 
                                 </ul>
                             </li>
@@ -756,6 +760,19 @@ $senha_usuario = $res[0]['senha'];
                         </div>
 
 
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="cartoes_fidelidade">Total Emails por Envio</label>
+                                <input type="number" class="form-control" id="total_emails_por_envio" name="total_emails_por_envio" value="<?php echo $total_emails_por_envio ?>">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="cartoes_fidelidade">Intervalo Envio Email</label>
+                                <input type="number" class="form-control" id="intervalo_envio_email" name="intervalo_envio_email" value="<?php echo $intervalo_envio_email ?>">
+                            </div>
+                        </div>
 
                     </div>
 
@@ -1064,59 +1081,6 @@ $senha_usuario = $res[0]['senha'];
         </div>
     </div>
 </div>
-
-
-
-
-<!-- Modal Email -->
-<div class="modal fade" id="modalEmail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel">Email Marketing
-                    <small>
-                        Total de Emails: <?php echo $total_emails ?>
-                    </small>
-
-                </h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form method="post" action="../rel/lucro_class.php" target="_blank">
-                <div class="modal-body">
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Data Inicial</label>
-                                <input type="date" class="form-control" name="dataInicial" id="dataInicialRel-Luc" value="<?php echo date('Y-m-d') ?>" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Data Final</label>
-                                <input type="date" class="form-control" name="dataFinal" id="dataFinalRel-Luc" value="<?php echo date('Y-m-d') ?>" required>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-
-
-                </div>
-
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Gerar Relatório</button>
-                </div>
-            </form>
-
-        </div>
-    </div>
-</div>
-
-
 
 
 <!-- 

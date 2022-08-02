@@ -51,7 +51,7 @@ $total_reg = @count($res);
 
 if ($total_reg == 0) { //se a tabela config não tiver nenhum registro
 
-    $pdo->query("INSERT into config SET nome_sistema = '$nome_sistema', email_sistema = '$email_sistema', tel_sistema = '$tel_sistema', logo = 'logo.png', icone = 'favicon.ico', logo_rel = 'logo.jpg', itens_pag = '12', cartoes_fidelidade = '5', valor_max_cartao = '100'"); //na biblioteca dompdf, relatório em pdf não faz leitura de png, somente jpg, por isso a logo do relatório tem que ser em .jpg
+    $pdo->query("INSERT into config SET nome_sistema = '$nome_sistema', email_sistema = '$email_sistema', tel_sistema = '$tel_sistema', logo = 'logo.png', icone = 'favicon.ico', logo_rel = 'logo.jpg', itens_pag = '12', cartoes_fidelidade = '5', valor_max_cartao = '100', total_emails_por_envio = '480', intervalo_envio_email = '70'"); //na biblioteca dompdf, relatório em pdf não faz leitura de png, somente jpg, por isso a logo do relatório tem que ser em .jpg
     //por padrão mostra 12 itens por página, e cartões fidelidade igual a 5 (ou seja, precisa juntar 5 para ganhar um brinde/desconto)
 } else { //se a tabela config já tiver dados
 
@@ -77,6 +77,8 @@ if ($total_reg == 0) { //se a tabela config não tiver nenhum registro
     $taxa_paypal = $res[0]['taxa_paypal'];
     $valor_max_cartao = $res[0]['valor_max_cartao'];
     $valor_max_cartaoF = number_format($valor_max_cartao, 2, ',', '.',);
+    $total_emails_por_envio = $res[0]['total_emails_por_envio'];
+    $intervalo_envio_email = $res[0]['intervalo_envio_email'];
 
     //$logo = $res[0]['logo']; //não precisa pois o nome nunca muda
     //$icone = $res[0]['icone']; 
