@@ -11,7 +11,7 @@ $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $foto = $res[0]['foto'];
 
 if($foto != 'sem-perfil.jpg') {
-    unlink('../../../painel-aluno/img/perfil/'.$foto);
+    unlink('../../../painel-aluno/img/perfil/'.$foto); //não faz muito sentido porque em alunos/listar.php o caminho foi ../painel-aluno/img/perfil/, e aqui foi outro
 }
 
 //deleção propriamente dita dos alunos das tabelas aluno e usuarios

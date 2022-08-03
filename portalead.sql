@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 03-Ago-2022 às 01:20
--- Versão do servidor: 10.4.22-MariaDB
--- versão do PHP: 8.0.15
+-- Tempo de geração: 03-Ago-2022 às 05:23
+-- Versão do servidor: 10.4.21-MariaDB
+-- versão do PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -81,11 +81,7 @@ INSERT INTO `alunos` (`id`, `nome`, `cpf`, `email`, `telefone`, `endereco`, `bai
 (10, 'Juca Tobias Armanda Nero', NULL, 'Jocelyn23@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'sem-perfil.jpg', '2022-06-17', 1, NULL),
 (11, 'Rubens Barrichello do Brasil', '123.456.789-00', 'barrichello_rubens@hotmail.com', '(12) 2121-2121', 'Rua X, Número Y', 'Vila Z', 'Porto Alegre', 'RS', 'Brasil', '27-06-2022-23-31-36-buzanga.jpg', '2022-06-17', 0, 'Sim'),
 (12, 'Aluno Louco', NULL, 'louco@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'sem-perfil.jpg', '2022-06-21', 0, 'Sim'),
-(13, 'Paula', NULL, 'paulinha@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'sem-perfil.jpg', '2022-06-30', 1, 'Sim'),
-(14, 'João Bosta', '313.131.313-13', 'joaobosta@hotmail.com', '(31) 3131-3141', 'Rua Bosta', 'Culândia', 'Tonto', 'AC', 'Merdalândia', '08-07-2022-02-23-35-buzanga.jpg', '2022-07-08', 1, 'Sim'),
-(17, 'Marsenildo Pinto', NULL, 'marsenildo@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-08-01', 0, 'Sim'),
-(18, 'Juca Tubia', NULL, 'marsenildo2@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-08-01', 0, 'Sim'),
-(19, 'Juca Tubia', NULL, 'marsenildo3@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'img/sem-perfil.jpg', '2022-08-01', 0, 'Sim');
+(13, 'Paula', NULL, 'paulinha@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'sem-perfil.jpg', '2022-06-30', 1, 'Sim');
 
 -- --------------------------------------------------------
 
@@ -263,7 +259,7 @@ CREATE TABLE `config` (
 --
 
 INSERT INTO `config` (`id`, `nome_sistema`, `email_sistema`, `tel_sistema`, `cnpj_sistema`, `tipo_chave_pix`, `chave_pix`, `logo`, `icone`, `logo_rel`, `qrcode_pix`, `facebook`, `instagram`, `youtube`, `itens_pag`, `video_sobre`, `itens_relacionados`, `aulas_liberadas`, `desconto_pix`, `email_adm_mat`, `cartoes_fidelidade`, `taxa_boleto`, `taxa_mp`, `taxa_paypal`, `valor_max_cartao`, `total_emails_por_envio`, `intervalo_envio_email`, `script_dia`, `dias_email_matricula`, `dias_excluir_matricula`) VALUES
-(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', 'danielantunespaiva@gmail.com', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead', 6, 'https://www.youtube.com/embed/GeH5_-4xkfE', 1, 2, 5, 'Sim', 5, '6.37', '5.24', '7.29', '141.27', 480, 70, '2022-08-02', 3, 30);
+(2, 'Portal EAD do Danielzinho', 'danielantunespaiva@gmail.com', '(15) 9918-0589', '', 'CNPJ', 'danielantunespaiva@gmail.com', 'logo.png', 'favicon.ico', 'logo_rel.jpg', 'qrcode.jpg', 'http://facebook.com/portalead2', 'http://instagram.com/portalead', 'http://youtube.com/portalead', 6, 'https://www.youtube.com/embed/GeH5_-4xkfE', 1, 2, 5, 'Sim', 5, '6.37', '5.24', '7.29', '141.27', 480, 70, '2022-08-03', 3, 30);
 
 -- --------------------------------------------------------
 
@@ -359,8 +355,8 @@ CREATE TABLE `emails` (
 --
 
 INSERT INTO `emails` (`id`, `email`, `nome`, `enviar`) VALUES
-(1, 'merdolis@gmail.com', 'Merdólis', 'Sim'),
-(2, 'chupeto@gmail.com', 'chupeto', 'Sim'),
+(1, 'merdolis@gmail.com', 'Merdólis', 'Não'),
+(2, 'chupeto@gmail.com', 'chupeto', 'Não'),
 (3, 'chupeto2@gmail.com', 'Mardoqueu', 'Sim'),
 (4, 'chupeto23@gmail.com', 'Mardoqueu', 'Sim'),
 (5, 'marsenildo@gmail.com', 'Marsenildo Pinto', 'Sim'),
@@ -695,11 +691,7 @@ INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `usuario`, `senha`, `senha_crip`, `
 (23, 'Juca Tobias Armanda Nero', NULL, 'Jocelyn23@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 10, 'Sim', '2022-06-17'),
 (24, 'Rubens Barrichello do Brasil', '123.456.789-00', 'barrichello_rubens@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', '27-06-2022-23-31-36-buzanga.jpg', 11, 'Sim', '2022-06-17'),
 (25, 'Aluno Louco', NULL, 'louco@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 12, 'Sim', '2022-06-21'),
-(26, 'Paula', NULL, 'paulinha@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 13, 'Sim', '2022-06-30'),
-(27, 'João Bosta', '313.131.313-13', 'joaobosta@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', '08-07-2022-02-23-35-buzanga.jpg', 14, 'Sim', '2022-07-08'),
-(30, 'Marsenildo Pinto', NULL, 'marsenildo@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 17, 'Sim', '2022-08-01'),
-(31, 'Juca Tubia', NULL, 'marsenildo2@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 18, 'Sim', '2022-08-01'),
-(32, 'Juca Tubia', NULL, 'marsenildo3@gmail.com', '12345', '827ccb0eea8a706c4c34a16891f84e7b', 'Aluno', 'sem-perfil.jpg', 19, 'Sim', '2022-08-01');
+(26, 'Paula', NULL, 'paulinha@hotmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Aluno', 'sem-perfil.jpg', 13, 'Sim', '2022-06-30');
 
 --
 -- Índices para tabelas despejadas
@@ -863,7 +855,7 @@ ALTER TABLE `administradores`
 -- AUTO_INCREMENT de tabela `alunos`
 --
 ALTER TABLE `alunos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de tabela `aulas`
@@ -995,7 +987,7 @@ ALTER TABLE `sessao`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

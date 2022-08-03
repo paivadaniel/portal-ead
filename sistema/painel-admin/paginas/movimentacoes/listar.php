@@ -116,6 +116,7 @@ if ($total_reg > 0) {
 
 //ainda que tenhamos apagado o else com "Nenhum registro encontrado", o próprio datatable exibe isso (traduzimos para pt-br) quando não encontra nenhum registro na tabela
 $query = $pdo->query("SELECT * FROM matriculas WHERE (status = 'Matriculado' or status = 'Finalizado') and subtotal > 0 and data >= '$dataInicial' and data <= '$dataFinal' ORDER BY data desc"); //subtotal > 0 para excluir vendas de graça, por cartão fidelidade
+//pode colocar também total_recebido > 0, assim não aparecerão transações com R$0,00 na tabela de movimentações
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 

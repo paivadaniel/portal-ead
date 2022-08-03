@@ -33,7 +33,9 @@ if ($total_reg > 0) {
 
                 $id = $res[$i]['id'];
                 $nome = $res[$i]['nome'];
+                $nome = mb_strimwidth($nome, 0, 20, "...");
                 $desc_rapida = $res[$i]['desc_rapida'];
+                $desc_rapida = mb_strimwidth($desc_rapida, 0, 20, "...");
                 $valor = $res[$i]['valor'];
                 $promocao = $res[$i]['promocao'];
                 $foto = $res[$i]['imagem'];

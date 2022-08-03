@@ -171,7 +171,7 @@ HTML;
         $('#pais').val(pais);
         //$('#foto').val(foto); //só por ter uma linha a mais não estava abrindo a modal
         $('#foto').val(''); //caminho da foto
-        $('#target').attr('src', 'img/perfil/' + foto); //mostra imagem da foto
+        $('#target').attr('src', '../painel-aluno/img/perfil/' + foto); //apesar de estarmos em painel-admin/paginas/alunos/listar.php, listar.php é chamado em alunos.php, que por sua vez é incluído com require_once em painel-admin/index.php, portanto, tem que voltar apenas um diretório
 
         $('#tituloModal').text('Editar Registro');
         $('#modalForm').modal('show');
@@ -193,7 +193,7 @@ HTML;
         $('#data_mostrar').text(data);
         $('#cartao_mostrar').text(cartao);
         $('#ativo_mostrar').text(ativo);
-        $('#target_mostrar').attr('src', 'img/perfil/' + foto);
+        $('#target_mostrar').attr('src', '../painel-aluno/img/perfil/' + foto);
 
         $('#modalMostrar').modal('show');
 
